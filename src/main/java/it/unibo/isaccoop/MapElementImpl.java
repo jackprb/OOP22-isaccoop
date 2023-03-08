@@ -42,14 +42,17 @@ public class MapElementImpl implements MapElement {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;            
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        MapElementImpl other = (MapElementImpl) obj;
+        }
+        final MapElementImpl other = (MapElementImpl) obj;
         return Objects.equals(coord, other.coord) && height == other.height && id == other.id && width == other.width;
     }	
 }
