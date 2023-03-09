@@ -1,10 +1,10 @@
 package it.unibo.isaccoop.model.item;
 /**
- * 
+ *
  * */
-interface Item {
+public interface Item {
     /**
-     * 
+     *
      * */
     void interact(/*Player*/);
 }
