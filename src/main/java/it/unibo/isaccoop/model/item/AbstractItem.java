@@ -1,4 +1,5 @@
-package it.unibo.isaccoop.model;
+package it.unibo.isaccoop.model.item;
+
 //import org.apache.commons.lang3.tuple.Pair;
 /**
  * 

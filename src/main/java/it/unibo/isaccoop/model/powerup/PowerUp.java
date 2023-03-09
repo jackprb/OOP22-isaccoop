@@ -1,4 +1,7 @@
-package it.unibo.isaccoop.model;
+package it.unibo.isaccoop.model.powerup;
+
+import it.unibo.isaccoop.model.item.AbstractItem;
+
 /**
  * 
  * */

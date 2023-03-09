@@ -1,4 +1,4 @@
-package it.unibo.isaccoop.model;
+package it.unibo.isaccoop.model.item;
 /**
  * 
  * */
