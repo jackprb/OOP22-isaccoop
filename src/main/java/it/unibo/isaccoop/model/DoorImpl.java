@@ -9,7 +9,7 @@ import it.unibo.isaccoop.common.MapElementImpl;
 public final class DoorImpl extends MapElementImpl implements Door {
 
     private final Room room;
-    
+
     /**
      * @param id id of this {@link Door}
      * @param width horizontal dimension of this {@link Door}
