@@ -27,4 +27,34 @@ public final class DoorImpl extends MapElementImpl implements Door {
     public Room getCorrespondingRoom() {
         return this.room;
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + ((room == null) ? 0 : room.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final DoorImpl other = (DoorImpl) obj;
+        if (room == null) {
+            if (other.room != null) {
+                return false;
+            }
+        } else if (!room.equals(other.room)) {
+            return false;
+        }
+        return true;
+    }
 }
