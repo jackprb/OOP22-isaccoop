@@ -6,19 +6,49 @@ import java.util.Random;
  * Enum that models the concept of direction.
  */
 public enum Direction {
-    UP(0,-1), DOWN(0,1), RIGHT(1,0), LEFT(-1,0);
+    /**
+     * The direction UP.
+     */
+    UP(0, -1),
+    /**
+     * The direction DOWN.
+     */
+    DOWN(0, 1),
+    /**
+     * The direction RIGHT.
+     */
+    RIGHT(1, 0),
+    /**
+     * The direction LEFT.
+     */
+    LEFT(-1, 0);
 
-    final int x;
-    final int y;
+    private static final Random RND = new Random();
+    private final int x;
+    private final int y;
     Direction(final int x, final int y) {
         this.x = x;
         this.y = y;
     }
 
     /**
+     * @return the x of this direction
+     */
+    public int getX() {
+        return this.x;
+    }
+
+    /**
+     * @return the y of this direction
+     */
+    public int getY() {
+        return this.y;
+    }
+
+    /**
      * @return a random direction
      */
     public static Direction getRandomDir() {
-        return Direction.values()[new Random().nextInt(Direction.values().length)];
+        return Direction.values()[RND.nextInt(Direction.values().length)];
     }
 }
