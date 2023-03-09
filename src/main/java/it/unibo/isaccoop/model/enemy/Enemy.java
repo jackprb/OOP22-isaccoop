@@ -1,9 +1,13 @@
 package it.unibo.isaccoop.model.enemy;
 
 /***/
-public class Enemy implements EnemyActions {
+public class Enemy implements EnemyActions, Hitable {
 
+    @Override
+    public void onHit() {
+        // TODO Auto-generated method stub
 
+    }
 
     @Override
     public void hit() {
