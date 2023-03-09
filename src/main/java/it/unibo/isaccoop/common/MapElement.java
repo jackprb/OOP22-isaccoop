@@ -1,4 +1,4 @@
-package it.unibo.isaccoop;
+package it.unibo.isaccoop.common;
 
 import org.apache.commons.lang3.tuple.Pair;
 
