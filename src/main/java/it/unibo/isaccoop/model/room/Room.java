@@ -1,7 +1,6 @@
 package it.unibo.isaccoop.model.room;
 
 import java.util.List;
-
 import it.unibo.isaccoop.model.common.MapElement;
 import it.unibo.isaccoop.model.common.RoomType;
 
