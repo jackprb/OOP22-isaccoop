@@ -67,7 +67,7 @@ public class MapElementImpl implements MapElement {
     }
 
     /**
-     * check if two object are the same.
+     * check if two objects are the same.
      */
     @Override
     public boolean equals(final Object obj) {
