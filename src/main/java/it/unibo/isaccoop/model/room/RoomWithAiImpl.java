@@ -9,7 +9,7 @@ import it.unibo.isaccoop.model.common.RoomType;
 /**
  * Implementation of {@link Room}.
  */
-public class RoomWithAiImpl extends AbstractRoom implements RoomWithAi{
+public class RoomWithAiImpl extends AbstractRoom implements RoomWithAi {
 
     private final AIEnemy roomAI; //contains the list of enemies
     //lista powerup, obstacles, optional<Boss>
