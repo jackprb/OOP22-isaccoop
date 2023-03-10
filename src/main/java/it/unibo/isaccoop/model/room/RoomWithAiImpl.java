@@ -2,6 +2,7 @@ package it.unibo.isaccoop.model.room;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import org.apache.commons.lang3.tuple.Pair;
 import it.unibo.isaccoop.model.ai.AIEnemy;
@@ -33,31 +34,36 @@ public class RoomWithAiImpl extends AbstractRoom implements RoomWithAi{
 
     @Override
     public AIEnemy getRoomAI() {
-        return roomAI;
+        return this.roomAI;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + ((roomAI == null) ? 0 : roomAI.hashCode());
+        result = prime * result + Objects.hash(super.getID());
         return result;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {            
             return true;
-        if (!super.equals(obj))
+        }
+        if (!super.equals(obj)) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        RoomWithAiImpl other = (RoomWithAiImpl) obj;
+        }
+        final RoomWithAiImpl other = (RoomWithAiImpl) obj;
         if (roomAI == null) {
-            if (other.roomAI != null)
+            if (other.roomAI != null) {
                 return false;
-        } else if (!roomAI.equals(other.roomAI))
+            }
+        } else if (!roomAI.equals(other.roomAI)) {
             return false;
+        }
         return true;
     }
 
