@@ -1,4 +1,3 @@
-# Sample Gradle Project
+# OOP22-isaccoop
 
-This is a repository that can be used as a base to develop an OOP project.
-The tools seen in the lab are pre-integrated in the build file.
+This is a repository of OP22-isaccoop
