@@ -1,4 +1,4 @@
-package it.unibo.isaccoop.model;
+package it.unibo.isaccoop.model.room;
 
 import java.util.Map;
 import org.apache.commons.lang3.tuple.Pair;

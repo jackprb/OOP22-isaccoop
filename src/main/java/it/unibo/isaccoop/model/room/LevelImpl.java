@@ -1,4 +1,4 @@
-package it.unibo.isaccoop.model;
+package it.unibo.isaccoop.model.room;
 
 import java.util.Collections;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package it.unibo.isaccoop.model;
+package it.unibo.isaccoop.model.room;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Objects;
 
 import org.apache.commons.lang3.tuple.Pair;
-import it.unibo.isaccoop.common.MapElementImpl;
+
+import it.unibo.isaccoop.model.common.MapElementImpl;
+import it.unibo.isaccoop.model.common.RoomType;
 
 /**
  * Implementation of {@link Room}.

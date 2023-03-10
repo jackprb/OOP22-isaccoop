@@ -1,4 +1,4 @@
-package it.unibo.isaccoop.common;
+package it.unibo.isaccoop.model.common;
 
 import java.util.Random;
 

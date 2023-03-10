@@ -1,6 +1,6 @@
-package it.unibo.isaccoop.model;
+package it.unibo.isaccoop.model.room;
 
-import it.unibo.isaccoop.common.MapElement;
+import it.unibo.isaccoop.model.common.MapElement;
 
 /**
  *  Interface that models the concept of a door, needed to move from a room to another.

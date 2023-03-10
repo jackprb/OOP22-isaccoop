@@ -1,7 +1,8 @@
-package it.unibo.isaccoop.model;
+package it.unibo.isaccoop.model.room;
 
 import org.apache.commons.lang3.tuple.Pair;
-import it.unibo.isaccoop.common.MapElementImpl;
+
+import it.unibo.isaccoop.model.common.MapElementImpl;
 
 /**
  * Implementation of {@link Door}.
