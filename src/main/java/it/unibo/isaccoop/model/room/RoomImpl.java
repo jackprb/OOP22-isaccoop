@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import it.unibo.isaccoop.model.ai.AIEnemy;
 import it.unibo.isaccoop.model.common.MapElementImpl;
 import it.unibo.isaccoop.model.common.RoomType;
 
@@ -17,6 +18,7 @@ public class RoomImpl extends MapElementImpl implements Room {
 
     private final List<Door> doors = new LinkedList<>();
     private final RoomType roomType;
+    private final AIEnemy roomAI;
     //lista powerup, obstacles, enemy, optional<Boss>
 
     /**
@@ -26,12 +28,15 @@ public class RoomImpl extends MapElementImpl implements Room {
      * @param coord coordinate of this {@link Room}
      * @param doors list of all the doors in this {@link Room}
      * @param roomType type of this {@link Room}
+     * @param roomAI {@link AIEnemy} impl to attach to this {@link Room}
      */
-    public RoomImpl(final int id, final int width, final int height, 
-            final Pair<Integer, Integer> coord, final List<Door> doors, final RoomType roomType) {
+    public RoomImpl(final int id, final int width, final int height,
+            final Pair<Integer, Integer> coord, final List<Door> doors, final RoomType roomType,
+            final AIEnemy roomAI) {
         super(id, width, height, coord);
         this.doors.addAll(doors);
         this.roomType = roomType;
+        this.roomAI = roomAI;
     }
 
     @Override
@@ -42,6 +47,15 @@ public class RoomImpl extends MapElementImpl implements Room {
     @Override
     public RoomType getRoomType() {
         return this.roomType;
+    }
+
+    /**
+     * Get {@link AIEnemy} attached to this {@link Room}.
+     *
+     * @return {@link AIEnemy} impl attached to this {@link Room}
+     * */
+    public AIEnemy getRoomAI() {
+        return roomAI;
     }
 
     @Override
@@ -78,6 +92,7 @@ public class RoomImpl extends MapElementImpl implements Room {
         
         private List<Door> doors = new LinkedList<>();
         private RoomType roomType;
+        private AIEnemy roomAI;
         //lista powerup, obstacles, enemy, optional<Boss>
         
         /**
@@ -92,12 +107,14 @@ public class RoomImpl extends MapElementImpl implements Room {
          * @param roomType the type of this room
          */
         public Builder(final int id, final int width, final int height, 
-                final Pair<Integer, Integer> coord, final RoomType roomType) {
+                final Pair<Integer, Integer> coord, final RoomType roomType,
+                final AIEnemy roomAI) {
             this.id = id;
             this.width = width;
             this.height = height;
             this.coord = coord;
             this.roomType = roomType;
+            this.roomAI = roomAI;
         }
         
         /**
@@ -107,6 +124,16 @@ public class RoomImpl extends MapElementImpl implements Room {
          */
         public Builder setDoors(final List<Door> doors) {
             this.doors = doors;
+            return this;
+        }
+        
+        /**
+         * Method to set the AI inside this room.
+         * @param roomAI the AI of this room
+         * @return this builder
+         */
+        public Builder setAI(final AIEnemy roomAI) {
+            this.roomAI = roomAI;
             return this;
         }
         
@@ -123,7 +150,7 @@ public class RoomImpl extends MapElementImpl implements Room {
             if(this.doors.isEmpty()) {
                 throw new IllegalStateException("");
             }
-            return new RoomImpl(id, width, height, coord, doors, roomType);
+            return new RoomImpl(this.id, this.width, this.height, this.coord, this.doors, this.roomType, this.roomAI);
         }
     }
 }
