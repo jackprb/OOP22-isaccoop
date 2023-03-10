@@ -13,7 +13,7 @@ import it.unibo.isaccoop.model.common.RoomType;
 /**
  * Implementation of {@link Room}.
  */
-public final class RoomImpl extends MapElementImpl implements Room {
+public class RoomImpl extends MapElementImpl implements Room {
 
     private final List<Door> doors = new LinkedList<>();
     private final RoomType roomType;
