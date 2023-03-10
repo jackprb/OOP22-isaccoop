@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import it.unibo.isaccoop.model.ai.AIEnemy;
 import it.unibo.isaccoop.model.common.MapElementImpl;
 import it.unibo.isaccoop.model.common.RoomType;
 
@@ -17,6 +18,7 @@ public final class RoomImpl extends MapElementImpl implements Room {
 
     private final List<Door> doors = new LinkedList<>();
     private final RoomType roomType;
+    private final AIEnemy roomAI;
     //lista powerup, obstacles, enemy, optional<Boss>
 
     /**
@@ -26,12 +28,15 @@ public final class RoomImpl extends MapElementImpl implements Room {
      * @param coord coordinate of this {@link Room}
      * @param doors list of all the doors in this {@link Room}
      * @param roomType type of this {@link Room}
+     * @param roomAI {@link AIEnemy} impl to attach to this {@link Room}
      */
-    public RoomImpl(final int id, final int width, final int height, 
-            final Pair<Integer, Integer> coord, final List<Door> doors, final RoomType roomType) {
+    public RoomImpl(final int id, final int width, final int height,
+            final Pair<Integer, Integer> coord, final List<Door> doors, final RoomType roomType,
+            final AIEnemy roomAI) {
         super(id, width, height, coord);
         this.doors.addAll(doors);
         this.roomType = roomType;
+        this.roomAI = roomAI;
     }
 
     @Override
@@ -42,6 +47,15 @@ public final class RoomImpl extends MapElementImpl implements Room {
     @Override
     public RoomType getRoomType() {
         return this.roomType;
+    }
+
+    /**
+     * Get {@link AIEnemy} attached to this {@link Room}.
+     *
+     * @return {@link AIEnemy} impl attached to this {@link Room}
+     * */
+    public AIEnemy getRoomAI() {
+        return roomAI;
     }
 
     @Override
@@ -66,4 +80,5 @@ public final class RoomImpl extends MapElementImpl implements Room {
         final RoomImpl other = (RoomImpl) obj;
         return Objects.equals(doors, other.doors) && roomType == other.roomType;
     }
+
 }
