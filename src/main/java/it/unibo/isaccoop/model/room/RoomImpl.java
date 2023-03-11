@@ -15,11 +15,11 @@ import it.unibo.isaccoop.model.common.RoomType;
 /**
  * Abstract {@link Room} that implements the main methods.
  */
-public class RoomImpl extends MapElementImpl implements Room {
+public final class RoomImpl extends MapElementImpl implements Room {
 
     private final List<Door> doors = new LinkedList<>();
     private final RoomType roomType;
-    private Optional<AIEnemy> roomAi = Optional.empty();
+    private final Optional<AIEnemy> roomAi;
 
     /**
      * 
@@ -28,10 +28,12 @@ public class RoomImpl extends MapElementImpl implements Room {
      * @param height vertical dimension of this room
      * @param coord coordinates of this room inside the level
      * @param roomType type of this room
+     * @param doors the doors to be added inside this room
+     * @param roomAi the AiEnemy for this room
      */
     protected RoomImpl(final int id, final int width, final int height, 
             final Pair<Integer, Integer> coord, final RoomType roomType,
-            final List<Door> doors, Optional<AIEnemy> roomAi) {
+            final List<Door> doors, final Optional<AIEnemy> roomAi) {
         super(id, width, height, coord);
         this.roomType = roomType;
         this.doors.addAll(doors);
@@ -49,7 +51,7 @@ public class RoomImpl extends MapElementImpl implements Room {
     }
 
     @Override
-    public Optional<AIEnemy> getRoomAI(){
+    public Optional<AIEnemy> getRoomAI() {
         return this.roomAi;
     }
 
@@ -62,7 +64,7 @@ public class RoomImpl extends MapElementImpl implements Room {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }

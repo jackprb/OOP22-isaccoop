@@ -24,7 +24,7 @@ public interface Room extends MapElement {
      * @return the type of this room
      */
     RoomType getRoomType();
-    
+
     /**
      * Get {@link AIEnemy} attached to this {@link Room}.
      *
