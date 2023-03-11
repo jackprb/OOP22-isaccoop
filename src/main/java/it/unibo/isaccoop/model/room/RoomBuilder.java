@@ -87,8 +87,7 @@ public class RoomBuilder {
             throw new IllegalStateException("this room needs an AiEnemy object");
         }
         this.id++;
-        return new RoomWithAiImpl(this.id, this.width, this.height, this.coord, 
-                this.doors, this.roomType, this.roomAI.get());
+        return new RoomImpl(id, width, height, coord, roomType, doors, roomAI);
     }
 
     /**
