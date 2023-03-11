@@ -16,13 +16,13 @@ public class RoomBuilder {
     /**
      * Static class to actually implement the Room builder.
      */
-    public static class Builder{
+    public static class Builder {
         //basic and minimal fields (set with constructor)
-        private int id = 0;
-        private int width; 
-        private int height; 
-        private Pair<Integer, Integer> coord;
-        private RoomType roomType;
+        private final int id;
+        private final int width; 
+        private final int height; 
+        private final Pair<Integer, Integer> coord;
+        private final RoomType roomType;
 
         //other basic field (set with its dedicated method)
         private List<Door> doors = new LinkedList<>();
@@ -36,13 +36,15 @@ public class RoomBuilder {
          * To build a Room, it is required to call this constructor first, then the other methods. <br>
          * At the end, call the method build().
          * 
+         * @param id id of this room
          * @param width the horizontal dimension of this room
          * @param height the vertical dimension of this room
          * @param coord the coordinates of this room inside the level
          * @param roomType the type of this room
          */
-        public Builder(final int width, final int height, 
+        public Builder(final int id, final int width, final int height, 
                 final Pair<Integer, Integer> coord, final RoomType roomType) {
+            this.id = id;
             this.width = width;
             this.height = height;
             this.coord = coord;
@@ -54,7 +56,7 @@ public class RoomBuilder {
          * @param doors the doors to be added inside this room
          * @return this builder
          */
-        public Builder setDoors(final List<Door> doors) {
+        public Builder putDoors(final List<Door> doors) {
             this.doors = doors;
             return this;
         }
@@ -65,7 +67,7 @@ public class RoomBuilder {
          * @return this builder
          * @throws IllegalStateException if called on NON STANDARD or NON BOSS rooms
          */
-        public Builder setAI(final AIEnemy roomAI) {
+        public Builder putAI(final AIEnemy roomAI) {
             if (checkConditionForAiRoom()) {
                 this.roomAI = Optional.of(roomAI);
                 return this;
@@ -89,24 +91,8 @@ public class RoomBuilder {
             if (this.roomAI.isEmpty() && checkConditionForAiRoom()) {
                 throw new IllegalStateException("this room needs an AiEnemy object");
             }
-            incrementID();
             return new RoomImpl(this.id, this.width, this.height, this.coord, 
                     this.roomType, this.doors, this.roomAI);
-        }
-
-        /**
-         * Method to increment the room ID.
-         */
-        private void incrementID() {
-            this.id++;
-        }
-
-        /**
-         * Get the current room ID.
-         * @return the current room ID
-         */
-        public int getID() {
-            return this.id;
         }
 
         /**
