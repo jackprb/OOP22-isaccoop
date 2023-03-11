@@ -39,8 +39,6 @@ public class RoomBuilder {
          * @param id id of this room
          * @param width the horizontal dimension of this room
          * @param height the vertical dimension of this room
-         * @param coord the coordinates of this room inside the level
-         * @param roomType the type of this room
          */
         public Builder(final int id, final int width, final int height) {
             this.id = id;
