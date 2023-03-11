@@ -27,7 +27,7 @@ public class MapElementImpl implements MapElement {
     }
 
     /**
-     * return id of this object.
+     * @return id of this object.
      */
     @Override
     public int getID() {
@@ -35,7 +35,7 @@ public class MapElementImpl implements MapElement {
     }
 
     /**
-     * return width of this object.
+     * @return width of this object.
      */
     @Override
     public int getWidth() {
@@ -43,7 +43,7 @@ public class MapElementImpl implements MapElement {
     }
 
     /**
-     * return height of this object.
+     * @return height of this object.
      */
     @Override
     public int getHeight() {
@@ -51,7 +51,7 @@ public class MapElementImpl implements MapElement {
     }
 
     /**
-     * return coordinate of this object.
+     * @return coordinate of this object.
      */
     @Override
     public Pair<Integer, Integer> getCoord() {
