@@ -21,11 +21,11 @@ public class RoomBuilder {
         private final int id;
         private final int width; 
         private final int height; 
-        private final Pair<Integer, Integer> coord;
-        private RoomType roomType;
 
-        //other basic field (set with its dedicated method)
+        //other basic field (set with their dedicated methods)
+        private Optional<Pair<Integer, Integer>> coord;
         private List<Door> doors = new LinkedList<>();
+        private Optional<RoomType> roomType;
 
         //optional fields
         private Optional<AIEnemy> roomAI = Optional.empty();
@@ -42,12 +42,20 @@ public class RoomBuilder {
          * @param coord the coordinates of this room inside the level
          * @param roomType the type of this room
          */
-        public Builder(final int id, final int width, final int height, 
-                final Pair<Integer, Integer> coord) {
+        public Builder(final int id, final int width, final int height) {
             this.id = id;
             this.width = width;
             this.height = height;
-            this.coord = coord;
+        }
+
+        /**
+         * Method to set the coordinate of this room inside the level.
+         * @param coord the coordinate of this room inside the level
+         * @return this builder
+         */
+        public Builder putCoord(final Pair<Integer, Integer> coord) {
+            this.coord = Optional.of(coord);
+            return this;
         }
 
         /**
@@ -59,14 +67,14 @@ public class RoomBuilder {
             this.doors = doors;
             return this;
         }
-        
+
         /**
          * Method to set the room type.
          * @param roomType the type of room to be created
          * @return this builder
          */
         public Builder roomType(final RoomType roomType) {
-            this.roomType = roomType;
+            this.roomType = Optional.of(roomType);
             return this;
         }
 
@@ -94,14 +102,14 @@ public class RoomBuilder {
          * @return the build Room
          */
         public Room build() {
-            if (this.doors.isEmpty()) {
-                throw new IllegalStateException("this room needs at least 1 door");
+            if (this.coord.isEmpty() || this.doors.isEmpty() || this.roomType.isEmpty()) {
+                throw new IllegalStateException("set all required fields: use putCoords(), putDoors() and roomType() methods.");
             }
             if (this.roomAI.isEmpty() && checkConditionForAiRoom()) {
                 throw new IllegalStateException("this room needs an AiEnemy object");
             }
-            return new RoomImpl(this.id, this.width, this.height, this.coord, 
-                    this.roomType, this.doors, this.roomAI);
+            return new RoomImpl(this.id, this.width, this.height, this.coord.get(), 
+                    this.roomType.get(), this.doors, this.roomAI);
         }
 
         /**
@@ -109,7 +117,7 @@ public class RoomBuilder {
          * @return true if the room need the AiEnemy object, false otherwise
          */
         private boolean checkConditionForAiRoom() {
-            return this.roomType == RoomType.STANDARD || this.roomType == RoomType.BOSS;
+            return this.roomType.get() == RoomType.STANDARD || this.roomType.get() == RoomType.BOSS;
         }
     }
 }
