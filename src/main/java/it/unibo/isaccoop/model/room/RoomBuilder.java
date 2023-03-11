@@ -22,7 +22,7 @@ public class RoomBuilder {
         private final int width; 
         private final int height; 
         private final Pair<Integer, Integer> coord;
-        private final RoomType roomType;
+        private RoomType roomType;
 
         //other basic field (set with its dedicated method)
         private List<Door> doors = new LinkedList<>();
@@ -43,12 +43,11 @@ public class RoomBuilder {
          * @param roomType the type of this room
          */
         public Builder(final int id, final int width, final int height, 
-                final Pair<Integer, Integer> coord, final RoomType roomType) {
+                final Pair<Integer, Integer> coord) {
             this.id = id;
             this.width = width;
             this.height = height;
             this.coord = coord;
-            this.roomType = roomType;
         }
 
         /**
@@ -58,6 +57,16 @@ public class RoomBuilder {
          */
         public Builder putDoors(final List<Door> doors) {
             this.doors = doors;
+            return this;
+        }
+        
+        /**
+         * Method to set the room type.
+         * @param roomType the type of room to be created
+         * @return this builder
+         */
+        public Builder roomType(final RoomType roomType) {
+            this.roomType = roomType;
             return this;
         }
 
