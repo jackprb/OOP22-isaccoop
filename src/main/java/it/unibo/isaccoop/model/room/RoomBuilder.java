@@ -32,9 +32,10 @@ public class RoomBuilder {
         //lista powerup, obstacles, enemy, optional<Boss>
 
         /**
-         * Build a simple empty {@link Room}. <br>
-         * To build a Room, it is required to call this constructor first, then the other methods. <br>
-         * At the end, call the method build().
+         * To build a Room, use {@link RoomFactory} instead. <br>
+         * 
+         * It is required to call this constructor first, then at least the REQUIRED methods. 
+         * <br> At the end, call the method build().
          * 
          * @param id id of this room
          * @param width the horizontal dimension of this room
@@ -47,7 +48,9 @@ public class RoomBuilder {
         }
 
         /**
-         * Method to set the coordinate of this room inside the level.
+         * Method to set the coordinate of this room inside the level, 
+         * REQUIRED for ALL rooms.
+         * 
          * @param coord the coordinate of this room inside the level
          * @return this builder
          */
@@ -57,7 +60,8 @@ public class RoomBuilder {
         }
 
         /**
-         * Method to place the doors inside this room.
+         * Method to place the doors inside this room, REQUIRED for ALL rooms.
+         * 
          * @param doors the doors to be added inside this room
          * @return this builder
          */
@@ -67,7 +71,8 @@ public class RoomBuilder {
         }
 
         /**
-         * Method to set the room type.
+         * Method to set the room type, REQUIRED for ALL rooms.
+         * 
          * @param roomType the type of room to be created
          * @return this builder
          */
@@ -77,7 +82,8 @@ public class RoomBuilder {
         }
 
         /**
-         * Method to set the AI inside this room, ONLY for STANDARD and BOSS rooms.
+         * Method to set the AI inside this room, REQUIRED ONLY for STANDARD and BOSS rooms.
+         * 
          * @param roomAI the AI of this room
          * @return this builder
          * @throws IllegalStateException if called on NON STANDARD or NON BOSS rooms
@@ -92,10 +98,10 @@ public class RoomBuilder {
 
         /**
          * Method to build the Room.
-         * You need to call the constructor, then the other methods to set this Room's fields.
-         * After that, you can call this method.
+         * First, you need to call the constructor, then at least the REQUIRED methods 
+         * to set this Room's fields. <br> After that, you can call this method.
          * 
-         * @throws IllegalStateException if current Room has some fields unset.
+         * @throws IllegalStateException if current Room has some REQUIRED fields unset.
          * 
          * @return the build Room
          */
