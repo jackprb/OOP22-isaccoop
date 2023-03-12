@@ -13,7 +13,7 @@ import it.unibo.isaccoop.model.common.MapElementImpl;
 import it.unibo.isaccoop.model.common.RoomType;
 
 /**
- * Abstract {@link Room} that implements the main methods.
+ * Implementation of {@link Room}.
  */
 public final class RoomImpl extends MapElementImpl implements Room {
 
@@ -22,6 +22,7 @@ public final class RoomImpl extends MapElementImpl implements Room {
     private final Optional<AIEnemy> roomAi;
 
     /**
+     * Use {@link RoomFactory} to create a new {@link Room}.
      * 
      * @param id id of this room
      * @param width horizontal dimension of this room
