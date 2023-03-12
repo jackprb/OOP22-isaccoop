@@ -13,7 +13,8 @@ public interface LevelFactory {
      * @param numberOfRooms the number of rooms this level will have
      * @param gridRows the number of rows of the grid
      * @param gridCols the number of columns of the grid
+     * @throws IllegalArgumentException if numberOfRooms IS NOT <= (gridRows * gridCols) is not
      * @return the level created
      */
-    Level createLevel(final int numberOfRooms, final int gridRows, final int gridCols);
+    Level createLevel(int numberOfRooms, int gridRows, int gridCols);
 }
