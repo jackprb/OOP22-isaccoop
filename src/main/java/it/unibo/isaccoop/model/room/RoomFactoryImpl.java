@@ -9,68 +9,75 @@ import it.unibo.isaccoop.model.common.RoomType;
  */
 public final class RoomFactoryImpl implements RoomFactory {
 
-    private final int id;
-    private final int width;
-    private final int height;
-    private final MutablePair<Integer, Integer> coord;
+    private int id = 0;
+    private int width;
+    private int height;
     private static final int MIN_MAX_ROOM_DIMENSIONS = 200;
 
     /**
-     * 
-     * @param id id of this room
-     * @param coord coordinate of this room inside the level
+     * Constructor. No parameters needed.
      */
-    public RoomFactoryImpl(final int id, final MutablePair<Integer, Integer> coord) { 
-        this.id = id;
+    public RoomFactoryImpl() {
         this.width = MIN_MAX_ROOM_DIMENSIONS;
         this.height = MIN_MAX_ROOM_DIMENSIONS;
-        this.coord = coord;
     }
 
     @Override
-    public Room buildStartRoom() {
+    public Room buildStartRoom(final MutablePair<Integer, Integer> coordInsideLevel) {
+        incrementRoomID();
         return new RoomBuilder.Builder(this.id, this.width, this.height)
                 .roomType(RoomType.START)
-                .putCoord(coord)
+                .putCoord(coordInsideLevel)
                 .putDoors(List.of(null /*doors*/))
                 .build();
     }
 
     @Override
-    public Room buildStandardRoom() {
+    public Room buildStandardRoom(final MutablePair<Integer, Integer> coordInsideLevel) {
+        incrementRoomID();
         return new RoomBuilder.Builder(this.id, this.width, this.height)
                 .roomType(RoomType.STANDARD)
-                .putCoord(coord)
+                .putCoord(coordInsideLevel)
                 .putDoors(List.of(null /*doors*/))
                 .putAI(null)
                 .build();
     }
 
     @Override
-    public Room buildShopRoom() {
+    public Room buildShopRoom(final MutablePair<Integer, Integer> coordInsideLevel) {
+        incrementRoomID();
         return new RoomBuilder.Builder(this.id, this.width, this.height)
                 .roomType(RoomType.SHOP)
-                .putCoord(coord)
+                .putCoord(coordInsideLevel)
                 .putDoors(List.of(null /*doors*/))
                 .build();
     }
 
     @Override
-    public Room buildBossRoom() {
+    public Room buildBossRoom(final MutablePair<Integer, Integer> coordInsideLevel) {
+        incrementRoomID();
         return new RoomBuilder.Builder(this.id, this.width, this.height)
                 .roomType(RoomType.BOSS)
-                .putCoord(coord)
+                .putCoord(coordInsideLevel)
                 .putDoors(List.of(null /*doors*/))
                 .putAI(null)
                 .build();
     }
 
     @Override
-    public Room buildTreasureRoom() {
+    public Room buildTreasureRoom(final MutablePair<Integer, Integer> coordInsideLevel) {
+        incrementRoomID();
         return new RoomBuilder.Builder(this.id, this.width, this.height)
                 .roomType(RoomType.TREASURE)
-                .putCoord(coord)
+                .putCoord(coordInsideLevel)
                 .putDoors(List.of(null /*doors*/))
                 .build();
+    }
+    
+    /**
+     * Increment the room ID.
+     */
+    private void incrementRoomID() {
+        this.id++;
     }
 }
