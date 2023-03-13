@@ -1,29 +1,27 @@
 package it.unibo.isaccoop.model.room;
 
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.commons.lang3.tuple.Pair;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Implementation of {@link Level}.
  */
 public final class LevelImpl implements Level {
 
-    private final Map<Pair<Integer, Integer>, Room> roomsMap = new HashMap<>();
+    private final List<Room> rooms = new LinkedList<>();
 
     @Override
-    public void putRoomMap(final Map<Pair<Integer, Integer>, Room> roomsMap) {
-        if (this.roomsMap.isEmpty()) {
-            this.roomsMap.putAll(roomsMap);
+    public void putRooms(final List<Room> rooms) {
+        if (this.rooms.isEmpty()) {
+            this.rooms.addAll(rooms);
         } else {
             throw new IllegalStateException("This level already has a room map");
         }
     }
 
     @Override
-    public Map<Pair<Integer, Integer>, Room> getRooms() {
-        return Collections.unmodifiableMap(this.roomsMap);
+    public List<Room> getRooms() {
+        return Collections.unmodifiableList(this.rooms);
     }
 }
