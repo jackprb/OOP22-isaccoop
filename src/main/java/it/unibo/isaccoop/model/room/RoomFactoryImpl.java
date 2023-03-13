@@ -75,6 +75,29 @@ public final class RoomFactoryImpl implements RoomFactory {
                 .build();
     }
 
+    @Override
+    public Room buildRoomOfType(RoomType roomType, Pair<Integer, Integer> coordInsideLevel) {
+        switch (roomType) {
+        case START: {
+            return buildStartRoom(coordInsideLevel);
+        }
+        case STANDARD: {
+            return buildStandardRoom(coordInsideLevel);
+        }
+        case SHOP: {
+            return buildShopRoom(coordInsideLevel);
+        }
+        case BOSS: {
+            return buildBossRoom(coordInsideLevel);
+        }
+        case TREASURE: {
+            return buildTreasureRoom(coordInsideLevel);
+        }
+        default:
+            throw new IllegalArgumentException("Incorrect roomType value: " + roomType);
+        }
+    }
+
     /**
      * Increment the room ID.
      */

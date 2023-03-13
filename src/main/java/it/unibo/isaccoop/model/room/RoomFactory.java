@@ -2,6 +2,8 @@ package it.unibo.isaccoop.model.room;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import it.unibo.isaccoop.model.common.RoomType;
+
 /**
  * A façade interface to simplify the creation of {@link Room}, using {@link RoomBuilder}.
  */
@@ -36,4 +38,10 @@ public interface RoomFactory {
      * @return a room where you can find a free powerup
      */
     Room buildTreasureRoom(Pair<Integer, Integer> coordInsideLevel);
+    
+    /** 
+     * @param coordInsideLevel the coordinate of this room inside the level
+     * @return a room where you can find a free powerup
+     */
+    Room buildRoomOfType(RoomType roomType, Pair<Integer, Integer> coordInsideLevel);
 }
