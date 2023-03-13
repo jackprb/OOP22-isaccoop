@@ -76,7 +76,7 @@ public final class RoomFactoryImpl implements RoomFactory {
     }
 
     @Override
-    public Room buildRoomOfType(RoomType roomType, Pair<Integer, Integer> coordInsideLevel) {
+    public Room buildRoomOfType(final RoomType roomType, final Pair<Integer, Integer> coordInsideLevel) {
         switch (roomType) {
         case START: {
             return buildStartRoom(coordInsideLevel);

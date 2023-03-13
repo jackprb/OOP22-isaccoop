@@ -38,8 +38,9 @@ public interface RoomFactory {
      * @return a room where you can find a free powerup
      */
     Room buildTreasureRoom(Pair<Integer, Integer> coordInsideLevel);
-    
+
     /** 
+     * @param roomType type of the room to be created
      * @param coordInsideLevel the coordinate of this room inside the level
      * @return a room where you can find a free powerup
      */
