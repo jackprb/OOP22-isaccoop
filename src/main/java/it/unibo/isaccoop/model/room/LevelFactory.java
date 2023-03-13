@@ -9,6 +9,7 @@ public interface LevelFactory {
      * Generates dynamically a Level made of numberOfRooms {@link Room}s, <br>
      * that will be placed in a grid with size (gridRows, gridCols). 
      * <br> So, it is required that <br> numberOfRooms <= (gridRows * gridCols).
+     * It is also required that numberOfRooms >= 5.
      * 
      * @param numberOfRooms the number of rooms this level will have
      * @param gridRows the number of rows of the grid
