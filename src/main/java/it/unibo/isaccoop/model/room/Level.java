@@ -8,14 +8,14 @@ import java.util.List;
 public interface Level {
 
     /**
-     * inserts the specified rooms map in this level.
+     * Inserts the specified rooms in this level.
      * 
-     * @param roomsMap the room map to be added to this level
+     * @param rooms the room list to be added to this level
      */
-    void putRoomMap(List<Room> rooms);
+    void putRooms(List<Room> rooms);
 
     /**
-     * @return the map of all rooms in this level and their coordinates in room grid
+     * @return the list of all the rooms in this level
      */
     List<Room> getRooms();
 }
