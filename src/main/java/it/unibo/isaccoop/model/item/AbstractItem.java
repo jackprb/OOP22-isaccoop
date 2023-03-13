@@ -13,4 +13,6 @@ public abstract class AbstractItem implements Item {
      * */
     @Override
     public abstract void interact(PlayerStat p);
+
+
 }
