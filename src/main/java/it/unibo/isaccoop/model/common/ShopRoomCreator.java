@@ -15,17 +15,23 @@ import it.unibo.isaccoop.model.powerup.PowerUp;
 import it.unibo.isaccoop.model.powerup.RangeUp;
 import it.unibo.isaccoop.model.powerup.SpeedUp;
 import it.unibo.isaccoop.model.powerup.TearsUp;
-/***/
+/**
+ * Represents the creator for shop.
+ * */
 public class ShopRoomCreator implements Creator<PowerUp> {
     private final List<PowerUp> itemsInShopRoom;
     private static final int ITEMS_IN_SHOP = 3;
     private static final Logger LOGGER = Logger.getLogger(ShopRoomCreator.class.getName());
-    /***/
+    /**
+     * Shop room constructors.
+     * */
     public ShopRoomCreator() {
         this.itemsInShopRoom = new ArrayList<>();
     }
 
-    /***/
+    /**
+     * @return List of random power up.
+     * */
     @Override
     public List<PowerUp> create() {
         Stream.iterate(0, x -> x + 1).
