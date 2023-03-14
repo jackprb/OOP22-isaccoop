@@ -1,11 +1,13 @@
-package it.unibo.isaccoop.model.item;
+package it.unibo.isaccoop.model.common;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Stream;
 
-import it.unibo.isaccoop.model.common.Creator;
+import it.unibo.isaccoop.model.item.Coin;
+import it.unibo.isaccoop.model.item.Heart;
+import it.unibo.isaccoop.model.item.Item;
 /***/
 public class NormalRoomCreator implements Creator<Item> {
     private static final int MAX_ITEMS_IN_ROOM = 3;
