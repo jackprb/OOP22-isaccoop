@@ -1,10 +1,13 @@
 package it.unibo.isaccoop.model.enemy;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import org.apache.commons.lang3.tuple.Pair;
 
 /***/
 public final class ShootingEnemy extends AbstractEnemy {
 
+    private static final int DELTA = 10;
     private final EnemyWeapon weapon;
 
     /***/
@@ -20,13 +23,16 @@ public final class ShootingEnemy extends AbstractEnemy {
 
     @Override
     public void hit() {
-        // TODO Auto-generated method stub
-
+        this.weapon.shoot(super.getCoords());
     }
 
     @Override
     public void move() {
-        super.setCoords(Pair.of(super.getCoords().getKey() + 10, super.getCoords().getKey() + 10));
+        final int newX = super.getCoords().getLeft()
+                + ThreadLocalRandom.current().nextInt(-ShootingEnemy.DELTA, ShootingEnemy.DELTA);
+        final int newY = super.getCoords().getRight()
+                + ThreadLocalRandom.current().nextInt(-ShootingEnemy.DELTA, ShootingEnemy.DELTA);
+        super.setCoords(Pair.of(newX, newY));
     }
 
     /**

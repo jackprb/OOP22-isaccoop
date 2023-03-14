@@ -1,11 +1,15 @@
 package it.unibo.isaccoop.model.enemy;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import org.apache.commons.lang3.tuple.Pair;
 
 /***/
 public class EnemyWeaponShot {
 
-    private final Pair<Integer, Integer> coords;
+    private static final int DELTA = 10;
+    private Pair<Integer, Integer> coords;
+    private final boolean axis;
 
     /**
      *  Constructor for {@link EnemyWeaponShot} class.
@@ -14,6 +18,17 @@ public class EnemyWeaponShot {
      * */
     public EnemyWeaponShot(final Pair<Integer, Integer> startPosition) {
         this.coords = startPosition;
+        this.axis = ThreadLocalRandom.current().nextBoolean();
+    }
+
+    /**
+     * Method to increment the position of the shot by {@link EnemyWeaponShot}.DELTA through random axis.
+     * */
+    public void tickShot() {
+        final Pair<Integer, Integer> newCoords = this.axis
+                ? Pair.of(this.coords.getLeft(), this.coords.getRight() + EnemyWeaponShot.DELTA)
+                : Pair.of(this.coords.getLeft() + EnemyWeaponShot.DELTA, this.coords.getRight());
+        this.coords = newCoords;
     }
 
     /**
