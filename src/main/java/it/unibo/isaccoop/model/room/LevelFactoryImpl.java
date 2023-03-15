@@ -123,14 +123,13 @@ public final class LevelFactoryImpl implements LevelFactory {
         final RoomFactory rFactory = new RoomFactoryImpl();
         final List<Room> rooms = new LinkedList<>();
         for (int i = 0; i < this.roomCoords.size(); i++) {
-            if(i < RoomType.values().length) {
+            if (i < RoomType.values().length) {
                 // crea una room di ogni tipo (BOSS, SHOP, TREASURE, START, STANDARD)
-                rooms.add(rFactory.buildRoomOfType(RoomType.values()[i], this.roomCoords.get(rooms.size())));                
+                rooms.add(rFactory.buildRoomOfType(RoomType.values()[i], this.roomCoords.get(rooms.size())));
             } else {
                 // quelle rimanenti devono essere di tipo STANDARD
                 rooms.add(rFactory.buildStandardRoom(this.roomCoords.get(rooms.size())));
             }
-            System.out.println("LevelFactoryImpl.createRooms(): i=" +i + "\nroomtype: " + rooms.get(i).getRoomType() );
         }
         return rooms;
     }
