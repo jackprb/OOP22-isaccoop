@@ -17,12 +17,15 @@ public final class LevelFactoryImpl implements LevelFactory {
     private int numberOfRooms;
     private int gridRows;
     private int gridCols;
-    private List<Pair<Integer, Integer>> roomCoords = new LinkedList<>();
+    private final List<Pair<Integer, Integer>> roomCoords = new LinkedList<>();
     private Level lvl;
+    // ogni livello deve avere almeno 5 room, una per ogni tipo
+    private static final int MIN_NUMBER_OF_ROOMS = 5;
 
     @Override
     public Level createLevel(final int numberOfRooms, final int gridRows, final int gridCols) {
-        if (!(numberOfRooms >= 5 && gridRows > 0 && gridCols > 0 && numberOfRooms <= gridRows * gridCols)) {
+        if (!(numberOfRooms >= MIN_NUMBER_OF_ROOMS && gridRows > 0 && gridCols > 0 
+                && numberOfRooms <= gridRows * gridCols)) {
             throw new IllegalArgumentException("");
         }
         this.numberOfRooms = numberOfRooms;
@@ -48,7 +51,7 @@ public final class LevelFactoryImpl implements LevelFactory {
             if (isValidCoord(roomPos) && !this.roomCoords.contains(roomPos)) {
                 this.roomCoords.add(roomPos);
                 //ottiene possibili direzioni per la prossima room
-                final List<Pair<Integer, Integer>> availablePos = getAvailablePositionsFrom(roomPos);                 
+                final List<Pair<Integer, Integer>> availablePos = getAvailablePositionsFrom(roomPos);
                 if (!availablePos.isEmpty()) { //se ci sono direzioni disponibili
                     roomPos = availablePos.get(new Random().nextInt(availablePos.size())); //ne sceglie una
                 }
@@ -111,7 +114,7 @@ public final class LevelFactoryImpl implements LevelFactory {
         return coord.getLeft() >= 0 && coord.getRight() >= 0 
                 && coord.getRight() < this.gridRows && coord.getLeft() < this.gridCols;
     }
-    
+
     /**
      * Method to associate rooms to their coordinates. 
      * @return the list of created rooms.
@@ -121,7 +124,7 @@ public final class LevelFactoryImpl implements LevelFactory {
         final List<RoomType> roomTypesList = List.of(RoomType.values());
         final RoomFactory rFactory = new RoomFactoryImpl();
         final List<Room> rooms = new LinkedList<>();
-        
+
         // crea una room di ogni tipo (BOSS, SHOP, TREASURE, START, STANDARD)
         for (final var roomT: roomTypesList) {
             rooms.add(rFactory.buildRoomOfType(roomT, this.roomCoords.get(rooms.size())));
