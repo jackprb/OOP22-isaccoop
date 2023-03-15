@@ -17,11 +17,9 @@ public class PlayerMovementImpl extends PlayerStatImpl implements PlayerMovement
      * Player movement constructor.
      * @param x the x position
      * @param y the y position
-     * @param height the height of the player
-     * @param width the width of the player
      * */
-    public PlayerMovementImpl(final double x, final double y, final float height, final float width) {
-        super(x, y, height, width);
+    public PlayerMovementImpl(final double x, final double y) {
+        super(x, y);
     }
 
     /**
@@ -40,8 +38,8 @@ public class PlayerMovementImpl extends PlayerStatImpl implements PlayerMovement
     @Override
     public void move(final JFrame map) {
         final float distance = super.getSpeed();
-        final double x = super.getPosition().getKey();
-        final double y = super.getPosition().getValue();
+        final double x = super.getCoords().getKey();
+        final double y = super.getCoords().getValue();
 
         map.addKeyListener(new KeyAdapter() {
             @Override
@@ -72,7 +70,7 @@ public class PlayerMovementImpl extends PlayerStatImpl implements PlayerMovement
      * */
     @Override
     public void setPlayerPosition(final Pair<Double, Double> position) {
-        super.setPosition(position);
+        super.setCoords(position);
     }
 
     /**
@@ -82,30 +80,30 @@ public class PlayerMovementImpl extends PlayerStatImpl implements PlayerMovement
     /*public void shotBullet(final JFrame map) {
         final float distance = super.getSpeed();
         final float damage = super.getDamage();
-        final double x = super.getPosition().getKey();
-        final double y = super.getPosition().getValue();
+        final double x = super.getCoords().getKey();
+        final double y = super.getCoords().getValue();
 
         map.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(final KeyEvent e) {
                 final int keyCode = e.getKeyCode();
                 Pair<Double, Double> newPosition;
-              if (keyCode == KeyEvent.VK_UP) {
-               newPosition = Pair.of(x, y - distance);
-               PlayerShot bullet = new PlayerShot(0, newPosition, 3, 4, damage, distance);
-              }
-              if (keyCode == KeyEvent.VK_RIGHT) {
-               newPosition = Pair.of(x + distance, y);
-               PlayerShot bullet = new PlayerShot(1, newPosition, 3, 4, damage, distance);
-              }
-              if (keyCode == KeyEvent.VK_DOWN) {
-               newPosition = Pair.of(x, y + distance);
-               PlayerShot bullet = new PlayerShot(2, newPosition, 3, 4, damage, distance);
-              }
-              if (keyCode == KeyEvent.VK_LEFT) {
-               newPosition = Pair.of(x - distance, y);
-               PlayerShot bullet = new PlayerShot(3, newPosition, 3, 4, damage, distance);
-              }
+                if (keyCode == KeyEvent.VK_UP) {
+                    newPosition = Pair.of(x, y - distance);
+                    PlayerShot bullet = new PlayerShot(0, newPosition, damage, distance);
+                }
+                if (keyCode == KeyEvent.VK_RIGHT) {
+                    newPosition = Pair.of(x + distance, y);
+                    PlayerShot bullet = new PlayerShot(1, newPosition, damage, distance);
+                }
+                if (keyCode == KeyEvent.VK_DOWN) {
+                    newPosition = Pair.of(x, y + distance);
+                    PlayerShot bullet = new PlayerShot(2, newPosition, damage, distance);
+                }
+                if (keyCode == KeyEvent.VK_LEFT) {
+                    newPosition = Pair.of(x - distance, y);
+                    PlayerShot bullet = new PlayerShot(3, newPosition, damage, distance);
+                }
             }
         });
         map.setVisible(true);
