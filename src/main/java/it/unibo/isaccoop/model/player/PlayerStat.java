@@ -45,7 +45,17 @@ public interface PlayerStat {
     /**
      * @return the position of the player
      * */
-    Pair<Integer, Integer> getPosition();
+    Pair<Double, Double> getPosition();
+
+    /**
+     * @return the height of the player
+     * */
+    float getHeight();
+
+    /**
+     * @return the width of the player
+     * */
+    float getWidth();
 
     /**
      * @param heart the new number of heart of the player
@@ -84,7 +94,7 @@ public interface PlayerStat {
     void setTears(float tears);
 
     /**
-     * @param damage 
+     * @param damage
      * set the new damage that player have
      * */
     void setDamage(float damage);
@@ -93,6 +103,6 @@ public interface PlayerStat {
      * @param position the position of the player
      * set the new position of the player
      * */
-    void setPosition(Pair<Integer, Integer> position);
+    void setPosition(Pair<Double, Double> position);
 
 }
