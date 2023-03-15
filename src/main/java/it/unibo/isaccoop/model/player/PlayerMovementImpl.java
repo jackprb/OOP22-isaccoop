@@ -18,8 +18,8 @@ public class PlayerMovementImpl extends PlayerStatImpl implements PlayerMovement
      * @param x the x position
      * @param y the y position
      * */
-    public PlayerMovementImpl(final double x, final double y) {
-        super(x, y);
+    public PlayerMovementImpl() {
+        super();
     }
 
     /**

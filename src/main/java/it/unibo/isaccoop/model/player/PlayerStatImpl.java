@@ -1,7 +1,5 @@
 package it.unibo.isaccoop.model.player;
 
-import org.apache.commons.lang3.tuple.Pair;
-
 import it.unibo.isaccoop.model.common.AbstractMapElement;
 
 /**
@@ -80,8 +78,8 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
      * @param x the x position
      * @param y the y position
      * */
-    public PlayerStatImpl(final double x, final double y) {
-        super(Pair.of(x, y));
+    public PlayerStatImpl() {
+        super();
         this.heart = PlayerValue.HEART.getValue();
         this.coin = PlayerValue.COIN.getValue();
         this.maxHeart = PlayerValue.MAX_HEART.getValue();
