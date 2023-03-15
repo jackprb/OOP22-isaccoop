@@ -25,7 +25,7 @@ public class EnemyWeapon {
      *  @param enemyPosition current enemy position as a {@link Pair} in order to
      *   set the starting shot position of the new shot
      * */
-    public void shoot(final Pair<Integer, Integer> enemyPosition) {
+    public void shoot(final Pair<Double, Double> enemyPosition) {
         if (System.currentTimeMillis() - timeSinceLastShot > EnemyWeapon.SHOT_TIME_LIMIT) {
             this.weaponShots.add(new EnemyWeaponShot(enemyPosition));
             this.timeSinceLastShot = System.currentTimeMillis();
