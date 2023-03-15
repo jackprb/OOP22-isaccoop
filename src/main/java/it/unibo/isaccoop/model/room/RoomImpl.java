@@ -23,22 +23,21 @@ public final class RoomImpl extends MapElementImpl implements Room {
 
     /**
      * Use {@link RoomFactory} to create a new {@link Room}.
-     * 
-     * @param id id of this room
      * @param width horizontal dimension of this room
      * @param height vertical dimension of this room
      * @param coord coordinates of this room inside the level
      * @param roomType type of this room
      * @param doors the doors to be added inside this room
-     * @param roomAi the AiEnemy for this room
+     * @param roomAI the AiEnemy for this room
      */
-    protected RoomImpl(final int id, final int width, final int height, 
-            final Pair<Integer, Integer> coord, final RoomType roomType,
-            final List<Door> doors, final Optional<AIEnemy> roomAi) {
-        super(id, width, height, coord);
+    public RoomImpl(final int width, final int height,
+            final Pair<Double, Double> coord, final List<Door> doors, final RoomType roomType,
+            final AIEnemy roomAI) {
+        super(width, height, coord);
+        this.doors.addAll(doors);
         this.roomType = roomType;
         this.doors.addAll(doors);
-        this.roomAi = roomAi;
+        this.roomAi = Optional.of(roomAI);
     }
 
     @Override
@@ -60,7 +59,7 @@ public final class RoomImpl extends MapElementImpl implements Room {
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + Objects.hash(super.getID(), super.getCoord(), this.roomType);
+        result = prime * result + Objects.hash(super.getCoords(), this.roomType);
         return result;
     }
 

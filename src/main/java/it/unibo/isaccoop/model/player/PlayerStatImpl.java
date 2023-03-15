@@ -45,7 +45,17 @@ public class PlayerStatImpl implements PlayerStat {
     /**
      * the position of the player in the map.
      * */
-    private Pair<Integer, Integer> position;
+    private Pair<Double, Double> position;
+
+    /**
+     * the height of the player.
+     * */
+    private float height;
+
+    /**
+     * the width of the player.
+     * */
+    private float width;
 
     /**
      * create an enum to set initial stats of player.
@@ -80,8 +90,12 @@ public class PlayerStatImpl implements PlayerStat {
 
     /**
      * Player constructor. 
+     * @param x the c position
+     * @param y the y position
+     * @param height the height of the player
+     * @param width the width of the player
      * */
-    public PlayerStatImpl() {
+    public PlayerStatImpl(final double x, final double y, final float height, final float width) {
         this.heart = PlayerValue.HEART.getValue();
         this.coin = PlayerValue.COIN.getValue();
         this.maxHeart = PlayerValue.MAX_HEART.getValue();
@@ -89,6 +103,9 @@ public class PlayerStatImpl implements PlayerStat {
         this.tears = PlayerValue.TEARS.getValue();
         this.damage = PlayerValue.DAMAGE.getValue();
         this.range = PlayerValue.RANGE.getValue();
+        this.position = Pair.of(x, y);
+        this.height = height;
+        this.width = width;
     }
 
     /**
@@ -151,8 +168,24 @@ public class PlayerStatImpl implements PlayerStat {
      * @return the position of the player
      * */
     @Override
-    public Pair<Integer, Integer> getPosition() {
+    public Pair<Double, Double> getPosition() {
         return this.position;
+    }
+
+    /**
+     * @return the height of the player
+     * */
+    @Override
+    public float getHeight() {
+        return this.height;
+    }
+
+    /**
+     * @return the width of the player
+     * */
+    @Override
+    public float getWidth() {
+        return this.width;
     }
 
     /***/
@@ -199,7 +232,7 @@ public class PlayerStatImpl implements PlayerStat {
 
     /***/
     @Override
-    public void setPosition(final Pair<Integer, Integer> position) {
+    public void setPosition(final Pair<Double, Double> position) {
         this.position = position;
     }
 

@@ -4,58 +4,40 @@ import java.util.Objects;
 import org.apache.commons.lang3.tuple.Pair;
 
 /**
- * Implementation of MapElement.
+ * Implementation of {@link MapElement}.
  */
-public class MapElementImpl implements MapElement {
+public class MapElementImpl extends AbstractMapElement {
 
-    private final int id;
     private final int width;
     private final int height;
-    private final Pair<Integer, Integer> coord;
 
     /**
-     * @param id id of the this MapElement
      * @param width horizontal dimension of this MapElement
      * @param height vertical dimension of this MapElement
      * @param coord coordinates of this MapElement
      */
-    public MapElementImpl(final int id, final int width, final int height, final Pair<Integer, Integer> coord) {
-        this.id = id;
+    public MapElementImpl(final int width, final int height, final Pair<Double, Double> coord) {
+        super(coord);
         this.width = width;
         this.height = height;
-        this.coord = coord;
     }
 
     /**
-     * @return id of this object.
+     * return width of this object.
+     *
+     * @return map element width
      */
-    @Override
-    public int getID() {
-        return this.id;
-    }
-
-    /**
-     * @return width of this object.
-     */
-    @Override
     public int getWidth() {
         return this.width;
     }
 
     /**
-     * @return height of this object.
+     * return height of this object.
+     *
+     * @return map element height
      */
-    @Override
     public int getHeight() {
         return this.height;
-    }
-
-    /**
-     * @return coordinate of this object.
-     */
-    @Override
-    public Pair<Integer, Integer> getCoord() {
-        return this.coord;
     }
 
     /**
@@ -63,7 +45,7 @@ public class MapElementImpl implements MapElement {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(coord, height, id, width);
+        return Objects.hash(super.getCoords(), height, width);
     }
 
     /**
@@ -81,6 +63,6 @@ public class MapElementImpl implements MapElement {
             return false;
         }
         final MapElementImpl other = (MapElementImpl) obj;
-        return Objects.equals(coord, other.coord) && height == other.height && id == other.id && width == other.width;
+        return Objects.equals(super.getCoords(), other.getCoords()) && height == other.height && width == other.width;
     }
 }
