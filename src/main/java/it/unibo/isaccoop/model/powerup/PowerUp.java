@@ -4,12 +4,15 @@ import it.unibo.isaccoop.model.item.AbstractItem;
 import it.unibo.isaccoop.model.player.PlayerStat;
 
 /**
- *
+ * Represents the generic power up.
  * */
 public abstract class PowerUp extends AbstractItem {
     private boolean superItem;
 
-    /***/
+    /**
+     *  Method for interacting with player stats.
+     *  @param p reference to player.
+     * */
     @Override
     public abstract void interact(PlayerStat p);
     /**

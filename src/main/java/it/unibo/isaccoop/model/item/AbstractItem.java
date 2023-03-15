@@ -2,14 +2,13 @@ package it.unibo.isaccoop.model.item;
 
 import it.unibo.isaccoop.model.player.PlayerStat;
 
-//import org.apache.commons.lang3.tuple.Pair;
 /**
- *      Abstract class that models items.
+ * Abstract class that models items.
  * */
 public abstract class AbstractItem implements Item {
-    //private Pair<Integer, Integer> position;
     /**
-     *
+     *  Method that applies the item's effect to the player.
+     *  @param p reference to the player.
      * */
     @Override
     public abstract void interact(PlayerStat p);
