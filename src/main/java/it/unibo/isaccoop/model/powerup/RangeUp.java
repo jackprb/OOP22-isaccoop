@@ -1,7 +1,5 @@
 package it.unibo.isaccoop.model.powerup;
 
-import org.apache.commons.lang3.tuple.Pair;
-
 import it.unibo.isaccoop.model.player.PlayerStat;
 
 /**
@@ -11,13 +9,6 @@ public class RangeUp extends PowerUp {
 
     private static final float RANGE_SUPER_UP = 2;
     private static final float RANGE_UP = 1;
-    /**
-     *
-     * @param coords
-     */
-    public RangeUp(final Pair<Double, Double> coords) {
-        super(coords);
-    }
     /**
      * Increase the player's range.
      * @param p reference to player.

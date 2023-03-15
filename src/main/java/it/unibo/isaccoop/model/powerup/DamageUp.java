@@ -1,7 +1,5 @@
 package it.unibo.isaccoop.model.powerup;
 
-import org.apache.commons.lang3.tuple.Pair;
-
 import it.unibo.isaccoop.model.player.PlayerStat;
 
 /**
@@ -11,14 +9,6 @@ public class DamageUp extends PowerUp {
 
     private static final float DAMAGE_SUPER_UP = 1;
     private static final float DAMAGE_UP = 2;
-
-    /**
-     *
-     * @param coords
-     */
-    public DamageUp(final Pair<Double, Double> coords) {
-        super(coords);
-    }
     /**
      *  Increase the player's damage.
      *  @param p reference to player.

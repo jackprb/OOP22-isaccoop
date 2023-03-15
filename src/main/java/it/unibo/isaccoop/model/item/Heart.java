@@ -1,7 +1,5 @@
 package it.unibo.isaccoop.model.item;
 
-import org.apache.commons.lang3.tuple.Pair;
-
 import it.unibo.isaccoop.model.player.PlayerStat;
 
 /**
@@ -10,13 +8,6 @@ import it.unibo.isaccoop.model.player.PlayerStat;
 public class Heart extends AbstractItem {
 
     private static final int HEART_UP = 1;
-    /**
-     *
-     * @param coords
-     */
-    public Heart(final Pair<Double, Double> coords) {
-        super(coords);
-    }
 
     /**
      *  Method for interacting with player heart.

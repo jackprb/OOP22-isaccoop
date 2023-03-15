@@ -12,13 +12,6 @@ public abstract class PowerUp extends AbstractItem {
 
     private boolean superItem;
     /**
-     *
-     * @param coords
-     */
-    public PowerUp(final Pair<Double, Double> coords) {
-        super(coords);
-    }
-    /**
      *  Method for interacting with player stats.
      *  @param p reference to player.
      * */
