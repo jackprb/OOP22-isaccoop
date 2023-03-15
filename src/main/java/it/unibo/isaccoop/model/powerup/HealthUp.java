@@ -1,13 +1,24 @@
 package it.unibo.isaccoop.model.powerup;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import it.unibo.isaccoop.model.player.PlayerStat;
 
 /**
  * Represents the power up health.
  * */
 public class HealthUp extends PowerUp {
+
    private static final int HEALTH_SUPER_UP = 2;
    private static final int HEALTH_UP = 1;
+   /**
+    *
+    * @param coords
+    */
+   public HealthUp(Pair<Double, Double> coords) {
+       super(coords);
+       // TODO Auto-generated constructor stub
+   }
 
    /**
     *   Increase the player's health.

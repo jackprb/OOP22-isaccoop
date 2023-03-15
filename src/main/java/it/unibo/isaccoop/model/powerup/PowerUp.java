@@ -1,5 +1,7 @@
 package it.unibo.isaccoop.model.powerup;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import it.unibo.isaccoop.model.item.AbstractItem;
 import it.unibo.isaccoop.model.player.PlayerStat;
 
@@ -7,8 +9,12 @@ import it.unibo.isaccoop.model.player.PlayerStat;
  * Represents the generic power up.
  * */
 public abstract class PowerUp extends AbstractItem {
+
     private boolean superItem;
 
+    public PowerUp(Pair<Double, Double> coords) {
+        super(coords);
+    }
     /**
      *  Method for interacting with player stats.
      *  @param p reference to player.
