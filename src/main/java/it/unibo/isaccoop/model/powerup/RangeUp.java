@@ -15,7 +15,7 @@ public class RangeUp extends PowerUp {
      *
      * @param coords
      */
-    public RangeUp(Pair<Double, Double> coords) {
+    public RangeUp(final Pair<Double, Double> coords) {
         super(coords);
     }
     /**

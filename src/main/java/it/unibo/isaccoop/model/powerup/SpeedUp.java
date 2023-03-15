@@ -15,7 +15,7 @@ public class SpeedUp extends PowerUp {
      *
      * @param coords
      */
-    public SpeedUp(Pair<Double, Double> coords) {
+    public SpeedUp(final Pair<Double, Double> coords) {
         super(coords);
     }
     /**

@@ -13,7 +13,7 @@ public abstract class AbstractItem extends AbstractMapElement implements Item {
      *
      * @param coords
      */
-    public AbstractItem(Pair<Double, Double> coords) {
+    public AbstractItem(final Pair<Double, Double> coords) {
         super(coords);
     }
 

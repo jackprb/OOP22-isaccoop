@@ -15,7 +15,7 @@ public class CoinUp extends PowerUp {
      *
      * @param coords
      */
-    public CoinUp(Pair<Double, Double> coords) {
+    public CoinUp(final Pair<Double, Double> coords) {
         super(coords);
     }
     /**

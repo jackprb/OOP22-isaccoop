@@ -8,15 +8,15 @@ import it.unibo.isaccoop.model.player.PlayerStat;
  * Represents a heart in the game.
  * */
 public class Heart extends AbstractItem {
+
+    private static final int HEART_UP = 1;
     /**
      *
      * @param coords
      */
-    public Heart(Pair<Double, Double> coords) {
+    public Heart(final Pair<Double, Double> coords) {
         super(coords);
     }
-
-    private static final int HEART_UP = 1;
 
     /**
      *  Method for interacting with player heart.

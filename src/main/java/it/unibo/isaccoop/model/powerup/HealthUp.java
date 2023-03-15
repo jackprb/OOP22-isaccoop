@@ -15,9 +15,8 @@ public class HealthUp extends PowerUp {
     *
     * @param coords
     */
-   public HealthUp(Pair<Double, Double> coords) {
+   public HealthUp(final Pair<Double, Double> coords) {
        super(coords);
-       // TODO Auto-generated constructor stub
    }
 
    /**

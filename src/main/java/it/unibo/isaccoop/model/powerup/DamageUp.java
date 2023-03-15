@@ -16,7 +16,7 @@ public class DamageUp extends PowerUp {
      *
      * @param coords
      */
-    public DamageUp(Pair<Double, Double> coords) {
+    public DamageUp(final Pair<Double, Double> coords) {
         super(coords);
     }
     /**

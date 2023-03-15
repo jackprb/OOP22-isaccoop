@@ -8,15 +8,16 @@ import it.unibo.isaccoop.model.player.PlayerStat;
  * Represents a coin in the game.
  * */
 public class Coin extends AbstractItem {
+
+    private static final int COIN_UP = 1;
+
     /**
      *
      * @param coords
      */
-    public Coin(Pair<Double, Double> coords) {
+    public Coin(final Pair<Double, Double> coords) {
         super(coords);
     }
-
-    private static final int COIN_UP = 1;
 
     /**
      *  Method for interacting with player money.

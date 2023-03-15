@@ -15,7 +15,7 @@ public class TearsUp extends PowerUp {
      *
      * @param coords
      */
-    public TearsUp(Pair<Double, Double> coords) {
+    public TearsUp(final Pair<Double, Double> coords) {
         super(coords);
     }
     /**

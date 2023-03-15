@@ -11,8 +11,11 @@ import it.unibo.isaccoop.model.player.PlayerStat;
 public abstract class PowerUp extends AbstractItem {
 
     private boolean superItem;
-
-    public PowerUp(Pair<Double, Double> coords) {
+    /**
+     *
+     * @param coords
+     */
+    public PowerUp(final Pair<Double, Double> coords) {
         super(coords);
     }
     /**
