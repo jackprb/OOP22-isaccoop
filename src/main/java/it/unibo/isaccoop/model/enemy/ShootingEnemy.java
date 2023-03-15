@@ -4,8 +4,10 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import it.unibo.isaccoop.model.common.AbstractMapElement;
+
 /***/
-public final class ShootingEnemy extends AbstractEnemy {
+public final class ShootingEnemy extends AbstractMapElement implements Enemy {
 
     private static final int DELTA = 10;
     private final EnemyWeapon weapon;
@@ -28,9 +30,9 @@ public final class ShootingEnemy extends AbstractEnemy {
 
     @Override
     public void move() {
-        final int newX = super.getCoords().getLeft()
+        final double newX = super.getCoords().getLeft()
                 + ThreadLocalRandom.current().nextInt(-ShootingEnemy.DELTA, ShootingEnemy.DELTA);
-        final int newY = super.getCoords().getRight()
+        final double newY = super.getCoords().getRight()
                 + ThreadLocalRandom.current().nextInt(-ShootingEnemy.DELTA, ShootingEnemy.DELTA);
         super.setCoords(Pair.of(newX, newY));
     }
