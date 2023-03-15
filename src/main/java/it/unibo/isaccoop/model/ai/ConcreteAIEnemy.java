@@ -2,19 +2,19 @@ package it.unibo.isaccoop.model.ai;
 
 import java.util.List;
 
-import it.unibo.isaccoop.model.enemy.AbstractEnemy;
+import it.unibo.isaccoop.model.enemy.Enemy;
 
 /***/
 public class ConcreteAIEnemy implements AIEnemy {
 
-    private final List<AbstractEnemy> controlledEnemies;
+    private final List<Enemy> controlledEnemies;
 
     /**
      * Constructor for {@link ConcreteAIEnemy}.
      *
      * @param enemies enemies to attach to {@link ConcreteAIEnemy} as a {@link List}
      * */
-    public ConcreteAIEnemy(final List<AbstractEnemy> enemies) {
+    public ConcreteAIEnemy(final List<Enemy> enemies) {
         this.controlledEnemies = List.copyOf(enemies);
     }
 
@@ -32,7 +32,7 @@ public class ConcreteAIEnemy implements AIEnemy {
      *
      * @return controlled enemies list
      * */
-    public List<AbstractEnemy> getControlledEnemies() {
+    public List<Enemy> getControlledEnemies() {
         return List.copyOf(this.controlledEnemies);
     }
 
