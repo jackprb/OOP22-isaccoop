@@ -16,6 +16,13 @@ public abstract class AbstractMapElement implements MapElement {
         this.coords = coords;
     }
 
+    /**
+     * Constructor for {@link AbstractMapElement} with fixed initial position.
+     * */
+    public AbstractMapElement() {
+        this.coords = Pair.of(0.0, 0.0);
+    }
+
     /***/
     @Override
     public Pair<Double, Double> getCoords() {
