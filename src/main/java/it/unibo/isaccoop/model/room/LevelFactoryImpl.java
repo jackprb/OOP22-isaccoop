@@ -120,18 +120,17 @@ public final class LevelFactoryImpl implements LevelFactory {
      * @return the list of created rooms.
      */
     private List<Room> createRooms() {
-        // è necessario creare 1 sola stanza per ogni tipo, le altre devono essere di tipo STANDARD
-        final List<RoomType> roomTypesList = List.of(RoomType.values());
         final RoomFactory rFactory = new RoomFactoryImpl();
         final List<Room> rooms = new LinkedList<>();
-
-        // crea una room di ogni tipo (BOSS, SHOP, TREASURE, START, STANDARD)
-        for (final var roomT: roomTypesList) {
-            rooms.add(rFactory.buildRoomOfType(roomT, this.roomCoords.get(rooms.size())));
-        }
-        // le room rimanenti devono essere di tipo STANDARD
-        for (int i = 0; i < this.roomCoords.size() - roomTypesList.size(); i++) {
-            rooms.add(rFactory.buildStandardRoom(this.roomCoords.get(rooms.size())));
+        for (int i = 0; i < this.roomCoords.size(); i++) {
+            if(i < RoomType.values().length) {
+                // crea una room di ogni tipo (BOSS, SHOP, TREASURE, START, STANDARD)
+                rooms.add(rFactory.buildRoomOfType(RoomType.values()[i], this.roomCoords.get(rooms.size())));                
+            } else {
+                // quelle rimanenti devono essere di tipo STANDARD
+                rooms.add(rFactory.buildStandardRoom(this.roomCoords.get(rooms.size())));
+            }
+            System.out.println("LevelFactoryImpl.createRooms(): i=" +i + "\nroomtype: " + rooms.get(i).getRoomType() );
         }
         return rooms;
     }
