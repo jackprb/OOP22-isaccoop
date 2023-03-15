@@ -15,7 +15,7 @@ public class PlayerMovementImpl extends PlayerStatImpl implements PlayerMovement
 
     /**
      * Player movement constructor.
-     * @param x the c position
+     * @param x the x position
      * @param y the y position
      * @param height the height of the player
      * @param width the width of the player
@@ -35,6 +35,7 @@ public class PlayerMovementImpl extends PlayerStatImpl implements PlayerMovement
 
     /**
      * Move the player.
+     * @param map the map
      * */
     @Override
     public void move(final JFrame map) {
@@ -73,5 +74,42 @@ public class PlayerMovementImpl extends PlayerStatImpl implements PlayerMovement
     public void setPlayerPosition(final Pair<Double, Double> position) {
         super.setPosition(position);
     }
+
+    /**
+     * Move the bullet.
+     * @param map the map
+     * */
+    /*public void shotBullet(final JFrame map) {
+        final float distance = super.getSpeed();
+        final float damage = super.getDamage();
+        final double x = super.getPosition().getKey();
+        final double y = super.getPosition().getValue();
+
+        map.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(final KeyEvent e) {
+                final int keyCode = e.getKeyCode();
+                Pair<Double, Double> newPosition;
+              if (keyCode == KeyEvent.VK_UP) {
+               newPosition = Pair.of(x, y - distance);
+               PlayerShot bullet = new PlayerShot(0, newPosition, 3, 4, damage, distance);
+              }
+              if (keyCode == KeyEvent.VK_RIGHT) {
+               newPosition = Pair.of(x + distance, y);
+               PlayerShot bullet = new PlayerShot(1, newPosition, 3, 4, damage, distance);
+              }
+              if (keyCode == KeyEvent.VK_DOWN) {
+               newPosition = Pair.of(x, y + distance);
+               PlayerShot bullet = new PlayerShot(2, newPosition, 3, 4, damage, distance);
+              }
+              if (keyCode == KeyEvent.VK_LEFT) {
+               newPosition = Pair.of(x - distance, y);
+               PlayerShot bullet = new PlayerShot(3, newPosition, 3, 4, damage, distance);
+              }
+            }
+        });
+        map.setVisible(true);
+    }
+    */
 
 }
