@@ -27,5 +27,4 @@ public abstract class AbstractMapElement implements MapElement {
     public void setCoords(final Pair<Double, Double> coords) {
         this.coords = Pair.of(coords.getLeft(), coords.getRight());
     }
-
 }

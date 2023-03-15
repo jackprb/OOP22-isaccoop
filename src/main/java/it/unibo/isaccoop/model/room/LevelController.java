@@ -17,7 +17,7 @@ public interface LevelController {
      * @return the coordinates of the room where the player is 
      */
     Pair<Integer, Integer> getPlayerRoomCoord();
-    
+
     /**
      * @return the room where the player is 
      */

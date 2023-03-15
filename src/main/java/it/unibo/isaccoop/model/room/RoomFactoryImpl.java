@@ -9,7 +9,6 @@ import it.unibo.isaccoop.model.common.RoomType;
  */
 public final class RoomFactoryImpl implements RoomFactory {
 
-    private int id;
     private final int width;
     private final int height;
     private static final int MIN_MAX_ROOM_DIMENSIONS = 200;
@@ -18,15 +17,13 @@ public final class RoomFactoryImpl implements RoomFactory {
      * Constructor. No parameters needed.
      */
     public RoomFactoryImpl() {
-        this.id = 0;
         this.width = MIN_MAX_ROOM_DIMENSIONS;
         this.height = MIN_MAX_ROOM_DIMENSIONS;
     }
 
     @Override
-    public Room buildStartRoom(final Pair<Integer, Integer> coordInsideLevel) {
-        incrementRoomID();
-        return new RoomBuilder.Builder(this.id, this.width, this.height)
+    public Room buildStartRoom(final Pair<Double, Double> coordInsideLevel) {
+        return new RoomBuilder.Builder(this.width, this.height)
                 .roomType(RoomType.START)
                 .putCoord(coordInsideLevel)
                 //.putDoors(List.of(null /*doors*/))
@@ -34,9 +31,8 @@ public final class RoomFactoryImpl implements RoomFactory {
     }
 
     @Override
-    public Room buildStandardRoom(final Pair<Integer, Integer> coordInsideLevel) {
-        incrementRoomID();
-        return new RoomBuilder.Builder(this.id, this.width, this.height)
+    public Room buildStandardRoom(final Pair<Double, Double> coordInsideLevel) {
+        return new RoomBuilder.Builder(this.width, this.height)
                 .roomType(RoomType.STANDARD)
                 .putCoord(coordInsideLevel)
                 //.putDoors(List.of(null /*doors*/))
@@ -45,9 +41,8 @@ public final class RoomFactoryImpl implements RoomFactory {
     }
 
     @Override
-    public Room buildShopRoom(final Pair<Integer, Integer> coordInsideLevel) {
-        incrementRoomID();
-        return new RoomBuilder.Builder(this.id, this.width, this.height)
+    public Room buildShopRoom(final Pair<Double, Double> coordInsideLevel) {
+        return new RoomBuilder.Builder(this.width, this.height)
                 .roomType(RoomType.SHOP)
                 .putCoord(coordInsideLevel)
                 //.putDoors(List.of(null /*doors*/))
@@ -55,9 +50,8 @@ public final class RoomFactoryImpl implements RoomFactory {
     }
 
     @Override
-    public Room buildBossRoom(final Pair<Integer, Integer> coordInsideLevel) {
-        incrementRoomID();
-        return new RoomBuilder.Builder(this.id, this.width, this.height)
+    public Room buildBossRoom(final Pair<Double, Double> coordInsideLevel) {
+        return new RoomBuilder.Builder(this.width, this.height)
                 .roomType(RoomType.BOSS)
                 .putCoord(coordInsideLevel)
                 //.putDoors(List.of(null /*doors*/))
@@ -66,9 +60,8 @@ public final class RoomFactoryImpl implements RoomFactory {
     }
 
     @Override
-    public Room buildTreasureRoom(final Pair<Integer, Integer> coordInsideLevel) {
-        incrementRoomID();
-        return new RoomBuilder.Builder(this.id, this.width, this.height)
+    public Room buildTreasureRoom(final Pair<Double, Double> coordInsideLevel) {
+        return new RoomBuilder.Builder(this.width, this.height)
                 .roomType(RoomType.TREASURE)
                 .putCoord(coordInsideLevel)
                 //.putDoors(List.of(null /*doors*/))
@@ -76,7 +69,7 @@ public final class RoomFactoryImpl implements RoomFactory {
     }
 
     @Override
-    public Room buildRoomOfType(final RoomType roomType, final Pair<Integer, Integer> coordInsideLevel) {
+    public Room buildRoomOfType(final RoomType roomType, final Pair<Double, Double> coordInsideLevel) {
         switch (roomType) {
         case START:
             return buildStartRoom(coordInsideLevel);
@@ -91,12 +84,5 @@ public final class RoomFactoryImpl implements RoomFactory {
         default:
             throw new IllegalArgumentException("Incorrect roomType value: " + roomType);
         }
-    }
-
-    /**
-     * Increment the room ID.
-     */
-    private void incrementRoomID() {
-        this.id++;
     }
 }

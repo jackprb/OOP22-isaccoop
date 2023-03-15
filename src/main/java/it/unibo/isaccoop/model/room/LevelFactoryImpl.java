@@ -17,7 +17,7 @@ public final class LevelFactoryImpl implements LevelFactory {
     private int numberOfRooms;
     private int gridRows;
     private int gridCols;
-    private final List<Pair<Integer, Integer>> roomCoords = new LinkedList<>();
+    private final List<Pair<Double, Double>> roomCoords = new LinkedList<>();
     private Level lvl;
     // ogni livello deve avere almeno 5 room, una per ogni tipo
     private static final int MIN_NUMBER_OF_ROOMS = 5;
@@ -45,13 +45,13 @@ public final class LevelFactoryImpl implements LevelFactory {
      */
     private void setRoomCoordinates() {
         //posiz iniziale per posizionare stanze nel livello
-        Pair<Integer, Integer> roomPos = new ImmutablePair<>(0, 0);
+        Pair<Double, Double> roomPos = Pair.of(0.0, 0.0);
 
         while (this.roomCoords.size() < this.numberOfRooms) {
             if (isValidCoord(roomPos) && !this.roomCoords.contains(roomPos)) {
                 this.roomCoords.add(roomPos);
                 //ottiene possibili direzioni per la prossima room
-                final List<Pair<Integer, Integer>> availablePos = getAvailablePositionsFrom(roomPos);
+                final List<Pair<Double, Double>> availablePos = getAvailablePositionsFrom(roomPos);
                 if (!availablePos.isEmpty()) { //se ci sono direzioni disponibili
                     roomPos = availablePos.get(new Random().nextInt(availablePos.size())); //ne sceglie una
                 }
@@ -68,14 +68,14 @@ public final class LevelFactoryImpl implements LevelFactory {
      * @return a coordinate already present in the coordinates list, 
      * which has at least 1 available cell around itself
      */
-    private Pair<Integer, Integer> findNewAvailableCoordinate() {
+    private Pair<Double, Double> findNewAvailableCoordinate() {
         for (int i = this.roomCoords.size() - 1; i >= 0; i--) {
-            final List<Pair<Integer, Integer>> list = getAvailablePositionsFrom(this.roomCoords.get(i));
+            final List<Pair<Double, Double>> list = getAvailablePositionsFrom(this.roomCoords.get(i));
             if (!list.isEmpty()) {
                 return list.get(0);
             }
         }
-        return new ImmutablePair<>(-1, -1);
+        return Pair.of(-1.0, -1.0);
     }
 
     /**
@@ -83,10 +83,10 @@ public final class LevelFactoryImpl implements LevelFactory {
      * @param currPos the current coordinate
      * @return a list of available coordinates around the specified coordinare currPos 
      */
-    private List<Pair<Integer, Integer>> getAvailablePositionsFrom(final Pair<Integer, Integer> currPos) {
-        final List<Pair<Integer, Integer>> pos = new LinkedList<>();
+    private List<Pair<Double, Double>> getAvailablePositionsFrom(final Pair<Double, Double> currPos) {
+        final List<Pair<Double, Double>> pos = new LinkedList<>();
         for (final var dir: Direction.values()) {
-            final Pair<Integer, Integer> newPos = getNewCoordinateAlongDirection(currPos, dir);
+            final Pair<Double, Double> newPos = getNewCoordinateAlongDirection(currPos, dir);
             if (isValidCoord(newPos) && !this.roomCoords.contains(newPos)) {
                 pos.add(newPos);
             }
@@ -100,8 +100,8 @@ public final class LevelFactoryImpl implements LevelFactory {
      * @param dir the direction along which the coordinate has to ben calculated
      * @return the new coordinate calculated from coordinate coord along direction dir
      */
-    private Pair<Integer, Integer> getNewCoordinateAlongDirection(
-            final Pair<Integer, Integer> coord, final Direction dir) {
+    private Pair<Double, Double> getNewCoordinateAlongDirection(
+            final Pair<Double, Double> coord, final Direction dir) {
         return new ImmutablePair<>(coord.getLeft() + dir.getX(), coord.getRight() + dir.getY());
     }
 
@@ -110,7 +110,7 @@ public final class LevelFactoryImpl implements LevelFactory {
      * @param coord the coordinate to be checked
      * @return true if the coordinate is valid (inside the grid), false otherwise
      */
-    private boolean isValidCoord(final Pair<Integer, Integer> coord) {
+    private boolean isValidCoord(final Pair<Double, Double> coord) {
         return coord.getLeft() >= 0 && coord.getRight() >= 0 
                 && coord.getRight() < this.gridRows && coord.getLeft() < this.gridCols;
     }

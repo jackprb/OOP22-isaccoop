@@ -18,12 +18,11 @@ public class RoomBuilder {
      */
     public static class Builder {
         //basic and minimal fields (set with constructor)
-        private final int id;
         private final int width; 
         private final int height; 
 
         //other basic field (set with their dedicated methods)
-        private Optional<Pair<Integer, Integer>> coord;
+        private Optional<Pair<Double, Double>> coord;
         private List<Door> doors = new LinkedList<>();
         private Optional<RoomType> roomType;
 
@@ -37,12 +36,10 @@ public class RoomBuilder {
          * It is required to call this constructor first, then at least the REQUIRED methods. 
          * <br> At the end, call the method build().
          * 
-         * @param id id of this room
          * @param width the horizontal dimension of this room
          * @param height the vertical dimension of this room
          */
-        public Builder(final int id, final int width, final int height) {
-            this.id = id;
+        public Builder(final int width, final int height) {
             this.width = width;
             this.height = height;
         }
@@ -54,7 +51,7 @@ public class RoomBuilder {
          * @param coord the coordinate of this room inside the level
          * @return this builder
          */
-        public Builder putCoord(final Pair<Integer, Integer> coord) {
+        public Builder putCoord(final Pair<Double, Double> coord) {
             this.coord = Optional.of(coord);
             return this;
         }
@@ -112,8 +109,8 @@ public class RoomBuilder {
             if (this.roomAI.isEmpty() && checkConditionForAiRoom()) {
                 throw new IllegalStateException("this room needs an AiEnemy object");
             }
-            return new RoomImpl(this.id, this.width, this.height, this.coord.get(), 
-                    this.roomType.get(), this.doors, this.roomAI);
+            return new RoomImpl(this.width, this.height, this.coord.get(), 
+                    this.doors, this.roomType.get(), this.roomAI.get());
         }
 
         /**
