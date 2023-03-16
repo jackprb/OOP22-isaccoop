@@ -19,11 +19,6 @@ public class PlayerWeaponImpl extends AbstractMapElement implements PlayerWeapon
     private float damage;
 
     /**
-     * the speed of the "bullet".
-     * */
-    private float speed;
-
-    /**
      * @return the direction of the shot
      * */
     @Override
@@ -37,14 +32,6 @@ public class PlayerWeaponImpl extends AbstractMapElement implements PlayerWeapon
     @Override
     public float getDamage() {
         return this.damage;
-    }
-
-    /**
-     * @return the speed of the weapon
-     * */
-    @Override
-    public float getSpeed() {
-        return this.speed;
     }
 
     /**
@@ -66,28 +53,15 @@ public class PlayerWeaponImpl extends AbstractMapElement implements PlayerWeapon
     }
 
     /**
-     * Set the speed of the "bullet".
-     * @param speed the speed of the "bullet"
-     * */
-    @Override
-    public void setSpeed(final float speed) {
-        this.speed = speed;
-    }
-
-    /**
      * Weapon constructor.
      * @param direction the direction of the "bullet"
      * @param position the position of the "bullet"
      * @param damage the damage of the "bullet"
-     * @param speed the speed of the "bullet"
      * */
-    public PlayerWeaponImpl(final int direction, final Pair<Double, Double> position,
-                            final float damage, final float speed) {
+    public PlayerWeaponImpl(final int direction, final Pair<Double, Double> position, final float damage) {
         super(position);
         this.direction = direction;
         this.damage = damage;
-        /* lo speed del proiettile verrà trattato nella relazione, non verrà usato */
-        this.speed = speed;
     }
 
 }

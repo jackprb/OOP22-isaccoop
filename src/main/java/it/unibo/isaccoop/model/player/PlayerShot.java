@@ -12,11 +12,9 @@ public class PlayerShot extends PlayerWeaponImpl {
      * @param direction the direction of the "bullet"
      * @param position the position of the "bullet"
      * @param damage the damage of the "bullet"
-     * @param speed the speed of the "bullet"
      * */
-    public PlayerShot(final int direction, final Pair<Double, Double> position,
-                       final float damage, final float speed) {
-        super(direction, position, damage, speed);
+    public PlayerShot(final int direction, final Pair<Double, Double> position, final float damage) {
+        super(direction, position, damage);
     }
 
     /**

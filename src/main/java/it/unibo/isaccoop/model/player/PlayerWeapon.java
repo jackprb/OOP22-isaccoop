@@ -15,11 +15,6 @@ public interface PlayerWeapon {
     float getDamage();
 
     /**
-     * @return the speed of the weapon
-     * */
-    float getSpeed();
-
-    /**
      * Set the new direction of the "bullet".
      * @param direction new direction
      * */
@@ -30,11 +25,5 @@ public interface PlayerWeapon {
      * @param damage the damage it deal
      * */
     void setDamage(float damage);
-
-    /**
-     * Set the speed of the "bullet".
-     * @param speed the speed of the "bullet"
-     * */
-    void setSpeed(float speed);
 
 }
