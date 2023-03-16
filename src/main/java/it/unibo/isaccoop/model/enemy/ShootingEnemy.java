@@ -25,7 +25,7 @@ public final class ShootingEnemy extends AbstractMapElement implements Enemy {
 
     @Override
     public void hit(final Pair<Double, Double> playerPosition) {
-        this.weapon.shoot(super.getCoords());
+        this.weapon.shoot(super.getCoords(), playerPosition);
     }
 
     @Override
