@@ -1,7 +1,9 @@
 package it.unibo.isaccoop.model.enemy;
 
+import it.unibo.isaccoop.model.common.AbstractMapElement;
+
 /***/
-public class NonShootingEnemy extends AbstractEnemy {
+public final class NonShootingEnemy extends AbstractMapElement implements Enemy {
 
     @Override
     public void onHit() {
@@ -17,7 +19,7 @@ public class NonShootingEnemy extends AbstractEnemy {
 
     @Override
     public void move() {
-        // TODO Auto-generated method stub
+        //TODO
     }
 
 }

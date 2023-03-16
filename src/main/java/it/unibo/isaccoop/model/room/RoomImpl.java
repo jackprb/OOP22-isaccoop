@@ -22,7 +22,6 @@ public final class RoomImpl extends MapElementImpl implements Room {
     //lista powerup, obstacles, enemy, optional<Boss>
 
     /**
-     * @param id id of this {@link Room}
      * @param width horizontal dimension of this {@link Room}
      * @param height vertical dimension of this {@link Room}
      * @param coord coordinate of this {@link Room}
@@ -30,10 +29,10 @@ public final class RoomImpl extends MapElementImpl implements Room {
      * @param roomType type of this {@link Room}
      * @param roomAI {@link AIEnemy} impl to attach to this {@link Room}
      */
-    public RoomImpl(final int id, final int width, final int height,
-            final Pair<Integer, Integer> coord, final List<Door> doors, final RoomType roomType,
+    public RoomImpl(final int width, final int height,
+            final Pair<Double, Double> coord, final List<Door> doors, final RoomType roomType,
             final AIEnemy roomAI) {
-        super(id, width, height, coord);
+        super(width, height, coord);
         this.doors.addAll(doors);
         this.roomType = roomType;
         this.roomAI = roomAI;
