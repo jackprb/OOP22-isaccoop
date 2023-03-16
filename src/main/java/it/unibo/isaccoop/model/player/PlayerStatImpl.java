@@ -74,9 +74,7 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
     }
 
     /**
-     * Player constructor. 
-     * @param x the x position
-     * @param y the y position
+     * Player constructor.
      * */
     public PlayerStatImpl() {
         super();
