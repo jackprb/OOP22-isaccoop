@@ -1,19 +1,25 @@
 package it.unibo.isaccoop.model.spawn;
 
 import java.util.List;
-
+import java.util.concurrent.ThreadLocalRandom;
+import org.apache.commons.lang3.tuple.Pair;
 import it.unibo.isaccoop.model.common.MapElement;
 
+/**
+ * 
+ *
+ */
 public class SpawnRandom implements Spawn {
 
-    public SpawnRandom() {
-        // TODO Auto-generated constructor stub
-    }
-
+    /**
+     *
+     */
     @Override
-    public void setPosition(List<MapElement> elementsToSpawn) {
-        // TODO Auto-generated method stub
-        
+    public void setPosition(final List<MapElement> elementsToSpawn) {
+        elementsToSpawn.forEach(e -> {
+            e.setCoords(Pair.of(ThreadLocalRandom.current().nextDouble(), ThreadLocalRandom.current().nextDouble()));
+        });
+
     }
 
 }

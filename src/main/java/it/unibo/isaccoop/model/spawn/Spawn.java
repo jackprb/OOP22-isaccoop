@@ -6,13 +6,12 @@ import it.unibo.isaccoop.model.common.MapElement;
 
 /**
  * 
- * @param <E>
  */
 public interface Spawn {
 
     /**
-     * Method that set the position of the element inside the room.
-     * @param elementToSpawn
+     * Method that set the position of the elements inside the room.
+     * @param elementsToSpawn
      */
     void setPosition(List<MapElement> elementsToSpawn);
 }
