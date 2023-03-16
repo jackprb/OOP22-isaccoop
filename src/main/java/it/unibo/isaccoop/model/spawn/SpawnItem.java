@@ -3,18 +3,19 @@ package it.unibo.isaccoop.model.spawn;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.unibo.isaccoop.model.item.Item;
+
 /**
  * 
- * @param <Item>
  */
-public class SpawnItem<Item> implements Spawn<Item> {
+public class SpawnItem implements Spawn<Item> {
     private final List<Item> list;
 
     /**
      * 
      * @param list
      */
-    public SpawnItem(List<Item> list) {
+    public SpawnItem(final List<Item> list) {
         this.list = new ArrayList<>();
         this.list.addAll(list);
     }
@@ -23,8 +24,7 @@ public class SpawnItem<Item> implements Spawn<Item> {
      * @param elementToSpawn
      */
     @Override
-    public void setPosition(Item elementToSpawn) {
-        
+    public void setPosition(final Item elementToSpawn) {
     }
 
 }

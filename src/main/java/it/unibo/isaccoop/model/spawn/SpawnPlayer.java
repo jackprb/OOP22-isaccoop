@@ -1,16 +1,18 @@
 package it.unibo.isaccoop.model.spawn;
+
+import it.unibo.isaccoop.model.player.PlayerStat;
+
 /**
  *
- * @param <Player>
  */
-public class SpawnPlayer<Player> implements Spawn<Player> {
-    private final Player player;
+public class SpawnPlayer implements Spawn<PlayerStat> {
+    private final PlayerStat player;
 
     /**
      * 
      * @param player
      */
-    public SpawnPlayer(Player player) {
+    public SpawnPlayer(final PlayerStat player) {
         this.player = player;
     }
 
@@ -18,8 +20,7 @@ public class SpawnPlayer<Player> implements Spawn<Player> {
      * @param elementToSpawn
      */
     @Override
-    public void setPosition(Player elementToSpawn) {
-        
+    public void setPosition(final PlayerStat elementToSpawn) {
     }
 
 }

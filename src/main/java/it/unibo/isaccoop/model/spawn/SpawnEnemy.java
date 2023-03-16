@@ -3,18 +3,19 @@ package it.unibo.isaccoop.model.spawn;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.unibo.isaccoop.model.enemy.Enemy;
+
 /**
  *
- * @param <Enemy>
  */
-public class SpawnEnemy<Enemy> implements Spawn<Enemy> {
+public class SpawnEnemy implements Spawn<Enemy> {
     private final List<Enemy> list;
 
     /**
      *
      * @param list
      */
-    public SpawnEnemy(List<Enemy> list) {
+    public SpawnEnemy(final List<Enemy> list) {
         this.list = new ArrayList<>();
         this.list.addAll(list);
     }
@@ -23,9 +24,7 @@ public class SpawnEnemy<Enemy> implements Spawn<Enemy> {
      * @param elementToSpawn
      */
     @Override
-    public void setPosition(Enemy elementToSpawn) {
-        // TODO Auto-generated method stub
-        
+    public void setPosition(final Enemy elementToSpawn) {
     }
 
 }
