@@ -1,8 +1,7 @@
 package it.unibo.isaccoop.model.player;
 
-import org.apache.commons.lang3.tuple.Pair;
-
 import it.unibo.isaccoop.model.common.AbstractMapElement;
+import it.unibo.isaccoop.model.common.Point2D;
 
 /**
  * Implements the PlayerWeapon.
@@ -58,7 +57,7 @@ public class PlayerWeaponImpl extends AbstractMapElement implements PlayerWeapon
      * @param position the position of the "bullet"
      * @param damage the damage of the "bullet"
      * */
-    public PlayerWeaponImpl(final int direction, final Pair<Double, Double> position, final float damage) {
+    public PlayerWeaponImpl(final int direction, final Point2D position, final float damage) {
         super(position);
         this.direction = direction;
         this.damage = damage;

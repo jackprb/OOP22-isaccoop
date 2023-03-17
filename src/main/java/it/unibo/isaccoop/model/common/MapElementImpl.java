@@ -1,8 +1,6 @@
 package it.unibo.isaccoop.model.common;
 import java.util.Objects;
 
-import org.apache.commons.lang3.tuple.Pair;
-
 /**
  * Implementation of MapElement.
  */
@@ -16,7 +14,7 @@ public class MapElementImpl extends AbstractMapElement {
      * @param height vertical dimension of this MapElement
      * @param coord coordinates of this MapElement
      */
-    public MapElementImpl(final int width, final int height, final Pair<Double, Double> coord) {
+    public MapElementImpl(final int width, final int height, final Point2D coord) {
         super(coord);
         this.width = width;
         this.height = height;

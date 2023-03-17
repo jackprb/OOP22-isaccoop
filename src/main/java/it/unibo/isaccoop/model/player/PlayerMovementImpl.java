@@ -1,6 +1,6 @@
 package it.unibo.isaccoop.model.player;
 
-import org.apache.commons.lang3.tuple.Pair;
+import it.unibo.isaccoop.model.common.Point2D;
 
 /**
  * Implement the PlayerMovement interface and
@@ -9,15 +9,15 @@ import org.apache.commons.lang3.tuple.Pair;
 public class PlayerMovementImpl extends PlayerStatImpl implements PlayerMovement {
 
     private final float distance = super.getSpeed();
-    private final double x = super.getCoords().getKey();
-    private final double y = super.getCoords().getValue();
+    private final double x = super.getCoords().getX();
+    private final double y = super.getCoords().getY();
 
     /**
      * Move the player to right.
      * */
     @Override
     public void right() {
-        super.setCoords(Pair.of(x + distance, y));
+        super.setCoords(new Point2D(x + distance, y));
     }
 
     /**
@@ -25,7 +25,7 @@ public class PlayerMovementImpl extends PlayerStatImpl implements PlayerMovement
      * */
     @Override
     public void left() {
-        super.setCoords(Pair.of(x - distance, y));
+        super.setCoords(new Point2D(x - distance, y));
     }
 
     /**
@@ -33,7 +33,7 @@ public class PlayerMovementImpl extends PlayerStatImpl implements PlayerMovement
      * */
     @Override
     public void up() {
-        super.setCoords(Pair.of(x, y - distance));
+        super.setCoords(new Point2D(x, y - distance));
     }
 
     /**
@@ -41,7 +41,7 @@ public class PlayerMovementImpl extends PlayerStatImpl implements PlayerMovement
      * */
     @Override
     public void down() {
-        super.setCoords(Pair.of(x, y + distance));
+        super.setCoords(new Point2D(x, y + distance));
     }
 
 }
