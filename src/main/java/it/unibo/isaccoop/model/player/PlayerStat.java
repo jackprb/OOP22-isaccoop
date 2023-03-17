@@ -1,7 +1,5 @@
 package it.unibo.isaccoop.model.player;
 
-import org.apache.commons.lang3.tuple.Pair;
-
 /**
  * Player statistic.
  * */
@@ -41,21 +39,6 @@ public interface PlayerStat {
      * @return the time between two hit
      * */
     float getTears();
-
-    /**
-     * @return the position of the player
-     * */
-    Pair<Double, Double> getPosition();
-
-    /**
-     * @return the height of the player
-     * */
-    float getHeight();
-
-    /**
-     * @return the width of the player
-     * */
-    float getWidth();
 
     /**
      * @param heart the new number of heart of the player
@@ -98,11 +81,5 @@ public interface PlayerStat {
      * set the new damage that player have
      * */
     void setDamage(float damage);
-
-    /**
-     * @param position the position of the player
-     * set the new position of the player
-     * */
-    void setPosition(Pair<Double, Double> position);
 
 }

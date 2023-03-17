@@ -24,10 +24,11 @@ public class EnemyWeapon {
      *
      *  @param enemyPosition current enemy position as a {@link Pair} in order to
      *   set the starting shot position of the new shot
+     *  @param playerPosition player position to shot in the player direction
      * */
-    public void shoot(final Pair<Double, Double> enemyPosition) {
+    public void shoot(final Pair<Double, Double> enemyPosition, final Pair<Double, Double> playerPosition) {
         if (System.currentTimeMillis() - timeSinceLastShot > EnemyWeapon.SHOT_TIME_LIMIT) {
-            this.weaponShots.add(new EnemyWeaponShot(enemyPosition));
+            this.weaponShots.add(new EnemyWeaponShot(enemyPosition, playerPosition));
             this.timeSinceLastShot = System.currentTimeMillis();
         }
         this.weaponShots.forEach(shot -> shot.tickShot());

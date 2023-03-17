@@ -24,12 +24,12 @@ public final class ShootingEnemy extends AbstractMapElement implements Enemy {
     }
 
     @Override
-    public void hit() {
-        this.weapon.shoot(super.getCoords());
+    public void hit(final Pair<Double, Double> playerPosition) {
+        this.weapon.shoot(super.getCoords(), playerPosition);
     }
 
     @Override
-    public void move() {
+    public void move(final Pair<Double, Double> playerPosition) {
         final double newX = super.getCoords().getLeft()
                 + ThreadLocalRandom.current().nextInt(-ShootingEnemy.DELTA, ShootingEnemy.DELTA);
         final double newY = super.getCoords().getRight()
