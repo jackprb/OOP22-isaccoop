@@ -1,7 +1,5 @@
 package it.unibo.isaccoop.model.powerup;
 
-import org.apache.commons.lang3.tuple.Pair;
-
 import it.unibo.isaccoop.model.item.AbstractItem;
 import it.unibo.isaccoop.model.player.PlayerStat;
 
