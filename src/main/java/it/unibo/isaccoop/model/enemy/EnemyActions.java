@@ -1,16 +1,22 @@
 package it.unibo.isaccoop.model.enemy;
 
+import it.unibo.isaccoop.model.common.Point2D;
+
 /***/
 public interface EnemyActions {
 
     /**
      * Perform hit action of a certain {@link AbstractEnemy}.
+     *
+     * @param playerPosition current player position
      * */
-    void hit();
+    void hit(Point2D playerPosition);
 
     /**
      * Perform move action of a certain {@link AbstractEnemy}.
+     *
+     * @param playerPosition current player position
      * */
-    void move();
+    void move(Point2D playerPosition);
 
 }

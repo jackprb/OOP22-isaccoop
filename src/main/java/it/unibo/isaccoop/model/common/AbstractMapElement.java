@@ -1,18 +1,16 @@
 package it.unibo.isaccoop.model.common;
 
-import org.apache.commons.lang3.tuple.Pair;
-
 /***/
 public abstract class AbstractMapElement implements MapElement {
 
-    private Pair<Double, Double> coords;
+    private Point2D coords;
 
     /**
      * Constructor for {@link AbstractMapElement}.
      *
      * @param coords initial coords
      * */
-    public AbstractMapElement(final Pair<Double, Double> coords) {
+    public AbstractMapElement(final Point2D coords) {
         this.coords = coords;
     }
 
@@ -20,18 +18,18 @@ public abstract class AbstractMapElement implements MapElement {
      * Constructor for {@link AbstractMapElement} with fixed initial position.
      * */
     public AbstractMapElement() {
-        this.coords = Pair.of(0.0, 0.0);
+        this.coords = new Point2D(0.0, 0.0);
     }
 
     /***/
     @Override
-    public Pair<Double, Double> getCoords() {
-        return Pair.of(this.coords.getLeft(), this.coords.getRight());
+    public Point2D getCoords() {
+        return new Point2D(this.coords.getX(), this.coords.getY());
     }
 
     /***/
     @Override
-    public void setCoords(final Pair<Double, Double> coords) {
-        this.coords = Pair.of(coords.getLeft(), coords.getRight());
+    public void setCoords(final Point2D coords) {
+        this.coords = new Point2D(coords.getX(), coords.getY());
     }
 }

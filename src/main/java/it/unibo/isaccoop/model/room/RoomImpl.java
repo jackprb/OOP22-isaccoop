@@ -6,10 +6,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import org.apache.commons.lang3.tuple.Pair;
-
 import it.unibo.isaccoop.model.ai.AIEnemy;
 import it.unibo.isaccoop.model.common.MapElementImpl;
+import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.RoomType;
 
 /**
@@ -31,7 +30,7 @@ public final class RoomImpl extends MapElementImpl implements Room {
      * @param roomAI the AiEnemy for this room
      */
     public RoomImpl(final int width, final int height,
-            final Pair<Double, Double> coord, final List<Door> doors, final RoomType roomType,
+            final Point2D coord, final List<Door> doors, final RoomType roomType,
             final AIEnemy roomAI) {
         super(width, height, coord);
         this.doors.addAll(doors);

@@ -3,7 +3,7 @@ package it.unibo.isaccoop.model.enemy;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.tuple.Pair;
+import it.unibo.isaccoop.model.common.Point2D;
 
 /***/
 public class EnemyWeapon {
@@ -24,10 +24,11 @@ public class EnemyWeapon {
      *
      *  @param enemyPosition current enemy position as a {@link Pair} in order to
      *   set the starting shot position of the new shot
+     *  @param playerPosition player position to shot in the player direction
      * */
-    public void shoot(final Pair<Double, Double> enemyPosition) {
+    public void shoot(final Point2D enemyPosition, final Point2D playerPosition) {
         if (System.currentTimeMillis() - timeSinceLastShot > EnemyWeapon.SHOT_TIME_LIMIT) {
-            this.weaponShots.add(new EnemyWeaponShot(enemyPosition));
+            this.weaponShots.add(new EnemyWeaponShot(enemyPosition, playerPosition));
             this.timeSinceLastShot = System.currentTimeMillis();
         }
         this.weaponShots.forEach(shot -> shot.tickShot());

@@ -2,9 +2,8 @@ package it.unibo.isaccoop.model.enemy;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-import org.apache.commons.lang3.tuple.Pair;
-
 import it.unibo.isaccoop.model.common.AbstractMapElement;
+import it.unibo.isaccoop.model.common.Point2D;
 
 /***/
 public final class ShootingEnemy extends AbstractMapElement implements Enemy {
@@ -24,17 +23,17 @@ public final class ShootingEnemy extends AbstractMapElement implements Enemy {
     }
 
     @Override
-    public void hit() {
-        this.weapon.shoot(super.getCoords());
+    public void hit(final Point2D playerPosition) {
+        this.weapon.shoot(super.getCoords(), playerPosition);
     }
 
     @Override
-    public void move() {
-        final double newX = super.getCoords().getLeft()
+    public void move(final Point2D playerPosition) {
+        final double newX = super.getCoords().getX()
                 + ThreadLocalRandom.current().nextInt(-ShootingEnemy.DELTA, ShootingEnemy.DELTA);
-        final double newY = super.getCoords().getRight()
+        final double newY = super.getCoords().getY()
                 + ThreadLocalRandom.current().nextInt(-ShootingEnemy.DELTA, ShootingEnemy.DELTA);
-        super.setCoords(Pair.of(newX, newY));
+        super.setCoords(new Point2D(newX, newY));
     }
 
     /**

@@ -1,29 +1,28 @@
 package it.unibo.isaccoop.model.player;
 
-import javax.swing.JFrame;
-
-import org.apache.commons.lang3.tuple.Pair;
-
 /**
  * Interface for the player movement.
  * */
 public interface PlayerMovement {
 
     /**
-     * @return if the player can move in one direction.
+     * Move the player to right.
      * */
-    boolean isMovementAvailable();
+    void right();
 
     /**
-     * Move the player.
-     * @param map
+     * Move the player to left.
      * */
-    void move(JFrame map);
+    void left();
 
     /**
-     * Update the player position.
-     * @param position current position of the player
+     * Move the player up.
      * */
-    void setPlayerPosition(Pair<Double, Double> position);
+    void up();
+
+    /**
+     * Move the player down.
+     * */
+    void down();
 
 }
