@@ -3,10 +3,9 @@ package it.unibo.isaccoop.model.room;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
 
 import it.unibo.isaccoop.model.common.Direction;
+import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.RoomType;
 
 /**
@@ -17,7 +16,7 @@ public final class LevelFactoryImpl implements LevelFactory {
     private int numberOfRooms;
     private int gridRows;
     private int gridCols;
-    private final List<Pair<Double, Double>> roomCoords = new LinkedList<>();
+    private final List<Point2D> roomCoords = new LinkedList<>();
     private Level lvl;
     // ogni livello deve avere almeno 5 room, una per ogni tipo
     private static final int MIN_NUMBER_OF_ROOMS = 5;
@@ -45,13 +44,13 @@ public final class LevelFactoryImpl implements LevelFactory {
      */
     private void setRoomCoordinates() {
         //posiz iniziale per posizionare stanze nel livello
-        Pair<Double, Double> roomPos = Pair.of(0.0, 0.0);
+        Point2D roomPos = new Point2D(0.0, 0.0);
 
         while (this.roomCoords.size() < this.numberOfRooms) {
             if (isValidCoord(roomPos) && !this.roomCoords.contains(roomPos)) {
                 this.roomCoords.add(roomPos);
                 //ottiene possibili direzioni per la prossima room
-                final List<Pair<Double, Double>> availablePos = getAvailablePositionsFrom(roomPos);
+                final List<Point2D> availablePos = getAvailablePositionsFrom(roomPos);
                 if (!availablePos.isEmpty()) { //se ci sono direzioni disponibili
                     roomPos = availablePos.get(new Random().nextInt(availablePos.size())); //ne sceglie una
                 }
@@ -68,14 +67,14 @@ public final class LevelFactoryImpl implements LevelFactory {
      * @return a coordinate already present in the coordinates list, 
      * which has at least 1 available cell around itself
      */
-    private Pair<Double, Double> findNewAvailableCoordinate() {
+    private Point2D findNewAvailableCoordinate() {
         for (int i = this.roomCoords.size() - 1; i >= 0; i--) {
-            final List<Pair<Double, Double>> list = getAvailablePositionsFrom(this.roomCoords.get(i));
+            final List<Point2D> list = getAvailablePositionsFrom(this.roomCoords.get(i));
             if (!list.isEmpty()) {
                 return list.get(0);
             }
         }
-        return Pair.of(-1.0, -1.0);
+        return new Point2D(-1.0, -1.0);
     }
 
     /**
@@ -83,10 +82,10 @@ public final class LevelFactoryImpl implements LevelFactory {
      * @param currPos the current coordinate
      * @return a list of available coordinates around the specified coordinare currPos 
      */
-    private List<Pair<Double, Double>> getAvailablePositionsFrom(final Pair<Double, Double> currPos) {
-        final List<Pair<Double, Double>> pos = new LinkedList<>();
+    private List<Point2D> getAvailablePositionsFrom(final Point2D currPos) {
+        final List<Point2D> pos = new LinkedList<>();
         for (final var dir: Direction.values()) {
-            final Pair<Double, Double> newPos = getNewCoordinateAlongDirection(currPos, dir);
+            final Point2D newPos = getNewCoordinateAlongDirection(currPos, dir);
             if (isValidCoord(newPos) && !this.roomCoords.contains(newPos)) {
                 pos.add(newPos);
             }
@@ -100,9 +99,9 @@ public final class LevelFactoryImpl implements LevelFactory {
      * @param dir the direction along which the coordinate has to ben calculated
      * @return the new coordinate calculated from coordinate coord along direction dir
      */
-    private Pair<Double, Double> getNewCoordinateAlongDirection(
-            final Pair<Double, Double> coord, final Direction dir) {
-        return new ImmutablePair<>(coord.getLeft() + dir.getX(), coord.getRight() + dir.getY());
+    private Point2D getNewCoordinateAlongDirection(
+            final Point2D coord, final Direction dir) {
+        return new Point2D(coord.getX()+ dir.getX(), coord.getY() + dir.getY());
     }
 
     /**
@@ -110,9 +109,9 @@ public final class LevelFactoryImpl implements LevelFactory {
      * @param coord the coordinate to be checked
      * @return true if the coordinate is valid (inside the grid), false otherwise
      */
-    private boolean isValidCoord(final Pair<Double, Double> coord) {
-        return coord.getLeft() >= 0 && coord.getRight() >= 0 
-                && coord.getRight() < this.gridRows && coord.getLeft() < this.gridCols;
+    private boolean isValidCoord(final Point2D coord) {
+        return coord.getX() >= 0 && coord.getY() >= 0 
+                && coord.getY() < this.gridRows && coord.getX() < this.gridCols;
     }
 
     /**
