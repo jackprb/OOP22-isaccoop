@@ -3,9 +3,9 @@ package it.unibo.isaccoop.model.room;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import org.apache.commons.lang3.tuple.Pair;
 
 import it.unibo.isaccoop.model.ai.AIEnemy;
+import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.RoomType;
 
 /**
@@ -22,7 +22,7 @@ public class RoomBuilder {
         private final int height; 
 
         //other basic field (set with their dedicated methods)
-        private Optional<Pair<Double, Double>> coord;
+        private Optional<Point2D> coord;
         private List<Door> doors = new LinkedList<>();
         private Optional<RoomType> roomType;
 
@@ -51,7 +51,7 @@ public class RoomBuilder {
          * @param coord the coordinate of this room inside the level
          * @return this builder
          */
-        public Builder putCoord(final Pair<Double, Double> coord) {
+        public Builder putCoord(final Point2D coord) {
             this.coord = Optional.of(coord);
             return this;
         }
