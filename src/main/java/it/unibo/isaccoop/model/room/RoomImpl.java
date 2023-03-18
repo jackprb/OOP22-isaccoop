@@ -16,20 +16,20 @@ import it.unibo.isaccoop.model.powerup.PowerUp;
  */
 public final class RoomImpl extends MapElementImpl implements Room {
 
-    //private final List<Door> doors = new LinkedList<>();
     private final RoomType roomType;
     private final Optional<AIEnemy> roomAi;
     private final Optional<List<Item>> items;
     private final Optional<List<PowerUp>> powerups;
-    
+
     /**
      * Use {@link RoomFactory} to create a new {@link Room}.
      * @param width horizontal dimension of this room
      * @param height vertical dimension of this room
      * @param coord coordinates of this room inside the level
      * @param roomType type of this room
-     * @param doors the doors to be added inside this room
      * @param roomAI the AiEnemy for this room
+     * @param items the items in this room
+     * @param powerups the powerups in this room
      */
     public RoomImpl(final int width, final int height,
             final Point2D coord, /*final List<Door> doors,*/ final RoomType roomType,
@@ -62,12 +62,12 @@ public final class RoomImpl extends MapElementImpl implements Room {
     public Optional<List<Item>> getItems() {
         return this.items;
     }
-    
+
     @Override
     public Optional<List<PowerUp>> getPowerUps() {
         return this.powerups;
     }
-    
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -78,10 +78,10 @@ public final class RoomImpl extends MapElementImpl implements Room {
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj) {            
+        if (this == obj) {
             return true;
         }
-        if (!super.equals(obj)) {            
+        if (!super.equals(obj)) {
             return false;
         }
         if (getClass() != obj.getClass()) {

@@ -33,13 +33,13 @@ public interface Room extends MapElement {
      * @return {@link AIEnemy} attached to this {@link Room}
      * */
     Optional<AIEnemy> getRoomAI();
-    
+
     /**
      * Get the {@link Item}s in this room.
      * @return the list of items in this room
      */
     Optional<List<Item>> getItems();
-    
+
     /**
      * Get the {@link PowerUp}s in this room.
      * @return the list of powerups in this room
