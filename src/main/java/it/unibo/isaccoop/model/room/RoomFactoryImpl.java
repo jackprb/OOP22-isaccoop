@@ -1,7 +1,6 @@
 package it.unibo.isaccoop.model.room;
 
-import org.apache.commons.lang3.tuple.Pair;
-
+import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.RoomType;
 
 /**
@@ -22,7 +21,7 @@ public final class RoomFactoryImpl implements RoomFactory {
     }
 
     @Override
-    public Room buildStartRoom(final Pair<Double, Double> coordInsideLevel) {
+    public Room buildStartRoom(final Point2D coordInsideLevel) {
         return new RoomBuilder.Builder(this.width, this.height)
                 .roomType(RoomType.START)
                 .putCoord(coordInsideLevel)
@@ -31,7 +30,7 @@ public final class RoomFactoryImpl implements RoomFactory {
     }
 
     @Override
-    public Room buildStandardRoom(final Pair<Double, Double> coordInsideLevel) {
+    public Room buildStandardRoom(final Point2D coordInsideLevel) {
         return new RoomBuilder.Builder(this.width, this.height)
                 .roomType(RoomType.STANDARD)
                 .putCoord(coordInsideLevel)
@@ -41,7 +40,7 @@ public final class RoomFactoryImpl implements RoomFactory {
     }
 
     @Override
-    public Room buildShopRoom(final Pair<Double, Double> coordInsideLevel) {
+    public Room buildShopRoom(final Point2D coordInsideLevel) {
         return new RoomBuilder.Builder(this.width, this.height)
                 .roomType(RoomType.SHOP)
                 .putCoord(coordInsideLevel)
@@ -50,7 +49,7 @@ public final class RoomFactoryImpl implements RoomFactory {
     }
 
     @Override
-    public Room buildBossRoom(final Pair<Double, Double> coordInsideLevel) {
+    public Room buildBossRoom(final Point2D coordInsideLevel) {
         return new RoomBuilder.Builder(this.width, this.height)
                 .roomType(RoomType.BOSS)
                 .putCoord(coordInsideLevel)
@@ -60,7 +59,7 @@ public final class RoomFactoryImpl implements RoomFactory {
     }
 
     @Override
-    public Room buildTreasureRoom(final Pair<Double, Double> coordInsideLevel) {
+    public Room buildTreasureRoom(final Point2D coordInsideLevel) {
         return new RoomBuilder.Builder(this.width, this.height)
                 .roomType(RoomType.TREASURE)
                 .putCoord(coordInsideLevel)
@@ -69,7 +68,7 @@ public final class RoomFactoryImpl implements RoomFactory {
     }
 
     @Override
-    public Room buildRoomOfType(final RoomType roomType, final Pair<Double, Double> coordInsideLevel) {
+    public Room buildRoomOfType(final RoomType roomType, final Point2D coordInsideLevel) {
         switch (roomType) {
         case START:
             return buildStartRoom(coordInsideLevel);
