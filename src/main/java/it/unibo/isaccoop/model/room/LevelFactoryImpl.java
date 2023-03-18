@@ -101,7 +101,7 @@ public final class LevelFactoryImpl implements LevelFactory {
      */
     private Point2D getNewCoordinateAlongDirection(
             final Point2D coord, final Direction dir) {
-        return new Point2D(coord.getX()+ dir.getX(), coord.getY() + dir.getY());
+        return new Point2D(coord.getX() + dir.getX(), coord.getY() + dir.getY());
     }
 
     /**

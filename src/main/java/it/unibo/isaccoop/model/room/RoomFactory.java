@@ -1,7 +1,5 @@
 package it.unibo.isaccoop.model.room;
 
-import org.apache.commons.lang3.tuple.Pair;
-
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.RoomType;
 
