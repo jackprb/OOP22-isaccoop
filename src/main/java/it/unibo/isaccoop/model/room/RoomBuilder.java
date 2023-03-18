@@ -1,12 +1,15 @@
 package it.unibo.isaccoop.model.room;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
 import it.unibo.isaccoop.model.ai.AIEnemy;
+import it.unibo.isaccoop.model.common.NormalRoomCreator;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.RoomType;
+import it.unibo.isaccoop.model.common.ShopRoomCreator;
+import it.unibo.isaccoop.model.item.Item;
+import it.unibo.isaccoop.model.powerup.PowerUp;
 
 /**
  * Class to model the Builder pattern, used to build a {@link Room}, using the "fluent" style. 
@@ -22,9 +25,11 @@ public class RoomBuilder {
         private final int height; 
 
         //other basic field (set with their dedicated methods)
-        private Optional<Point2D> coord;
-        private List<Door> doors = new LinkedList<>();
-        private Optional<RoomType> roomType;
+        private Optional<Point2D> coord = Optional.empty();
+        //private List<Door> doors = new LinkedList<>();
+        private Optional<RoomType> roomType = Optional.empty();
+        private Optional<List<Item>> items = Optional.empty();
+        private Optional<List<PowerUp>> powerups = Optional.empty();
 
         //optional fields
         private Optional<AIEnemy> roomAI = Optional.empty();
@@ -62,10 +67,10 @@ public class RoomBuilder {
          * @param doors the doors to be added inside this room
          * @return this builder
          */
-        public Builder putDoors(final List<Door> doors) {
+        /*public Builder putDoors(final List<Door> doors) {
             this.doors = doors;
             return this;
-        }
+        }*/
 
         /**
          * Method to set the room type, REQUIRED for ALL rooms.
@@ -87,7 +92,7 @@ public class RoomBuilder {
          */
         public Builder putAI(final AIEnemy roomAI) {
             if (checkConditionForAiRoom()) {
-                this.roomAI = Optional.of(roomAI);
+                this.roomAI = Optional.ofNullable(roomAI);
                 return this;
             }
             throw new IllegalStateException("only STANDARD and BOSS rooms can have an AI");
@@ -103,14 +108,21 @@ public class RoomBuilder {
          * @return the build Room
          */
         public Room build() {
-            if (this.coord.isEmpty() || this.doors.isEmpty() || this.roomType.isEmpty()) {
+            if (this.coord.isEmpty() /*|| this.doors.isEmpty() */ || this.roomType.isEmpty()) {
                 throw new IllegalStateException("set all required fields: use putCoords(), putDoors() and roomType() methods.");
             }
             if (this.roomAI.isEmpty() && checkConditionForAiRoom()) {
-                throw new IllegalStateException("this room needs an AiEnemy object");
+                //throw new IllegalStateException("this room needs an AiEnemy object");
             }
+            if (this.roomType.get() == RoomType.STANDARD) {
+                this.items = Optional.of(new NormalRoomCreator().create());
+            } 
+            if (this.roomType.get() == RoomType.SHOP) {
+                this.powerups = Optional.of(new ShopRoomCreator().create());
+            }
+
             return new RoomImpl(this.width, this.height, this.coord.get(), 
-                    this.doors, this.roomType.get(), this.roomAI.get());
+                    /*this.doors, */ this.roomType.get(), this.roomAI, this.items, this.powerups);
         }
 
         /**
