@@ -1,12 +1,10 @@
 package it.unibo.isaccoop.model.enemy;
 
-import it.unibo.isaccoop.model.common.AbstractMapElement;
 import it.unibo.isaccoop.model.common.Point2D;
+import it.unibo.isaccoop.model.common.Vector2D;
 
 /***/
-public final class NonShootingEnemy extends AbstractMapElement implements Enemy {
-
-    private static final int DELTA = 10;
+public final class NonShootingEnemy extends AbstractEnemy {
 
     @Override
     public void onHit() {
@@ -21,10 +19,8 @@ public final class NonShootingEnemy extends AbstractMapElement implements Enemy 
 
     @Override
     public void move(final Point2D playerPosition) {
-        final double newX = Math.abs(playerPosition.getX() - super.getCoords().getX()) / NonShootingEnemy.DELTA;
-        final double newY = Math.abs(playerPosition.getY() - super.getCoords().getY()) / NonShootingEnemy.DELTA;
-
-        super.setCoords(new Point2D(newX, newY));
+        final Vector2D movementVector = playerPosition.sub(playerPosition).mul(1 / NonShootingEnemy.DELTA);
+        super.setCoords(super.getCoords().sum(movementVector));
     }
 
 }
