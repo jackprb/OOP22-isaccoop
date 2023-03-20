@@ -2,7 +2,7 @@ package it.unibo.isaccoop.model.common;
 import java.util.Objects;
 
 /**
- * Implementation of MapElement.
+ * Implementation of {@link MapElement}.
  */
 public class MapElementImpl extends AbstractMapElement {
 
@@ -63,5 +63,4 @@ public class MapElementImpl extends AbstractMapElement {
         final MapElementImpl other = (MapElementImpl) obj;
         return Objects.equals(super.getCoords(), other.getCoords()) && height == other.height && width == other.width;
     }
-
 }
