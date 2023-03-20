@@ -45,4 +45,12 @@ public interface Room extends MapElement {
      * @return the list of powerups in this room
      */
     Optional<List<PowerUp>> getPowerUps();
+
+    /**
+     * Check if this room is complete.
+     * A room is complete if all enemies in there are defeated.
+     * Rooms with neither enemies nor boss are already complete. 
+     * @return true if this room is complete, false otherwise
+     */
+    boolean isComplete();
 }

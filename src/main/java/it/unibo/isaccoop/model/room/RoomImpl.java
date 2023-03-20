@@ -69,6 +69,11 @@ public final class RoomImpl extends MapElementImpl implements Room {
     }
 
     @Override
+    public boolean isComplete() {
+        return false;
+    }
+
+    @Override
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
