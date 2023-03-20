@@ -16,12 +16,6 @@ public final class ShootingEnemy extends AbstractEnemy {
     }
 
     @Override
-    public void onHit() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public void hit(final Point2D playerPosition) {
         this.weapon.shoot(super.getCoords(), playerPosition);
     }
