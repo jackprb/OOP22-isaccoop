@@ -32,5 +32,4 @@ public abstract class AbstractMapElement implements MapElement {
     public void setCoords(final Point2D coords) {
         this.coords = new Point2D(coords.getX(), coords.getY());
     }
-
 }
