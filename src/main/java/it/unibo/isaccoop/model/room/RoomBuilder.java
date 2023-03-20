@@ -12,7 +12,7 @@ import it.unibo.isaccoop.model.item.Item;
 import it.unibo.isaccoop.model.powerup.PowerUp;
 
 /**
- * Class to model the Builder pattern, used to build a {@link Room}, using the "fluent" style. 
+ * Class to model the Builder pattern, used to build a {@link Room}, using the "fluent" style.
  */
 public class RoomBuilder {
 
@@ -21,8 +21,8 @@ public class RoomBuilder {
      */
     public static class Builder {
         //basic and minimal fields (set with constructor)
-        private final int width; 
-        private final int height; 
+        private final int width;
+        private final int height;
 
         //other basic field (set with their dedicated methods)
         private Optional<Point2D> coord = Optional.empty();
@@ -37,10 +37,10 @@ public class RoomBuilder {
 
         /**
          * To build a Room, use {@link RoomFactory} instead. <br>
-         * 
-         * It is required to call this constructor first, then at least the REQUIRED methods. 
+         *
+         * It is required to call this constructor first, then at least the REQUIRED methods.
          * <br> At the end, call the method build().
-         * 
+         *
          * @param width the horizontal dimension of this room
          * @param height the vertical dimension of this room
          */
@@ -50,9 +50,9 @@ public class RoomBuilder {
         }
 
         /**
-         * Method to set the coordinate of this room inside the level, 
+         * Method to set the coordinate of this room inside the level,
          * REQUIRED for ALL rooms.
-         * 
+         *
          * @param coord the coordinate of this room inside the level
          * @return this builder
          */
@@ -63,7 +63,7 @@ public class RoomBuilder {
 
         /**
          * Method to place the doors inside this room, REQUIRED for ALL rooms.
-         * 
+         *
          * @param doors the doors to be added inside this room
          * @return this builder
          */
@@ -74,7 +74,7 @@ public class RoomBuilder {
 
         /**
          * Method to set the room type, REQUIRED for ALL rooms.
-         * 
+         *
          * @param roomType the type of room to be created
          * @return this builder
          */
@@ -85,7 +85,7 @@ public class RoomBuilder {
 
         /**
          * Method to set the AI inside this room, REQUIRED ONLY for STANDARD and BOSS rooms.
-         * 
+         *
          * @param roomAI the AI of this room
          * @return this builder
          * @throws IllegalStateException if called on NON STANDARD or NON BOSS rooms
@@ -100,11 +100,11 @@ public class RoomBuilder {
 
         /**
          * Method to build the Room.
-         * First, you need to call the constructor, then at least the REQUIRED methods 
+         * First, you need to call the constructor, then at least the REQUIRED methods
          * to set this Room's fields. <br> After that, you can call this method.
-         * 
+         *
          * @throws IllegalStateException if current Room has some REQUIRED fields unset.
-         * 
+         *
          * @return the build Room
          */
         public Room build() {
@@ -112,16 +112,16 @@ public class RoomBuilder {
                 throw new IllegalStateException("set all required fields: use putCoords(), putDoors() and roomType() methods.");
             }
             if (this.roomAI.isEmpty() && checkConditionForAiRoom()) {
-                //throw new IllegalStateException("this room needs an AiEnemy object");
+                throw new IllegalStateException("this room needs an AiEnemy object");
             }
             if (this.roomType.get() == RoomType.STANDARD) {
                 this.items = Optional.of(new NormalRoomCreator().create());
-            } 
+            }
             if (this.roomType.get() == RoomType.SHOP) {
                 this.powerups = Optional.of(new ShopRoomCreator().create());
             }
 
-            return new RoomImpl(this.width, this.height, this.coord.get(), 
+            return new RoomImpl(this.width, this.height, this.coord.get(),
                     /*this.doors, */ this.roomType.get(), this.roomAI, this.items, this.powerups);
         }
 

@@ -2,7 +2,8 @@ package it.unibo.isaccoop.model.room;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -19,13 +20,12 @@ public final class LevelFactoryImpl implements LevelFactory {
     private int gridRows;
     private int gridCols;
     private final List<Pair<Integer, Integer>> roomCoords = new LinkedList<>();
-    private Level lvl;
     // ogni livello deve avere almeno 5 room, una per ogni tipo
     private static final int MIN_NUMBER_OF_ROOMS = 5;
 
     @Override
     public Level createLevel(final int numberOfRooms, final int gridRows, final int gridCols) {
-        if (!(numberOfRooms >= MIN_NUMBER_OF_ROOMS && gridRows > 0 && gridCols > 0 
+        if (!(numberOfRooms >= MIN_NUMBER_OF_ROOMS && gridRows > 0 && gridCols > 0
                 && numberOfRooms <= gridRows * gridCols)) {
             throw new IllegalArgumentException("");
         }
@@ -36,13 +36,14 @@ public final class LevelFactoryImpl implements LevelFactory {
         setRoomCoordinates();
 
         final List<Room> rooms = createRooms();
-        this.lvl = new LevelImpl();
-        this.lvl.putRooms(rooms);
-        return this.lvl;
+        final Level lvl = new LevelImpl();
+        lvl.putRooms(rooms);
+
+        return lvl;
     }
 
     /**
-     * Generates dynamically the coordinates that will be used as positions 
+     * Generates dynamically the coordinates that will be used as positions
      * for the rooms in this level.
      */
     private void setRoomCoordinates() {
@@ -55,7 +56,7 @@ public final class LevelFactoryImpl implements LevelFactory {
                 //ottiene possibili direzioni per la prossima room
                 final List<Pair<Integer, Integer>> availablePos = getAvailablePositionsFrom(roomPos);
                 if (!availablePos.isEmpty()) { //se ci sono direzioni disponibili
-                    roomPos = availablePos.get(new Random().nextInt(availablePos.size())); //ne sceglie una
+                    roomPos = availablePos.get(ThreadLocalRandom.current().nextInt(availablePos.size())); //ne sceglie una
                 }
             } else {
                 roomPos = findNewAvailableCoordinate();
@@ -66,8 +67,8 @@ public final class LevelFactoryImpl implements LevelFactory {
     /**
      * Find a new available coordinate around one of the coordinates already added to the roomCoords list.
      * To be used when coordinates generation fails to complete (e.g.: when a loop of rooms is created).
-     * 
-     * @return a coordinate already present in the coordinates list, 
+     *
+     * @return a coordinate already present in the coordinates list,
      * which has at least 1 available cell around itself
      */
     private Pair<Integer, Integer> findNewAvailableCoordinate() {
@@ -83,7 +84,7 @@ public final class LevelFactoryImpl implements LevelFactory {
     /**
      * finds all available positions/coordinates around the specified coordinate currPos.
      * @param currPos the current coordinate
-     * @return a list of available coordinates around the specified coordinare currPos 
+     * @return a list of available coordinates around the specified coordinare currPos
      */
     private List<Pair<Integer, Integer>> getAvailablePositionsFrom(final Pair<Integer, Integer> currPos) {
         final List<Pair<Integer, Integer>> pos = new LinkedList<>();
@@ -113,19 +114,19 @@ public final class LevelFactoryImpl implements LevelFactory {
      * @return true if the coordinate is valid (inside the grid), false otherwise
      */
     private boolean isValidCoord(final Pair<Integer, Integer> coord) {
-        return coord.getLeft() >= 0 && coord.getRight() >= 0 
+        return coord.getLeft() >= 0 && coord.getRight() >= 0
                 && coord.getRight() < this.gridRows && coord.getLeft() < this.gridCols;
     }
 
     /**
-     * Method to associate rooms to their coordinates. 
+     * Method to associate rooms to their coordinates.
      * @return the list of created rooms.
      */
     private List<Room> createRooms() {
         final RoomFactory rFactory = new RoomFactoryImpl();
         final List<Room> rooms = new LinkedList<>();
         for (int i = 0; i < this.roomCoords.size(); i++) {
-            var coord = pair2point2D(this.roomCoords.get(rooms.size()));
+            final var coord = pair2point2D(this.roomCoords.get(rooms.size()));
             if (i < RoomType.values().length) {
                 // crea una room di ogni tipo (BOSS, SHOP, TREASURE, START, STANDARD)
                 rooms.add(rFactory.buildRoomOfType(RoomType.values()[i], coord));
