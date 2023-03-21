@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import it.unibo.isaccoop.model.ai.AIEnemy;
+import it.unibo.isaccoop.model.collision.Event;
 import it.unibo.isaccoop.model.common.MapElement;
 import it.unibo.isaccoop.model.common.RoomType;
 import it.unibo.isaccoop.model.item.Item;
@@ -53,4 +54,20 @@ public interface Room extends MapElement {
      * @return true if this room is complete, false otherwise
      */
     boolean isComplete();
+
+    /**
+     * 
+     */
+    void updateRoom();
+
+    /**
+     * Receives an event and adds to the queue.
+     * @param event the event to add to the queue
+     */
+    void notifyEvent(Event event);
+
+    /**
+     * Executes all events in queue.
+     */
+    void executeEvents();
 }
