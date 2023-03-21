@@ -1,37 +1,30 @@
 package it.unibo.isaccoop.model.ai;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Stream;
 
+import it.unibo.isaccoop.model.common.MapElement;
 import it.unibo.isaccoop.model.enemy.Enemy;
 
 /***/
 public class ConcreteAIEnemy implements AIEnemy {
 
     private final List<Enemy> controlledEnemies;
-    private static final int MAX_ENEMIES_IN_ROOM = 3;
 
-    /***/
-    public ConcreteAIEnemy() {
-        this.controlledEnemies = new ArrayList<>();
+    /**
+     * Constructor for {@link ConcreteAIEnemy}.
+     *
+     * @param enemies enemies to attach to {@link ConcreteAIEnemy} as a {@link List}
+     * */
+    public ConcreteAIEnemy(final List<Enemy> enemies) {
+        this.controlledEnemies = List.copyOf(enemies);
     }
 
     /***/
     @Override
-    public void createEnemies() {
-        Stream.iterate(0, i -> i + 1)
-            .limit(ThreadLocalRandom.current().nextInt(ConcreteAIEnemy.MAX_ENEMIES_IN_ROOM) + 1)
-            .forEach(i -> this.controlledEnemies.add(new Enemy()));
-    }
-
-    /***/
-    @Override
-    public void updateEnemies() {
+    public void updateEnemies(final MapElement player) {
         this.controlledEnemies.forEach(enemy -> {
-            enemy.move();
-            enemy.hit();
+            enemy.move(player.getCoords());
+            enemy.hit(player.getCoords());
         });
     }
 

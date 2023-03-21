@@ -1,11 +1,11 @@
 package it.unibo.isaccoop.model.player;
 
-import org.apache.commons.lang3.tuple.Pair;
+import it.unibo.isaccoop.model.common.AbstractMapElement;
 
 /**
  * Implement the interface PlayerStat.
  * */
-public class PlayerStatImpl implements PlayerStat {
+public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
 
     /**
      * the player hearts.
@@ -43,11 +43,6 @@ public class PlayerStatImpl implements PlayerStat {
     private float range;
 
     /**
-     * the position of the player in the map.
-     * */
-    private Pair<Integer, Integer> position;
-
-    /**
      * create an enum to set initial stats of player.
      * */
     private enum PlayerValue {
@@ -79,9 +74,10 @@ public class PlayerStatImpl implements PlayerStat {
     }
 
     /**
-     * Player constructor. 
+     * Player constructor.
      * */
     public PlayerStatImpl() {
+        super();
         this.heart = PlayerValue.HEART.getValue();
         this.coin = PlayerValue.COIN.getValue();
         this.maxHeart = PlayerValue.MAX_HEART.getValue();
@@ -147,14 +143,6 @@ public class PlayerStatImpl implements PlayerStat {
         return this.tears;
     }
 
-    /**
-     * @return the position of the player
-     * */
-    @Override
-    public Pair<Integer, Integer> getPosition() {
-        return this.position;
-    }
-
     /***/
     @Override
     public void setHeart(final int heart) {
@@ -195,12 +183,6 @@ public class PlayerStatImpl implements PlayerStat {
     @Override
     public void setDamage(final float damage) {
         this.damage = damage;
-    }
-
-    /***/
-    @Override
-    public void setPosition(final Pair<Integer, Integer> position) {
-        this.position = position;
     }
 
 }
