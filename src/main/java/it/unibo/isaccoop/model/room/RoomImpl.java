@@ -3,8 +3,10 @@ package it.unibo.isaccoop.model.room;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Queue;
 
 import it.unibo.isaccoop.model.ai.AIEnemy;
+import it.unibo.isaccoop.model.collision.Event;
 import it.unibo.isaccoop.model.common.MapElementImpl;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.RoomType;
@@ -20,6 +22,7 @@ public final class RoomImpl extends MapElementImpl implements Room {
     private final Optional<AIEnemy> roomAi;
     private final Optional<List<Item>> items;
     private final Optional<List<PowerUp>> powerups;
+    private Queue<Event> eventsQueue;
 
     /**
      * Use {@link RoomFactory} to create a new {@link Room}.
@@ -71,6 +74,21 @@ public final class RoomImpl extends MapElementImpl implements Room {
     @Override
     public boolean isComplete() {
         return false;
+    }
+
+    @Override
+    public void updateRoom() {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void notifyEvent(final Event event) {
+        this.eventsQueue.add(event);
+    }
+
+    @Override
+    public void executeEvents() {
+
     }
 
     @Override
