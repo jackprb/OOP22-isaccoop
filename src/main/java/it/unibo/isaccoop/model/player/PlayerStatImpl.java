@@ -77,7 +77,7 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
      * Player constructor.
      * */
     public PlayerStatImpl() {
-        super();
+        super(ElementsRadius.PLAYER);
         this.heart = PlayerValue.HEART.getValue();
         this.coin = PlayerValue.COIN.getValue();
         this.maxHeart = PlayerValue.MAX_HEART.getValue();
