@@ -18,8 +18,10 @@ public class HealthUp extends PowerUp {
     public void interact(final PlayerStat p) {
         if (super.isSuperItem()) {
             p.setMaxHeart(p.getMaxHeart() + HEALTH_SUPER_UP);
+            this.setPrice(10);
         } else {
             p.setMaxHeart(p.getMaxHeart() + HEALTH_UP);
+            this.setPrice(5);
         }
     }
 

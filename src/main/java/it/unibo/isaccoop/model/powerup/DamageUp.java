@@ -17,8 +17,10 @@ public class DamageUp extends PowerUp {
     public void interact(final PlayerStat p) {
         if (super.isSuperItem()) {
             p.setDamage(p.getDamage() + DAMAGE_SUPER_UP);
+            this.setPrice(10);
         } else {
             p.setDamage(p.getDamage() + DAMAGE_UP);
+            this.setPrice(5);
         }
 
     }

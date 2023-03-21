@@ -18,8 +18,10 @@ public class CoinUp extends PowerUp {
     public void interact(final PlayerStat p) {
         if (super.isSuperItem()) {
             p.setCoin(p.getCoin() + COIN_SUPER_UP);
+            this.setPrice(10);
         } else {
             p.setCoin(p.getCoin() + COIN_UP);
+            this.setPrice(5);
         }
     }
 

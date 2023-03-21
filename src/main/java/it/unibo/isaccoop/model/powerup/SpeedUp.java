@@ -17,8 +17,10 @@ public class SpeedUp extends PowerUp {
     public void interact(final PlayerStat p) {
         if (super.isSuperItem()) {
             p.setSpeed(p.getSpeed() + SPEED_SUPER_UP);
+            this.setPrice(10);
         } else {
             p.setSpeed(p.getSpeed() + SPEED_UP);
+            this.setPrice(5);
         }
     }
 

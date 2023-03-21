@@ -17,8 +17,10 @@ public class RangeUp extends PowerUp {
     public void interact(final PlayerStat p) {
         if (super.isSuperItem()) {
             p.setRange(p.getRange() + RANGE_SUPER_UP);
+            this.setPrice(10);
         } else {
             p.setRange(p.getRange() + RANGE_UP);
+            this.setPrice(5);
         }
     }
 

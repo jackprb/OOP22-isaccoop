@@ -17,8 +17,10 @@ public class TearsUp extends PowerUp {
     public void interact(final PlayerStat p) {
         if (super.isSuperItem()) {
             p.setTears(p.getTears() + TEARS_SUPER_UP);
+            this.setPrice(10);
         } else {
             p.setTears(p.getTears() + TEARS_UP);
+            this.setPrice(5);
         }
     }
 
