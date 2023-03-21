@@ -1,6 +1,6 @@
 package it.unibo.isaccoop.model.ai;
 
-import it.unibo.isaccoop.model.player.PlayerStat;
+import it.unibo.isaccoop.model.common.MapElement;
 
 /***/
 public interface AIEnemy {
@@ -10,6 +10,6 @@ public interface AIEnemy {
      *
      * @param player player in game in order to handle enemy actions
      * */
-    void updateEnemies(PlayerStat player);
+    void updateEnemies(MapElement player);
 
 }

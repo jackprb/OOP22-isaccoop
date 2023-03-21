@@ -9,7 +9,6 @@ public class TearsUp extends PowerUp {
 
     private static final int TEARS_SUPER_UP = 2;
     private static final int TEARS_UP = 1;
-
     /**
      *  Increase the player's speed.
      *  @param p reference to player.
