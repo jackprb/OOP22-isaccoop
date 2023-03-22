@@ -19,10 +19,11 @@ public class PlayerShot extends PlayerWeaponImpl {
 
     /**
      * @param distance the distance the bullet travels
+     * @param direction the direction in which the bullet is fired
      * */
-    public void bulletDirection(final float distance) {
+    public void bulletDirection(final int direction, final float distance) {
         Point2D newPosition;
-        switch (super.getDirection()) {
+        switch (direction) {
             /* 0 = up */
             case 0:
                 newPosition = new Point2D(super.getCoords().getX(), super.getCoords().getY() - distance);

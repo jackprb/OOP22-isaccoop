@@ -10,7 +10,7 @@ public interface Hitable {
     /**
      * Method to be called when the culpable is hit.
      *
-     * @param player player who fired
+     * @param player player object in order to handle collision with enemy
      * */
     void onHit(PlayerStat player);
 

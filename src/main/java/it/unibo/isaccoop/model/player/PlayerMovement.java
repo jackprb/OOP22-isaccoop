@@ -6,23 +6,8 @@ package it.unibo.isaccoop.model.player;
 public interface PlayerMovement {
 
     /**
-     * Move the player to right.
+     * Update the player position.
+     * @param direction the direction in which the player moves
      * */
-    void right();
-
-    /**
-     * Move the player to left.
-     * */
-    void left();
-
-    /**
-     * Move the player up.
-     * */
-    void up();
-
-    /**
-     * Move the player down.
-     * */
-    void down();
-
+    void update(int direction);
 }

@@ -185,4 +185,11 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
         this.damage = damage;
     }
 
+    /**
+     * @return if the player is dead.
+     * */
+    @Override
+    public boolean isDead() {
+        return this.heart == 0;
+    }
 }
