@@ -12,7 +12,7 @@ import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.RoomType;
 import it.unibo.isaccoop.model.item.Item;
 import it.unibo.isaccoop.model.powerup.PowerUp;
-import it.unibo.isaccoop.model.player.*;
+import it.unibo.isaccoop.model.player.Player;
 
 /**
  * Implementation of {@link Room}.
@@ -74,7 +74,7 @@ public final class RoomImpl extends MapElementImpl implements Room {
     public Optional<List<PowerUp>> getPowerUps() {
         return this.powerups;
     }
-    
+
     @Override
     public Optional<Player> getPlayer() {
         return this.player;

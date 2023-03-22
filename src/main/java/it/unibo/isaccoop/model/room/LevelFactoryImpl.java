@@ -25,6 +25,9 @@ public final class LevelFactoryImpl implements LevelFactory {
     private static final int MIN_NUMBER_OF_ROOMS = 5;
     private final Player player;
 
+    /**
+     * Empty constructor.
+     */
     public LevelFactoryImpl() {
         this.player = new Player();
     }

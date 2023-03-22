@@ -47,10 +47,10 @@ public interface Room extends MapElement {
      * @return the list of powerups in this room
      */
     Optional<List<PowerUp>> getPowerUps();
-    
+
     /**
      * Get the {@link Player}.
-     * @return
+     * @return the player
      */
     Optional<Player> getPlayer();
 

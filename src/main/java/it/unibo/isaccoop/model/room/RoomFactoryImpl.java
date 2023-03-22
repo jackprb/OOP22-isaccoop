@@ -16,6 +16,7 @@ public final class RoomFactoryImpl implements RoomFactory {
 
     /**
      * Constructor. No parameters needed.
+     * @param player the player to be put inside the START room
      */
     public RoomFactoryImpl(final Player player) {
         this.width = MIN_MAX_ROOM_DIMENSIONS;
