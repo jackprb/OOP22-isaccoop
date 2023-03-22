@@ -1,5 +1,6 @@
 package it.unibo.isaccoop.model.room;
 
+import java.util.ArrayDeque;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -24,7 +25,7 @@ public final class RoomImpl extends MapElementImpl implements Room {
     private final Optional<List<Item>> items;
     private final Optional<List<PowerUp>> powerups;
     private final Optional<Player> player;
-    private Queue<Event> eventsQueue;
+    private final Queue<Event> eventsQueue;
 
     /**
      * Use {@link RoomFactory} to create a new {@link Room}.
@@ -48,6 +49,7 @@ public final class RoomImpl extends MapElementImpl implements Room {
         this.items = items;
         this.powerups = powerups;
         this.player = Optional.of(player);
+        this.eventsQueue = new ArrayDeque<>();
     }
 
     /*@Override
