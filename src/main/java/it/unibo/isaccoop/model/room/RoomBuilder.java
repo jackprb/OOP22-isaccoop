@@ -9,6 +9,7 @@ import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.RoomType;
 import it.unibo.isaccoop.model.common.ShopRoomCreator;
 import it.unibo.isaccoop.model.item.Item;
+import it.unibo.isaccoop.model.player.Player;
 import it.unibo.isaccoop.model.powerup.PowerUp;
 
 /**
@@ -30,6 +31,7 @@ public class RoomBuilder {
         private Optional<RoomType> roomType = Optional.empty();
         private Optional<List<Item>> items = Optional.empty();
         private Optional<List<PowerUp>> powerups = Optional.empty();
+        private Optional<Player> player;
 
         //optional fields
         private Optional<AIEnemy> roomAI = Optional.empty();
@@ -99,6 +101,18 @@ public class RoomBuilder {
         }
 
         /**
+         * Method to put the player inside this room.
+         * REQUIRED ONLY for the START room.
+         * 
+         * @param player the player to be put inside this room
+         * @return this builder
+         */
+        public Builder putPlayer(final Player player) {
+            this.player = Optional.of(player);
+            return this;
+        }
+
+        /**
          * Method to build the Room.
          * First, you need to call the constructor, then at least the REQUIRED methods
          * to set this Room's fields. <br> After that, you can call this method.
@@ -109,10 +123,10 @@ public class RoomBuilder {
          */
         public Room build() {
             if (this.coord.isEmpty() /*|| this.doors.isEmpty() */ || this.roomType.isEmpty()) {
-                throw new IllegalStateException("set all required fields: use putCoords(), putDoors() and roomType() methods.");
+                throw new IllegalStateException("set all required fields: use putCoords() and roomType() methods.");
             }
             if (this.roomAI.isEmpty() && checkConditionForAiRoom()) {
-                throw new IllegalStateException("this room needs an AiEnemy object");
+                throw new IllegalStateException("this room (" + this.roomType.get() + ")needs an AiEnemy object");
             }
             if (this.roomType.get() == RoomType.STANDARD) {
                 this.items = Optional.of(new NormalRoomCreator().create());
@@ -120,9 +134,11 @@ public class RoomBuilder {
             if (this.roomType.get() == RoomType.SHOP) {
                 this.powerups = Optional.of(new ShopRoomCreator().create());
             }
-
+            if (this.player.isEmpty() && this.roomType.get() == RoomType.START) {
+                throw new IllegalArgumentException("");
+            }
             return new RoomImpl(this.width, this.height, this.coord.get(),
-                    /*this.doors, */ this.roomType.get(), this.roomAI, this.items, this.powerups);
+                    /*this.doors, */ this.roomType.get(), this.roomAI, this.items, this.powerups, player.get());
         }
 
         /**
