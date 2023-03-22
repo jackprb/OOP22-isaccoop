@@ -1,7 +1,8 @@
 package it.unibo.isaccoop.model.room;
 
 import java.util.List;
-import org.apache.commons.lang3.tuple.Pair;
+
+import it.unibo.isaccoop.model.common.Point2D;
 
 /**
  * Interface to control a {@link Level}.
@@ -9,14 +10,25 @@ import org.apache.commons.lang3.tuple.Pair;
 public interface LevelController {
 
     /**
+     * Get the current Level.
+     * @return the current level
+     */
+    Level getCurrentLevel();
+
+    /**
      * @return the unmodifiable list of all the rooms in this level
      */
-    List<Room> getRooms();
+    List<Room> getRoomsOfCurrentLevel();
+
+    /**
+     * @return the number of rooms inside this level
+     */
+    int getNumberOfRooms();
 
     /**
      * @return the coordinates of the room where the player is 
      */
-    Pair<Integer, Integer> getPlayerRoomCoord();
+    Point2D getPlayerRoomCoord();
 
     /**
      * @return the room where the player is 
@@ -33,15 +45,24 @@ public interface LevelController {
     boolean isRoomComplete(Room room);
 
     /**
-     * @return the number of rooms inside this level
+     * Check if current level is complete.
+     * A level is complete if all its room are complete.
+     * @return true if current level is complete, false otherwise
      */
-    int getNumberOfRooms();
+    boolean isCurrentLevelComplete();
+
+    /**
+     * Check if all levels are complete.
+     * A level is complete if all its room are complete.
+     * @return true if all levels are complete, false otherwise
+     */
+    boolean areAllLevelsComplete();
 
     /**
      * @return a list of coordinates of accessible rooms, 
      * near the room where the player is
      */
-    List<Pair<Integer, Integer>> getAccessibleRooms();
+    List<Room> getAccessibleRooms();
 
     /**
      * Move the player to the specified room.
