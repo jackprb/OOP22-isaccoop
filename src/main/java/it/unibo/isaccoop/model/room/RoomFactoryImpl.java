@@ -81,9 +81,9 @@ public final class RoomFactoryImpl implements RoomFactory {
             return buildStandardRoom(coordInsideLevel);
         case SHOP:
             return buildShopRoom(coordInsideLevel);
-        case BOSS: 
+        case BOSS:
             return buildBossRoom(coordInsideLevel);
-        case TREASURE: 
+        case TREASURE:
             return buildTreasureRoom(coordInsideLevel);
         default:
             throw new IllegalArgumentException("Incorrect roomType value: " + roomType);

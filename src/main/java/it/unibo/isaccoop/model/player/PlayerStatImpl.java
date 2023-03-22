@@ -77,7 +77,7 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
      * Player constructor.
      * */
     public PlayerStatImpl() {
-        super();
+        super(ElementsRadius.PLAYER);
         this.heart = PlayerValue.HEART.getValue();
         this.coin = PlayerValue.COIN.getValue();
         this.maxHeart = PlayerValue.MAX_HEART.getValue();
@@ -191,5 +191,15 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
     @Override
     public boolean isDead() {
         return this.heart == 0;
+    }
+    
+    /**
+     * @return if the player has exhausted the hearts.
+     * */
+    public boolean isHitted() {
+        if(this.getHeart() >= 1) {
+            this.setHeart(this.getHeart()-1);
+        }
+        return this.isDead();
     }
 }

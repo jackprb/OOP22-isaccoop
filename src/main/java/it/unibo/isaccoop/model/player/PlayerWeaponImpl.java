@@ -58,7 +58,7 @@ public class PlayerWeaponImpl extends AbstractMapElement implements PlayerWeapon
      * @param damage the damage of the "bullet"
      * */
     public PlayerWeaponImpl(final int direction, final Point2D position, final float damage) {
-        super(position);
+        super(position, ElementsRadius.BULLET);
         this.direction = direction;
         this.damage = damage;
     }
