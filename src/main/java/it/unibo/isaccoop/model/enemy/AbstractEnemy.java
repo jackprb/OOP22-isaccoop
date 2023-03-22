@@ -22,6 +22,7 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
      * @param maxHearts max hearts number for the enemy
      * */
     public AbstractEnemy(final EnemyHearts maxHearts) {
+        super(ElementsRadius.ENEMY);
         this.hearts = maxHearts.getMaxHearts();
     }
 
@@ -83,18 +84,6 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
         public int getMaxHearts() {
             return this.maxHearts;
         }
-    }
-
-    /**
-     * Contractor.
-     */
-    public AbstractEnemy() {
-        super(ElementsRadius.ENEMY);
-    }
-
-    @Override
-    public void onHit(PlayerStat player) {
-
     }
 
 }
