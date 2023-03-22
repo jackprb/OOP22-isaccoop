@@ -99,7 +99,6 @@ public class RoomBuilder {
         /**
          * Method to set the AI inside this room, REQUIRED ONLY for STANDARD and BOSS rooms.
          *
-         * @param roomAI the AI of this room
          * @return this builder
          * @throws IllegalStateException if called on NON STANDARD or NON BOSS rooms
          */

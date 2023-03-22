@@ -2,15 +2,12 @@ package it.unibo.isaccoop.model.room;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
 import it.unibo.isaccoop.model.common.Direction;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.RoomType;
-import it.unibo.isaccoop.model.player.Player;
 
 /**
  * Implementation of {@link LevelFactory}.
@@ -52,7 +49,6 @@ public final class LevelFactoryImpl implements LevelFactory {
                 roomPos = getNewCoordinateAlongDirection(roomPos, Direction.RIGHT);
             }
         }
-        System.out.println("coords: " + this.roomCoords);
     }
 
     /**
