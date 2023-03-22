@@ -14,6 +14,7 @@ public final class NonShootingEnemy extends AbstractEnemy {
      * Constructor for {@link NonShootingEnemy}.
      * */
     public NonShootingEnemy() {
+        super(EnemyHearts.ENEMY_HEARTS);
         this.canHit = false;
         this.lastHitTime = System.currentTimeMillis();
     }
@@ -28,7 +29,7 @@ public final class NonShootingEnemy extends AbstractEnemy {
 
     @Override
     public void move(final Point2D playerPosition) {
-        final Vector2D movementVector = playerPosition.sub(playerPosition).mul(1 / NonShootingEnemy.DELTA);
+        final Vector2D movementVector = playerPosition.sub(playerPosition).mul(1.0 / NonShootingEnemy.getSpeed());
         super.setCoords(super.getCoords().sum(movementVector));
     }
 
