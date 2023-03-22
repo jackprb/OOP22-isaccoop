@@ -10,6 +10,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import it.unibo.isaccoop.model.common.Direction;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.RoomType;
+import it.unibo.isaccoop.model.player.Player;
 
 /**
  * Implementation of {@link LevelFactory}.
@@ -22,6 +23,14 @@ public final class LevelFactoryImpl implements LevelFactory {
     private final List<Pair<Integer, Integer>> roomCoords = new LinkedList<>();
     // ogni livello deve avere almeno 5 room, una per ogni tipo
     private static final int MIN_NUMBER_OF_ROOMS = 5;
+    private final Player player;
+
+    /**
+     * Empty constructor.
+     */
+    public LevelFactoryImpl() {
+        this.player = new Player();
+    }
 
     @Override
     public Level createLevel(final int numberOfRooms, final int gridRows, final int gridCols) {
@@ -123,7 +132,7 @@ public final class LevelFactoryImpl implements LevelFactory {
      * @return the list of created rooms.
      */
     private List<Room> createRooms() {
-        final RoomFactory rFactory = new RoomFactoryImpl();
+        final RoomFactory rFactory = new RoomFactoryImpl(player);
         final List<Room> rooms = new LinkedList<>();
         for (int i = 0; i < this.roomCoords.size(); i++) {
             final var coord = pair2point2D(this.roomCoords.get(rooms.size()));

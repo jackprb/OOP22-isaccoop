@@ -8,16 +8,13 @@ import it.unibo.isaccoop.model.common.Vector2D;
  */
 public class CircleBoundingBox implements BoundingBox {
 
-    private final Point2D center;
     private final double radius;
 
     /**
      * Constractor of the circle bounding box.
-     * @param center
      * @param radius
      */
-    public CircleBoundingBox(final Point2D center, final double radius) {
-        this.center = center;
+    public CircleBoundingBox(final double radius) {
         this.radius = radius;
     }
 
@@ -26,17 +23,18 @@ public class CircleBoundingBox implements BoundingBox {
      * @return radius of the circle bounding box.
      */
     public double getRadius() {
-        return radius;
+        return this.radius;
     }
 
     /**
      * Check for collisions of two bounding box.
-     * @param p
-     * @param radius
-     * @return true if collision occurs
+     * @param center of first bounding box
+     * @param center1 of the second bounding box
+     * @param radius of the second bounding box
+     * @return true if a collision occours
      */
     @Override
-    public boolean isCollidingWith(final Point2D p, final double radius) {
-        return new Vector2D(p, center).module() <= radius + this.radius;
+    public boolean isCollidingWith(final Point2D center, final Point2D center1, final double radius) {
+        return new Vector2D(center, center1).module() <= radius + this.radius;
     }
 }
