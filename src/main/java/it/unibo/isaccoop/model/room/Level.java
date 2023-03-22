@@ -1,7 +1,6 @@
 package it.unibo.isaccoop.model.room;
 
-import java.util.Map;
-import org.apache.commons.lang3.tuple.Pair;
+import java.util.List;
 
 /**
  * Interface to model a level, which contains many {@link Room}.
@@ -9,14 +8,27 @@ import org.apache.commons.lang3.tuple.Pair;
 public interface Level {
 
     /**
-     * inserts the specified rooms map in this level.
+     * Inserts the specified rooms in this level.
      * 
-     * @param roomsMap the room map to be added to this level
+     * @param rooms the room list to be added to this level
      */
-    void putRoomMap(Map<Pair<Integer, Integer>, Room> roomsMap);
+    void putRooms(List<Room> rooms);
 
     /**
-     * @return the map of all rooms in this level and their coordinates in room grid
+     * @return the list of all the rooms in this level
      */
-    Map<Pair<Integer, Integer>, Room> getRooms();
+    List<Room> getRooms();
+
+    /**
+     * Check if this level is complete.
+     * A level is complete if all rooms in there are complete.
+     * @return true if this level is complete, false otherwise
+     */
+    boolean isComplete();
+
+    /**
+     * Get the room where the player begins.
+     * @return the room where the player begins
+     */
+    Room getStartRoom();
 }
