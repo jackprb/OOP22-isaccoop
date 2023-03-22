@@ -85,4 +85,16 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
         }
     }
 
+    /**
+     * Contractor.
+     */
+    public AbstractEnemy() {
+        super(ElementsRadius.ENEMY);
+    }
+
+    @Override
+    public void onHit(PlayerStat player) {
+
+    }
+
 }

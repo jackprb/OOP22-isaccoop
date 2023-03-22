@@ -9,10 +9,11 @@ public interface BoundingBox {
 
     /**
      * Check for collisions of two bounding box.
-     * @param p
-     * @param radius
-     * @return true if collision occurs
+     * @param center of first bounding box
+     * @param center1 of the second bounding box
+     * @param radius of the second bounding box
+     * @return true if a collision occours
      */
-    boolean isCollidingWith(Point2D p, double radius);
+    boolean isCollidingWith(Point2D center, Point2D center1, double radius);
 
 }
