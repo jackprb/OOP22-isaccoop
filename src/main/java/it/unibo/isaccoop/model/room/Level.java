@@ -18,4 +18,17 @@ public interface Level {
      * @return the list of all the rooms in this level
      */
     List<Room> getRooms();
+
+    /**
+     * Check if this level is complete.
+     * A level is complete if all rooms in there are complete.
+     * @return true if this level is complete, false otherwise
+     */
+    boolean isComplete();
+
+    /**
+     * Get the room where the player begins.
+     * @return the room where the player begins
+     */
+    Room getStartRoom();
 }

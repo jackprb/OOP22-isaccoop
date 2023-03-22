@@ -82,4 +82,8 @@ public interface PlayerStat {
      * */
     void setDamage(float damage);
 
+    /**
+     * @return if the player is dead
+     * */
+    boolean isDead();
 }
