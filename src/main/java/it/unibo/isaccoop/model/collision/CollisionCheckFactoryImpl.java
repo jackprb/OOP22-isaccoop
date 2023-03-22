@@ -11,28 +11,33 @@ import it.unibo.isaccoop.model.player.Player;
  *
  */
 public class CollisionCheckFactoryImpl implements CollisionCheckFactory {
-
+    /**
+     *
+     */
     @Override
     public CollisionCheck getCollisionWithItemChecker(Player p, List<MapElement> i) {
         return () -> i.stream().filter(elem -> elem.getBox().isCollidingWith(p.getCoords(), elem.getCoords(), ElementsRadius.PLAYER.getValue()));
     }
-
+    /**
+     *
+     */
     @Override
     public CollisionCheck getCollisionPlayerShotChecker(Player p, List<MapElement> e) {
-        // TODO Auto-generated method stub
-        return null;
+        return () -> e.stream().filter(elem -> elem.getBox().isCollidingWith(p.getCoords(), elem.getCoords(), ElementsRadius.PLAYER.getValue()));
     }
-
+    /**
+     *
+     */
     @Override
     public CollisionCheck getCollisionWithEnemyChecker(Player p, List<MapElement> e) {
-        // TODO Auto-generated method stub
-        return null;
+        return () -> e.stream().filter(elem -> elem.getBox().isCollidingWith(p.getCoords(), elem.getCoords(), ElementsRadius.PLAYER.getValue()));
     }
-
+    /**
+     *
+     */
     @Override
     public CollisionCheck getCollisionWithEnemyShotChecker(Player p, List<MapElement> e) {
-        // TODO Auto-generated method stub
-        return null;
+        return () -> e.stream().filter(elem -> elem.getBox().isCollidingWith(p.getCoords(), elem.getCoords(), ElementsRadius.PLAYER.getValue()));
     }
 
 }
