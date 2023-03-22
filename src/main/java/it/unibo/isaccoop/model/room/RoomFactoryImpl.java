@@ -2,6 +2,7 @@ package it.unibo.isaccoop.model.room;
 
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.RoomType;
+import it.unibo.isaccoop.model.player.Player;
 
 /**
  * Implementation of {@link RoomFactory}.
@@ -11,13 +12,15 @@ public final class RoomFactoryImpl implements RoomFactory {
     private final int width;
     private final int height;
     private static final int MIN_MAX_ROOM_DIMENSIONS = 200;
+    private final Player player;
 
     /**
      * Constructor. No parameters needed.
      */
-    public RoomFactoryImpl() {
+    public RoomFactoryImpl(final Player player) {
         this.width = MIN_MAX_ROOM_DIMENSIONS;
         this.height = MIN_MAX_ROOM_DIMENSIONS;
+        this.player = player;
     }
 
     @Override
@@ -26,6 +29,7 @@ public final class RoomFactoryImpl implements RoomFactory {
                 .roomType(RoomType.START)
                 .putCoord(coordInsideLevel)
                 //.putDoors(List.of(null /*doors*/))
+                .putPlayer(player)
                 .build();
     }
 
