@@ -1,9 +1,10 @@
 package it.unibo.isaccoop.model.enemy;
 
 import it.unibo.isaccoop.model.common.AbstractMapElement;
+import it.unibo.isaccoop.model.player.PlayerStat;
 
 /***/
-public abstract class AbstractEnemy extends AbstractMapElement implements Enemy { 
+public abstract class AbstractEnemy extends AbstractMapElement implements Enemy {
 
     /**
      * Attribute used to update enemy position incrementally.
@@ -17,6 +18,9 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
         super(ElementsRadius.ENEMY);
     }
 
+    @Override
+    public void onHit(PlayerStat player) {
 
+    }
 
 }

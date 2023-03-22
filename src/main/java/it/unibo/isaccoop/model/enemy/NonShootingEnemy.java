@@ -7,12 +7,6 @@ import it.unibo.isaccoop.model.common.Vector2D;
 public final class NonShootingEnemy extends AbstractEnemy {
 
     @Override
-    public void onHit() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public void hit(final Point2D playerPosition) {
        //TODO
     }

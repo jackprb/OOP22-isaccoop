@@ -1,7 +1,7 @@
 package it.unibo.isaccoop.model.collision;
 
+import it.unibo.isaccoop.model.enemy.Enemy;
 import it.unibo.isaccoop.model.item.Item;
-import it.unibo.isaccoop.model.player.PlayerStat;
 
 /***/
 public interface EventFactory {
@@ -17,10 +17,10 @@ public interface EventFactory {
     /**
      * Get a new event when an enemy is shot.
      *
-     * @param player player who fired
+     * @param enemy player who fired
      * @return event created
      * */
-    Event getEnemyShot(PlayerStat player);
+    Event getEnemyShot(Enemy enemy);
 
     /**
      * Get a new event when a player is shot.
