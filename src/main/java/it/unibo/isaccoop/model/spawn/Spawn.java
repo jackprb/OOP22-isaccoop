@@ -10,8 +10,10 @@ import it.unibo.isaccoop.model.common.MapElement;
 public interface Spawn {
 
     /**
-     * Method that set the position of the elements inside the room.
+     * Method that sets the positions of the elements inside the room.
      * @param elementsToSpawn
+     * @param width of room
+     * @param height of room
      */
-    void setPosition(List<MapElement> elementsToSpawn);
+    void setPosition(List<MapElement> elementsToSpawn, int width, int height);
 }
