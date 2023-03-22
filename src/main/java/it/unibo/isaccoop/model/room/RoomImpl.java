@@ -12,6 +12,7 @@ import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.RoomType;
 import it.unibo.isaccoop.model.item.Item;
 import it.unibo.isaccoop.model.powerup.PowerUp;
+import it.unibo.isaccoop.model.player.*;
 
 /**
  * Implementation of {@link Room}.
@@ -22,6 +23,7 @@ public final class RoomImpl extends MapElementImpl implements Room {
     private final Optional<AIEnemy> roomAi;
     private final Optional<List<Item>> items;
     private final Optional<List<PowerUp>> powerups;
+    private final Optional<Player> player;
     private Queue<Event> eventsQueue;
 
     /**
@@ -33,17 +35,19 @@ public final class RoomImpl extends MapElementImpl implements Room {
      * @param roomAI the AiEnemy for this room
      * @param items the items in this room
      * @param powerups the powerups in this room
+     * @param player the player
      */
     public RoomImpl(final int width, final int height,
             final Point2D coord, /*final List<Door> doors,*/ final RoomType roomType,
             final Optional<AIEnemy> roomAI, final Optional<List<Item>> items, 
-            final Optional<List<PowerUp>> powerups) {
+            final Optional<List<PowerUp>> powerups, final Player player) {
         super(width, height, coord);
         this.roomType = roomType;
         //this.doors.addAll(doors);
         this.roomAi = roomAI;
         this.items = items;
         this.powerups = powerups;
+        this.player = Optional.of(player);
     }
 
     /*@Override
@@ -69,6 +73,11 @@ public final class RoomImpl extends MapElementImpl implements Room {
     @Override
     public Optional<List<PowerUp>> getPowerUps() {
         return this.powerups;
+    }
+    
+    @Override
+    public Optional<Player> getPlayer() {
+        return this.player;
     }
 
     @Override
