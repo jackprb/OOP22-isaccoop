@@ -13,36 +13,29 @@ public class PlayerMovementImpl extends PlayerStatImpl implements PlayerMovement
     private final double y = super.getCoords().getY();
 
     /**
-     * Move the player to right.
+     * @param direction the direction which the player moves
      * */
     @Override
-    public void right() {
-        super.setCoords(new Point2D(x + distance, y));
+    public void update(final int direction) {
+        switch (direction) {
+            /* 0 = up */
+            case 0:
+                super.setCoords(new Point2D(x, y - distance));
+            break;
+            /* 1 =  right */
+            case 1:
+                super.setCoords(new Point2D(x + distance, y));
+            break;
+            /* 2 = down */
+            case 2:
+                super.setCoords(new Point2D(x, y + distance));
+            break;
+            /* 3 = left */
+            case 3:
+                super.setCoords(new Point2D(x - distance, y));
+            break;
+            default:
+                super.setCoords(new Point2D(x, y));
+        }
     }
-
-    /**
-     * Move the player to left.
-     * */
-    @Override
-    public void left() {
-        super.setCoords(new Point2D(x - distance, y));
-    }
-
-    /**
-     * Move the player up.
-     * */
-    @Override
-    public void up() {
-        super.setCoords(new Point2D(x, y - distance));
-    }
-
-    /**
-     * Move the player down.
-     * */
-    @Override
-    public void down() {
-        super.setCoords(new Point2D(x, y + distance));
-    }
-
 }
-

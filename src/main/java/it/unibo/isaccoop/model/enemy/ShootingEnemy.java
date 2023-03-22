@@ -12,13 +12,8 @@ public final class ShootingEnemy extends AbstractEnemy {
 
     /***/
     public ShootingEnemy() {
+        super(EnemyHearts.ENEMY_HEARTS);
         this.weapon = new EnemyWeapon();
-    }
-
-    @Override
-    public void onHit() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
@@ -29,8 +24,8 @@ public final class ShootingEnemy extends AbstractEnemy {
     @Override
     public void move(final Point2D playerPosition) {
         final Vector2D moveVector = new Vector2D(
-                ThreadLocalRandom.current().nextDouble(-ShootingEnemy.DELTA, ShootingEnemy.DELTA),
-                ThreadLocalRandom.current().nextDouble(-ShootingEnemy.DELTA, ShootingEnemy.DELTA));
+                ThreadLocalRandom.current().nextDouble(-ShootingEnemy.getSpeed(), ShootingEnemy.getSpeed()),
+                ThreadLocalRandom.current().nextDouble(-ShootingEnemy.getSpeed(), ShootingEnemy.getSpeed()));
         super.setCoords(super.getCoords().sum(moveVector));
     }
 
