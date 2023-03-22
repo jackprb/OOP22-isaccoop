@@ -63,4 +63,5 @@ public class MapElementImpl extends AbstractMapElement {
         final MapElementImpl other = (MapElementImpl) obj;
         return Objects.equals(super.getCoords(), other.getCoords()) && height == other.height && width == other.width;
     }
+
 }
