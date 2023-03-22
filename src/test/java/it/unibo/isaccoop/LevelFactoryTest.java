@@ -74,5 +74,67 @@ class LevelFactoryTest {
                 .allMatch(r -> r.getPlayer().isEmpty()));
     }
 
+    @Test
+    void testItemsInTreasureRoom() {
+        // when a level is created, there must be powerups only in TREASURE and SHOP rooms
+        final var lvl = this.lvlFactory.createLevel(NUMBER_OF_ROOMS);
+        final var rooms = lvl.getRooms();
 
+        // considering only the TREASURE rooms (there will be only one), and in that one
+        // where will be at least one powerup
+        assertTrue(rooms.stream().filter(r -> r.getRoomType() == RoomType.TREASURE)
+                .allMatch(r -> r.getPowerUps().isPresent()));
+        assertTrue(rooms.stream().filter(r -> r.getRoomType() == RoomType.TREASURE)
+                .allMatch(r -> r.getPowerUps().get().size() == 1));
+    }
+
+    @Test
+    void testItemsInShopRoom() {
+        // when a level is created, there must be powerups only in TREASURE and SHOP rooms
+        final var lvl = this.lvlFactory.createLevel(NUMBER_OF_ROOMS);
+        final var rooms = lvl.getRooms();
+
+        // considering only the SHOP rooms (there will be only one), and in that one
+        // where will be at least one powerup
+        assertTrue(rooms.stream().filter(r -> r.getRoomType() == RoomType.SHOP)
+                .allMatch(r -> r.getPowerUps().isPresent()));
+        assertTrue(rooms.stream().filter(r -> r.getRoomType() == RoomType.SHOP)
+                .allMatch(r -> r.getPowerUps().get().size() == 3));
+    }
+
+    @Test
+    void testRoomAiInRooms() {
+        // when a level is created, there must be an AIenemy only in BOSS and STANDARD rooms
+        final var lvl = this.lvlFactory.createLevel(NUMBER_OF_ROOMS);
+        final var rooms = lvl.getRooms();
+
+        // BOSS and STANDARD rooms must have an AIenemy 
+        assertTrue(rooms.stream().filter(r -> r.getRoomAI().isPresent())
+                .allMatch(r -> checkConditionForAiRoom(r)));
+        // all other room types must NOT have an AIenemy
+        assertTrue(rooms.stream().filter(r -> r.getRoomAI().isEmpty())
+                .allMatch(r -> !checkConditionForAiRoom(r)));
+    }
+    
+    @Test
+    void testItemsInStandardRooms() {
+        // when a level is created, there must be at least one items ONLY in STANDARD rooms
+        final var lvl = this.lvlFactory.createLevel(NUMBER_OF_ROOMS);
+        final var rooms = lvl.getRooms();
+
+        // only STANDARD rooms must have an item list 
+        assertTrue(rooms.stream().filter(r -> r.getItems().isPresent())
+                .allMatch(r -> r.getRoomType() == RoomType.STANDARD));
+        // all other room types must NOT have an item list
+        assertTrue(rooms.stream().filter(r -> r.getRoomAI().isEmpty())
+                .allMatch(r -> r.getRoomType() != RoomType.STANDARD));
+    }
+    
+    /**
+     * Check if the current room to build needs the AiEnemy object.
+     * @return true if the room need the AiEnemy object, false otherwise
+     */
+    private boolean checkConditionForAiRoom(final Room room) {
+        return room.getRoomType() == RoomType.STANDARD || room.getRoomType() == RoomType.BOSS;
+    }
 }
