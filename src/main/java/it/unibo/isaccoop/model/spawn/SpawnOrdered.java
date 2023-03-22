@@ -11,7 +11,7 @@ import it.unibo.isaccoop.model.common.Point2D;
 
 /**
  *
- * 
+ *
  */
 public class SpawnOrdered implements Spawn {
 
@@ -24,11 +24,12 @@ public class SpawnOrdered implements Spawn {
     @Override
     public void setPosition(final List<MapElement> elementsToSpawn, final int width, final int height) {
         if (elementsToSpawn.size() == 1) {
-            elementsToSpawn.get(0).setCoords(new Point2D(Double.valueOf(width / 2), Double.valueOf(height / 2)));
+            elementsToSpawn.get(0).setCoords(new Point2D(width / 2.0, height / 2.0));
         } else {
-            Stream.iterate(0, x -> x + 1).limit(elementsToSpawn.size()).
-            forEach(i -> elementsToSpawn.get(i).setCoords(new Point2D(Double.valueOf(width / 2),
-                    Double.valueOf((height / (elementsToSpawn.size() + 1)) * (i + 1)))));
+            Stream.iterate(0, x -> x + 1)
+                .limit(elementsToSpawn.size())
+                .forEach(i -> elementsToSpawn.get(i).setCoords(new Point2D(width / 2.0,
+                    (height / (elementsToSpawn.size() + 1.0)) * (i + 1))));
         }
     }
 
