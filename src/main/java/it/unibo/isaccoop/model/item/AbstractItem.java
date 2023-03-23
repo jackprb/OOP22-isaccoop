@@ -9,11 +9,10 @@ import it.unibo.isaccoop.model.player.PlayerStat;
 public abstract class AbstractItem extends AbstractMapElement implements Item {
 
     /**
-     * Constractor.
+     * Constructor.
      */
     public AbstractItem() {
         super(ElementsRadius.ITEM);
-        // TODO Auto-generated constructor stub
     }
 
     /**
