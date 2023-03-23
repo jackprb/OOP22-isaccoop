@@ -39,7 +39,7 @@ public final class RoomImpl extends MapElementImpl implements Room {
      * @param items the items in this room
      * @param powerups the powerups in this room
      * @param player the player
-     * 
+     * @param enemies the list of enemies
      */
     public RoomImpl(final int width, final int height,
             final Point2D coord, /*final List<Door> doors,*/ final RoomType roomType,
@@ -88,13 +88,13 @@ public final class RoomImpl extends MapElementImpl implements Room {
     }
 
     @Override
-    public Optional<List<Enemy>> getEnemies(){
+    public Optional<List<Enemy>> getEnemies() {
         return this.enemies;
     }
 
     @Override
     public boolean isComplete() {
-        return false;
+        return completionConditions();
     }
 
     @Override
@@ -133,5 +133,15 @@ public final class RoomImpl extends MapElementImpl implements Room {
         }
         final RoomImpl other = (RoomImpl) obj;
         return roomType == other.roomType;
+    }
+
+    private boolean completionConditions() {
+        if (this.enemies.isEmpty()) {
+            return true;
+        }
+        if (this.enemies.isPresent() && this.enemies.get().isEmpty()) {
+            return true;
+        }
+        return false;
     }
 }
