@@ -11,6 +11,7 @@ import it.unibo.isaccoop.model.collision.Event;
 import it.unibo.isaccoop.model.common.MapElementImpl;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.RoomType;
+import it.unibo.isaccoop.model.enemy.Enemy;
 import it.unibo.isaccoop.model.item.Item;
 import it.unibo.isaccoop.model.powerup.PowerUp;
 import it.unibo.isaccoop.model.player.Player;
@@ -26,6 +27,7 @@ public final class RoomImpl extends MapElementImpl implements Room {
     private final Optional<List<PowerUp>> powerups;
     private final Optional<Player> player;
     private final Queue<Event> eventsQueue;
+    private final Optional<List<Enemy>> enemies;
 
     /**
      * Use {@link RoomFactory} to create a new {@link Room}.
@@ -37,11 +39,13 @@ public final class RoomImpl extends MapElementImpl implements Room {
      * @param items the items in this room
      * @param powerups the powerups in this room
      * @param player the player
+     * @param enemies the list of enemies
      */
     public RoomImpl(final int width, final int height,
             final Point2D coord, /*final List<Door> doors,*/ final RoomType roomType,
             final Optional<AIEnemy> roomAI, final Optional<List<Item>> items, 
-            final Optional<List<PowerUp>> powerups, final Optional<Player> player) {
+            final Optional<List<PowerUp>> powerups, final Optional<Player> player,
+            final Optional<List<Enemy>> enemies) {
         super(width, height, coord);
         this.roomType = roomType;
         //this.doors.addAll(doors);
@@ -50,6 +54,7 @@ public final class RoomImpl extends MapElementImpl implements Room {
         this.powerups = powerups;
         this.player = player;
         this.eventsQueue = new ArrayDeque<>();
+        this.enemies = enemies;
     }
 
     /*@Override
@@ -83,8 +88,13 @@ public final class RoomImpl extends MapElementImpl implements Room {
     }
 
     @Override
+    public Optional<List<Enemy>> getEnemies() {
+        return this.enemies;
+    }
+
+    @Override
     public boolean isComplete() {
-        return false;
+        return completionConditions();
     }
 
     @Override
@@ -123,5 +133,24 @@ public final class RoomImpl extends MapElementImpl implements Room {
         }
         final RoomImpl other = (RoomImpl) obj;
         return roomType == other.roomType;
+    }
+
+    /**
+     * Utility method to check if this room is actually complete.
+     * @return true if it is complete, false otherwise
+     */
+    private boolean completionConditions() {
+        // if a room has an AiEnemy and enemy list is empty, means that
+        // the player has defeated all enemies -> the room is complete
+        return !checkConditionForAiRoom() || checkConditionForAiRoom() 
+                && this.enemies.isPresent() && this.enemies.get().isEmpty();
+    }
+
+    /**
+     * Check if the current room to build needs the AiEnemy object.
+     * @return true if the room need the AiEnemy object, false otherwise
+     */
+    private boolean checkConditionForAiRoom() {
+        return this.roomType == RoomType.STANDARD || this.roomType == RoomType.BOSS;
     }
 }
