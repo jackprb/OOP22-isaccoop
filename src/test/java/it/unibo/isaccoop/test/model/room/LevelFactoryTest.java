@@ -1,4 +1,4 @@
-package it.unibo.isaccoop;
+package it.unibo.isaccoop.test.model.room;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -27,7 +27,7 @@ class LevelFactoryTest {
     private List<Room> rooms;
 
     @BeforeEach
-    void setUp() throws Exception {
+    void setUp() {
         this.lvl = this.lvlFactory.createLevel(NUMBER_OF_ROOMS);
         this.rooms = lvl.getRooms();
     }
