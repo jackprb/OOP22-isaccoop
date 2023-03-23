@@ -45,8 +45,6 @@ public class ShopRoomCreator implements Creator<PowerUp> {
      * @return a random power up.
      * */
     private Optional<PowerUp> generatePowerUp() {
-        final var powerUpsList = new ArrayList<>(List.of(CoinUp.class, DamageUp.class, HealthUp.class,
-                RangeUp.class, SpeedUp.class, TearsUp.class));
         final var random = ThreadLocalRandom.current().nextInt(powerUpsList.size());
         try {
             final var powerUp = powerUpsList.get(random).getDeclaredConstructor().newInstance();
