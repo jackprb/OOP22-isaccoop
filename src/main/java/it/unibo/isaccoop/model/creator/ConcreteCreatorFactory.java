@@ -9,9 +9,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import it.unibo.isaccoop.model.common.NormalRoomCreator;
 import it.unibo.isaccoop.model.enemy.Enemy;
-import it.unibo.isaccoop.model.item.AbstractItem;
 import it.unibo.isaccoop.model.item.Coin;
 import it.unibo.isaccoop.model.item.Heart;
 import it.unibo.isaccoop.model.item.Item;
@@ -54,8 +52,7 @@ public class ConcreteCreatorFactory implements CreatorFactory{
 
     @Override
     public Creator<PowerUp> createTreasurePowerUps() {
-        // TODO Auto-generated method stub
-        return null;
+        return () -> List.of(this.generatePowerUp().get());
     }
 
     @Override
