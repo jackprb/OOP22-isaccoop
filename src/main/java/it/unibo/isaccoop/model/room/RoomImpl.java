@@ -13,8 +13,8 @@ import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.RoomType;
 import it.unibo.isaccoop.model.enemy.Enemy;
 import it.unibo.isaccoop.model.item.Item;
-import it.unibo.isaccoop.model.powerup.PowerUp;
 import it.unibo.isaccoop.model.player.Player;
+import it.unibo.isaccoop.model.powerup.PowerUp;
 
 /**
  * Implementation of {@link Room}.
@@ -43,7 +43,7 @@ public final class RoomImpl extends MapElementImpl implements Room {
      */
     public RoomImpl(final int width, final int height,
             final Point2D coord, /*final List<Door> doors,*/ final RoomType roomType,
-            final Optional<AIEnemy> roomAI, final Optional<List<Item>> items, 
+            final Optional<AIEnemy> roomAI, final Optional<List<Item>> items,
             final Optional<List<PowerUp>> powerups, final Optional<Player> player,
             final Optional<List<Enemy>> enemies) {
         super(width, height, coord);
@@ -142,7 +142,7 @@ public final class RoomImpl extends MapElementImpl implements Room {
     private boolean completionConditions() {
         // if a room has an AiEnemy and enemy list is empty, means that
         // the player has defeated all enemies -> the room is complete
-        return !checkConditionForAiRoom() || checkConditionForAiRoom() 
+        return !checkConditionForAiRoom() || checkConditionForAiRoom()
                 && this.enemies.isPresent() && this.enemies.get().isEmpty();
     }
 

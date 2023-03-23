@@ -25,14 +25,14 @@ import it.unibo.isaccoop.model.powerup.SpeedUp;
 import it.unibo.isaccoop.model.powerup.TearsUp;
 
 /***/
-public final class ConcreteCreatorFactory implements CreatorFactory{
+public final class ConcreteCreatorFactory implements CreatorFactory {
     private static final Logger LOGGER = Logger.getLogger(ConcreteCreatorFactory.class.getName());
     private static final int ITEMS_IN_ROOM = 3;
-    private static final List<Class<? extends Item>> itemList = new ArrayList<>(List.of(Coin.class, Heart.class));
-    private static final List<Class<? extends PowerUp>> powerUpsList = new ArrayList<>(List.of(CoinUp.class, DamageUp.class, HealthUp.class,
-            RangeUp.class, SpeedUp.class, TearsUp.class));
+    private static final List<Class<? extends Item>> ITEM_LIST = new ArrayList<>(List.of(Coin.class, Heart.class));
+    private static final List<Class<? extends PowerUp>> POWER_UPS_LIST = new ArrayList<>(List.of(CoinUp.class,
+            DamageUp.class, HealthUp.class, RangeUp.class, SpeedUp.class, TearsUp.class));
 
-    private final static int MAX_ENEMIES = 5;
+    private static final int MAX_ENEMIES = 5;
 
     @Override
     public Creator<Enemy> createEnemies() {
@@ -72,9 +72,9 @@ public final class ConcreteCreatorFactory implements CreatorFactory{
      * @return a random power up.
      * */
     private Optional<PowerUp> generatePowerUp() {
-        final var random = ThreadLocalRandom.current().nextInt(powerUpsList.size());
+        final var random = ThreadLocalRandom.current().nextInt(POWER_UPS_LIST.size());
         try {
-            final var powerUp = powerUpsList.get(random).getDeclaredConstructor().newInstance();
+            final var powerUp = POWER_UPS_LIST.get(random).getDeclaredConstructor().newInstance();
             powerUp.setSuperItem(ThreadLocalRandom.current().nextBoolean());
             return Optional.of(powerUp);
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
@@ -89,9 +89,9 @@ public final class ConcreteCreatorFactory implements CreatorFactory{
      * @return random Item.
      * */
     private Optional<Item> generateRandomItem() {
-        final var random = ThreadLocalRandom.current().nextInt(itemList.size());
+        final var random = ThreadLocalRandom.current().nextInt(ITEM_LIST.size());
         try {
-            final var item = itemList.get(random).getDeclaredConstructor().newInstance();
+            final var item = ITEM_LIST.get(random).getDeclaredConstructor().newInstance();
             return Optional.of(item);
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
                 | NoSuchMethodException | SecurityException e) {
