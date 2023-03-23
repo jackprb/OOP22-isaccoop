@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayNameGenerator.Standard;
 
 import it.unibo.isaccoop.model.common.RoomType;
 import it.unibo.isaccoop.model.room.Level;
@@ -163,6 +164,30 @@ class LevelFactoryTest {
                     && r.getCoords().getY() == 0));
     }
 
+    @Test
+    void testEnemiesInBossRoom() {
+        // in BOSS room, there must be only ONE enemy (the boss itself)
+        assertTrue(this.rooms.stream()
+                .filter(r -> r.getRoomType() == RoomType.BOSS)
+                .allMatch(r -> r.getEnemies().get().size() == 1));        
+    }
+    
+    @Test
+    void testEnemiesInStandardRoom() {
+        // in STANDARD room, there must be at least one enemy
+        assertTrue(this.rooms.stream()
+                .filter(r -> r.getRoomType() == RoomType.STANDARD)
+                .allMatch(r -> r.getEnemies().get().size() > 0));
+    }
+    
+    @Test
+    void testEnemiesInOtherRooms() {
+        // in the other rooms, there must be NO enemies
+        assertTrue(this.rooms.stream()
+                .filter(r -> !checkConditionForAiRoom(r))
+                .allMatch(r -> r.getEnemies().isEmpty()));        
+    }
+    
     /**
      * Check if the current room needs the AiEnemy object.
      * @param room the considered room
