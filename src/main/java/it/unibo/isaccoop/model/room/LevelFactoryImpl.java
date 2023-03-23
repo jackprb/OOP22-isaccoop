@@ -19,19 +19,24 @@ public final class LevelFactoryImpl implements LevelFactory {
     // ogni livello deve avere almeno 5 room, una per ogni tipo
     private static final int MIN_NUMBER_OF_ROOMS = RoomType.values().length;
 
+    /**
+     * Empty constructor.
+     */
+    public LevelFactoryImpl() {
+        this.roomCoords.clear();
+    }
+
     @Override
     public Level createLevel(final int numberOfRooms) {
         if (numberOfRooms < MIN_NUMBER_OF_ROOMS) {
             throw new IllegalArgumentException("");
         }
         this.numberOfRooms = numberOfRooms;
-        this.roomCoords.clear();
         setRoomCoordinates();
 
         final List<Room> rooms = createRooms();
         final Level lvl = new LevelImpl();
         lvl.putRooms(rooms);
-
         return lvl;
     }
 
@@ -43,7 +48,7 @@ public final class LevelFactoryImpl implements LevelFactory {
         //posiz iniziale per posizionare stanze nel livello
         Pair<Integer, Integer> roomPos = new ImmutablePair<>(0, 0);
 
-        while (this.roomCoords.size() < this.numberOfRooms) {
+        for (int i = 0; i < this.numberOfRooms; i++) {
             if (isValidCoord(roomPos) && !this.roomCoords.contains(roomPos)) {
                 this.roomCoords.add(roomPos);
                 roomPos = getNewCoordinateAlongDirection(roomPos, Direction.RIGHT);

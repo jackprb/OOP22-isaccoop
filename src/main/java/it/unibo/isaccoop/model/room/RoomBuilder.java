@@ -160,7 +160,8 @@ public class RoomBuilder {
                 throw new IllegalStateException("you must put the player in this in this room (START room)");
             }
             return new RoomImpl(this.width, this.height, this.coord.get(),
-                    /*this.doors, */ this.roomType.get(), this.roomAI, this.items, this.powerups, this.player);
+                    /*this.doors, */ this.roomType.get(), this.roomAI, this.items, this.powerups, 
+                    this.player, this.enemies);
         }
 
         /**

@@ -8,6 +8,11 @@ import it.unibo.isaccoop.model.player.PlayerStat;
  * */
 public abstract class PowerUp extends AbstractItem {
 
+    private static final int PRICE = 10;
+    private static final int SUPER_PRICE = 20;
+
+    private int price = 0;
+
     private boolean superItem;
     /**
      *  Method for interacting with player stats.
@@ -26,6 +31,13 @@ public abstract class PowerUp extends AbstractItem {
      * */
     public void setSuperItem(final boolean superItem) {
         this.superItem = superItem;
+    }
+    /**
+     *
+     * @return price of the powerUp.
+     */
+    public int getPrice() {
+        return this.isSuperItem() ? PowerUp.SUPER_PRICE : PowerUp.PRICE;
     }
 
 }

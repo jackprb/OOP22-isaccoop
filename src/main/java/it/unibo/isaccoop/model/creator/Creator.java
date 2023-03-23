@@ -1,4 +1,4 @@
-package it.unibo.isaccoop.model.common;
+package it.unibo.isaccoop.model.creator;
 
 import java.util.List;
 
