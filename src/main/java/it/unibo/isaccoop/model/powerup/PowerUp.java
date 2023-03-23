@@ -11,8 +11,6 @@ public abstract class PowerUp extends AbstractItem {
     private static final int PRICE = 10;
     private static final int SUPER_PRICE = 20;
 
-    private int price = 0;
-
     private boolean superItem;
     /**
      *  Method for interacting with player stats.
