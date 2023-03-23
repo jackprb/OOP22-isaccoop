@@ -8,6 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
+import it.unibo.isaccoop.model.creator.Creator;
 import it.unibo.isaccoop.model.powerup.CoinUp;
 import it.unibo.isaccoop.model.powerup.DamageUp;
 import it.unibo.isaccoop.model.powerup.HealthUp;

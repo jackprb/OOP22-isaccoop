@@ -8,6 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
+import it.unibo.isaccoop.model.creator.Creator;
 import it.unibo.isaccoop.model.item.Coin;
 import it.unibo.isaccoop.model.item.Heart;
 import it.unibo.isaccoop.model.item.Item;
