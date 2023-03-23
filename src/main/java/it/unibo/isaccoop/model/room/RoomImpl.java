@@ -142,8 +142,8 @@ public final class RoomImpl extends MapElementImpl implements Room {
     private boolean completionConditions() {
         // if a room has an AiEnemy and enemy list is empty, means that
         // the player has defeated all enemies -> the room is complete
-        return (!checkConditionForAiRoom() || checkConditionForAiRoom() 
-                && this.enemies.isPresent() && this.enemies.get().isEmpty());
+        return !checkConditionForAiRoom() || checkConditionForAiRoom() 
+                && this.enemies.isPresent() && this.enemies.get().isEmpty();
     }
 
     /**
