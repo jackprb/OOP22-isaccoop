@@ -11,6 +11,7 @@ import it.unibo.isaccoop.model.collision.Event;
 import it.unibo.isaccoop.model.common.MapElementImpl;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.RoomType;
+import it.unibo.isaccoop.model.enemy.Enemy;
 import it.unibo.isaccoop.model.item.Item;
 import it.unibo.isaccoop.model.powerup.PowerUp;
 import it.unibo.isaccoop.model.player.Player;
@@ -26,6 +27,7 @@ public final class RoomImpl extends MapElementImpl implements Room {
     private final Optional<List<PowerUp>> powerups;
     private final Optional<Player> player;
     private final Queue<Event> eventsQueue;
+    private final Optional<List<Enemy>> enemies;
 
     /**
      * Use {@link RoomFactory} to create a new {@link Room}.
@@ -37,11 +39,13 @@ public final class RoomImpl extends MapElementImpl implements Room {
      * @param items the items in this room
      * @param powerups the powerups in this room
      * @param player the player
+     * 
      */
     public RoomImpl(final int width, final int height,
             final Point2D coord, /*final List<Door> doors,*/ final RoomType roomType,
             final Optional<AIEnemy> roomAI, final Optional<List<Item>> items, 
-            final Optional<List<PowerUp>> powerups, final Optional<Player> player) {
+            final Optional<List<PowerUp>> powerups, final Optional<Player> player,
+            final Optional<List<Enemy>> enemies) {
         super(width, height, coord);
         this.roomType = roomType;
         //this.doors.addAll(doors);
@@ -50,6 +54,7 @@ public final class RoomImpl extends MapElementImpl implements Room {
         this.powerups = powerups;
         this.player = player;
         this.eventsQueue = new ArrayDeque<>();
+        this.enemies = enemies;
     }
 
     /*@Override
@@ -80,6 +85,11 @@ public final class RoomImpl extends MapElementImpl implements Room {
     @Override
     public Optional<Player> getPlayer() {
         return this.player;
+    }
+
+    @Override
+    public Optional<List<Enemy>> getEnemies(){
+        return this.enemies;
     }
 
     @Override
