@@ -192,4 +192,14 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
     public boolean isDead() {
         return this.heart == 0;
     }
+    
+    /**
+     * @return if the player has exhausted the hearts.
+     * */
+    public boolean isHitted() {
+        if(this.getHeart() >= 1) {
+            this.setHeart(this.getHeart()-1);
+        }
+        return this.isDead();
+    }
 }
