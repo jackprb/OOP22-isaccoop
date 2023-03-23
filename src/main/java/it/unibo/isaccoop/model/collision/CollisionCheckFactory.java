@@ -26,7 +26,7 @@ public interface CollisionCheckFactory {
      *
      * @return CollisionCheck refer to player shot.
      */
-    CollisionCheck getCollisionPlayerShotChecker(Player p, List<MapElement> e);
+    CollisionCheck getCollisionPlayerShotChecker(Player p, List<MapElement> i);
     /**
      * Get collision with enemy.
      * @param p reference to player.
@@ -34,7 +34,7 @@ public interface CollisionCheckFactory {
      *
      * @return CollisionCheck refer to enemy.
      */
-    CollisionCheck getCollisionWithEnemyChecker(Player p, List<MapElement> e);
+    CollisionCheck getCollisionWithEnemyChecker(Player p, List<MapElement> i);
     /**
      * Get collision with enemy shot.
      * @param p reference to player.
@@ -42,5 +42,5 @@ public interface CollisionCheckFactory {
      *
      * @return CollisionCheck refer to enemy shot.
      */
-    CollisionCheck getCollisionWithEnemyShotChecker(Player p, List<MapElement> e);
+    CollisionCheck getCollisionWithEnemyShotChecker(Player p, List<MapElement> i);
 }
