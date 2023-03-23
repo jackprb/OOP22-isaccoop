@@ -16,12 +16,11 @@ public final class RoomFactoryImpl implements RoomFactory {
 
     /**
      * Constructor. No parameters needed.
-     * @param player the player to be put inside the START room
      */
-    public RoomFactoryImpl(final Player player) {
+    public RoomFactoryImpl() {
         this.width = MIN_MAX_ROOM_DIMENSIONS;
         this.height = MIN_MAX_ROOM_DIMENSIONS;
-        this.player = player;
+        this.player = new Player();
     }
 
     @Override
@@ -40,7 +39,7 @@ public final class RoomFactoryImpl implements RoomFactory {
                 .roomType(RoomType.STANDARD)
                 .putCoord(coordInsideLevel)
                 //.putDoors(List.of(null /*doors*/))
-                .putAI(null)
+                .putAI()
                 .build();
     }
 
@@ -59,7 +58,7 @@ public final class RoomFactoryImpl implements RoomFactory {
                 .roomType(RoomType.BOSS)
                 .putCoord(coordInsideLevel)
                 //.putDoors(List.of(null /*doors*/))
-                .putAI(null)
+                .putAI()
                 .build();
     }
 

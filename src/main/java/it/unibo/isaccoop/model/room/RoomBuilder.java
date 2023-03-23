@@ -1,16 +1,24 @@
 package it.unibo.isaccoop.model.room;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import it.unibo.isaccoop.model.ai.AIEnemy;
+import it.unibo.isaccoop.model.ai.ConcreteAIEnemy;
+import it.unibo.isaccoop.model.ai.EnemyCreator;
+import it.unibo.isaccoop.model.common.MapElement;
 import it.unibo.isaccoop.model.common.NormalRoomCreator;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.RoomType;
 import it.unibo.isaccoop.model.common.ShopRoomCreator;
+import it.unibo.isaccoop.model.enemy.Enemy;
 import it.unibo.isaccoop.model.item.Item;
 import it.unibo.isaccoop.model.player.Player;
 import it.unibo.isaccoop.model.powerup.PowerUp;
+import it.unibo.isaccoop.model.spawn.Spawn;
+import it.unibo.isaccoop.model.spawn.SpawnOrdered;
+import it.unibo.isaccoop.model.spawn.SpawnRandom;
 
 /**
  * Class to model the Builder pattern, used to build a {@link Room}, using the "fluent" style.
@@ -21,6 +29,8 @@ public class RoomBuilder {
      * Static class to actually implement the Room builder.
      */
     public static class Builder {
+        private static final int MAX_ENEMIES_NUMBER = 10;
+
         //basic and minimal fields (set with constructor)
         private final int width;
         private final int height;
@@ -31,16 +41,17 @@ public class RoomBuilder {
         private Optional<RoomType> roomType = Optional.empty();
         private Optional<List<Item>> items = Optional.empty();
         private Optional<List<PowerUp>> powerups = Optional.empty();
-        private Optional<Player> player;
+        private Optional<Player> player = Optional.empty();
+        private Optional<List<Enemy>> enemies = Optional.empty();
 
         //optional fields
         private Optional<AIEnemy> roomAI = Optional.empty();
-        //lista powerup, obstacles, enemy, optional<Boss>
 
         /**
          * To build a Room, use {@link RoomFactory} instead. <br>
          *
-         * It is required to call this constructor first, then at least the REQUIRED methods.
+         * It is required to call this constructor first, 
+         * then at least the REQUIRED methods.
          * <br> At the end, call the method build().
          *
          * @param width the horizontal dimension of this room
@@ -88,13 +99,16 @@ public class RoomBuilder {
         /**
          * Method to set the AI inside this room, REQUIRED ONLY for STANDARD and BOSS rooms.
          *
-         * @param roomAI the AI of this room
          * @return this builder
          * @throws IllegalStateException if called on NON STANDARD or NON BOSS rooms
          */
-        public Builder putAI(final AIEnemy roomAI) {
+        public Builder putAI() {
             if (checkConditionForAiRoom()) {
-                this.roomAI = Optional.ofNullable(roomAI);
+                //final Spawn randomSpawn = new SpawnRandom();
+                final EnemyCreator enemyCreator = new EnemyCreator(MAX_ENEMIES_NUMBER);
+                this.enemies = Optional.of(enemyCreator.create());
+                //randomSpawn.setPosition(new ArrayList<MapElement>(this.enemies.get()), 1, 1);
+                this.roomAI = Optional.of(new ConcreteAIEnemy(this.enemies.get()));
                 return this;
             }
             throw new IllegalStateException("only STANDARD and BOSS rooms can have an AI");
@@ -122,23 +136,31 @@ public class RoomBuilder {
          * @return the build Room
          */
         public Room build() {
+            //final Spawn randomSpawn = new SpawnRandom();
+            final Spawn orderedSpawn = new SpawnOrdered();
+
             if (this.coord.isEmpty() /*|| this.doors.isEmpty() */ || this.roomType.isEmpty()) {
                 throw new IllegalStateException("set all required fields: use putCoords() and roomType() methods.");
             }
             if (this.roomAI.isEmpty() && checkConditionForAiRoom()) {
-                throw new IllegalStateException("this room (" + this.roomType.get() + ")needs an AiEnemy object");
+                throw new IllegalStateException("this room (" + this.roomType.get() + ") needs an AiEnemy object");
             }
             if (this.roomType.get() == RoomType.STANDARD) {
                 this.items = Optional.of(new NormalRoomCreator().create());
+                //randomSpawn.setPosition(new ArrayList<MapElement>(this.items.get()));
             }
             if (this.roomType.get() == RoomType.SHOP) {
                 this.powerups = Optional.of(new ShopRoomCreator().create());
+                //orderedSpawn.setPosition(new ArrayList<MapElement>(this.powerups.get()));
             }
-            if (this.player.isEmpty() && this.roomType.get() == RoomType.START) {
-                throw new IllegalArgumentException("");
+            if (this.roomType.get() == RoomType.TREASURE) {
+                this.powerups = Optional.of(new ShopRoomCreator().create());
+            }
+            if (this.roomType.get() == RoomType.START && this.player.isEmpty()) {
+                throw new IllegalStateException("you must put the player in this in this room (START room)");
             }
             return new RoomImpl(this.width, this.height, this.coord.get(),
-                    /*this.doors, */ this.roomType.get(), this.roomAI, this.items, this.powerups, player.get());
+                    /*this.doors, */ this.roomType.get(), this.roomAI, this.items, this.powerups, this.player);
         }
 
         /**

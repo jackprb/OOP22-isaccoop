@@ -3,9 +3,10 @@ package it.unibo.isaccoop.model.room;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Stream;
 
 import it.unibo.isaccoop.model.common.Point2D;
-import it.unibo.isaccoop.model.player.PlayerMovementImpl;
+import it.unibo.isaccoop.model.player.Player;
 
 /**
  * Implementation of {@link LevelController}.
@@ -15,13 +16,11 @@ public final class LevelControllerImpl implements LevelController {
 
     private static final int MAX_NUMBER_OF_ROOMS = 30;
     private static final int MIN_NUMBER_OF_ROOMS = 6;
-    private static final int GRIDROWS = 6;
-    private static final int GRIDCOLS = 6;
 
     private final List<Level> lvl = new LinkedList<>();
     private int currentLevelID;
     private Room currentRoom;
-    private final PlayerMovementImpl player = new PlayerMovementImpl();
+    private final Player player = new Player();
 
     /**
      * Create a game with the specified number of levels.
@@ -30,11 +29,15 @@ public final class LevelControllerImpl implements LevelController {
     public LevelControllerImpl(final int numberOfLevels) {
         final LevelFactoryImpl lvlFactory = new LevelFactoryImpl();
         this.currentLevelID = 0;
-        for (int i = 0; i < numberOfLevels; i++) {
+        /*for (int i = 0; i < numberOfLevels; i++) {
+        }*/
+        Stream.iterate(0, i -> i + 1)
+        .limit(numberOfLevels)
+        .forEach(r -> {
             final int numberOfRooms = ThreadLocalRandom.current().nextInt(
                     MAX_NUMBER_OF_ROOMS - MIN_NUMBER_OF_ROOMS) + MIN_NUMBER_OF_ROOMS;
-            this.lvl.add(lvlFactory.createLevel(numberOfRooms, GRIDROWS, GRIDCOLS));
-        }
+            this.lvl.add(lvlFactory.createLevel(numberOfRooms));
+        });
         this.currentRoom = this.lvl.get(this.currentLevelID).getStartRoom();
     }
 
