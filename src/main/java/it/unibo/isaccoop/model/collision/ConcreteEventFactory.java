@@ -18,7 +18,7 @@ public final class ConcreteEventFactory implements EventFactory {
 
     @Override
     public Event getEnemyHitEvent() {
-        return room -> room.getPlayer().ifPresent(player -> player.setHeart(0));
+        return room -> room.getPlayer().ifPresent(player -> player.isHitted());
     }
 
 }
