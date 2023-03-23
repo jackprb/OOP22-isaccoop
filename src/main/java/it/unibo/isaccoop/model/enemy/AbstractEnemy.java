@@ -51,8 +51,13 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
      *
      * @return enemy speed
      * */
-    public static int getSpeed() {
+    protected static int getSpeed() {
         return SPEED;
+    }
+
+    @Override
+    public final boolean isDead() {
+        return this.getHearts() == 0;
     }
 
 
