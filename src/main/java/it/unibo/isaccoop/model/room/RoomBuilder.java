@@ -103,9 +103,8 @@ public class RoomBuilder {
          */
         public Builder putAI() {
             if (checkConditionForAiRoom()) {
-                final Spawn randomSpawn = new SpawnRandom();
                 this.enemies = Optional.of(creatorFactory.createEnemies().create());
-                randomSpawn.setPosition(new ArrayList<MapElement>(this.enemies.get()), 
+                new SpawnRandom().setPosition(new ArrayList<MapElement>(this.enemies.get()), 
                         this.width, this.height);
                 this.roomAI = Optional.of(new ConcreteAIEnemy(this.enemies.get()));
                 return this;
