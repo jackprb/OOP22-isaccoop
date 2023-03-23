@@ -12,6 +12,8 @@ import java.util.stream.Stream;
 import it.unibo.isaccoop.model.enemy.Enemy;
 import it.unibo.isaccoop.model.item.Coin;
 import it.unibo.isaccoop.model.item.Heart;
+import it.unibo.isaccoop.model.enemy.NonShootingEnemy;
+import it.unibo.isaccoop.model.enemy.ShootingEnemy;
 import it.unibo.isaccoop.model.item.Item;
 import it.unibo.isaccoop.model.powerup.CoinUp;
 import it.unibo.isaccoop.model.powerup.DamageUp;
@@ -30,16 +32,20 @@ public class ConcreteCreatorFactory implements CreatorFactory{
     private static final List<Class<? extends Item>> itemList = new ArrayList<>(List.of(Coin.class, Heart.class));
     private static final List<Class<? extends PowerUp>> powerUpsList = new ArrayList<>(List.of(CoinUp.class, DamageUp.class, HealthUp.class,
             RangeUp.class, SpeedUp.class, TearsUp.class));
+
+    private final static int MAX_ENEMIES = 5;
+
     @Override
     public Creator<Enemy> createEnemies() {
-        // TODO Auto-generated method stub
-        return null;
+        return () -> Stream.iterate(0, i -> i + 1)
+                .limit(ThreadLocalRandom.current().nextInt(ConcreteCreatorFactory.MAX_ENEMIES) + 1)
+                .map(i -> ThreadLocalRandom.current().nextBoolean() ? new NonShootingEnemy() : new ShootingEnemy())
+                .collect(Collectors.toList());
     }
 
     @Override
     public Creator<Enemy> createBoss() {
-        // TODO Auto-generated method stub
-        return null;
+        return () -> List.of();
     }
 
     @Override
