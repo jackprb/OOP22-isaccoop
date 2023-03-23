@@ -9,11 +9,12 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import it.unibo.isaccoop.model.enemy.Boss;
 import it.unibo.isaccoop.model.enemy.Enemy;
-import it.unibo.isaccoop.model.item.Coin;
-import it.unibo.isaccoop.model.item.Heart;
 import it.unibo.isaccoop.model.enemy.NonShootingEnemy;
 import it.unibo.isaccoop.model.enemy.ShootingEnemy;
+import it.unibo.isaccoop.model.item.Coin;
+import it.unibo.isaccoop.model.item.Heart;
 import it.unibo.isaccoop.model.item.Item;
 import it.unibo.isaccoop.model.powerup.CoinUp;
 import it.unibo.isaccoop.model.powerup.DamageUp;
@@ -22,11 +23,9 @@ import it.unibo.isaccoop.model.powerup.PowerUp;
 import it.unibo.isaccoop.model.powerup.RangeUp;
 import it.unibo.isaccoop.model.powerup.SpeedUp;
 import it.unibo.isaccoop.model.powerup.TearsUp;
-/**
- *
- *
- */
-public class ConcreteCreatorFactory implements CreatorFactory{
+
+/***/
+public final class ConcreteCreatorFactory implements CreatorFactory{
     private static final Logger LOGGER = Logger.getLogger(ConcreteCreatorFactory.class.getName());
     private static final int ITEMS_IN_ROOM = 3;
     private static final List<Class<? extends Item>> itemList = new ArrayList<>(List.of(Coin.class, Heart.class));
@@ -45,7 +44,7 @@ public class ConcreteCreatorFactory implements CreatorFactory{
 
     @Override
     public Creator<Enemy> createBoss() {
-        return () -> List.of();
+        return () -> List.of(new Boss());
     }
 
     @Override
