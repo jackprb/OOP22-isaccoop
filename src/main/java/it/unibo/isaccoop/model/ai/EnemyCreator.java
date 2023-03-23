@@ -5,7 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import it.unibo.isaccoop.model.common.Creator;
+import it.unibo.isaccoop.model.creator.Creator;
 import it.unibo.isaccoop.model.enemy.Enemy;
 import it.unibo.isaccoop.model.enemy.NonShootingEnemy;
 import it.unibo.isaccoop.model.enemy.ShootingEnemy;
