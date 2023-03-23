@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import it.unibo.isaccoop.model.common.ShopRoomCreator;
+import it.unibo.isaccoop.model.common.NormalRoomCreator;
 import it.unibo.isaccoop.model.enemy.Enemy;
 import it.unibo.isaccoop.model.item.AbstractItem;
 import it.unibo.isaccoop.model.item.Coin;
@@ -28,7 +28,7 @@ import it.unibo.isaccoop.model.powerup.TearsUp;
  */
 public class ConcreteCreatorFactory implements CreatorFactory{
     private static final Logger LOGGER = Logger.getLogger(ConcreteCreatorFactory.class.getName());
-    private static final int ITEMS_IN_SHOP = 3;
+    private static final int ITEMS_IN_ROOM = 3;
     private static final List<Class<? extends Item>> itemList = new ArrayList<>(List.of(Coin.class, Heart.class));
     private static final List<Class<? extends PowerUp>> powerUpsList = new ArrayList<>(List.of(CoinUp.class, DamageUp.class, HealthUp.class,
             RangeUp.class, SpeedUp.class, TearsUp.class));
@@ -47,7 +47,7 @@ public class ConcreteCreatorFactory implements CreatorFactory{
     @Override
     public Creator<PowerUp> createShopPowerUps() {
         return () -> Stream.iterate(0, x -> x + 1)
-                .limit(ConcreteCreatorFactory.ITEMS_IN_SHOP)
+                .limit(ConcreteCreatorFactory.ITEMS_IN_ROOM)
                 .map(e -> this.generatePowerUp().get())
                 .collect(Collectors.toList());
     }
@@ -60,8 +60,10 @@ public class ConcreteCreatorFactory implements CreatorFactory{
 
     @Override
     public Creator<Item> createItems() {
-        // TODO Auto-generated method stub
-        return null;
+        return () -> Stream.iterate(0, x -> x + 1)
+        .limit(ThreadLocalRandom.current().nextInt(ConcreteCreatorFactory.ITEMS_IN_ROOM))
+        .map(e -> this.generateRandomItem().get())
+        .collect(Collectors.toList());
     }
 
     /**
@@ -78,6 +80,23 @@ public class ConcreteCreatorFactory implements CreatorFactory{
             LOGGER.severe(e.getMessage());
         }
         return Optional.empty();
+    }
+
+    /**
+     * Generate random item.
+     * @return random Item.
+     * */
+    private Optional<Item> generateRandomItem() {
+        final var random = ThreadLocalRandom.current().nextInt(itemList.size());
+        try {
+            final var item = itemList.get(random).getDeclaredConstructor().newInstance();
+            return Optional.of(item);
+        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+                | NoSuchMethodException | SecurityException e) {
+            LOGGER.severe(e.getMessage());
+        }
+        return Optional.empty();
+
     }
 
 }
