@@ -1,5 +1,7 @@
 package it.unibo.isaccoop.model.common;
 
+import it.unibo.isaccoop.model.boundingbox.BoundingBox;
+
 /**
  * Interface to model elements.
  */
@@ -16,4 +18,9 @@ public interface MapElement {
      *  @param coords new coords
      * */
     void setCoords(Point2D coords);
+    /**
+     * Getter for bounding box.
+     * @return bounding box refers to this mapElement.
+     */
+    BoundingBox getBox();
 }

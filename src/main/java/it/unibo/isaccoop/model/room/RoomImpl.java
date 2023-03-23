@@ -41,14 +41,14 @@ public final class RoomImpl extends MapElementImpl implements Room {
     public RoomImpl(final int width, final int height,
             final Point2D coord, /*final List<Door> doors,*/ final RoomType roomType,
             final Optional<AIEnemy> roomAI, final Optional<List<Item>> items, 
-            final Optional<List<PowerUp>> powerups, final Player player) {
+            final Optional<List<PowerUp>> powerups, final Optional<Player> player) {
         super(width, height, coord);
         this.roomType = roomType;
         //this.doors.addAll(doors);
         this.roomAi = roomAI;
         this.items = items;
         this.powerups = powerups;
-        this.player = Optional.of(player);
+        this.player = player;
         this.eventsQueue = new ArrayDeque<>();
     }
 
