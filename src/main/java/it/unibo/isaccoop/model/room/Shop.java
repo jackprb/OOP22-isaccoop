@@ -1,6 +1,8 @@
 package it.unibo.isaccoop.model.room;
 
-import org.apache.commons.lang3.tuple.Pair;
+import it.unibo.isaccoop.model.player.Player;
+import it.unibo.isaccoop.model.powerup.PowerUp;
+
 /**
  * 
  * Interface that models the purchase of items in the shop.
@@ -9,9 +11,11 @@ import org.apache.commons.lang3.tuple.Pair;
 public interface Shop {
 
     /**
-     * Method that make the purchase.
-     * 
-     * @param heroPos
+     * Method that applies the collected powerup to the player, if the player 
+     * has enough coins to buy it.
+     * @param player
+     * @param powerUp
+     * @return true if the power up has been purchased
      */
-    void buyItem(Pair<Integer, Integer> heroPos);
+    Boolean buyItem(Player player, PowerUp powerUp);
 }
