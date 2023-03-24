@@ -10,7 +10,6 @@ public abstract class AbstractMapElement implements MapElement {
     private BoundingBox box;
 
     /**
-     * 
      *
      */
     public enum ElementsRadius {
@@ -94,6 +93,7 @@ public abstract class AbstractMapElement implements MapElement {
      * 
      * @return collision box
      */
+    @Override
     public BoundingBox getBox() {
         return this.box;
     }
