@@ -15,7 +15,6 @@ import it.unibo.isaccoop.model.enemy.Enemy;
 import it.unibo.isaccoop.model.item.Item;
 import it.unibo.isaccoop.model.player.Player;
 import it.unibo.isaccoop.model.powerup.PowerUp;
-import it.unibo.isaccoop.model.spawn.Spawn;
 import it.unibo.isaccoop.model.spawn.SpawnOrdered;
 import it.unibo.isaccoop.model.spawn.SpawnRandom;
 
@@ -32,18 +31,18 @@ public class RoomBuilder {
         private final int width;
         private final int height;
 
-        //other basic field (set with their dedicated methods)
+        // other basic field (set with their dedicated methods)
         private Optional<Point2D> coord = Optional.empty();
-        //private List<Door> doors = new LinkedList<>();
         private Optional<RoomType> roomType = Optional.empty();
+        
+        // optional fields (to set with their dedicated methods)
         private Optional<List<Item>> items = Optional.empty();
         private Optional<List<PowerUp>> powerups = Optional.empty();
         private Optional<Player> player = Optional.empty();
         private Optional<List<Enemy>> enemies = Optional.empty();
-
-        //optional fields
         private Optional<AIEnemy> roomAI = Optional.empty();
 
+        // factory that creates enemies
         private final CreatorFactory creatorFactory = new ConcreteCreatorFactory();
 
         /**
@@ -74,17 +73,6 @@ public class RoomBuilder {
         }
 
         /**
-         * Method to place the doors inside this room, REQUIRED for ALL rooms.
-         *
-         * @param doors the doors to be added inside this room
-         * @return this builder
-         */
-        /*public Builder putDoors(final List<Door> doors) {
-            this.doors = doors;
-            return this;
-        }*/
-
-        /**
          * Method to set the room type, REQUIRED for ALL rooms.
          *
          * @param roomType the type of room to be created
@@ -96,20 +84,32 @@ public class RoomBuilder {
         }
 
         /**
-         * Method to set the AI inside this room, REQUIRED ONLY for STANDARD and BOSS rooms.
-         *
+         * Method to set the AI inside this room, ONLY for STANDARD and BOSS rooms.
+         */
+        private void putAI() {
+            this.roomAI = Optional.of(new ConcreteAIEnemy(this.enemies.get()));
+        }
+
+        /**
+         * Method to put the enemies inside this room (according to roomType). 
+         * REQUIRED ONLY for standard and BOSS rooms.
+         * 
          * @return this builder
          * @throws IllegalStateException if called on NON STANDARD or NON BOSS rooms
          */
-        public Builder putAI() {
+        public Builder putEnemies() {
             if (checkConditionForAiRoom()) {
-                this.enemies = Optional.of(creatorFactory.createEnemies().create());
+                if (this.roomType.get() == RoomType.BOSS) {
+                    this.enemies = Optional.of(creatorFactory.createBoss().create());
+                } else {
+                    this.enemies = Optional.of(creatorFactory.createEnemies().create());
+                }
                 new SpawnRandom().setPosition(new ArrayList<MapElement>(this.enemies.get()), 
                         this.width, this.height);
-                this.roomAI = Optional.of(new ConcreteAIEnemy(this.enemies.get()));
+                this.putAI();
                 return this;
             }
-            throw new IllegalStateException("only STANDARD and BOSS rooms can have an AI");
+            throw new IllegalStateException("only STANDARD and BOSS rooms can have enemies");
         }
 
         /**
