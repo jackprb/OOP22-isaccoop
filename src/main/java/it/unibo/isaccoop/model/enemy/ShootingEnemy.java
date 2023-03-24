@@ -1,5 +1,6 @@
 package it.unibo.isaccoop.model.enemy;
 
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import it.unibo.isaccoop.model.common.Point2D;
@@ -30,12 +31,12 @@ public final class ShootingEnemy extends AbstractEnemy {
     }
 
     /**
-     *  Get {@link EnemyWeapon} object for this {@link ShootingEnemy}.
+     *  Get weapon shots of current shooting enemy.
      *
-     *  @return {@link EnemyWeapon} for this {@link ShootingEnemy}
+     *  @return enemy weapon shots as a {@link List}
      * */
-    public EnemyWeapon getWeapon() {
-        return weapon;
+    public List<EnemyWeaponShot> getWeaponShots() {
+        return this.weapon.getWeaponShots();
     }
 
 }
