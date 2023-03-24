@@ -127,7 +127,7 @@ public class RoomBuilder {
          * @throws IllegalStateException if called on NON START room
          */
         public Builder putPlayer(final Player player) {
-            if (this.roomType.get() == RoomType.START) {                
+            if (this.roomType.get() == RoomType.START) {
                 this.player = Optional.of(player);
                 return this;
             }
@@ -141,7 +141,7 @@ public class RoomBuilder {
          * @throws IllegalStateException if called on NON SHOP or NON TREASURE rooms
          */
         public Builder putPowerUps() {
-            if(canRoomHavePowerUps()) {   
+            if (canRoomHavePowerUps()) {
                 if (this.roomType.get() == RoomType.SHOP) { // for SHOP room
                     this.powerups = Optional.of(creatorFactory.createShopPowerUps().create());
                 } else { // for TREASURE ROOM
@@ -191,7 +191,7 @@ public class RoomBuilder {
         private boolean canRoomHaveEnemies() {
             return this.roomType.get() == RoomType.STANDARD || this.roomType.get() == RoomType.BOSS;
         }
-        
+
         /**
          * Check if the current room to build can have powerups.
          * @return true if the room can have powerups, false otherwise
@@ -199,7 +199,7 @@ public class RoomBuilder {
         private boolean canRoomHavePowerUps() {
             return this.roomType.get() == RoomType.SHOP || this.roomType.get() == RoomType.TREASURE;
         }
-        
+
         /**
          * Method to check if the minimum requirements are satisfied.
          * @return true if the minimum requirements are satisfied
