@@ -11,7 +11,6 @@ import it.unibo.isaccoop.model.creator.CreatorFactory;
 import it.unibo.isaccoop.model.enemy.Enemy;
 import it.unibo.isaccoop.model.item.Item;
 import it.unibo.isaccoop.model.powerup.PowerUp;
-import it.unibo.isaccoop.model.room.RoomBuilder.Builder;
 import it.unibo.isaccoop.model.spawn.SpawnOrdered;
 import it.unibo.isaccoop.model.spawn.SpawnRandom;
 
@@ -34,16 +33,16 @@ public final class RoomBuilderUtils {
     }
 
     /**
-     * Check if the current room to build needs the AiEnemy object.
-     * @return true if the room need the AiEnemy object, false otherwise
+     * Check if the current room to build can have the Player object.
+     * @return true if the room can have the Player object, false otherwise
      */
     public boolean canRoomHavePlayer() {
         return this.roomType == RoomType.START;
     }
 
     /**
-     * Check if the current room to build needs the AiEnemy object.
-     * @return true if the room need the AiEnemy object, false otherwise
+     * Check if the current room to build can have enemies.
+     * @return true if the room can have enemies, false otherwise
      */
     public boolean canRoomHaveEnemies() {
         return this.roomType == RoomType.STANDARD || this.roomType == RoomType.BOSS;
@@ -63,36 +62,6 @@ public final class RoomBuilderUtils {
      */
     public boolean canRoomHaveItems() {
         return this.roomType == RoomType.STANDARD;
-    }
-    
-    /**
-     * Check if this room can be built. A room can be built only if
-     * all required fields are set, depending on the {@link RoomType}.
-     * @param builder
-     * @return true if the room can be built (all required fields are set),
-     * false otherwise
-     */
-    public boolean canBuildRoom(final Builder builder) {
-        switch (this.roomType) {
-        case START:
-            break;
-
-        case SHOP:
-            break;
-
-        case TREASURE:
-            break;
-
-        case STANDARD:
-            break;
-
-        case BOSS:
-            break;
-
-        default:
-            return false;
-        }
-        return true;
     }
 
     /**
@@ -145,5 +114,35 @@ public final class RoomBuilderUtils {
      */
     public void orderedSpawn(final List<? extends MapElement> list, final int width, final int height) {
         new SpawnOrdered().setPosition(new ArrayList<>(list), width, height);
+    }
+    
+    /**
+     * Check if this room can be built. A room can be built only if
+     * all required fields are set, depending on the {@link RoomType}.
+     * @param builder
+     * @return true if the room can be built (all required fields are set),
+     * false otherwise
+     */
+    public boolean canBuildRoom() {
+        switch (this.roomType) {
+        case START:
+            break;
+
+        case SHOP:
+            break;
+
+        case TREASURE:
+            break;
+
+        case STANDARD:
+            break;
+
+        case BOSS:
+            break;
+
+        default:
+            return false;
+        }
+        return true;
     }
 }
