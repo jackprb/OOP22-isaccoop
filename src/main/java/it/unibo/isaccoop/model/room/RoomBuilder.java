@@ -24,7 +24,7 @@ import it.unibo.isaccoop.model.spawn.SpawnRandom;
 public class RoomBuilder {
 
     /**
-     * Static class to actually implement the Room builder.
+     * Static class to actually implement the {@link RoomBuilder}.
      */
     public static class Builder {
         //basic and minimal fields (set with constructor)
@@ -34,7 +34,7 @@ public class RoomBuilder {
         // other basic field (set with their dedicated methods)
         private Optional<Point2D> coord = Optional.empty();
         private Optional<RoomType> roomType = Optional.empty();
-        
+
         // optional fields (to set with their dedicated methods)
         private Optional<List<Item>> items = Optional.empty();
         private Optional<List<PowerUp>> powerups = Optional.empty();
@@ -84,10 +84,17 @@ public class RoomBuilder {
         }
 
         /**
-         * Method to set the AI inside this room, ONLY for STANDARD and BOSS rooms.
+         * Method to put items inside this room. ONLY for STANDARD rooms.
+         * 
+         * @return this builder
          */
-        private void putAI() {
-            this.roomAI = Optional.of(new ConcreteAIEnemy(this.enemies.get()));
+        public Builder putItems() {
+            if (this.roomType.get() == RoomType.STANDARD) {
+                this.items = Optional.of(creatorFactory.createItems().create());
+                new SpawnRandom().setPosition(new ArrayList<MapElement>(this.items.get()), this.width, this.height);
+                return this;
+            }
+            throw new IllegalStateException("only STANDARD rooms can have items");
         }
 
         /**
@@ -98,7 +105,7 @@ public class RoomBuilder {
          * @throws IllegalStateException if called on NON STANDARD or NON BOSS rooms
          */
         public Builder putEnemies() {
-            if (checkConditionForAiRoom()) {
+            if (canRoomHaveEnemies()) {
                 if (this.roomType.get() == RoomType.BOSS) {
                     this.enemies = Optional.of(creatorFactory.createBoss().create());
                 } else {
@@ -113,59 +120,92 @@ public class RoomBuilder {
         }
 
         /**
-         * Method to put the player inside this room.
-         * REQUIRED ONLY for the START room.
+         * Method to put the player inside this room. ONLY for the START room.
          * 
          * @param player the player to be put inside this room
          * @return this builder
+         * @throws IllegalStateException if called on NON START room
          */
         public Builder putPlayer(final Player player) {
-            this.player = Optional.of(player);
-            return this;
+            if (this.roomType.get() == RoomType.START) {                
+                this.player = Optional.of(player);
+                return this;
+            }
+            throw new IllegalStateException("the player must be put ONLY in the START room");
+        }
+
+        /**
+         * Method to put the powerups inside this room. ONLY for the SHOP and TREASURE rooms.
+         * 
+         * @return this builder
+         * @throws IllegalStateException if called on NON SHOP or NON TREASURE rooms
+         */
+        public Builder putPowerUps() {
+            if(canRoomHavePowerUps()) {   
+                if (this.roomType.get() == RoomType.SHOP) { // for SHOP room
+                    this.powerups = Optional.of(creatorFactory.createShopPowerUps().create());
+                } else { // for TREASURE ROOM
+                    this.powerups = Optional.of(creatorFactory.createTreasurePowerUps().create());
+                }
+                new SpawnOrdered().setPosition(new ArrayList<MapElement>(
+                        this.powerups.get()), this.width, this.height);
+                return this;
+            }
+            throw new IllegalStateException("only SHOP and TREASURE room can have powerups");
         }
 
         /**
          * Method to build the Room.
-         * First, you need to call the constructor, then at least the REQUIRED methods
+         * First, you need to call the constructor, then the REQUIRED methods
          * to set this Room's fields. <br> After that, you can call this method.
          *
          * @throws IllegalStateException if current Room has some REQUIRED fields unset.
-         *
          * @return the build Room
          */
         public Room build() {
-            if (this.coord.isEmpty() /*|| this.doors.isEmpty() */ || this.roomType.isEmpty()) {
+            if (areThereMinimumRequirements()) {
                 throw new IllegalStateException("set all required fields: use putCoords() and roomType() methods.");
             }
-            if (this.roomAI.isEmpty() && checkConditionForAiRoom()) {
+            if (canRoomHaveEnemies() && (this.roomAI.isEmpty() || this.enemies.isEmpty())) {
                 throw new IllegalStateException("this room (" + this.roomType.get() + ") needs an AiEnemy object");
-            }
-            if (this.roomType.get() == RoomType.STANDARD) {
-                this.items = Optional.of(creatorFactory.createItems().create());
-                new SpawnRandom().setPosition(new ArrayList<MapElement>(this.items.get()), this.width, this.height);
-            }
-            if (this.roomType.get() == RoomType.SHOP) {
-                this.powerups = Optional.of(creatorFactory.createShopPowerUps().create());
-                new SpawnOrdered().setPosition(new ArrayList<MapElement>(this.powerups.get()), this.width, this.height);
-            }
-            if (this.roomType.get() == RoomType.TREASURE) {
-                this.powerups = Optional.of(creatorFactory.createTreasurePowerUps().create());
-                new SpawnOrdered().setPosition(new ArrayList<MapElement>(this.powerups.get()), this.width, this.height);
             }
             if (this.roomType.get() == RoomType.START && this.player.isEmpty()) {
                 throw new IllegalStateException("you must put the player in this in this room (START room)");
             }
             return new RoomImpl(this.width, this.height, this.coord.get(),
-                    /*this.doors, */ this.roomType.get(), this.roomAI, this.items, this.powerups, 
+                    this.roomType.get(), this.roomAI, this.items, this.powerups, 
                     this.player, this.enemies);
+        }
+
+        /**
+         * Method to set the AI inside this room, ONLY for STANDARD and BOSS rooms.
+         */
+        private void putAI() {
+            this.roomAI = Optional.of(new ConcreteAIEnemy(this.enemies.get()));
         }
 
         /**
          * Check if the current room to build needs the AiEnemy object.
          * @return true if the room need the AiEnemy object, false otherwise
          */
-        private boolean checkConditionForAiRoom() {
+        private boolean canRoomHaveEnemies() {
             return this.roomType.get() == RoomType.STANDARD || this.roomType.get() == RoomType.BOSS;
+        }
+        
+        /**
+         * Check if the current room to build can have powerups.
+         * @return true if the room can have powerups, false otherwise
+         */
+        private boolean canRoomHavePowerUps() {
+            return this.roomType.get() == RoomType.SHOP || this.roomType.get() == RoomType.TREASURE;
+        }
+        
+        /**
+         * Method to check if the minimum requirements are satisfied.
+         * @return true if the minimum requirements are satisfied
+         */
+        private boolean areThereMinimumRequirements() {
+            return this.coord.isPresent() && this.roomType.isPresent();
         }
     }
 }
