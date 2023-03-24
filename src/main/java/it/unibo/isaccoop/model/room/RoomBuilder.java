@@ -163,7 +163,7 @@ public class RoomBuilder {
          * @return the build Room
          */
         public Room build() {
-            if (areThereMinimumRequirements()) {
+            if (!areThereMinimumRequirements()) {
                 throw new IllegalStateException("set all required fields: use putCoords() and roomType() methods.");
             }
             if (canRoomHaveEnemies() && (this.roomAI.isEmpty() || this.enemies.isEmpty())) {
