@@ -34,4 +34,11 @@ public class Player extends PlayerMovementImpl {
         }
         this.shots.forEach(shot -> shot.bulletDirection(shot.getDirection(),  distance));
     }
+
+    /**
+     * @return the list of bullets fired.
+     * */
+    public List<PlayerShot> getShot() {
+        return List.copyOf(shots);
+    }
 }
