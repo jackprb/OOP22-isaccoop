@@ -64,4 +64,86 @@ public final class RoomBuilderUtils {
     public boolean canRoomHaveItems() {
         return this.roomType == RoomType.STANDARD;
     }
+    
+    /**
+     * Check if this room can be built. A room can be built only if
+     * all required fields are set, depending on the {@link RoomType}.
+     * @param builder
+     * @return true if the room can be built (all required fields are set),
+     * false otherwise
+     */
+    public boolean canBuildRoom(final Builder builder) {
+        switch (this.roomType) {
+        case START:
+            break;
+
+        case SHOP:
+            break;
+
+        case TREASURE:
+            break;
+
+        case STANDARD:
+            break;
+
+        case BOSS:
+            break;
+
+        default:
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Method that generates enemies, according to the {@link RoomType}.
+     * @return the list of enemies
+     */
+    public Optional<List<Enemy>> generateEnemies() {
+        if (this.roomType == RoomType.BOSS) { //for BOSS room
+            return Optional.of(creatorFactory.createBoss().create());
+        } else { // for STANDARD room
+            return Optional.of(creatorFactory.createEnemies().create());
+        }
+    }
+
+    /**
+     * Method that generates items, according to the {@link RoomType}.
+     * @return the list of items
+     */
+    public Optional<List<Item>> generateItems() {
+        return Optional.of(creatorFactory.createItems().create());
+    }
+
+    /**
+     * Method that generates powerups, according to the {@link RoomType}.
+     * @return the list of powerups
+     */
+    public Optional<List<PowerUp>> generatePowerups() {
+        if (this.roomType == RoomType.SHOP) { // for SHOP room
+            return Optional.of(creatorFactory.createShopPowerUps().create());
+        } else { // for TREASURE ROOM
+            return Optional.of(creatorFactory.createTreasurePowerUps().create());
+        }
+    }
+
+    /**
+     * Method to randomly spawn a list of {@link MapElement}.
+     * @param list the list of MapElements to spawn
+     * @param width width of the room
+     * @param height height of the room
+     */
+    public void randomSpawn(final List<? extends MapElement> list, final int width, final int height) {
+        new SpawnRandom().setPosition(new ArrayList<>(list), width, height);
+    }
+
+    /**
+     * Method to orderly spawn a list of {@link MapElement}.
+     * @param list the list of MapElements to spawn
+     * @param width width of the room
+     * @param height height of the room
+     */
+    public void orderedSpawn(final List<? extends MapElement> list, final int width, final int height) {
+        new SpawnOrdered().setPosition(new ArrayList<>(list), width, height);
+    }
 }
