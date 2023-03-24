@@ -3,10 +3,12 @@ package it.unibo.isaccoop.model.enemy;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.unibo.isaccoop.model.common.MapElement;
 import it.unibo.isaccoop.model.common.Point2D;
+import it.unibo.isaccoop.model.common.Removable;
 
 /***/
-public class EnemyWeapon {
+public class EnemyWeapon implements Removable {
 
     private final List<EnemyWeaponShot> weaponShots;
     private long timeSinceLastShot;
@@ -41,6 +43,15 @@ public class EnemyWeapon {
      * */
     public List<EnemyWeaponShot> getWeaponShots() {
         return List.copyOf(this.weaponShots);
+    }
+
+    /**
+     * Remove the bullet 'e' from the list.
+     * @param e
+     */
+    @Override
+    public void remove(final MapElement e) {
+        this.weaponShots.remove(e);
     }
 
 }
