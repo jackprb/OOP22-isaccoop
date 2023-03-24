@@ -12,7 +12,7 @@ import it.unibo.isaccoop.model.player.Player;
  * Factory for check Collision.
  *
  */
-public class CollisionCheckFactoryImpl implements CollisionCheckFactory {
+public final class CollisionCheckFactoryImpl implements CollisionCheckFactory {
 
     @Override
     public CollisionCheck getCollisionWithItemChecker(final Player p, final List<MapElement> i) {
@@ -25,20 +25,23 @@ public class CollisionCheckFactoryImpl implements CollisionCheckFactory {
     public CollisionCheck getCollisionPlayerShotChecker(final Player p, final List<MapElement> i) {
         return room -> i.stream()
                 .filter(elem -> p.getShot().stream()
-                        .anyMatch(shot -> shot.getBox().isCollidingWith(shot.getCoords(), elem.getCoords(), ElementsRadius.ENEMY.getValue())))
-                        .forEach(e -> room.notifyEvent(new ConcreteEventFactory().getEnemyShot((Enemy) e)));
+                .anyMatch(shot -> shot.getBox()
+                        .isCollidingWith(shot.getCoords(), elem.getCoords(), ElementsRadius.ENEMY.getValue())))
+                .forEach(e -> room.notifyEvent(new ConcreteEventFactory().getEnemyShot((Enemy) e)));
     }
 
     @Override
     public CollisionCheck getCollisionWithEnemyChecker(final Player p, final List<MapElement> i) {
         return room -> i.stream()
-                .filter(elem -> elem.getBox().isCollidingWith(p.getCoords(), elem.getCoords(), ElementsRadius.PLAYER.getValue()));
+                .filter(elem -> elem.getBox().isCollidingWith(p.getCoords(), elem.getCoords(), ElementsRadius.PLAYER.getValue()))
+                .forEach(e -> room.notifyEvent(new ConcreteEventFactory().getEnemyHitEvent()));
     }
 
     @Override
     public CollisionCheck getCollisionWithEnemyShotChecker(final Player p, final List<MapElement> i) {
         return room -> i.stream()
-                .filter(elem -> elem.getBox().isCollidingWith(p.getCoords(), elem.getCoords(), ElementsRadius.PLAYER.getValue()));
+                .filter(elem -> p.getBox().isCollidingWith(p.getCoords(), elem.getCoords(), ElementsRadius.BULLET.getValue()))
+                .forEach(e -> room.notifyEvent(new ConcreteEventFactory().getEnemyHitEvent()));
     }
 
 }
