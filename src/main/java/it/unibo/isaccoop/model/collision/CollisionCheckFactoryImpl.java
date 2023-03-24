@@ -15,29 +15,33 @@ public class CollisionCheckFactoryImpl implements CollisionCheckFactory {
      *
      */
     @Override
-    public CollisionCheck getCollisionWithItemChecker(Player p, List<MapElement> i) {
-        return () -> i.stream().filter(elem -> elem.getBox().isCollidingWith(p.getCoords(), elem.getCoords(), ElementsRadius.PLAYER.getValue()));
+    public CollisionCheck getCollisionWithItemChecker(final Player p, final List<MapElement> i) {
+        return () -> i.stream()
+                .filter(elem -> elem.getBox().isCollidingWith(p.getCoords(), elem.getCoords(), ElementsRadius.PLAYER.getValue()));
     }
     /**
      *
      */
     @Override
-    public CollisionCheck getCollisionPlayerShotChecker(Player p, List<MapElement> e) {
-        return () -> e.stream().filter(elem -> elem.getBox().isCollidingWith(p.getCoords(), elem.getCoords(), ElementsRadius.PLAYER.getValue()));
+    public CollisionCheck getCollisionPlayerShotChecker(final Player p, final List<MapElement> e) {
+        return () -> e.stream()
+                .filter(elem -> elem.getBox().isCollidingWith(p.getCoords(), elem.getCoords(), ElementsRadius.PLAYER.getValue()));
     }
     /**
      *
      */
     @Override
-    public CollisionCheck getCollisionWithEnemyChecker(Player p, List<MapElement> e) {
-        return () -> e.stream().filter(elem -> elem.getBox().isCollidingWith(p.getCoords(), elem.getCoords(), ElementsRadius.PLAYER.getValue()));
+    public CollisionCheck getCollisionWithEnemyChecker(final Player p, final List<MapElement> e) {
+        return () -> e.stream()
+                .filter(elem -> elem.getBox().isCollidingWith(p.getCoords(), elem.getCoords(), ElementsRadius.PLAYER.getValue()));
     }
     /**
      *
      */
     @Override
-    public CollisionCheck getCollisionWithEnemyShotChecker(Player p, List<MapElement> e) {
-        return () -> e.stream().filter(elem -> elem.getBox().isCollidingWith(p.getCoords(), elem.getCoords(), ElementsRadius.PLAYER.getValue()));
+    public CollisionCheck getCollisionWithEnemyShotChecker(final Player p, final List<MapElement> e) {
+        return () -> e.stream()
+                .filter(elem -> elem.getBox().isCollidingWith(p.getCoords(), elem.getCoords(), ElementsRadius.PLAYER.getValue()));
     }
 
 }
