@@ -7,15 +7,8 @@ import it.unibo.isaccoop.model.common.Point2D;
  * */
 public class Boss extends AbstractEnemy {
 
-    /**
-     * Shooting boss.
-     * */
-    private final ShootingEnemy shotBoss;
-
-    /**
-     * Boss that doesn't shoot.
-     * */
-    private final NonShootingEnemy nonShotBoss;
+    /***/
+    private MovementStrategy movementStrategy;
 
     /**
      * The time to wait to change the boss's attack type.
@@ -37,8 +30,7 @@ public class Boss extends AbstractEnemy {
      * */
     public Boss() {
         super(EnemyHearts.BOSS_HEARTS);
-        this.shotBoss = new ShootingEnemy();
-        this.nonShotBoss = new NonShootingEnemy();
+        this.movementStrategy = new NonShootingMovementStrategy();
         this.lastChangeTime = System.currentTimeMillis();
         this.isShotBoss = false;
     }
@@ -60,13 +52,7 @@ public class Boss extends AbstractEnemy {
      * */
     @Override
     public void hit(final Point2D playerPosition) {
-        if (this.changeMode()) {
-            this.shotBoss.hit(playerPosition);
-            this.nonShotBoss.setCoords(this.shotBoss.getCoords());
-        } else {
-            this.nonShotBoss.hit(playerPosition);
-            this.shotBoss.setCoords(this.nonShotBoss.getCoords());
-        }
+
     }
 
     /**
@@ -75,11 +61,9 @@ public class Boss extends AbstractEnemy {
     @Override
     public void move(final Point2D playerPosition) {
         if (this.changeMode()) {
-            this.shotBoss.move(playerPosition);
-            this.nonShotBoss.setCoords(this.shotBoss.getCoords());
-        } else {
-            this.nonShotBoss.move(playerPosition);
-            this.shotBoss.setCoords(this.nonShotBoss.getCoords());
+            this.movementStrategy = this.movementStrategy instanceof ShootingMovementStrategy 
+                    ? new ShootingMovementStrategy() : new NonShootingMovementStrategy();
         }
+        this.movementStrategy.move(this.getCoords(), playerPosition);
     }
 }
