@@ -130,15 +130,12 @@ public final class RoomBuilderUtils {
      * false otherwise
      */
     public boolean canBuildRoom(final Optional<List<Item>> items, final Optional<List<PowerUp>> powerups,
-            final Optional<List<Enemy>> enemies, final Optional<Player> player, 
-            final Optional<AIEnemy> roomAI) {
+            final Optional<List<Enemy>> enemies, final Optional<Player> player, final Optional<AIEnemy> roomAI) {
         switch (this.roomType) {
         case START:
             return items.isEmpty() && player.isPresent() && enemies.isEmpty()
                     && powerups.isEmpty() && roomAI.isEmpty();
         case SHOP:
-            return items.isEmpty() && player.isEmpty() && enemies.isEmpty()
-                    && powerups.isPresent() && roomAI.isEmpty();
         case TREASURE:
             return items.isEmpty() && player.isEmpty() && enemies.isEmpty()
                     && powerups.isPresent() && roomAI.isEmpty();

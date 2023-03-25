@@ -22,7 +22,7 @@ public class RoomBuilder {
     private static final String ENEMIES_BOSS_STANDARD_ROOM = "only STANDARD and BOSS rooms can have enemies";
     private static final String PLAYER_IN_START_ROOM = "the player must be put ONLY in the START room";
     private static final String POWERUPS_SHOP_TREASURE_ROOM = "only SHOP and TREASURE room can have powerups";
-    private static final String REQUIRED_FIELDS_NOT_SET = "some required fields are not set";
+    private static final String INCORRECT_ROOM_CONFIG = "the room cannot be built: some required fields are not set";
 
     /**
      * Static class to actually implement the {@link RoomBuilder}.
@@ -156,7 +156,7 @@ public class RoomBuilder {
                         this.roomType.get(), this.roomAI, this.items, this.powerups, 
                         this.player, this.enemies);
             }
-            throw new IllegalStateException(REQUIRED_FIELDS_NOT_SET);
+            throw new IllegalStateException(INCORRECT_ROOM_CONFIG);
         }
 
         /**
