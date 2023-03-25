@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import it.unibo.isaccoop.model.ai.AIEnemy;
 import it.unibo.isaccoop.model.common.MapElement;
 import it.unibo.isaccoop.model.common.RoomType;
 import it.unibo.isaccoop.model.creator.ConcreteCreatorFactory;
 import it.unibo.isaccoop.model.creator.CreatorFactory;
 import it.unibo.isaccoop.model.enemy.Enemy;
 import it.unibo.isaccoop.model.item.Item;
+import it.unibo.isaccoop.model.player.Player;
 import it.unibo.isaccoop.model.powerup.PowerUp;
 import it.unibo.isaccoop.model.spawn.SpawnOrdered;
 import it.unibo.isaccoop.model.spawn.SpawnRandom;
@@ -115,34 +117,39 @@ public final class RoomBuilderUtils {
     public void orderedSpawn(final List<? extends MapElement> list, final int width, final int height) {
         new SpawnOrdered().setPosition(new ArrayList<>(list), width, height);
     }
-    
+
     /**
      * Check if this room can be built. A room can be built only if
      * all required fields are set, depending on the {@link RoomType}.
-     * @param builder
+     * @param items the list of items
+     * @param powerups the list of powerups
+     * @param enemies the list of enemies
+     * @param player the player
+     * @param roomAI the roomAI
      * @return true if the room can be built (all required fields are set),
      * false otherwise
      */
-    public boolean canBuildRoom() {
+    public boolean canBuildRoom(final Optional<List<Item>> items, final Optional<List<PowerUp>> powerups,
+            final Optional<List<Enemy>> enemies, final Optional<Player> player, 
+            final Optional<AIEnemy> roomAI) {
         switch (this.roomType) {
         case START:
-            break;
-
+            return items.isEmpty() && player.isPresent() && enemies.isEmpty()
+                    && powerups.isEmpty() && roomAI.isEmpty();
         case SHOP:
-            break;
-
+            return items.isEmpty() && player.isEmpty() && enemies.isEmpty()
+                    && powerups.isPresent() && roomAI.isEmpty();
         case TREASURE:
-            break;
-
+            return items.isEmpty() && player.isEmpty() && enemies.isEmpty()
+                    && powerups.isPresent() && roomAI.isEmpty();
         case STANDARD:
-            break;
-
+            return items.isPresent() && player.isEmpty() && enemies.isPresent()
+                    && powerups.isEmpty() && roomAI.isPresent();
         case BOSS:
-            break;
-
+            return items.isEmpty() && player.isEmpty() && enemies.isPresent()
+                    && powerups.isEmpty() && roomAI.isPresent();
         default:
             return false;
         }
-        return true;
     }
 }

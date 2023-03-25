@@ -17,6 +17,13 @@ import it.unibo.isaccoop.model.powerup.PowerUp;
  */
 public class RoomBuilder {
 
+    // messages used when an exception is thrown
+    private static final String ITEMS_IN_STANDARD_ROOM = "only STANDARD rooms can have items";
+    private static final String ENEMIES_BOSS_STANDARD_ROOM = "only STANDARD and BOSS rooms can have enemies";
+    private static final String PLAYER_IN_START_ROOM = "the player must be put ONLY in the START room";
+    private static final String POWERUPS_SHOP_TREASURE_ROOM = "only SHOP and TREASURE room can have powerups";
+    private static final String REQUIRED_FIELDS_NOT_SET = "some required fields are not set";
+
     /**
      * Static class to actually implement the {@link RoomBuilder}.
      */
@@ -41,22 +48,19 @@ public class RoomBuilder {
 
         /**
          * To build a Room, use {@link RoomFactory} instead. <br>
-         *
-         * It is required to call this constructor first, 
-         * then at least the REQUIRED methods.
+         * It is required to call this constructor first, then the REQUIRED methods.
          * <br> At the end, call the method build().
          *
          * @param width the horizontal dimension of this room
          * @param height the vertical dimension of this room
          */
-        public Builder(final int width, final int height) {
+        protected Builder(final int width, final int height) {
             this.width = width;
             this.height = height;
         }
 
         /**
-         * Method to set the coordinate of this room inside the level,
-         * REQUIRED for ALL rooms.
+         * Method to set the coordinate of this room inside the level, REQUIRED for ALL rooms.
          *
          * @param coord the coordinate of this room inside the level
          * @return this builder
@@ -89,7 +93,7 @@ public class RoomBuilder {
                 this.builderUtils.randomSpawn(this.items.get(), this.width, this.height);
                 return this;
             }
-            throw new IllegalStateException("only STANDARD rooms can have items");
+            throw new IllegalStateException(ITEMS_IN_STANDARD_ROOM);
         }
 
         /**
@@ -106,7 +110,7 @@ public class RoomBuilder {
                 this.roomAI = Optional.of(new ConcreteAIEnemy(this.enemies.get()));
                 return this;
             }
-            throw new IllegalStateException("only STANDARD and BOSS rooms can have enemies");
+            throw new IllegalStateException(ENEMIES_BOSS_STANDARD_ROOM);
         }
 
         /**
@@ -121,7 +125,7 @@ public class RoomBuilder {
                 this.player = Optional.of(player);
                 return this;
             }
-            throw new IllegalStateException("the player must be put ONLY in the START room");
+            throw new IllegalStateException(PLAYER_IN_START_ROOM);
         }
 
         /**
@@ -136,12 +140,12 @@ public class RoomBuilder {
                 this.builderUtils.orderedSpawn(this.powerups.get(), width, height);
                 return this;
             }
-            throw new IllegalStateException("only SHOP and TREASURE room can have powerups");
+            throw new IllegalStateException(POWERUPS_SHOP_TREASURE_ROOM);
         }
 
         /**
-         * Method to build the Room. First, call the constructor, then the REQUIRED methods
-         * to set this Room's fields. <br>After that, you can call this method.
+         * Method to build the Room. First, call the constructor, then the REQUIRED methods to set this Room's fields.
+         * <br>After that, you can call this method.
          *
          * @throws IllegalStateException if current Room has some REQUIRED fields unset.
          * @return the built Room
@@ -152,7 +156,7 @@ public class RoomBuilder {
                         this.roomType.get(), this.roomAI, this.items, this.powerups, 
                         this.player, this.enemies);
             }
-            throw new IllegalStateException("some required fields are not set");
+            throw new IllegalStateException(REQUIRED_FIELDS_NOT_SET);
         }
 
         /**
@@ -166,30 +170,12 @@ public class RoomBuilder {
         /**
          * Check if this room can be built. A room can be built only if
          * all required fields are set, depending on the {@link RoomType}.
-         * @param builder
-         * @return true if the room can be built (all required fields are set),
+         * @return true if the room can be built, i.e. if all required fields are set,
          * false otherwise
          */
-        public boolean canBuildRoom() {
-            switch (this.roomType.get()) {
-            case START:
-                return this.items.isEmpty() && this.player.isPresent() && this.enemies.isEmpty()
-                        && this.powerups.isEmpty() && this.roomAI.isEmpty();
-            case SHOP:
-                return this.items.isEmpty() && this.player.isEmpty() && this.enemies.isEmpty()
-                        && this.powerups.isPresent() && this.roomAI.isEmpty();
-            case TREASURE:
-                return this.items.isEmpty() && this.player.isEmpty() && this.enemies.isEmpty()
-                        && this.powerups.isPresent() && this.roomAI.isEmpty();
-            case STANDARD:
-                return this.items.isPresent() && this.player.isEmpty() && this.enemies.isPresent()
-                        && this.powerups.isEmpty() && this.roomAI.isPresent();
-            case BOSS:
-                return this.items.isEmpty() && this.player.isEmpty() && this.enemies.isPresent()
-                        && this.powerups.isEmpty() && this.roomAI.isPresent();
-            default:
-                return false;
-            }
+        private boolean canBuildRoom() {
+            return this.builderUtils.canBuildRoom(this.items, this.powerups, this.enemies, 
+                    this.player, this.roomAI);
         }
     }
 }
