@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.RoomType;
 import it.unibo.isaccoop.model.room.Level;
+import it.unibo.isaccoop.model.room.LevelFactoryImpl;
 import it.unibo.isaccoop.model.room.LevelImpl;
 import it.unibo.isaccoop.model.room.Room;
 import it.unibo.isaccoop.model.room.RoomFactory;
@@ -23,45 +24,59 @@ import it.unibo.isaccoop.model.room.RoomFactoryImpl;
  * RoomFactory test.
  * */
 class LevelTest {
-    private static final int NUMBER_OF_STANDARD_ROOMS = 10;
+    private static final int NUMBER_OF_ROOMS = 10;
     
+    // variables for local level
     private final RoomFactory roomFactory = new RoomFactoryImpl();
-    private final Level level = new LevelImpl();
-    private List<Room> rooms = new LinkedList<>();
-    private List<Room> rooms2 = new LinkedList<>();
+    private final Level localLevel = new LevelImpl();
+    private List<Room> otherRoomList = new LinkedList<>();
+
+    // variables to store data generate from LevelFactoryImpl
+    private Level lvl;
+    private List<Room> roomListFromFactory = new LinkedList<>();
+    
+    @BeforeEach
+    void setUp() {        
+        // generate a complete level using LevelFactoryImpl
+        this.lvl = new LevelFactoryImpl().createLevel(NUMBER_OF_ROOMS);
+        // get the rooms of that level
+        this.roomListFromFactory = lvl.getRooms();
+        // put the rooms in the localLevel
+        this.localLevel.putRooms(this.roomListFromFactory); // the level has no rooms -> OK
+    }
 
     @Test 
     void testPutRooms() {
-        // generate due lists of Room
+        // generate another List<Room>
         for (final RoomType roomType: RoomType.values()) {
-            this.rooms.add(this.roomFactory.buildRoomOfType(roomType, new Point2D(roomType.ordinal(), 0)));
+            this.otherRoomList.add(this.roomFactory.buildRoomOfType(roomType, new Point2D(roomType.ordinal(), 0)));
         }
-        for (int i = 0; i < NUMBER_OF_STANDARD_ROOMS; i++) {
-            this.rooms2.add(this.roomFactory.buildStandardRoom(new Point2D(i, 0)));
-        }
-        this.level.putRooms(rooms); // the level has no rooms -> OK
-        
-        // the level already has rooms (set in previous line) -> throw exception
-        assertThrows(IllegalStateException.class, () -> this.level.putRooms(this.rooms2)); 
+
+        // the level already has rooms (set in method setUp()) -> throw exception
+        assertThrows(IllegalStateException.class, () -> this.localLevel.putRooms(this.otherRoomList)); 
+
+        // the localLevel must have the correct number of rooms
+        assertEquals(this.localLevel.getRooms().size(), NUMBER_OF_ROOMS);
     }
 
     @Test
     void testGetRooms() {
-        // the 
-        assertEquals(this.level.getRooms(), this.rooms);
+        // the List<Room> returned from localLevel is the same in roomListFromFactory
+        // so, those lists must be equal
+        assertEquals(this.localLevel.getRooms(), this.roomListFromFactory);
     }
     
     @Test
     void testIsLevelComplete() {
         // a just created level cannot be already complete
-        assertFalse(this.level.isComplete());
+        assertFalse(this.localLevel.isComplete());
     }
 
     @Test
     void testGetStartRoom() {
-        final Room startRoom = this.level.getRooms().stream()
+        final Room startRoom = this.localLevel.getRooms().stream()
                 .filter(r -> r.getRoomType() == RoomType.START)
                 .findFirst().get();
-        assertEquals(this.level.getStartRoom(), startRoom);
+        assertEquals(this.localLevel.getStartRoom().getRoomType(), startRoom.getRoomType());
     }
 }
