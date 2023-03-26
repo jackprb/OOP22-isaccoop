@@ -12,11 +12,12 @@ import it.unibo.isaccoop.model.player.Player;
  */
 public interface CollisionCheckFactory {
     /**
-     * Get collision with item.
-     * @param p reference to player.
-     * @param i list of mapElements to check collision, in this case Item.
+     * Method for checking the collision between the player and the item.
      *
-     * @return CollisionCheck refer to item.
+     * @param p reference to Player.
+     * @param i list of item to check collision.
+     *
+     * @return interface implementation of CollisionCheck.
      */
     CollisionCheck getCollisionWithItemChecker(Player p, List<MapElement> i);
     /**

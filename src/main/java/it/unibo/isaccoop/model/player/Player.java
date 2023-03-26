@@ -3,10 +3,13 @@ package it.unibo.isaccoop.model.player;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.unibo.isaccoop.model.common.MapElement;
+import it.unibo.isaccoop.model.common.Removable;
+
 /**
  * The class for the player.
  * */
-public class Player extends PlayerMovementImpl {
+public class Player extends PlayerMovementImpl implements Removable {
 
     /**
      * Time since last shot.
@@ -33,5 +36,21 @@ public class Player extends PlayerMovementImpl {
             this.timeSinceLastShot = System.currentTimeMillis();
         }
         this.shots.forEach(shot -> shot.bulletDirection(shot.getDirection(),  distance));
+    }
+
+    /**
+     * @return the list of bullets fired.
+     * */
+    public List<PlayerShot> getShot() {
+        return List.copyOf(shots);
+    }
+
+    /**
+     * Remove the bullet 'e' from the list.
+     * @param e
+     */
+    @Override
+    public void remove(final MapElement e) {
+        this.shots.remove(e);
     }
 }

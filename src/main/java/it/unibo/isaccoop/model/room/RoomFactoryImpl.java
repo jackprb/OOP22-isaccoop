@@ -28,7 +28,6 @@ public final class RoomFactoryImpl implements RoomFactory {
         return new RoomBuilder.Builder(this.width, this.height)
                 .roomType(RoomType.START)
                 .putCoord(coordInsideLevel)
-                //.putDoors(List.of(null /*doors*/))
                 .putPlayer(player)
                 .build();
     }
@@ -38,8 +37,8 @@ public final class RoomFactoryImpl implements RoomFactory {
         return new RoomBuilder.Builder(this.width, this.height)
                 .roomType(RoomType.STANDARD)
                 .putCoord(coordInsideLevel)
-                //.putDoors(List.of(null /*doors*/))
-                .putAI()
+                .putEnemies()
+                .putItems()
                 .build();
     }
 
@@ -48,7 +47,7 @@ public final class RoomFactoryImpl implements RoomFactory {
         return new RoomBuilder.Builder(this.width, this.height)
                 .roomType(RoomType.SHOP)
                 .putCoord(coordInsideLevel)
-                //.putDoors(List.of(null /*doors*/))
+                .putPowerUps()
                 .build();
     }
 
@@ -57,8 +56,7 @@ public final class RoomFactoryImpl implements RoomFactory {
         return new RoomBuilder.Builder(this.width, this.height)
                 .roomType(RoomType.BOSS)
                 .putCoord(coordInsideLevel)
-                //.putDoors(List.of(null /*doors*/))
-                .putAI()
+                .putEnemies()
                 .build();
     }
 
@@ -67,7 +65,7 @@ public final class RoomFactoryImpl implements RoomFactory {
         return new RoomBuilder.Builder(this.width, this.height)
                 .roomType(RoomType.TREASURE)
                 .putCoord(coordInsideLevel)
-                //.putDoors(List.of(null /*doors*/))
+                .putPowerUps()
                 .build();
     }
 

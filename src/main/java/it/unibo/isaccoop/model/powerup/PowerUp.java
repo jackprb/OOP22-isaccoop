@@ -4,12 +4,12 @@ import it.unibo.isaccoop.model.item.AbstractItem;
 import it.unibo.isaccoop.model.player.PlayerStat;
 
 /**
- * Represents the generic power up.
+ * Represents the generic power up and the super powerUp.
  * */
 public abstract class PowerUp extends AbstractItem {
 
-    private static final int PRICE = 10;
-    private static final int SUPER_PRICE = 20;
+    private static final int PRICE = 5;
+    private static final int SUPER_PRICE = 10;
 
     private boolean superItem;
     /**
