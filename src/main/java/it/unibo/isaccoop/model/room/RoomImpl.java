@@ -110,7 +110,7 @@ public final class RoomImpl extends MapElementImpl implements Room {
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + Objects.hash(enemies, items, player, powerups, roomAi, roomType);
+        result = prime * result + Objects.hash(super.getCoords(), enemies, items, player, powerups, roomAi, roomType);
         return result;
     }
 
