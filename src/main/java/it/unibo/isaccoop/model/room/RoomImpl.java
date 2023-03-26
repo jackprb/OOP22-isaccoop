@@ -57,11 +57,6 @@ public final class RoomImpl extends MapElementImpl implements Room {
         this.enemies = enemies;
     }
 
-    /*@Override
-    public List<Door> getDoors() {
-        return Collections.unmodifiableList(this.doors);
-    }*/
-
     @Override
     public RoomType getRoomType() {
         return this.roomType;
@@ -140,9 +135,11 @@ public final class RoomImpl extends MapElementImpl implements Room {
      * @return true if it is complete, false otherwise
      */
     private boolean completionConditions() {
-        // if a room has an enemy list is empty, means that
-        // the player has defeated all enemies -> the room is complete
-        return this.enemies.isEmpty() || this.enemies.isPresent() 
-                && this.enemies.get().stream().allMatch(e -> e.isDead());
+        // NON STANDARD and NOT BOSS rooms are already complete (there are no enemies)
+        if (this.enemies.isEmpty()) {
+            return true;
+        }
+        // STANDARD and BOSS rooms: if the player has defeated all enemies -> the room is complete
+        return (this.enemies.isPresent() && this.enemies.get().stream().allMatch(e -> e.isDead()));
     }
 }
