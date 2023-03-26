@@ -3,9 +3,7 @@ package it.unibo.isaccoop.test.model.room;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.Random;
-
+import java.util.concurrent.ThreadLocalRandom;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,8 +24,8 @@ class RoomFactoryTest {
 
     @BeforeEach
     void setUp() {
-        final Random rnd = new Random();
-        this.coord = new Point2D(rnd.nextInt(MAX_COORD_VALUE), rnd.nextInt(MAX_COORD_VALUE));
+        this.coord = new Point2D(ThreadLocalRandom.current().nextInt(MAX_COORD_VALUE), 
+                ThreadLocalRandom.current().nextInt(MAX_COORD_VALUE));
     }
 
     @Test 
@@ -110,7 +108,7 @@ class RoomFactoryTest {
         for (final var roomType: RoomType.values()) {
             final Room room = this.rFactory.buildRoomOfType(roomType, this.coord);
             // check if the generated room is of the correct type
-            assertTrue(room.getRoomType() == roomType);
+            assertEquals(room.getRoomType(), roomType);
         }
     }
 }
