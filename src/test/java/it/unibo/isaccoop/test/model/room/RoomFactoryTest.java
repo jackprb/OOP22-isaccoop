@@ -76,7 +76,41 @@ class RoomFactoryTest {
     }
 
     @Test
-    void testBuild() {
-        
+    void testBuildStartRoom() {
+        final Room startRoom = this.rFactory.buildStartRoom(this.coord);
+
+        // check if all fields are set properly
+        assertEquals(startRoom.getCoords(), this.coord);
+        assertTrue(startRoom.getEnemies().isEmpty());
+        assertTrue(startRoom.getItems().isEmpty());
+        assertTrue(startRoom.getPlayer().isPresent());
+        assertTrue(startRoom.getRoomAI().isEmpty());
+        assertTrue(startRoom.getPowerUps().isEmpty());
+        assertEquals(startRoom.getRoomType(), RoomType.START);
+        assertTrue(startRoom.isComplete());
+    }
+
+    @Test
+    void testBuildTreasureRoom() {
+        final Room treasureRoom = this.rFactory.buildTreasureRoom(this.coord);
+
+        // check if all fields are set properly
+        assertEquals(treasureRoom.getCoords(), this.coord);
+        assertTrue(treasureRoom.getEnemies().isEmpty());
+        assertTrue(treasureRoom.getItems().isEmpty());
+        assertTrue(treasureRoom.getPlayer().isEmpty());
+        assertTrue(treasureRoom.getRoomAI().isEmpty());
+        assertTrue(treasureRoom.getPowerUps().isPresent());
+        assertEquals(treasureRoom.getRoomType(), RoomType.TREASURE);
+        assertTrue(treasureRoom.isComplete());
+    }
+
+    @Test
+    void testBuildRoomOfType() {
+        for (final var roomType: RoomType.values()) {
+            final Room room = this.rFactory.buildRoomOfType(roomType, this.coord);
+            // check if the generated room is of the correct type
+            assertTrue(room.getRoomType() == roomType);
+        }
     }
 }
