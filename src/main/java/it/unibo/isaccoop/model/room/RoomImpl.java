@@ -111,7 +111,7 @@ public final class RoomImpl extends MapElementImpl implements Room {
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + Objects.hash(super.getCoords(), this.roomType);
+        result = prime * result + Objects.hash(enemies, items, player, powerups, roomAi, roomType);
         return result;
     }
 
@@ -127,7 +127,9 @@ public final class RoomImpl extends MapElementImpl implements Room {
             return false;
         }
         final RoomImpl other = (RoomImpl) obj;
-        return roomType == other.roomType;
+        return Objects.equals(enemies, other.enemies) && Objects.equals(items, other.items)
+                && Objects.equals(player, other.player) && Objects.equals(powerups, other.powerups)
+                && Objects.equals(roomAi, other.roomAi) && roomType == other.roomType;
     }
 
     /**
@@ -140,6 +142,6 @@ public final class RoomImpl extends MapElementImpl implements Room {
             return true;
         }
         // STANDARD and BOSS rooms: if the player has defeated all enemies -> the room is complete
-        return (this.enemies.isPresent() && this.enemies.get().stream().allMatch(e -> e.isDead()));
+        return this.enemies.isPresent() && this.enemies.get().stream().allMatch(e -> e.isDead());
     }
 }
