@@ -3,11 +3,8 @@ package it.unibo.isaccoop.test.model.room;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.LinkedList;
 import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,20 +22,19 @@ import it.unibo.isaccoop.model.room.RoomFactoryImpl;
  * */
 class LevelTest {
     private static final int NUMBER_OF_ROOMS = 10;
-    
+
     // variables for local level
     private final RoomFactory roomFactory = new RoomFactoryImpl();
     private final Level localLevel = new LevelImpl();
-    private List<Room> otherRoomList = new LinkedList<>();
+    private final List<Room> otherRoomList = new LinkedList<>();
 
-    // variables to store data generate from LevelFactoryImpl
-    private Level lvl;
+    // variable to store data generate from LevelFactoryImpl
     private List<Room> roomListFromFactory = new LinkedList<>();
-    
+
     @BeforeEach
-    void setUp() {        
+    void setUp() {
         // generate a complete level using LevelFactoryImpl
-        this.lvl = new LevelFactoryImpl().createLevel(NUMBER_OF_ROOMS);
+        final Level lvl = new LevelFactoryImpl().createLevel(NUMBER_OF_ROOMS);
         // get the rooms of that level
         this.roomListFromFactory = lvl.getRooms();
         // put the rooms in the localLevel
@@ -65,7 +61,7 @@ class LevelTest {
         // so, those lists must be equal
         assertEquals(this.localLevel.getRooms(), this.roomListFromFactory);
     }
-    
+
     @Test
     void testIsLevelComplete() {
         // a just created level cannot be already complete

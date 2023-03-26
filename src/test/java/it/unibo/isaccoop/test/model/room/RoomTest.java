@@ -7,15 +7,14 @@ import org.junit.jupiter.api.Test;
  * RoomFactory test.
  * */
 class RoomTest {
-    
+
     @BeforeEach
     void setUp() {
-        
+
     }
 
     @Test 
     void test1() {
-        
     }
 
     @Test
