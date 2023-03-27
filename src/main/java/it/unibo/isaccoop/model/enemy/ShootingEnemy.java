@@ -13,7 +13,7 @@ public final class ShootingEnemy extends AbstractEnemy {
 
     /***/
     public ShootingEnemy() {
-        super(EnemyHearts.ENEMY_HEARTS);
+        super(EnemyHearts.ENEMY_HEARTS, new NonShootingHitStrategy(), new NonShootingMovementStrategy());
         this.weapon = new EnemyWeapon();
     }
 
@@ -37,6 +37,11 @@ public final class ShootingEnemy extends AbstractEnemy {
      * */
     public List<EnemyWeaponShot> getWeaponShots() {
         return this.weapon.getWeaponShots();
+    }
+
+    @Override
+    public void onShoot() {
+
     }
 
 }

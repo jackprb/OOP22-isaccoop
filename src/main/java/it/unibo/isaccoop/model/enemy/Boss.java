@@ -7,9 +7,6 @@ import it.unibo.isaccoop.model.common.Point2D;
  * */
 public class Boss extends AbstractEnemy {
 
-    /***/
-    private MovementStrategy movementStrategy;
-
     /**
      * The time to wait to change the boss's attack type.
      * */
@@ -29,8 +26,7 @@ public class Boss extends AbstractEnemy {
      * Boss constructor.
      * */
     public Boss() {
-        super(EnemyHearts.BOSS_HEARTS);
-        this.movementStrategy = new NonShootingMovementStrategy();
+        super(EnemyHearts.BOSS_HEARTS, new NonShootingHitStrategy(), new NonShootingMovementStrategy());
         this.lastChangeTime = System.currentTimeMillis();
         this.isShotBoss = false;
     }
@@ -61,9 +57,18 @@ public class Boss extends AbstractEnemy {
     @Override
     public void move(final Point2D playerPosition) {
         if (this.changeMode()) {
-            this.movementStrategy = this.movementStrategy instanceof ShootingMovementStrategy 
-                    ? new ShootingMovementStrategy() : new NonShootingMovementStrategy();
+            if (super.getMovementStrategy() instanceof ShootingMovementStrategy) {
+                super.setMovementStrategy(new ShootingMovementStrategy());
+            } else {
+                super.setMovementStrategy(new NonShootingMovementStrategy());
+            }
         }
-        this.movementStrategy.move(this.getCoords(), playerPosition);
+        super.getMovementStrategy().move(this.getCoords(), playerPosition);
+    }
+
+    @Override
+    public void onShoot() {
+        // TODO Auto-generated method stub
+
     }
 }

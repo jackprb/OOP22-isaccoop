@@ -11,6 +11,12 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
      * */
     private static final int SPEED = 10;
 
+    /***/
+    private MovementStrategy movementStrategy;
+
+    /***/
+    private HitStrategy hitStrategy;
+
     /**
      * Attribute used to store enemy hearts.
      * */
@@ -20,9 +26,13 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
      * Constructor for {@link AbstractEnemy}.
      *
      * @param maxHearts max hearts number for the enemy
+     * @param hitStrategy the strategy for the hit
+     * @param movementStrategy the strategy for the movement
      * */
-    public AbstractEnemy(final EnemyHearts maxHearts) {
+    public AbstractEnemy(final EnemyHearts maxHearts, final HitStrategy hitStrategy, final MovementStrategy movementStrategy) {
         super(ElementsRadius.ENEMY);
+        this.hitStrategy = hitStrategy;
+        this.movementStrategy = movementStrategy;
         this.hearts = maxHearts.getMaxHearts();
     }
 
@@ -89,6 +99,27 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
         public int getMaxHearts() {
             return this.maxHearts;
         }
+    }
+
+    /**
+     * @return the strategy of the hit
+     * */
+    public HitStrategy getHitStrategy() {
+        return this.hitStrategy;
+    }
+
+    /**
+     * @return the strategy of the movement
+     * */
+    public MovementStrategy getMovementStrategy() {
+        return this.movementStrategy;
+    }
+
+    /**
+     * @param movementStrategy
+     * */
+    public void setMovementStrategy(final MovementStrategy movementStrategy) {
+        this.movementStrategy = movementStrategy;
     }
 
 }

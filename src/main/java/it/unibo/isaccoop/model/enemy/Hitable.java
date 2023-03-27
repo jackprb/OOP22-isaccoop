@@ -14,4 +14,6 @@ public interface Hitable {
      * */
     void onHit(PlayerStat player);
 
+    /***/
+    void onShoot();
 }
