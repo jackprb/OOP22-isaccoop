@@ -1,10 +1,8 @@
 package it.unibo.isaccoop.model.enemy;
 
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 import it.unibo.isaccoop.model.common.Point2D;
-import it.unibo.isaccoop.model.common.Vector2D;
 
 /***/
 public final class ShootingEnemy extends AbstractEnemy {
@@ -13,21 +11,13 @@ public final class ShootingEnemy extends AbstractEnemy {
 
     /***/
     public ShootingEnemy() {
-        super(EnemyHearts.ENEMY_HEARTS, new NonShootingHitStrategy(), new NonShootingMovementStrategy());
+        super(EnemyHearts.ENEMY_HEARTS, new ShootingHitStrategy(), new ShootingMovementStrategy());
         this.weapon = new EnemyWeapon();
     }
 
     @Override
     public void hit(final Point2D playerPosition) {
         this.weapon.shoot(super.getCoords(), playerPosition);
-    }
-
-    @Override
-    public void move(final Point2D playerPosition) {
-        final Vector2D moveVector = new Vector2D(
-                ThreadLocalRandom.current().nextDouble(-ShootingEnemy.getSpeed(), ShootingEnemy.getSpeed()),
-                ThreadLocalRandom.current().nextDouble(-ShootingEnemy.getSpeed(), ShootingEnemy.getSpeed()));
-        super.setCoords(super.getCoords().sum(moveVector));
     }
 
     /**
