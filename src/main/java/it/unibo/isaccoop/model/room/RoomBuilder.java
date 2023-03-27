@@ -54,7 +54,7 @@ public class RoomBuilder {
          * @param width the horizontal dimension of this room
          * @param height the vertical dimension of this room
          */
-        protected Builder(final int width, final int height) {
+        public Builder(final int width, final int height) {
             this.width = width;
             this.height = height;
         }
