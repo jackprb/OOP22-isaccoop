@@ -1,5 +1,7 @@
 package it.unibo.isaccoop.model.enemy;
 
+import java.util.Optional;
+
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.Vector2D;
 
@@ -7,24 +9,18 @@ import it.unibo.isaccoop.model.common.Vector2D;
 public final class NonShootingEnemy extends AbstractEnemy {
 
     private boolean canHit;
-    private long lastHitTime;
-    private static final int HIT_TIME = 1000;
 
     /**
      * Constructor for {@link NonShootingEnemy}.
      * */
     public NonShootingEnemy() {
-        super(EnemyHearts.ENEMY_HEARTS);
+        super(EnemyHearts.ENEMY_HEARTS, new NonShootingHitStrategy(), new NonShootingMovementStrategy());
         this.canHit = false;
-        this.lastHitTime = System.currentTimeMillis();
     }
 
     @Override
     public void hit(final Point2D playerPosition) {
-       if (System.currentTimeMillis() - this.lastHitTime >= NonShootingEnemy.HIT_TIME) {
-           this.canHit = !this.canHit;
-           this.lastHitTime = System.currentTimeMillis();
-       }
+       super.getHitStrategy().shoot(Optional.empty(), this);
     }
 
     @Override
@@ -33,4 +29,9 @@ public final class NonShootingEnemy extends AbstractEnemy {
         super.setCoords(super.getCoords().sum(movementVector));
     }
 
+    /***/
+    @Override
+    public void onShoot() {
+        this.canHit = !this.canHit;
+    }
 }

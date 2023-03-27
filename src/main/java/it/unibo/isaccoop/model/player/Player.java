@@ -5,11 +5,12 @@ import java.util.List;
 
 import it.unibo.isaccoop.model.common.MapElement;
 import it.unibo.isaccoop.model.common.Removable;
+import it.unibo.isaccoop.model.enemy.Hitable;
 
 /**
  * The class for the player.
  * */
-public class Player extends PlayerMovementImpl implements Removable {
+public class Player extends PlayerMovementImpl implements Removable, Hitable {
 
     /**
      * Time since last shot.
@@ -30,7 +31,7 @@ public class Player extends PlayerMovementImpl implements Removable {
      * @param direction the direction in which the bullet is fired
      * @param distance the distance between the player and the end of the room
      * */
-    void hit(final int direction, final float distance) {
+    void hit(final int direction, final float distance) {       //distance da togliere, usare Vector2D
         if (System.currentTimeMillis() - timeSinceLastShot > super.getTears()) {
             shots.add(new PlayerShot(direction, super.getCoords(), super.getDamage()));
             this.timeSinceLastShot = System.currentTimeMillis();
@@ -52,5 +53,17 @@ public class Player extends PlayerMovementImpl implements Removable {
     @Override
     public void remove(final MapElement e) {
         this.shots.remove(e);
+    }
+
+    /**
+     * @param player
+     * */
+    @Override
+    public void onHit(final PlayerStat player) {
+    }
+
+    /***/
+    @Override
+    public void onShoot() {
     }
 }
