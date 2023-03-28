@@ -14,7 +14,7 @@ import it.unibo.isaccoop.model.room.LevelFactoryImpl;
 import it.unibo.isaccoop.model.room.Room;
 
 /**
- * RoomFactory test.
+ * LevelFactory test.
  * */
 class LevelFactoryTest {
     private static final int NUMBER_OF_ROOMS = 10;

@@ -12,8 +12,8 @@ import it.unibo.isaccoop.model.room.RoomBuilderUtils;
 import it.unibo.isaccoop.model.room.RoomBuilder.Builder;
 
 /**
- * RoomFactory test.
- * */
+ * RoomBuilder test.
+ */
 class RoomBuilderTest {
 
     private static final int MAX_ROOM_SIZE = 500;
