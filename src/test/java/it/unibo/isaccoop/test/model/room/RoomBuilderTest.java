@@ -19,24 +19,20 @@ class RoomBuilderTest {
 
     private static final int MAX_ROOM_SIZE = 500;
     private static final int MAX_COORD_NUMBER = 20;
-    private Builder builder;
-
-    @BeforeEach
-    void setUp() {
-        this.builder = createBuilder();
-    }
 
     @Test 
     void testPutCoord() {
-        final Builder ris = this.builder.putCoord(generateCoord());
-        assertEquals(ris, this.builder);
+        final Builder emptyBuilder = createBuilder();
+        final Builder ris = emptyBuilder.putCoord(generateCoord());
+        assertEquals(ris, emptyBuilder);
     }
 
     @Test 
     void testRoomType() {
         for (final var rType: RoomType.values()) {
-            final Builder ris = this.builder.roomType(rType);
-            assertEquals(ris, this.builder);
+            final Builder emptyBuilder = createBuilder();
+            final Builder ris = emptyBuilder.roomType(rType);
+            assertEquals(ris, emptyBuilder);
         }
     }
 
@@ -103,6 +99,16 @@ class RoomBuilderTest {
 
     @Test 
     void testBuild() {
+        for (final var rType: RoomType.values()) {
+            final RoomBuilderUtils utils = new RoomBuilderUtils(rType);
+            final Builder localBuilder = new Builder(MAX_ROOM_SIZE, MAX_COORD_NUMBER)
+                    .putCoord(generateCoord())
+                    .roomType(rType);
+
+            // build() at this point will throw an exception because each room requires
+            // to set at least another field with its dedicated method
+            assertThrows(IllegalStateException.class, () -> localBuilder.build());
+        }
     }
 
     /**
