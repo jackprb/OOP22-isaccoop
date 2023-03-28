@@ -106,7 +106,7 @@ class RoomBuilderTest {
             // build() at this point will throw an exception because each room requires
             // to set at least another field with its dedicated method
             assertThrows(IllegalStateException.class, () -> localBuilder.build());
-            
+
             // previous tests check if a room is created correctly, using the correct methods
             // so such tests are not repeated here
         }
