@@ -3,7 +3,6 @@ package it.unibo.isaccoop.test.model.room;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.concurrent.ThreadLocalRandom;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.isaccoop.model.common.Point2D;
@@ -100,7 +99,6 @@ class RoomBuilderTest {
     @Test 
     void testBuild() {
         for (final var rType: RoomType.values()) {
-            final RoomBuilderUtils utils = new RoomBuilderUtils(rType);
             final Builder localBuilder = new Builder(MAX_ROOM_SIZE, MAX_COORD_NUMBER)
                     .putCoord(generateCoord())
                     .roomType(rType);
@@ -108,6 +106,9 @@ class RoomBuilderTest {
             // build() at this point will throw an exception because each room requires
             // to set at least another field with its dedicated method
             assertThrows(IllegalStateException.class, () -> localBuilder.build());
+            
+            // previous tests check if a room is created correctly, using the correct methods
+            // so such tests are not repeated here
         }
     }
 
