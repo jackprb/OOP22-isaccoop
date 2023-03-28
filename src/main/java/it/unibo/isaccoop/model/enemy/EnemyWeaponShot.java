@@ -14,11 +14,11 @@ public class EnemyWeaponShot extends AbstractMapElement {
      *  Constructor for {@link EnemyWeaponShot} class.
      *
      *  @param startPosition start {@link EnemyWeaponShot} position as a {@link Pair}
-     *  @param playerPosition player position in order to set the shot vector
+     *  @param direction shot vector
      * */
-    public EnemyWeaponShot(final Point2D startPosition, final Point2D playerPosition) {
+    public EnemyWeaponShot(final Point2D startPosition, final Vector2D direction) {
         super(startPosition, ElementsRadius.BULLET);
-        this.shotVector = playerPosition.sub(startPosition);
+        this.shotVector = direction;
     }
 
     /**

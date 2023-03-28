@@ -62,8 +62,4 @@ public class Player extends PlayerMovementImpl implements Removable, Hitable {
     public void onHit(final PlayerStat player) {
     }
 
-    /***/
-    @Override
-    public void onShoot() {
-    }
 }

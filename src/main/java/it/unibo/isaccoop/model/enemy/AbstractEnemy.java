@@ -1,5 +1,7 @@
 package it.unibo.isaccoop.model.enemy;
 
+import java.util.Optional;
+
 import it.unibo.isaccoop.model.common.AbstractMapElement;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.player.PlayerStat;
@@ -37,10 +39,25 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
         this.hearts = maxHearts.getMaxHearts();
     }
 
+    /**
+     * Delegates movement to {@link MovementStrategy}.
+     *
+     * @param playerPosition in order to move towards the player if needed
+     * */
     @Override
-    public void move(Point2D playerPosition) {
+    public void move(final Point2D playerPosition) {
         final Point2D newPos = this.getMovementStrategy().move(super.getCoords(), playerPosition);
         super.setCoords(newPos);
+    }
+
+    /**
+     * Delegates hit to {@link HitStrategy}.
+     *
+     * @param playerPosition in order to hit towards the player if needed
+     * */
+    @Override
+    public void hit(final Point2D playerPosition) {
+        this.hitStrategy.shoot(Optional.empty(), this);
     }
 
     /**

@@ -6,6 +6,7 @@ import java.util.List;
 import it.unibo.isaccoop.model.common.MapElement;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.Removable;
+import it.unibo.isaccoop.model.common.Vector2D;
 
 /***/
 public class EnemyWeapon implements Removable {
@@ -26,11 +27,11 @@ public class EnemyWeapon implements Removable {
      *
      *  @param enemyPosition current enemy position as a {@link Pair} in order to
      *   set the starting shot position of the new shot
-     *  @param playerPosition player position to shot in the player direction
+     *  @param direction to shoot in the player direction
      * */
-    public void shoot(final Point2D enemyPosition, final Point2D playerPosition) {
+    public void shoot(final Point2D enemyPosition, final Vector2D direction) {
         if (System.currentTimeMillis() - timeSinceLastShot > EnemyWeapon.SHOT_TIME_LIMIT) {
-            this.weaponShots.add(new EnemyWeaponShot(enemyPosition, playerPosition));
+            this.weaponShots.add(new EnemyWeaponShot(enemyPosition, direction));
             this.timeSinceLastShot = System.currentTimeMillis();
         }
         this.weaponShots.forEach(shot -> shot.tickShot());

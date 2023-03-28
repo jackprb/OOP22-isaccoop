@@ -66,9 +66,4 @@ public class Boss extends AbstractEnemy {
         super.getMovementStrategy().move(this.getCoords(), playerPosition);
     }
 
-    @Override
-    public void onShoot() {
-        // TODO Auto-generated method stub
-
-    }
 }
