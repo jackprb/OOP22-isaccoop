@@ -8,7 +8,7 @@ import it.unibo.isaccoop.model.common.Vector2D;
 /***/
 public final class ShootingHitStrategy implements HitStrategy {
 
-    private final EnemyWeapon weapon;
+    private final Weapon weapon;
 
     /***/
     public ShootingHitStrategy() {

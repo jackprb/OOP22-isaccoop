@@ -5,7 +5,7 @@ import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.Vector2D;
 
 /***/
-public class EnemyWeaponShot extends AbstractMapElement {
+public class EnemyWeaponShot extends AbstractMapElement implements WeaponShot {
 
     private static final int DELTA = 10;
     private final Vector2D shotVector;
@@ -25,6 +25,7 @@ public class EnemyWeaponShot extends AbstractMapElement {
      * Method to increment the position of the shot by {@link EnemyWeaponShot}.DELTA through a defined vector
      * computed by sub between player position and shot start position.
      * */
+    @Override
     public void tickShot() {
         super.setCoords(super.getCoords().sum(this.shotVector.mul(1 / EnemyWeaponShot.DELTA)));
     }

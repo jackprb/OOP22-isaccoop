@@ -5,13 +5,12 @@ import java.util.List;
 
 import it.unibo.isaccoop.model.common.MapElement;
 import it.unibo.isaccoop.model.common.Point2D;
-import it.unibo.isaccoop.model.common.Removable;
 import it.unibo.isaccoop.model.common.Vector2D;
 
 /***/
-public class EnemyWeapon implements Removable {
+public class EnemyWeapon implements Weapon {
 
-    private final List<EnemyWeaponShot> weaponShots;
+    private final List<WeaponShot> weaponShots;
     private long timeSinceLastShot;
     private static final long SHOT_TIME_LIMIT = 1000;
 
@@ -29,6 +28,7 @@ public class EnemyWeapon implements Removable {
      *   set the starting shot position of the new shot
      *  @param direction to shoot in the player direction
      * */
+    @Override
     public void shoot(final Point2D enemyPosition, final Vector2D direction) {
         if (System.currentTimeMillis() - timeSinceLastShot > EnemyWeapon.SHOT_TIME_LIMIT) {
             this.weaponShots.add(new EnemyWeaponShot(enemyPosition, direction));
@@ -42,7 +42,8 @@ public class EnemyWeapon implements Removable {
      *
      * @return {@link EnemyWeaponShot} list for this {@link EnemyWeapon} as {@link List}
      * */
-    public List<EnemyWeaponShot> getWeaponShots() {
+    @Override
+    public List<WeaponShot> getWeaponShots() {
         return List.copyOf(this.weaponShots);
     }
 
