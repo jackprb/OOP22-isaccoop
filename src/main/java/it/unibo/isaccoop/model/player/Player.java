@@ -3,6 +3,7 @@ package it.unibo.isaccoop.model.player;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.unibo.isaccoop.controller.input.InputController;
 import it.unibo.isaccoop.model.common.MapElement;
 import it.unibo.isaccoop.model.common.Removable;
 import it.unibo.isaccoop.model.enemy.Hitable;
@@ -16,6 +17,8 @@ public class Player extends PlayerMovementImpl implements Removable, Hitable {
      * Time since last shot.
      * */
     private long timeSinceLastShot;
+    
+    private InputController controller;
 
     /***/
     private final List<PlayerShot> shots = new ArrayList<>();
@@ -65,5 +68,9 @@ public class Player extends PlayerMovementImpl implements Removable, Hitable {
     /***/
     @Override
     public void onShoot() {
+    }
+
+    public InputController getController() {
+        return controller;
     }
 }

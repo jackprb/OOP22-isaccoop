@@ -1,7 +1,5 @@
 package it.unibo.isaccoop.controller.input;
 
-import it.unibo.isaccoop.model.common.Point2D;
-
 /**
  * 
  *
