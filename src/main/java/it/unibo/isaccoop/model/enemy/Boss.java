@@ -1,5 +1,7 @@
 package it.unibo.isaccoop.model.enemy;
 
+import java.util.Optional;
+
 import it.unibo.isaccoop.model.common.Point2D;
 
 /**
@@ -48,7 +50,14 @@ public class Boss extends AbstractEnemy {
      * */
     @Override
     public void hit(final Point2D playerPosition) {
-
+        if (this.changeMode()) {
+            if (super.getHitStrategy() instanceof ShootingHitStrategy) {
+                super.setHitStrategy(new ShootingHitStrategy());
+            } else {
+                super.setHitStrategy(new NonShootingHitStrategy());
+            }
+        }
+        super.getHitStrategy().shoot(Optional.of(playerPosition.sub(this.getCoords())), this);
     }
 
     /**

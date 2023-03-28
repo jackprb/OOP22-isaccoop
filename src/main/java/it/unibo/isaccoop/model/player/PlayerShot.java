@@ -60,7 +60,7 @@ public class PlayerShot extends AbstractMapElement implements WeaponShot{
     /***/
     @Override
     public void tickShot() {
-        super.setCoords(super.getCoords().sum(this.shotVector.mul(1 / PlayerShot.DELTA)));
+        super.setCoords(super.getCoords().sum(this.shotVector.mul(PlayerShot.DELTA)));
     }
 
 }

@@ -146,4 +146,10 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
         this.movementStrategy = movementStrategy;
     }
 
+    /**
+     * @param hitStrategy
+     * */
+    public void setHitStrategy(final HitStrategy hitStrategy) {
+        this.hitStrategy = hitStrategy;
+    }
 }
