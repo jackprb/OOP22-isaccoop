@@ -5,18 +5,18 @@ package it.unibo.isaccoop.controller.input;
  *
  */
 public class KeyboardInputController implements InputController {
-    
-    private int keyCodeUp;
-    private int keyCodeDown;
-    private int keyCodeLeft;
-    private int keyCodeRight;
-    
+
+    private final int keyCodeUp;
+    private final int keyCodeDown;
+    private final int keyCodeLeft;
+    private final int keyCodeRight;
+
     private boolean isUp;
     private boolean isDown;
     private boolean isLeft;
     private boolean isRight;
-    
-    
+
+
 
     /**
      * @param keyCodeUp
@@ -24,15 +24,20 @@ public class KeyboardInputController implements InputController {
      * @param keyCodeLeft
      * @param keyCodeRight
      */
-    public KeyboardInputController(int keyCodeUp, int keyCodeDown, int keyCodeLeft, int keyCodeRight) {
+    public KeyboardInputController(final int keyCodeUp, final int keyCodeDown, 
+                final int keyCodeLeft, final int keyCodeRight) {
         super();
         this.keyCodeUp = keyCodeUp;
         this.keyCodeDown = keyCodeDown;
         this.keyCodeLeft = keyCodeLeft;
         this.keyCodeRight = keyCodeRight;
     }
-    
-    public void notifyKeyPressed(int keyCode) {
+
+    /**
+     * 
+     * @param keyCode
+     */
+    public void notifyKeyPressed(final int keyCode) {
         if (keyCode == keyCodeUp) {
             isUp = true;
         } else if (keyCode == keyCodeDown) {
@@ -43,8 +48,12 @@ public class KeyboardInputController implements InputController {
             isRight = true;
         }
     }
-    
-    public void notifyKeyReleased(int keyCode) {
+
+    /**
+     * 
+     * @param keyCode
+     */
+    public void notifyKeyReleased(final int keyCode) {
         if (keyCode == keyCodeUp) {
             isUp = false;
         } else if (keyCode == keyCodeDown) {

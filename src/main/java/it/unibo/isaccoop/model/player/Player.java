@@ -17,7 +17,7 @@ public class Player extends PlayerMovementImpl implements Removable, Hitable {
      * Time since last shot.
      * */
     private long timeSinceLastShot;
-    
+
     private InputController controller;
 
     /***/
@@ -70,7 +70,11 @@ public class Player extends PlayerMovementImpl implements Removable, Hitable {
     public void onShoot() {
     }
 
+    /**
+     * 
+     * @return the controller
+     */
     public InputController getController() {
-        return controller;
+        return this.controller;
     }
 }

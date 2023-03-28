@@ -1,5 +1,7 @@
 package it.unibo.isaccoop.controller.input;
 
+import it.unibo.isaccoop.model.player.Player;
+
 /**
  * 
  *
@@ -7,7 +9,7 @@ package it.unibo.isaccoop.controller.input;
 public interface InputComponent {
 
     /**
-     * 
+     * @param player
      */
-    void update();
+    void update(Player player);
 }

@@ -4,30 +4,22 @@ import it.unibo.isaccoop.model.player.Player;
  * 
  *
  */
-public class PlayerInputComponent extends AbstractInputComponent{
-    /**
-     * 
-     * @param player
-     */
-    public PlayerInputComponent(Player player) {
-        super(player);
-    }
-
+public class PlayerInputComponent extends AbstractInputComponent {
     /**
      * 
      */
     @Override
-    public void update() {
-        InputController ctrl = getPlayer().getController();
+    public void update(final Player player) {
+        final InputController ctrl = player.getController();
 
-        if(ctrl.isUp()) {
-            this.getPlayer().update(0);
+        if (ctrl.isUp()) {
+            player.update(0);
         } else if (ctrl.isDown()) {
-            this.getPlayer().update(2);
+            player.update(2);
         } else if (ctrl.isLeft()) {
-            this.getPlayer().update(3);
+            player.update(3);
         } else if (ctrl.isRight()) {
-            this.getPlayer().update(1);
+            player.update(1);
         }
     }
 
