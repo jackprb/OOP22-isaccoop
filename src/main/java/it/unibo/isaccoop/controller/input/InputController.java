@@ -2,11 +2,11 @@ package it.unibo.isaccoop.controller.input;
 
 public interface InputController {
 
-    boolean isMoveUp();
+    boolean isUp();
 
-    boolean isMoveDown();
+    boolean isDown();
 
-    boolean isMoveLeft();
+    boolean isLeft();
 
-    boolean isMoveRight();
+    boolean isRight();
 }
