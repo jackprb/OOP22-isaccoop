@@ -169,7 +169,7 @@ public class RoomBuilder {
 
         /**
          * Check if this room can be built. A room can be built only if
-         * all required fields are set, depending on the {@link RoomType}.
+         * all required fields are set, depending on its {@link RoomType}.
          * @return true if the room can be built, i.e. if all required fields are set,
          * false otherwise
          */
