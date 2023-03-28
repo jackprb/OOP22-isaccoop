@@ -23,7 +23,7 @@ public interface PlayerStat {
     /**
      * @return the speed of the player
      * */
-    float getSpeed();
+    double getSpeed();
 
     /**
      * @return the damage that the player can do
@@ -68,7 +68,7 @@ public interface PlayerStat {
      * @param speed the new speed
      * set the new speed of the player
      * */
-    void setSpeed(float speed);
+    void setSpeed(double speed);
 
     /**
      * @param tears

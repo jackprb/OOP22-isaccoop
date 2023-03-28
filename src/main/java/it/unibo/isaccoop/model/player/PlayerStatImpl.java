@@ -25,7 +25,7 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
     /**
      * the player speed in the game.
      * */
-    private float speed;
+    private double speed;
 
     /**
      * the time between two hit.
@@ -115,7 +115,7 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
      * @return the speed of the player
      * */
     @Override
-    public float getSpeed() {
+    public double getSpeed() {
         return this.speed;
     }
 
@@ -169,7 +169,7 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
 
     /***/
     @Override
-    public void setSpeed(final float speed) {
+    public void setSpeed(final double speed) {
         this.speed = speed;
     }
 
