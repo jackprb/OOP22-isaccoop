@@ -21,6 +21,7 @@ import it.unibo.isaccoop.model.item.Item;
 import it.unibo.isaccoop.model.player.Player;
 import it.unibo.isaccoop.model.powerup.PowerUp;
 import it.unibo.isaccoop.model.room.Room;
+import it.unibo.isaccoop.model.room.RoomFactoryImpl;
 import it.unibo.isaccoop.model.room.RoomImpl;
 
 /**
@@ -32,11 +33,11 @@ class RoomTest {
     private static final int MAX_COORD_NUMBER = 20;
     private static final int MAX_ROOM_SIZE = 200;
     private final Map<RoomType, Room> rooms = new HashMap<>();
-    private final Map<RoomType, Boolean> completed = Map.of(
+    private final Map<RoomType, Boolean> completedExpectedValue = Map.of(
             RoomType.START, true, RoomType.SHOP, true, RoomType.STANDARD, false, 
             RoomType.BOSS, false, RoomType.TREASURE, true);
-    private final CreatorFactory creator = new ConcreteCreatorFactory();
     
+    private final CreatorFactory creator = new ConcreteCreatorFactory();
     private final List<Enemy> enemies = creator.createEnemies().create();
     private final AIEnemy aienemy = new ConcreteAIEnemy(enemies);
     private final List<Item> items = creator.createItems().create();
@@ -46,6 +47,9 @@ class RoomTest {
     @BeforeEach
     void setUp() {
         for (final var type: RoomType.values()) {
+            // this generates a room of each type having all fields set with specified objects,
+            // even if in the game this must not happen (this is only to check that the getters are 
+            // working properly)
             this.rooms.put(type, new RoomImpl(getRandomNumber(), getRandomNumber(), generateCoord(), type, 
                     Optional.of(aienemy), Optional.of(items), Optional.of(powerups), Optional.of(player), 
                     Optional.of(enemies)));
@@ -90,6 +94,16 @@ class RoomTest {
 
     @Test
     void testIsComplete() {
+        // since the rooms generated in method setUp() have illegal configurations made for testing
+        // purposes only, in this method are needed rooms with correct configuration,
+        // so they are created using RoomFactory
+        for(final var rType: RoomType.values()) {
+           final Room room = new RoomFactoryImpl().buildRoomOfType(rType, generateCoord());
+           final Optional<Boolean> expected = Optional.of(this.completedExpectedValue.entrySet().stream()
+                   .filter(entry -> entry.getKey() == rType)
+                   .findFirst().get().getValue());
+           assertSame(expected.get(), room.isComplete());
+        }
     }
 
     /**
