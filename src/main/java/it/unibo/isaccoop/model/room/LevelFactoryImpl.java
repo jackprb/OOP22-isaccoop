@@ -1,6 +1,5 @@
 package it.unibo.isaccoop.model.room;
 
-import java.util.LinkedList;
 import java.util.List;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -17,7 +16,7 @@ public final class LevelFactoryImpl implements LevelFactory {
     private final Player player;
 
     /**
-     * Put the player.
+     * Constructor. Requires the player to be put inside the level.
      * @param player the player to be put inside this level
      */
     public LevelFactoryImpl(final Player player) {
@@ -30,8 +29,7 @@ public final class LevelFactoryImpl implements LevelFactory {
             throw new IllegalArgumentException("a level must have at least " + MIN_NUMBER_OF_ROOMS + " rooms");
         }
         final LevelFactoryUtils lvlFactoryUtils = new LevelFactoryUtils(this.player);
-        final List<Pair<Integer, Integer>> roomCoords = new LinkedList<>();
-        roomCoords.addAll(lvlFactoryUtils.generateRoomCoordinates(numberOfRooms));
+        final List<Pair<Integer, Integer>> roomCoords = lvlFactoryUtils.generateRoomCoordinates(numberOfRooms);
 
         final List<Room> rooms = lvlFactoryUtils.createRooms(roomCoords);
         final Level lvl = new LevelImpl();
