@@ -16,7 +16,6 @@ public final class LevelImpl implements Level {
     @Override
     public void putRooms(final List<Room> roomList) {
         if (roomList.isEmpty() || roomList.size() < RoomType.values().length) {
-            System.out.println("LevelImpl.putRooms(): roomList.size= " + roomList.size());
             throw new IllegalArgumentException("This level must have at least " + RoomType.values().length
                     + " rooms");
         }
