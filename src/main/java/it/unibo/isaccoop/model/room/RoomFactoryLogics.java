@@ -6,8 +6,12 @@ package it.unibo.isaccoop.model.room;
 public final class RoomFactoryLogics {
 
     private final int totalNumberOfRooms;
+    private boolean alreadyCreatedBossRoom = false;
+    private boolean alreadyCreatedStartRoom = false;
+    private boolean alreadyCreatedTreasureRoom = false;
+    private boolean alreadyCreatedShopRoom = false;
     
-    public RoomFactoryLogics(final int totalNumberOfRooms) {
+    protected RoomFactoryLogics(final int totalNumberOfRooms) {
         this.totalNumberOfRooms = totalNumberOfRooms;
     }
 
@@ -17,7 +21,7 @@ public final class RoomFactoryLogics {
      * @return true if can build START room (i.e.: if this is the FIRST room - with roomCount = 0), 
      * false otherwise
      */
-    public boolean canBuildStartRoom(final int roomCount) {
+    protected boolean canBuildStartRoom(final int roomCount) {
         return roomCount == 0;
     }
 
@@ -27,7 +31,7 @@ public final class RoomFactoryLogics {
      * @return true if can build BOSS room (i.e.: if this is the LAST room - 
      * with roomCount = totalNumberOfRooms - 1), false otherwise
      */
-    public boolean canBuildBossRoom(final int roomCount) {
+    protected boolean canBuildBossRoom(final int roomCount) {
         return roomCount == this.totalNumberOfRooms - 1;
     }
     
@@ -37,7 +41,67 @@ public final class RoomFactoryLogics {
      * @return true if can build a NON BOSS or NON START room (i.e.: if this is not the FIRST or LAST room),
      * false otherwise
      */
-    public boolean canBuildNonBossNonStartRoom(final int roomCount) {
+    protected boolean canBuildNonBossNonStartRoom(final int roomCount) {
         return roomCount == this.totalNumberOfRooms;
+    }
+    
+    /**
+     * Check if has already been created a START room.
+     * @return true if a START has already been created, false otherwise
+     */
+    protected boolean hasAlreadyBuiltStartRoom() {
+        return this.alreadyCreatedStartRoom;
+    }
+    
+    /**
+     * Check if has already been created a BOSS room.
+     * @return true if a BOSS has already been created, false otherwise
+     */
+    protected boolean hasAlreadyBuiltBossRoom() {
+        return this.alreadyCreatedBossRoom;
+    }
+    
+    /**
+     * Check if has already been created a SHOP room.
+     * @return true if a SHOP has already been created, false otherwise
+     */
+    protected boolean hasAlreadyBuiltShopRoom() {
+        return this.alreadyCreatedShopRoom;
+    }
+    
+    /**
+     * Check if has already been created a TREASURE room.
+     * @return true if a TREASURE has already been created, false otherwise
+     */
+    protected boolean hasAlreadyBuiltTreasureRoom() {
+        return this.alreadyCreatedTreasureRoom;
+    }
+
+    /**
+     * Set that has already been created a START room.
+     */
+    protected void setAlreadyBuiltStartRoom() {
+        this.alreadyCreatedStartRoom = true;
+    }
+
+    /**
+     * Set that has already been created a SHOP room.
+     */
+    protected void setAlreadyBuiltShopRoom() {
+        this.alreadyCreatedShopRoom = true;
+    }
+
+    /**
+     * Set that has already been created a TREASURE room.
+     */
+    protected void setAlreadyBuiltTreasuretRoom() {
+        this.alreadyCreatedTreasureRoom = true;
+    }
+
+    /**
+     * Set that has already been created a BOSS room.
+     */
+    protected void setAlreadyBuiltBossRoom() {
+        this.alreadyCreatedBossRoom = true;
     }
 }
