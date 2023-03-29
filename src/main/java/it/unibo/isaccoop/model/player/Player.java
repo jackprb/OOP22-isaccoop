@@ -1,28 +1,40 @@
 package it.unibo.isaccoop.model.player;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import it.unibo.isaccoop.model.common.MapElement;
-import it.unibo.isaccoop.model.common.Removable;
+import it.unibo.isaccoop.controller.input.InputController;
+import it.unibo.isaccoop.model.common.Direction;
+import it.unibo.isaccoop.model.common.Vector2D;
+import it.unibo.isaccoop.model.enemy.HitStrategy;
+import it.unibo.isaccoop.model.enemy.Hitable;
+import it.unibo.isaccoop.model.enemy.ShootingHitStrategy;
+import it.unibo.isaccoop.model.weapon.BaseWeaponShot;
+import it.unibo.isaccoop.model.weapon.TimeIntervalWeapon;
+import it.unibo.isaccoop.model.weapon.WeaponShot;
 
 /**
  * The class for the player.
  * */
-public class Player extends PlayerMovementImpl implements Removable {
+public class Player extends PlayerMovementImpl implements Hitable {
 
-    /**
-     * Time since last shot.
-     * */
-    private long timeSinceLastShot;
+    private InputController controller;
 
     /***/
-    private final List<PlayerShot> shots = new ArrayList<>();
+    private final HitStrategy hitStrategy;
+
+    /**
+     * Player constructor.
+     * */
+    public Player() {
+        this.hitStrategy = new ShootingHitStrategy(new TimeIntervalWeapon(super.getTears(),
+                (start, direction) -> new BaseWeaponShot(start, direction)));
+    }
 
     /**
      * @param direction the direction in which the player moves
      * */
-    void move(final int direction) {
+    void move(final Direction direction) {
         super.update(direction);
     }
 
@@ -30,27 +42,42 @@ public class Player extends PlayerMovementImpl implements Removable {
      * @param direction the direction in which the bullet is fired
      * @param distance the distance between the player and the end of the room
      * */
-    void hit(final int direction, final float distance) {
-        if (System.currentTimeMillis() - timeSinceLastShot > super.getTears()) {
-            shots.add(new PlayerShot(direction, super.getCoords(), super.getDamage()));
-            this.timeSinceLastShot = System.currentTimeMillis();
-        }
-        this.shots.forEach(shot -> shot.bulletDirection(shot.getDirection(),  distance));
+    void hit(final Optional<Vector2D> direction, final float distance) {
+        this.hitStrategy.hit(direction, this);
     }
 
     /**
-     * @return the list of bullets fired.
+     * Get player weapon shots if available.
+     *
+     * @return weapon shots list or empty list if shots not available
      * */
-    public List<PlayerShot> getShot() {
-        return List.copyOf(shots);
+    public List<WeaponShot> getWeaponShots() {
+        return this.getHitStrategy() instanceof ShootingHitStrategy
+            ? ((ShootingHitStrategy) this.getHitStrategy()).getWeaponShots()
+            : List.of();
     }
 
     /**
-     * Remove the bullet 'e' from the list.
-     * @param e
-     */
+     * Get player hit strategy.
+     *
+     * @return player hit strategy
+     * */
+    public HitStrategy getHitStrategy() {
+        return this.hitStrategy;
+    }
+
+    /**
+     * @param player
+     * */
     @Override
-    public void remove(final MapElement e) {
-        this.shots.remove(e);
+    public void onHit(final PlayerStat player) {
+    }
+
+    /**
+     *
+     * @return the controller
+     */
+    public InputController getController() {
+        return this.controller;
     }
 }

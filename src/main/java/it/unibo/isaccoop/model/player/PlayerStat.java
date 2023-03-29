@@ -23,22 +23,22 @@ public interface PlayerStat {
     /**
      * @return the speed of the player
      * */
-    float getSpeed();
+    Double getSpeed();
 
     /**
      * @return the damage that the player can do
      * */
-    float getDamage();
+    Double getDamage();
 
     /**
      * @return the max range at which player can hit an enemy
      * */
-    float getRange();
+    Double getRange();
 
     /**
      * @return the time between two hit
      * */
-    float getTears();
+    Double getTears();
 
     /**
      * @param heart the new number of heart of the player
@@ -62,25 +62,25 @@ public interface PlayerStat {
      * @param range the range where the player can hit
      * set the new range
      * */
-    void setRange(float range);
+    void setRange(Double range);
 
     /**
      * @param speed the new speed
      * set the new speed of the player
      * */
-    void setSpeed(float speed);
+    void setSpeed(Double speed);
 
     /**
      * @param tears
      * set the new time between two hit
      * */
-    void setTears(float tears);
+    void setTears(Double tears);
 
     /**
      * @param damage
      * set the new damage that player have
      * */
-    void setDamage(float damage);
+    void setDamage(Double damage);
 
     /**
      * @return if the player is dead

@@ -1,41 +1,25 @@
 package it.unibo.isaccoop.model.enemy;
 
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Optional;
 
 import it.unibo.isaccoop.model.common.Point2D;
-import it.unibo.isaccoop.model.common.Vector2D;
+import it.unibo.isaccoop.model.weapon.BaseWeaponShot;
+import it.unibo.isaccoop.model.weapon.TimeIntervalWeapon;
 
 /***/
 public final class ShootingEnemy extends AbstractEnemy {
 
-    private final EnemyWeapon weapon;
-
     /***/
     public ShootingEnemy() {
-        super(EnemyHearts.ENEMY_HEARTS);
-        this.weapon = new EnemyWeapon();
+        super(EnemyHearts.ENEMY_HEARTS,
+                new ShootingHitStrategy(new TimeIntervalWeapon(getSpeed(),
+                        (start, direction) -> new BaseWeaponShot(start, direction))),
+                new ShootingMovementStrategy());
     }
 
     @Override
     public void hit(final Point2D playerPosition) {
-        this.weapon.shoot(super.getCoords(), playerPosition);
-    }
-
-    @Override
-    public void move(final Point2D playerPosition) {
-        final Vector2D moveVector = new Vector2D(
-                ThreadLocalRandom.current().nextDouble(-ShootingEnemy.getSpeed(), ShootingEnemy.getSpeed()),
-                ThreadLocalRandom.current().nextDouble(-ShootingEnemy.getSpeed(), ShootingEnemy.getSpeed()));
-        super.setCoords(super.getCoords().sum(moveVector));
-    }
-
-    /**
-     *  Get {@link EnemyWeapon} object for this {@link ShootingEnemy}.
-     *
-     *  @return {@link EnemyWeapon} for this {@link ShootingEnemy}
-     * */
-    public EnemyWeapon getWeapon() {
-        return weapon;
+        super.getHitStrategy().hit(Optional.of(playerPosition.sub(super.getCoords())), this);
     }
 
 }

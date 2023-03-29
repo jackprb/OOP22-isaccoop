@@ -54,7 +54,7 @@ public class RoomBuilder {
          * @param width the horizontal dimension of this room
          * @param height the vertical dimension of this room
          */
-        protected Builder(final int width, final int height) {
+        public Builder(final int width, final int height) {
             this.width = width;
             this.height = height;
         }
@@ -169,7 +169,7 @@ public class RoomBuilder {
 
         /**
          * Check if this room can be built. A room can be built only if
-         * all required fields are set, depending on the {@link RoomType}.
+         * all required fields are set, depending on its {@link RoomType}.
          * @return true if the room can be built, i.e. if all required fields are set,
          * false otherwise
          */

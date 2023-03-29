@@ -1,21 +1,15 @@
 package it.unibo.isaccoop.model.enemy;
 
+import java.util.Optional;
+
 import it.unibo.isaccoop.model.common.Point2D;
+import it.unibo.isaccoop.model.weapon.BaseWeaponShot;
+import it.unibo.isaccoop.model.weapon.TimeIntervalWeapon;
 
 /**
  * The class for the boss.
  * */
 public class Boss extends AbstractEnemy {
-
-    /**
-     * Shooting boss.
-     * */
-    private final ShootingEnemy shotBoss;
-
-    /**
-     * Boss that doesn't shoot.
-     * */
-    private final NonShootingEnemy nonShotBoss;
 
     /**
      * The time to wait to change the boss's attack type.
@@ -36,9 +30,7 @@ public class Boss extends AbstractEnemy {
      * Boss constructor.
      * */
     public Boss() {
-        super(EnemyHearts.BOSS_HEARTS);
-        this.shotBoss = new ShootingEnemy();
-        this.nonShotBoss = new NonShootingEnemy();
+        super(EnemyHearts.BOSS_HEARTS, new NonShootingHitStrategy(), new NonShootingMovementStrategy());
         this.lastChangeTime = System.currentTimeMillis();
         this.isShotBoss = false;
     }
@@ -61,11 +53,14 @@ public class Boss extends AbstractEnemy {
     @Override
     public void hit(final Point2D playerPosition) {
         if (this.changeMode()) {
-            this.shotBoss.hit(playerPosition);
-            this.nonShotBoss.setCoords(this.shotBoss.getCoords());
-        } else {
-            this.nonShotBoss.hit(playerPosition);
-            this.shotBoss.setCoords(this.nonShotBoss.getCoords());
+            if (super.getHitStrategy() instanceof ShootingHitStrategy) {
+                super.setHitStrategy(new NonShootingHitStrategy());
+                super.getHitStrategy().hit(Optional.empty(), this);
+            } else {
+                super.setHitStrategy(new ShootingHitStrategy(new TimeIntervalWeapon(super.getSpeed(),
+                        (start, direction) -> new BaseWeaponShot(start, direction))));
+                super.getHitStrategy().hit(Optional.of(playerPosition.sub(this.getCoords())), this);
+            }
         }
     }
 
@@ -75,11 +70,13 @@ public class Boss extends AbstractEnemy {
     @Override
     public void move(final Point2D playerPosition) {
         if (this.changeMode()) {
-            this.shotBoss.move(playerPosition);
-            this.nonShotBoss.setCoords(this.shotBoss.getCoords());
-        } else {
-            this.nonShotBoss.move(playerPosition);
-            this.shotBoss.setCoords(this.nonShotBoss.getCoords());
+            if (super.getMovementStrategy() instanceof ShootingMovementStrategy) {
+                super.setMovementStrategy(new NonShootingMovementStrategy());
+            } else {
+                super.setMovementStrategy(new ShootingMovementStrategy());
+            }
         }
+        super.getMovementStrategy().move(this.getCoords(), playerPosition);
     }
+
 }
