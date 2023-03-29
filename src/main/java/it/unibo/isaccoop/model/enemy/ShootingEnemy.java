@@ -12,7 +12,8 @@ public final class ShootingEnemy extends AbstractEnemy {
     /***/
     public ShootingEnemy() {
         super(EnemyHearts.ENEMY_HEARTS,
-                new ShootingHitStrategy(new TimeIntervalWeapon(getSpeed(), (start, direction) -> new BaseWeaponShot(start, direction))),
+                new ShootingHitStrategy(new TimeIntervalWeapon(getSpeed(),
+                        (start, direction) -> new BaseWeaponShot(start, direction))),
                 new ShootingMovementStrategy());
     }
 
