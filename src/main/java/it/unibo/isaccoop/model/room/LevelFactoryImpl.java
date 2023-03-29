@@ -17,7 +17,7 @@ public final class LevelFactoryImpl implements LevelFactory {
     private final Player player;
     
     /**
-     * Get the player.
+     * Put the player.
      * @param player the player to be put inside this level
      */
     public LevelFactoryImpl(final Player player) {
