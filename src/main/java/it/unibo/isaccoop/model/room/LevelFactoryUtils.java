@@ -25,7 +25,7 @@ public final class LevelFactoryUtils {
         // initial position for the first room of the level
         Pair<Integer, Integer> roomPos = new ImmutablePair<>(0, 0);
         final List<Pair<Integer, Integer>> list = new LinkedList<>();
-        
+
         for (int i = 0; i < numberOfRooms; i++) {
             if (isValidCoord(roomPos) && list.contains(roomPos)) {
                 list.add(roomPos);
@@ -57,14 +57,15 @@ public final class LevelFactoryUtils {
 
     /**
      * Method to associate rooms to their coordinates.
+     * @param coordsList
      * @return the list of created rooms.
      */
     public List<Room> createRooms(final List<Pair<Integer, Integer>> coordsList) {
         final RoomFactory rFactory = new RoomFactoryImpl();
         final List<Room> rooms = new LinkedList<>();
-        
+
         for (int i = 0; i < coordsList.size(); i++) {
-            final var coord = pair2point2D(coordsList.get(rooms.size()));
+            final var coord = pairToPoint2D(coordsList.get(rooms.size()));
             if (i < RoomType.values().length) {
                 // create a room for each RoomType (BOSS, SHOP, TREASURE, START, STANDARD)
                 rooms.add(rFactory.buildRoomOfType(RoomType.values()[i], coord));
@@ -81,7 +82,7 @@ public final class LevelFactoryUtils {
      * @param pair the initial pair
      * @return the pair converted into a Point2D
      */
-    private Point2D pair2point2D(final Pair<Integer, Integer> pair) {
+    private Point2D pairToPoint2D(final Pair<Integer, Integer> pair) {
         return new Point2D(pair.getLeft(), pair.getRight());
     }
 }
