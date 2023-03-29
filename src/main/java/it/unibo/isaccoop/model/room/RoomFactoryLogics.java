@@ -50,7 +50,7 @@ public final class RoomFactoryLogics {
      * false otherwise
      */
     public boolean canBuildNonBossNonStartRoom(final int roomCount) {
-        return roomCount == this.totalNumberOfRooms;
+        return roomCount < this.totalNumberOfRooms;
     }
 
     /**
