@@ -2,6 +2,8 @@ package it.unibo.isaccoop.model.player;
 
 import java.util.Optional;
 
+import it.unibo.isaccoop.controller.input.InputController;
+import it.unibo.isaccoop.model.common.Direction;
 import it.unibo.isaccoop.model.common.Vector2D;
 import it.unibo.isaccoop.model.enemy.HitStrategy;
 import it.unibo.isaccoop.model.enemy.Hitable;
@@ -14,6 +16,8 @@ import it.unibo.isaccoop.model.weapon.TimeIntervalWeapon;
  * */
 public class Player extends PlayerMovementImpl implements Hitable {
 
+    private InputController controller;
+
     /***/
     final HitStrategy shootingHitStrategy;
 
@@ -25,7 +29,7 @@ public class Player extends PlayerMovementImpl implements Hitable {
     /**
      * @param direction the direction in which the player moves
      * */
-    void move(final int direction) {
+    void move(final Direction direction) {
         super.update(direction);
     }
 
@@ -44,4 +48,11 @@ public class Player extends PlayerMovementImpl implements Hitable {
     public void onHit(final PlayerStat player) {
     }
 
+    /**
+     * 
+     * @return the controller
+     */
+    public InputController getController() {
+        return this.controller;
+    }
 }

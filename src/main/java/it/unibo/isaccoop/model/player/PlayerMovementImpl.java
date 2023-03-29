@@ -1,5 +1,6 @@
 package it.unibo.isaccoop.model.player;
 
+import it.unibo.isaccoop.model.common.Direction;
 import it.unibo.isaccoop.model.common.Point2D;
 
 /**
@@ -16,22 +17,22 @@ public class PlayerMovementImpl extends PlayerStatImpl implements PlayerMovement
      * @param direction the direction which the player moves
      * */
     @Override
-    public void update(final int direction) {
+    public void update(final Direction direction) {
         switch (direction) {
             /* 0 = up */
-            case 0:
+            case UP:
                 super.setCoords(new Point2D(x, y - distance));
             break;
             /* 1 =  right */
-            case 1:
+            case RIGHT:
                 super.setCoords(new Point2D(x + distance, y));
             break;
             /* 2 = down */
-            case 2:
+            case DOWN:
                 super.setCoords(new Point2D(x, y + distance));
             break;
             /* 3 = left */
-            case 3:
+            case LEFT:
                 super.setCoords(new Point2D(x - distance, y));
             break;
             default:
