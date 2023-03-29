@@ -74,9 +74,8 @@ public final class LevelFactoryUtils {
         final RoomFactory rFactory = new RoomFactoryImpl(coordsList.size(), player);
         final List<Room> rooms = new LinkedList<>();
 
-        for (int i = 0; i < coordsList.size(); i++) {
-            final var coord = pairToPoint2D(coordsList.get(i));
-            rooms.add(rFactory.buildRoomInProperOrder(coord));
+        for (final Pair<Integer, Integer> coord: coordsList) {
+            rooms.add(rFactory.buildRoomInProperOrder(pairToPoint2D(coord)));
         }
         return rooms;
     }

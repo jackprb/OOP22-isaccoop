@@ -26,10 +26,11 @@ public final class LevelControllerImpl implements LevelController {
     private Room currentRoom;
     private final Player player = new Player();
     private final InputController inputController;
-    
+
     /**
      * Create a game with the specified number of levels.
      * @param numberOfLevels the number of levels to create
+     * @param inputController the inputController to be attached to this level
      */
     public LevelControllerImpl(final int numberOfLevels, final InputController inputController) {
         final LevelFactoryImpl lvlFactory = new LevelFactoryImpl(this.player);

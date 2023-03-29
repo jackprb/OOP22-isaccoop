@@ -18,8 +18,8 @@ public final class RoomFactoryImpl implements RoomFactory {
 
     private final int width;
     private final int height;
-    private Player player;
-    private int roomCount = 0;
+    private final Player player;
+    private int roomCount;
     private final RoomFactoryLogics rFactoryLogics;
 
     /**
@@ -32,6 +32,7 @@ public final class RoomFactoryImpl implements RoomFactory {
         this.width = MIN_MAX_ROOM_DIMENSIONS;
         this.height = MIN_MAX_ROOM_DIMENSIONS;
         this.player = player;
+        this.roomCount = 0;
         this.rFactoryLogics = new RoomFactoryLogics(totalNumberOfRooms);
     }
 
