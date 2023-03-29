@@ -3,9 +3,16 @@ package it.unibo.isaccoop.model.weapon;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.Vector2D;
 
+/***/
 public class BaseWeaponShot extends AbstractWeaponShot {
 
-    public BaseWeaponShot(Point2D startPosition, Vector2D direction) {
+    /**
+     * BaseWeaponShot constructor.
+     *
+     * @param startPosition shot start position
+     * @param direction shot direction vector
+     * */
+    public BaseWeaponShot(final Point2D startPosition, final Vector2D direction) {
         super(startPosition, direction);
     }
 
@@ -15,7 +22,7 @@ public class BaseWeaponShot extends AbstractWeaponShot {
      * */
     @Override
     public void tickShot() {
-        super.setCoords(super.getCoords().sum(this.shotVector.mul(super.getSpeed())));
+        super.setCoords(super.getCoords().sum(this.getShotVector().mul(super.getSpeed())));
     }
 
 }

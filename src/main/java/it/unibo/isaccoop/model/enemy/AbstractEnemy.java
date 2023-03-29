@@ -1,10 +1,12 @@
 package it.unibo.isaccoop.model.enemy;
 
+import java.util.List;
 import java.util.Optional;
 
 import it.unibo.isaccoop.model.common.AbstractMapElement;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.player.PlayerStat;
+import it.unibo.isaccoop.model.weapon.WeaponShot;
 
 /***/
 public abstract class AbstractEnemy extends AbstractMapElement implements Enemy {
@@ -69,6 +71,14 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
     @Override
     public void onHit(final PlayerStat player) {
         player.setHeart(player.getHeart() - 1);
+    }
+
+    /***/
+    @Override
+    public List<WeaponShot> getWeaponShots() {
+        return this.getHitStrategy() instanceof ShootingHitStrategy
+            ? ((ShootingHitStrategy) this.getHitStrategy()).getWeaponShots()
+            : List.of();
     }
 
     /**

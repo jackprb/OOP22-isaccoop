@@ -1,5 +1,6 @@
 package it.unibo.isaccoop.model.player;
 
+import java.util.List;
 import java.util.Optional;
 
 import it.unibo.isaccoop.controller.input.InputController;
@@ -11,6 +12,7 @@ import it.unibo.isaccoop.model.enemy.Hitable;
 import it.unibo.isaccoop.model.enemy.ShootingHitStrategy;
 import it.unibo.isaccoop.model.weapon.BaseWeaponShot;
 import it.unibo.isaccoop.model.weapon.TimeIntervalWeapon;
+import it.unibo.isaccoop.model.weapon.WeaponShot;
 
 /**
  * The class for the player.
@@ -21,10 +23,13 @@ public class Player extends PlayerMovementImpl implements Hitable<Enemy> {
     private InputController controller;
 
     /***/
-    final HitStrategy shootingHitStrategy;
+    private final HitStrategy hitStrategy;
 
-    public Player(){
-        this.shootingHitStrategy = new ShootingHitStrategy(new TimeIntervalWeapon(this.getTears(),
+    /**
+     * Player constructor.
+     * */
+    public Player() {
+        this.hitStrategy = new ShootingHitStrategy(new TimeIntervalWeapon(super.getTears(),
                 (start, direction) -> new BaseWeaponShot(start, direction)));
     }
 
@@ -38,8 +43,28 @@ public class Player extends PlayerMovementImpl implements Hitable<Enemy> {
     /**
      * @param direction the direction in which the bullet is fired
      * */
-    void hit(final Optional<Vector2D> direction) {
-        this.shootingHitStrategy.hit(direction, this);
+    void hit(final Optional<Vector2D> direction, final float distance) {
+        this.hitStrategy.hit(direction, this);
+    }
+
+    /**
+     * Get player weapon shots if available.
+     *
+     * @return weapon shots list or empty list if shots not available
+     * */
+    public List<WeaponShot> getWeaponShots() {
+        return this.getHitStrategy() instanceof ShootingHitStrategy
+            ? ((ShootingHitStrategy) this.getHitStrategy()).getWeaponShots()
+            : List.of();
+    }
+
+    /**
+     * Get player hit strategy.
+     *
+     * @return player hit strategy
+     * */
+    public HitStrategy getHitStrategy() {
+        return this.hitStrategy;
     }
 
     /**
@@ -51,7 +76,7 @@ public class Player extends PlayerMovementImpl implements Hitable<Enemy> {
     }
 
     /**
-     * 
+     *
      * @return the controller
      */
     public InputController getController() {

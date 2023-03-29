@@ -2,11 +2,13 @@ package it.unibo.isaccoop.test.model.room;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -34,7 +36,7 @@ class RoomTest {
     private static final int MAX_ROOM_SIZE = 200;
     private final Map<RoomType, Room> rooms = new HashMap<>();
     private final Map<RoomType, Boolean> completedExpectedValue = Map.of(
-            RoomType.START, true, RoomType.SHOP, true, RoomType.STANDARD, false, 
+            RoomType.START, true, RoomType.SHOP, true, RoomType.STANDARD, false,
             RoomType.BOSS, false, RoomType.TREASURE, true);
 
     private final CreatorFactory creator = new ConcreteCreatorFactory();
@@ -48,10 +50,10 @@ class RoomTest {
     void setUp() {
         for (final var type: RoomType.values()) {
             // this generates a room of each type having all fields set with specified objects,
-            // even if in the game this must not happen (this is only to check that the getters are 
+            // even if in the game this must not happen (this is only to check that the getters are
             // working properly)
-            this.rooms.put(type, new RoomImpl(getRandomNumber(), getRandomNumber(), generateCoord(), type, 
-                    Optional.of(aienemy), Optional.of(items), Optional.of(powerups), Optional.of(player), 
+            this.rooms.put(type, new RoomImpl(getRandomNumber(), getRandomNumber(), generateCoord(), type,
+                    Optional.of(aienemy), Optional.of(items), Optional.of(powerups), Optional.of(player),
                     Optional.of(enemies)));
         }
     }
@@ -111,7 +113,7 @@ class RoomTest {
      * @return a new Point2D
      */
     private Point2D generateCoord() {
-        return new Point2D(ThreadLocalRandom.current().nextInt(MAX_COORD_NUMBER), 
+        return new Point2D(ThreadLocalRandom.current().nextInt(MAX_COORD_NUMBER),
                 ThreadLocalRandom.current().nextInt(MAX_COORD_NUMBER));
     }
 
