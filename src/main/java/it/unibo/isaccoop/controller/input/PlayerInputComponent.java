@@ -11,7 +11,7 @@ public class PlayerInputComponent implements InputComponent {
      */
     @Override
     public void update(final Player player) {
-        final InputController ctrl = player.getController();
+        final InputController ctrl = player.getMovementController();
 
         if (ctrl.isUp()) {
             player.update(Direction.UP);

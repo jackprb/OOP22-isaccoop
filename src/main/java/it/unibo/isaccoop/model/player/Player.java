@@ -16,14 +16,17 @@ import it.unibo.isaccoop.model.weapon.TimeIntervalWeapon;
  * */
 public class Player extends PlayerMovementImpl implements Hitable {
 
-    private InputController controller;
+    private InputController movementController;
+    private InputController shootingController;
 
     /***/
     final HitStrategy shootingHitStrategy;
 
-    public Player(){
+    public Player(final InputController moveController, final InputController shotController){
         this.shootingHitStrategy = new ShootingHitStrategy(new TimeIntervalWeapon(this.getTears(),
                 (start, direction) -> new BaseWeaponShot(start, direction)));
+        this.movementController = moveController;
+        this.shootingController = shotController;
     }
 
     /**
@@ -50,9 +53,17 @@ public class Player extends PlayerMovementImpl implements Hitable {
 
     /**
      * 
-     * @return the controller
+     * @return the movement controller
      */
-    public InputController getController() {
-        return this.controller;
+    public InputController getMovementController() {
+        return this.movementController;
+    }
+
+    /**
+     * 
+     * @return the shooting controller
+     */
+    public InputController getShootingController() {
+        return this.shootingController;
     }
 }
