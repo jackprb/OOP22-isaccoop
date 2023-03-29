@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.unibo.isaccoop.controller.input.InputController;
+import it.unibo.isaccoop.model.common.Direction;
 import it.unibo.isaccoop.model.common.MapElement;
 import it.unibo.isaccoop.model.common.Removable;
 import it.unibo.isaccoop.model.enemy.Hitable;
@@ -26,7 +27,7 @@ public class Player extends PlayerMovementImpl implements Removable, Hitable {
     /**
      * @param direction the direction in which the player moves
      * */
-    void move(final int direction) {
+    void move(final Direction direction) {
         super.update(direction);
     }
 

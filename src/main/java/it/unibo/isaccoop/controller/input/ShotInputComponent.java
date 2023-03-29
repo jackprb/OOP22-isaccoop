@@ -6,7 +6,7 @@ import it.unibo.isaccoop.model.player.Player;
  * 
  *
  */
-public class ShotInputComponent extends AbstractInputComponent {
+public class ShotInputComponent implements InputComponent {
     /**
      * 
      */

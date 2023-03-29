@@ -1,4 +1,5 @@
 package it.unibo.isaccoop.controller.input;
+import it.unibo.isaccoop.model.common.Direction;
 import it.unibo.isaccoop.model.player.Player;
 /**
  * 
@@ -13,13 +14,13 @@ public class PlayerInputComponent implements InputComponent {
         final InputController ctrl = player.getController();
 
         if (ctrl.isUp()) {
-            player.update(0);
+            player.update(Direction.UP);
         } else if (ctrl.isDown()) {
-            player.update(2);
+            player.update(Direction.DOWN);
         } else if (ctrl.isLeft()) {
-            player.update(3);
+            player.update(Direction.LEFT);
         } else if (ctrl.isRight()) {
-            player.update(1);
+            player.update(Direction.RIGHT);
         }
     }
 
