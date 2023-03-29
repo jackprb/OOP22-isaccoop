@@ -11,10 +11,17 @@ public class GameLoopImpl implements GameLoop {
 
     private Level level;
     private InputComponent inputComponent;
+    private long period = 20;
 
     @Override
     public void gameLoop() {
-        // TODO Auto-generated method stub
+        while(!level.isComplete()) {
+            long current = System.currentTimeMillis();
+            this.processInput();
+            this.updateGame();
+            this.render();
+            this.waitForNextFrame(current);
+        }
 
     }
     /**
@@ -27,7 +34,11 @@ public class GameLoopImpl implements GameLoop {
     }
     /***/
     private void updateGame() {
-        // TODO Auto-generated method stub
+        level.getRooms().stream().filter(r -> r.getPlayer().isPresent())
+            .forEach(x -> {
+                x.updateRoom();
+                x.executeEvents();
+            });
 
     }
     /***/
@@ -36,6 +47,17 @@ public class GameLoopImpl implements GameLoop {
 
     }
 
+    /**
+     *
+     */
+    private void waitForNextFrame(long current){
+        long dt = System.currentTimeMillis() - current;
+        if (dt < period){
+            try {
+                Thread.sleep(period - dt);
+            } catch (Exception ex){}
+        }
+    }
 
 
 }
