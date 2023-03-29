@@ -37,7 +37,7 @@ public final class LevelFactoryUtils {
         final List<Pair<Integer, Integer>> list = new LinkedList<>();
 
         for (int i = 0; i < numberOfRooms; i++) {
-            if (isValidCoord(roomPos) && list.contains(roomPos)) {
+            if (isValidCoord(roomPos) && !list.contains(roomPos)) {
                 list.add(roomPos);
                 roomPos = getNewCoordinateAlongDirection(roomPos, Direction.RIGHT);
             }
