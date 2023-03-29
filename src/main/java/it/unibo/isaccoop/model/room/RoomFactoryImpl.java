@@ -9,30 +9,33 @@ import it.unibo.isaccoop.model.player.Player;
  */
 public final class RoomFactoryImpl implements RoomFactory {
 
+    // strings used as messages when an exception is thrown
     private static final int MIN_MAX_ROOM_DIMENSIONS = 200;
     private static final String ALREADY_GENERATED_ALL_ROOMS = "you have already generated all the required rooms";
     private static final String START_ROOM_MUST_BE_FIRST = "the START room must be the FIRST to be generated";
     private static final String BOSS_ROOM_MUST_BE_LAST = "the BOSS room must be the LAST to be generated";
+    private static final String CANNOT_CREATE_MORE_ROOMS = "cannot create more rooms";
 
     private final int width;
     private final int height;
     private Player player;
     private int roomCount = 0;
     private final RoomFactoryLogics rFactoryLogics;
-    
+
     /**
      * Constructor. No parameters needed.
      */
-    public RoomFactoryImpl(final int totalNumberOfRooms) {
+    public RoomFactoryImpl(final int totalNumberOfRooms, final Player player) {
         this.width = MIN_MAX_ROOM_DIMENSIONS;
         this.height = MIN_MAX_ROOM_DIMENSIONS;
+        this.player = player;
         this.rFactoryLogics = new RoomFactoryLogics(totalNumberOfRooms);
     }
 
     @Override
     public Room buildStartRoom(final Point2D coordInsideLevel) {
-        if (this.rFactoryLogics.canBuildStartRoom(this.roomCount) && 
-                !this.rFactoryLogics.hasAlreadyBuiltStartRoom()) {            
+        if (this.rFactoryLogics.canBuildStartRoom(this.roomCount)
+                && !this.rFactoryLogics.hasAlreadyBuiltStartRoom()) {            
             incrementRoomCount();
             this.rFactoryLogics.setAlreadyBuiltStartRoom();
             return new RoomBuilder.Builder(this.width, this.height)
@@ -60,8 +63,10 @@ public final class RoomFactoryImpl implements RoomFactory {
 
     @Override
     public Room buildShopRoom(final Point2D coordInsideLevel) {
-        if (this.rFactoryLogics.canBuildNonBossNonStartRoom(roomCount)) {            
+        if (this.rFactoryLogics.canBuildNonBossNonStartRoom(roomCount)
+                && !this.rFactoryLogics.hasAlreadyBuiltShopRoom()) {            
             incrementRoomCount();
+            this.rFactoryLogics.setAlreadyBuiltShopRoom();
             return new RoomBuilder.Builder(this.width, this.height)
                     .roomType(RoomType.SHOP)
                     .putCoord(coordInsideLevel)
@@ -73,9 +78,10 @@ public final class RoomFactoryImpl implements RoomFactory {
 
     @Override
     public Room buildBossRoom(final Point2D coordInsideLevel) {
-        if (this.rFactoryLogics.canBuildBossRoom(roomCount) && !this.alreadyCreatedBossRoom) { 
+        if (this.rFactoryLogics.canBuildBossRoom(roomCount)
+                && !this.rFactoryLogics.hasAlreadyBuiltBossRoom()) { 
             incrementRoomCount();
-            this.alreadyCreatedBossRoom = true;
+            this.rFactoryLogics.setAlreadyBuiltBossRoom();;
             return new RoomBuilder.Builder(this.width, this.height)
                     .roomType(RoomType.BOSS)
                     .putCoord(coordInsideLevel)
@@ -87,8 +93,10 @@ public final class RoomFactoryImpl implements RoomFactory {
 
     @Override
     public Room buildTreasureRoom(final Point2D coordInsideLevel) {
-        if (this.rFactoryLogics.canBuildNonBossNonStartRoom(roomCount)) {            
+        if (this.rFactoryLogics.canBuildNonBossNonStartRoom(roomCount)
+                && !this.rFactoryLogics.hasAlreadyBuiltTreasureRoom()) {            
             incrementRoomCount();
+            this.rFactoryLogics.setAlreadyBuiltTreasuretRoom();
             return new RoomBuilder.Builder(this.width, this.height)
                     .roomType(RoomType.TREASURE)
                     .putCoord(coordInsideLevel)
@@ -118,16 +126,26 @@ public final class RoomFactoryImpl implements RoomFactory {
 
     @Override
     public Room buildRoomInProperOrder(final Point2D coordInsideLevel) {
-        if (this.rFactoryLogics.canBuildStartRoom(roomCount)) {
-            return buildStandardRoom(coordInsideLevel);
+        if (this.rFactoryLogics.canBuildStartRoom(roomCount) 
+                && !this.rFactoryLogics.hasAlreadyBuiltStartRoom()) {
+            return buildStartRoom(coordInsideLevel);
         }
-        if (this.rFactoryLogics.canBuildBossRoom(roomCount)) {
+        if (this.rFactoryLogics.canBuildBossRoom(roomCount)
+                && !this.rFactoryLogics.hasAlreadyBuiltBossRoom()) {
             return buildBossRoom(coordInsideLevel);
         }
-        if (this.rFactoryLogics.canBuildNonBossNonStartRoom(roomCount)) {
-            
+        if (this.rFactoryLogics.canBuildNonBossNonStartRoom(roomCount)
+                && !this.rFactoryLogics.hasAlreadyBuiltShopRoom()) {
+            return buildShopRoom(coordInsideLevel);
         }
-        return null;
+        if (this.rFactoryLogics.canBuildNonBossNonStartRoom(roomCount)
+                && !this.rFactoryLogics.hasAlreadyBuiltTreasureRoom()) {
+            return buildTreasureRoom(coordInsideLevel);
+        }
+        if (this.rFactoryLogics.canBuildNonBossNonStartRoom(roomCount)) {
+            return buildStandardRoom(coordInsideLevel);
+        }
+        throw new IllegalStateException(CANNOT_CREATE_MORE_ROOMS);
     }
 
     /**
