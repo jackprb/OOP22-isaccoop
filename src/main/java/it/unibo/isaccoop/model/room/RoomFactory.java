@@ -46,6 +46,7 @@ public interface RoomFactory {
     Room buildRoomOfType(RoomType roomType, Point2D coordInsideLevel);
 
     /**
+     * @param coordInsideLevel the coordinate of this room inside the level
      * @return a room of the proper {@link RoomType}: will return a START room as the first one, 
      * a BOSS room as the last, and other rooms will be created randomly among SHOP, TREASURE and STANDARD
      */

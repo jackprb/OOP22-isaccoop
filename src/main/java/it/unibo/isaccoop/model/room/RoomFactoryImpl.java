@@ -23,7 +23,10 @@ public final class RoomFactoryImpl implements RoomFactory {
     private final RoomFactoryLogics rFactoryLogics;
 
     /**
-     * Constructor. No parameters needed.
+     * Constructor. Requires the total number of rooms to be created and the player that will be placed in
+     * the START room
+     * @param totalNumberOfRooms the total number of rooms to be created
+     * @param player the player that will be placed in the START room
      */
     public RoomFactoryImpl(final int totalNumberOfRooms, final Player player) {
         this.width = MIN_MAX_ROOM_DIMENSIONS;
@@ -35,7 +38,7 @@ public final class RoomFactoryImpl implements RoomFactory {
     @Override
     public Room buildStartRoom(final Point2D coordInsideLevel) {
         if (this.rFactoryLogics.canBuildStartRoom(this.roomCount)
-                && !this.rFactoryLogics.hasAlreadyBuiltStartRoom()) {            
+                && !this.rFactoryLogics.hasAlreadyBuiltStartRoom()) {
             incrementRoomCount();
             this.rFactoryLogics.setAlreadyBuiltStartRoom();
             return new RoomBuilder.Builder(this.width, this.height)
@@ -49,7 +52,7 @@ public final class RoomFactoryImpl implements RoomFactory {
 
     @Override
     public Room buildStandardRoom(final Point2D coordInsideLevel) {
-        if (this.rFactoryLogics.canBuildNonBossNonStartRoom(roomCount)) {            
+        if (this.rFactoryLogics.canBuildNonBossNonStartRoom(roomCount)) {
             incrementRoomCount();
             return new RoomBuilder.Builder(this.width, this.height)
                     .roomType(RoomType.STANDARD)
@@ -64,7 +67,7 @@ public final class RoomFactoryImpl implements RoomFactory {
     @Override
     public Room buildShopRoom(final Point2D coordInsideLevel) {
         if (this.rFactoryLogics.canBuildNonBossNonStartRoom(roomCount)
-                && !this.rFactoryLogics.hasAlreadyBuiltShopRoom()) {            
+                && !this.rFactoryLogics.hasAlreadyBuiltShopRoom()) {
             incrementRoomCount();
             this.rFactoryLogics.setAlreadyBuiltShopRoom();
             return new RoomBuilder.Builder(this.width, this.height)
@@ -79,9 +82,9 @@ public final class RoomFactoryImpl implements RoomFactory {
     @Override
     public Room buildBossRoom(final Point2D coordInsideLevel) {
         if (this.rFactoryLogics.canBuildBossRoom(roomCount)
-                && !this.rFactoryLogics.hasAlreadyBuiltBossRoom()) { 
+                && !this.rFactoryLogics.hasAlreadyBuiltBossRoom()) {
             incrementRoomCount();
-            this.rFactoryLogics.setAlreadyBuiltBossRoom();;
+            this.rFactoryLogics.setAlreadyBuiltBossRoom();
             return new RoomBuilder.Builder(this.width, this.height)
                     .roomType(RoomType.BOSS)
                     .putCoord(coordInsideLevel)
@@ -94,7 +97,7 @@ public final class RoomFactoryImpl implements RoomFactory {
     @Override
     public Room buildTreasureRoom(final Point2D coordInsideLevel) {
         if (this.rFactoryLogics.canBuildNonBossNonStartRoom(roomCount)
-                && !this.rFactoryLogics.hasAlreadyBuiltTreasureRoom()) {            
+                && !this.rFactoryLogics.hasAlreadyBuiltTreasureRoom()) {
             incrementRoomCount();
             this.rFactoryLogics.setAlreadyBuiltTreasuretRoom();
             return new RoomBuilder.Builder(this.width, this.height)

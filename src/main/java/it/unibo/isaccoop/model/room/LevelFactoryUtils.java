@@ -17,6 +17,10 @@ public final class LevelFactoryUtils {
 
     private final Player player;
 
+    /**
+     * Constructor. Requires the player to be placed in the START room.
+     * @param player the player to be placed in the START room
+     */
     public LevelFactoryUtils(final Player player) {
         this.player = player;
     }

@@ -15,7 +15,7 @@ public final class LevelFactoryImpl implements LevelFactory {
     // each level must have at least 5 rooms, one for each RoomType
     private static final int MIN_NUMBER_OF_ROOMS = RoomType.values().length;
     private final Player player;
-    
+
     /**
      * Put the player.
      * @param player the player to be put inside this level
