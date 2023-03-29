@@ -21,7 +21,7 @@ public final class NonShootingHitStrategy implements HitStrategy {
     }
 
     @Override
-    public <E extends MapElement> void shoot(final Optional<Vector2D> direction, final E caller) {
+    public void hit(final Optional<Vector2D> direction, final MapElement caller) {
         if (System.currentTimeMillis() - this.lastHitTime >= NonShootingHitStrategy.HIT_TIME) {
             this.canHit = !this.canHit;
             this.lastHitTime = System.currentTimeMillis();

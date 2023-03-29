@@ -12,7 +12,7 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
     /**
      * Attribute used to update enemy position incrementally.
      * */
-    private static final int SPEED = 10;
+    private static final Double SPEED = 10.0;
 
     /***/
     private MovementStrategy movementStrategy;
@@ -57,7 +57,7 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
      * */
     @Override
     public void hit(final Point2D playerPosition) {
-        this.hitStrategy.shoot(Optional.empty(), this);
+        this.hitStrategy.hit(Optional.empty(), this);
     }
 
     /**
@@ -85,7 +85,7 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
      *
      * @return enemy speed
      * */
-    protected static int getSpeed() {
+    protected static double getSpeed() {
         return SPEED;
     }
 

@@ -3,6 +3,8 @@ package it.unibo.isaccoop.model.enemy;
 import java.util.Optional;
 
 import it.unibo.isaccoop.model.common.Point2D;
+import it.unibo.isaccoop.model.weapon.BaseWeaponShot;
+import it.unibo.isaccoop.model.weapon.TimeIntervalWeapon;
 
 /**
  * The class for the boss.
@@ -52,12 +54,14 @@ public class Boss extends AbstractEnemy {
     public void hit(final Point2D playerPosition) {
         if (this.changeMode()) {
             if (super.getHitStrategy() instanceof ShootingHitStrategy) {
-                super.setHitStrategy(new ShootingHitStrategy());
-            } else {
                 super.setHitStrategy(new NonShootingHitStrategy());
+                super.getHitStrategy().hit(Optional.empty(), this);
+            } else {
+                super.setHitStrategy(new ShootingHitStrategy(new TimeIntervalWeapon(super.getSpeed(),
+                        (start, direction) -> new BaseWeaponShot(start, direction))));
+                super.getHitStrategy().hit(Optional.of(playerPosition.sub(this.getCoords())), this);
             }
         }
-        super.getHitStrategy().shoot(Optional.of(playerPosition.sub(this.getCoords())), this);
     }
 
     /**
@@ -67,9 +71,9 @@ public class Boss extends AbstractEnemy {
     public void move(final Point2D playerPosition) {
         if (this.changeMode()) {
             if (super.getMovementStrategy() instanceof ShootingMovementStrategy) {
-                super.setMovementStrategy(new ShootingMovementStrategy());
-            } else {
                 super.setMovementStrategy(new NonShootingMovementStrategy());
+            } else {
+                super.setMovementStrategy(new ShootingMovementStrategy());
             }
         }
         super.getMovementStrategy().move(this.getCoords(), playerPosition);

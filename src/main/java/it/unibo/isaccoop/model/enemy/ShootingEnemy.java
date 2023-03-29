@@ -1,29 +1,24 @@
 package it.unibo.isaccoop.model.enemy;
 
-import java.util.List;
+import java.util.Optional;
 
 import it.unibo.isaccoop.model.common.Point2D;
+import it.unibo.isaccoop.model.weapon.BaseWeaponShot;
+import it.unibo.isaccoop.model.weapon.TimeIntervalWeapon;
 
 /***/
 public final class ShootingEnemy extends AbstractEnemy {
 
     /***/
     public ShootingEnemy() {
-        super(EnemyHearts.ENEMY_HEARTS, new ShootingHitStrategy(), new ShootingMovementStrategy());
+        super(EnemyHearts.ENEMY_HEARTS,
+                new ShootingHitStrategy(new TimeIntervalWeapon(getSpeed(), (start, direction) -> new BaseWeaponShot(start, direction))),
+                new ShootingMovementStrategy());
     }
 
     @Override
     public void hit(final Point2D playerPosition) {
-
-    }
-
-    /**
-     *  Get weapon shots of current shooting enemy.
-     *
-     *  @return enemy weapon shots as a {@link List}
-     * */
-    public List<EnemyWeaponShot> getWeaponShots() {
-        return List.of();
+        super.getHitStrategy().hit(Optional.of(playerPosition.sub(super.getCoords())), this);
     }
 
 }
