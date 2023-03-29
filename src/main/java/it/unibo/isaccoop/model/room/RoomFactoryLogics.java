@@ -1,7 +1,7 @@
 package it.unibo.isaccoop.model.room;
 
 /**
- * Delegated class to check conditions while creating rooms.
+ * Delegated class that contains the logic to check conditions while creating rooms.
  */
 public final class RoomFactoryLogics {
 
@@ -10,7 +10,11 @@ public final class RoomFactoryLogics {
     private boolean alreadyCreatedStartRoom = false;
     private boolean alreadyCreatedTreasureRoom = false;
     private boolean alreadyCreatedShopRoom = false;
-    
+
+    /**
+     * Constructor. Requires the total number of rooms to be created
+     * @param totalNumberOfRooms the total number of rooms to be created
+     */
     protected RoomFactoryLogics(final int totalNumberOfRooms) {
         this.totalNumberOfRooms = totalNumberOfRooms;
     }
@@ -34,7 +38,7 @@ public final class RoomFactoryLogics {
     protected boolean canBuildBossRoom(final int roomCount) {
         return roomCount == this.totalNumberOfRooms - 1;
     }
-    
+
     /**
      * Check if the next room to generate can be a NON BOSS or NON START room.
      * @param roomCount the number of rooms currently generated (0-based count)
@@ -44,7 +48,7 @@ public final class RoomFactoryLogics {
     protected boolean canBuildNonBossNonStartRoom(final int roomCount) {
         return roomCount == this.totalNumberOfRooms;
     }
-    
+
     /**
      * Check if has already been created a START room.
      * @return true if a START has already been created, false otherwise
@@ -52,7 +56,7 @@ public final class RoomFactoryLogics {
     protected boolean hasAlreadyBuiltStartRoom() {
         return this.alreadyCreatedStartRoom;
     }
-    
+
     /**
      * Check if has already been created a BOSS room.
      * @return true if a BOSS has already been created, false otherwise
@@ -60,7 +64,7 @@ public final class RoomFactoryLogics {
     protected boolean hasAlreadyBuiltBossRoom() {
         return this.alreadyCreatedBossRoom;
     }
-    
+
     /**
      * Check if has already been created a SHOP room.
      * @return true if a SHOP has already been created, false otherwise
@@ -68,7 +72,7 @@ public final class RoomFactoryLogics {
     protected boolean hasAlreadyBuiltShopRoom() {
         return this.alreadyCreatedShopRoom;
     }
-    
+
     /**
      * Check if has already been created a TREASURE room.
      * @return true if a TREASURE has already been created, false otherwise
