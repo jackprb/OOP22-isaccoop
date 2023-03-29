@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
 import it.unibo.isaccoop.model.common.Direction;
+import it.unibo.isaccoop.controller.input.InputController;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.player.Player;
 
@@ -25,23 +25,23 @@ public final class LevelControllerImpl implements LevelController {
     private int currentLevelID;
     private Room currentRoom;
     private final Player player = new Player();
-
+    private final InputController inputController;
+    
     /**
      * Create a game with the specified number of levels.
      * @param numberOfLevels the number of levels to create
      */
-    public LevelControllerImpl(final int numberOfLevels) {
-        final LevelFactoryImpl lvlFactory = new LevelFactoryImpl();
+    public LevelControllerImpl(final int numberOfLevels, final InputController inputController) {
+        final LevelFactoryImpl lvlFactory = new LevelFactoryImpl(this.player);
+        this.inputController = inputController;
         this.currentLevelID = 0;
-        /*for (int i = 0; i < numberOfLevels; i++) {
-        }*/
         Stream.iterate(0, i -> i + 1)
-        .limit(numberOfLevels)
-        .forEach(r -> {
-            final int numberOfRooms = ThreadLocalRandom.current().nextInt(
-                    MAX_NUMBER_OF_ROOMS - MIN_NUMBER_OF_ROOMS) + MIN_NUMBER_OF_ROOMS;
-            this.lvl.add(lvlFactory.createLevel(numberOfRooms));
-        });
+            .limit(numberOfLevels)
+            .forEach(r -> {
+                final int numberOfRooms = ThreadLocalRandom.current().nextInt(
+                        MAX_NUMBER_OF_ROOMS - MIN_NUMBER_OF_ROOMS) + MIN_NUMBER_OF_ROOMS;
+                this.lvl.add(lvlFactory.createLevel(numberOfRooms));
+            });
         this.currentRoom = this.lvl.get(this.currentLevelID).getStartRoom();
     }
 
@@ -108,7 +108,7 @@ public final class LevelControllerImpl implements LevelController {
     }
 
     private List<Room> getAvailableRooms() {
-        final LevelFactoryUtils lvlUtils = new LevelFactoryUtils();
+        final LevelFactoryUtils lvlUtils = new LevelFactoryUtils(this.player);
         // thes the coordinate of current room, as a Pair<Integer, Integer>
         final Pair<Integer, Integer> roomCoord = point2DToPair(this.currentRoom.getCoords());
         final List<Pair<Integer, Integer>> neighborRoomCoords = new LinkedList<>();
