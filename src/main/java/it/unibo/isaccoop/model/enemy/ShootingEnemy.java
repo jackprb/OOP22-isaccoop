@@ -2,6 +2,8 @@ package it.unibo.isaccoop.model.enemy;
 
 import java.util.Optional;
 
+import it.unibo.isaccoop.model.action.ShootingHitStrategy;
+import it.unibo.isaccoop.model.action.ShootingMovementStrategy;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.weapon.BaseWeaponShot;
 import it.unibo.isaccoop.model.weapon.TimeIntervalWeapon;

@@ -3,6 +3,9 @@ package it.unibo.isaccoop.model.enemy;
 import java.util.List;
 import java.util.Optional;
 
+import it.unibo.isaccoop.model.action.HitStrategy;
+import it.unibo.isaccoop.model.action.MovementStrategy;
+import it.unibo.isaccoop.model.action.ShootingHitStrategy;
 import it.unibo.isaccoop.model.common.AbstractMapElement;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.player.PlayerStat;
@@ -86,6 +89,7 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
      *
      *  @return current hearts number
      * */
+    @Override
     public Double getHearts() {
         return this.hearts;
     }
@@ -95,7 +99,7 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
      *
      * @return enemy speed
      * */
-    protected static double getSpeed() {
+    public static double getSpeed() {
         return SPEED;
     }
 
@@ -166,9 +170,10 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
     /**
      * @param hearts
      * */
+    @Override
     public void setHearts(final Double hearts) {
-        if(!this.isDead()) {
-            this.hearts -= hearts;    
+        if (!this.isDead()) {
+            this.hearts -= hearts;
         }
     }
 }

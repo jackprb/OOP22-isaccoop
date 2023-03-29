@@ -1,5 +1,8 @@
 package it.unibo.isaccoop.model.enemy;
 
+import it.unibo.isaccoop.model.action.NonShootingHitStrategy;
+import it.unibo.isaccoop.model.action.NonShootingMovementStrategy;
+
 /***/
 public final class NonShootingEnemy  extends AbstractEnemy {
 

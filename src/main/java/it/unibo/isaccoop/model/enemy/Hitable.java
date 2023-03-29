@@ -2,8 +2,10 @@ package it.unibo.isaccoop.model.enemy;
 
 /**
  * Generic Hitable subject.
+ *
+ * @param <E> entity type to be passed to onHit method
  * */
-public interface Hitable <E> {
+public interface Hitable<E> {
 
     /**
      * Method to be called when the culpable is hit.
