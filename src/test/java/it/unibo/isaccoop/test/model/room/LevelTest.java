@@ -47,7 +47,7 @@ class LevelTest {
     void testPutRooms() {
         // generate another List<Room>
         for (final RoomType roomType: RoomType.values()) {
-            this.otherRoomList.add(this.roomFactory.buildRoomOfType(roomType, new Point2D(roomType.ordinal(), 0)));
+            this.otherRoomList.add(this.roomFactory.buildRoomInProperOrder(new Point2D(roomType.ordinal(), 0)));
         }
 
         // the level already has rooms (set in method setUp()) -> throw exception

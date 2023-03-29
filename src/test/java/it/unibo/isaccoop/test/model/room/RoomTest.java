@@ -37,8 +37,8 @@ class RoomTest {
     private static final int MAX_ROOM_SIZE = 200;
     private final Map<RoomType, Room> rooms = new HashMap<>();
     private final Map<RoomType, Boolean> completedExpectedValue = Map.of(
-            RoomType.START, true, RoomType.SHOP, true, RoomType.STANDARD, false,
-            RoomType.BOSS, false, RoomType.TREASURE, true);
+            RoomType.START, true, RoomType.SHOP, true, RoomType.TREASURE, true, 
+            RoomType.STANDARD, false, RoomType.BOSS, false);
 
     private final CreatorFactory creator = new ConcreteCreatorFactory();
     private final List<Enemy> enemies = creator.createEnemies().create();
@@ -100,10 +100,10 @@ class RoomTest {
         // since the rooms generated in method setUp() have illegal configurations made for testing
         // purposes only, in this method are needed rooms with correct configuration,
         // so they are created using RoomFactory
-        for (final var rType: RoomType.values()) {
-           final Room room = new RoomFactoryImpl(NUMBER_OF_ROOMS, new Player()).buildRoomOfType(rType, generateCoord());
-           final Optional<Boolean> expected = Optional.of(this.completedExpectedValue.entrySet().stream()
-                   .filter(entry -> entry.getKey() == rType)
+        for (int i = 0; i < NUMBER_OF_ROOMS; i++) {
+           final Room room = new RoomFactoryImpl(NUMBER_OF_ROOMS, new Player()).buildRoomInProperOrder(generateCoord());
+           final var expected = Optional.of(this.completedExpectedValue.entrySet().stream()
+                   .filter(entry -> entry.getKey() == room.getRoomType())
                    .findFirst().get().getValue());
            assertSame(expected.get(), room.isComplete());
         }
