@@ -18,24 +18,23 @@ public final class RoomFactoryImpl implements RoomFactory {
     private final int height;
     private Player player;
     private int roomCount = 0;
-    private boolean alreadyCreatedBossRoom = false;
-    private boolean alreadyCreatedStartRoom = false;
-    private final int totalNumberOfRooms;
-
+    private final RoomFactoryLogics rFactoryLogics;
+    
     /**
      * Constructor. No parameters needed.
      */
     public RoomFactoryImpl(final int totalNumberOfRooms) {
         this.width = MIN_MAX_ROOM_DIMENSIONS;
         this.height = MIN_MAX_ROOM_DIMENSIONS;
-        this.totalNumberOfRooms = totalNumberOfRooms;
+        this.rFactoryLogics = new RoomFactoryLogics(totalNumberOfRooms);
     }
 
     @Override
     public Room buildStartRoom(final Point2D coordInsideLevel) {
-        if (this.roomCount == 0 && !this.alreadyCreatedStartRoom) {            
+        if (this.rFactoryLogics.canBuildStartRoom(this.roomCount) && 
+                !this.rFactoryLogics.hasAlreadyBuiltStartRoom()) {            
             incrementRoomCount();
-            this.alreadyCreatedStartRoom = true;
+            this.rFactoryLogics.setAlreadyBuiltStartRoom();
             return new RoomBuilder.Builder(this.width, this.height)
                     .roomType(RoomType.START)
                     .putCoord(coordInsideLevel)
@@ -47,7 +46,7 @@ public final class RoomFactoryImpl implements RoomFactory {
 
     @Override
     public Room buildStandardRoom(final Point2D coordInsideLevel) {
-        if (this.roomCount < this.totalNumberOfRooms) {            
+        if (this.rFactoryLogics.canBuildNonBossNonStartRoom(roomCount)) {            
             incrementRoomCount();
             return new RoomBuilder.Builder(this.width, this.height)
                     .roomType(RoomType.STANDARD)
@@ -61,7 +60,7 @@ public final class RoomFactoryImpl implements RoomFactory {
 
     @Override
     public Room buildShopRoom(final Point2D coordInsideLevel) {
-        if (this.roomCount < this.totalNumberOfRooms) {            
+        if (this.rFactoryLogics.canBuildNonBossNonStartRoom(roomCount)) {            
             incrementRoomCount();
             return new RoomBuilder.Builder(this.width, this.height)
                     .roomType(RoomType.SHOP)
@@ -74,7 +73,7 @@ public final class RoomFactoryImpl implements RoomFactory {
 
     @Override
     public Room buildBossRoom(final Point2D coordInsideLevel) {
-        if (this.roomCount == this.totalNumberOfRooms - 1 && !this.alreadyCreatedBossRoom) { 
+        if (this.rFactoryLogics.canBuildBossRoom(roomCount) && !this.alreadyCreatedBossRoom) { 
             incrementRoomCount();
             this.alreadyCreatedBossRoom = true;
             return new RoomBuilder.Builder(this.width, this.height)
@@ -88,7 +87,7 @@ public final class RoomFactoryImpl implements RoomFactory {
 
     @Override
     public Room buildTreasureRoom(final Point2D coordInsideLevel) {
-        if (this.roomCount < this.totalNumberOfRooms) {            
+        if (this.rFactoryLogics.canBuildNonBossNonStartRoom(roomCount)) {            
             incrementRoomCount();
             return new RoomBuilder.Builder(this.width, this.height)
                     .roomType(RoomType.TREASURE)
@@ -115,6 +114,20 @@ public final class RoomFactoryImpl implements RoomFactory {
         default:
             throw new IllegalArgumentException("Incorrect roomType value: " + roomType);
         }
+    }
+
+    @Override
+    public Room buildRoomInProperOrder(final Point2D coordInsideLevel) {
+        if (this.rFactoryLogics.canBuildStartRoom(roomCount)) {
+            return buildStandardRoom(coordInsideLevel);
+        }
+        if (this.rFactoryLogics.canBuildBossRoom(roomCount)) {
+            return buildBossRoom(coordInsideLevel);
+        }
+        if (this.rFactoryLogics.canBuildNonBossNonStartRoom(roomCount)) {
+            
+        }
+        return null;
     }
 
     /**

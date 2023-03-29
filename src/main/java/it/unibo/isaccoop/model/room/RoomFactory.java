@@ -44,4 +44,10 @@ public interface RoomFactory {
      * @return a room where you can find a free powerup
      */
     Room buildRoomOfType(RoomType roomType, Point2D coordInsideLevel);
+
+    /**
+     * @return a room of the proper {@link RoomType}: will return a START room as the first one, 
+     * a BOSS room as the last, and other rooms will be created randomly among SHOP, TREASURE and STANDARD
+     */
+    Room buildRoomInProperOrder(Point2D coordInsideLevel);
 }
