@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.RoomType;
+import it.unibo.isaccoop.model.player.Player;
 import it.unibo.isaccoop.model.room.Room;
 import it.unibo.isaccoop.model.room.RoomFactory;
 import it.unibo.isaccoop.model.room.RoomFactoryImpl;
@@ -18,9 +19,11 @@ import it.unibo.isaccoop.model.room.RoomFactoryImpl;
  * */
 class RoomFactoryTest {
 
-    private final RoomFactory rFactory = new RoomFactoryImpl();
+    private final RoomFactory rFactory = new RoomFactoryImpl(NUMBER_OF_ROOMS, new Player());
     private Point2D coord;
-    private static final int MAX_COORD_VALUE = 30; // just for testing purposes 
+    // just for testing purposes
+    private static final int MAX_COORD_VALUE = 30; 
+    private static final int NUMBER_OF_ROOMS = 10;
 
     @BeforeEach
     void setUp() {

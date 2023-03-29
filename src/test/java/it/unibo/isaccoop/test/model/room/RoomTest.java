@@ -33,6 +33,7 @@ import it.unibo.isaccoop.model.room.RoomImpl;
 class RoomTest {
 
     private static final int MAX_COORD_NUMBER = 20;
+    private static final int NUMBER_OF_ROOMS = 10;
     private static final int MAX_ROOM_SIZE = 200;
     private final Map<RoomType, Room> rooms = new HashMap<>();
     private final Map<RoomType, Boolean> completedExpectedValue = Map.of(
@@ -100,7 +101,7 @@ class RoomTest {
         // purposes only, in this method are needed rooms with correct configuration,
         // so they are created using RoomFactory
         for (final var rType: RoomType.values()) {
-           final Room room = new RoomFactoryImpl().buildRoomOfType(rType, generateCoord());
+           final Room room = new RoomFactoryImpl(NUMBER_OF_ROOMS, new Player()).buildRoomOfType(rType, generateCoord());
            final Optional<Boolean> expected = Optional.of(this.completedExpectedValue.entrySet().stream()
                    .filter(entry -> entry.getKey() == rType)
                    .findFirst().get().getValue());
