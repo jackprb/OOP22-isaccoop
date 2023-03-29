@@ -7,13 +7,5 @@ public interface GameLoop {
     /**
      *
      */
-    void processInput();
-    /**
-     *
-     */
-    void updateGame();
-    /**
-     *
-     */
-    void render();
+    void gameLoop();
 }
