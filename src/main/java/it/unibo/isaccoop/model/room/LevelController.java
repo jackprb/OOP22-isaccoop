@@ -3,6 +3,7 @@ package it.unibo.isaccoop.model.room;
 import java.util.List;
 
 import it.unibo.isaccoop.model.common.Point2D;
+import it.unibo.isaccoop.model.player.Player;
 
 /**
  * Interface to control a {@link Level}.
@@ -34,6 +35,11 @@ public interface LevelController {
      * @return the room where the player is 
      */
     Room getPlayerRoom();
+
+    /**
+     * @return the player
+     */
+    Player getPlayer();
 
     /**
      * Check if the specified room is "completed", that is, if there are no more

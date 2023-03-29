@@ -67,6 +67,11 @@ public final class LevelControllerImpl implements LevelController {
     }
 
     @Override
+    public Player getPlayer() {
+        return this.player;
+    }
+
+    @Override
     public boolean isRoomComplete(final Room room) {
         return room.isComplete();
     }
@@ -109,7 +114,7 @@ public final class LevelControllerImpl implements LevelController {
     }
 
     private List<Room> getAvailableRooms() {
-        final LevelFactoryUtils lvlUtils = new LevelFactoryUtils(this.player);
+        final LevelFactoryUtils lvlUtils = new LevelFactoryUtils();
         // thes the coordinate of current room, as a Pair<Integer, Integer>
         final Pair<Integer, Integer> roomCoord = point2DToPair(this.currentRoom.getCoords());
         final List<Pair<Integer, Integer>> neighborRoomCoords = new LinkedList<>();
