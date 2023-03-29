@@ -7,13 +7,19 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import it.unibo.isaccoop.model.common.Direction;
 import it.unibo.isaccoop.model.common.Point2D;
-import it.unibo.isaccoop.model.common.RoomType;
+import it.unibo.isaccoop.model.player.Player;
 
 /**
  * Delegated class that contains utility methods to help {@link LevelFactoryImpl} creating 
  * a room.
  */
 public final class LevelFactoryUtils {
+
+    private final Player player;
+
+    public LevelFactoryUtils(final Player player) {
+        this.player = player;
+    }
 
     /**
      * Generates dynamically the coordinates that will be used as positions
@@ -61,18 +67,12 @@ public final class LevelFactoryUtils {
      * @return the list of created rooms.
      */
     public List<Room> createRooms(final List<Pair<Integer, Integer>> coordsList) {
-        final RoomFactory rFactory = new RoomFactoryImpl();
+        final RoomFactory rFactory = new RoomFactoryImpl(coordsList.size(), player);
         final List<Room> rooms = new LinkedList<>();
 
         for (int i = 0; i < coordsList.size(); i++) {
-            final var coord = pairToPoint2D(coordsList.get(rooms.size()));
-            if (i < RoomType.values().length) {
-                // create a room for each RoomType (BOSS, SHOP, TREASURE, START, STANDARD)
-                rooms.add(rFactory.buildRoomOfType(RoomType.values()[i], coord));
-            } else {
-                // the remaining ones must be STANDARD
-                rooms.add(rFactory.buildStandardRoom(coord));
-            }
+            final var coord = pairToPoint2D(coordsList.get(i));
+            rooms.add(rFactory.buildRoomInProperOrder(coord));
         }
         return rooms;
     }
