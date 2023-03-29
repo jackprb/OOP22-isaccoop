@@ -15,6 +15,10 @@ public final class LevelImpl implements Level {
 
     @Override
     public void putRooms(final List<Room> rooms) {
+        if (rooms.isEmpty() || rooms.size() < RoomType.values().length) {
+            throw new IllegalArgumentException("This level must have at least " + RoomType.values().length
+                    + " rooms");
+        }
         if (this.rooms.isEmpty()) {
             this.rooms.addAll(rooms);
         } else {

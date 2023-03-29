@@ -37,4 +37,13 @@ public class ConcreteAIEnemy implements AIEnemy {
         return List.copyOf(this.controlledEnemies);
     }
 
+    /**
+     * Remove the enemy 'e' from the list.
+     * @param e
+     */
+    @Override
+    public void remove(final MapElement e) {
+        this.controlledEnemies.remove(e);
+    }
+
 }

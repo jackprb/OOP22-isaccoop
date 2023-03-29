@@ -12,11 +12,12 @@ import it.unibo.isaccoop.model.player.Player;
  */
 public interface CollisionCheckFactory {
     /**
-     * Get collision with item.
-     * @param p reference to player.
-     * @param i list of mapElements to check collision, in this case Item.
+     * Method for checking the collision between the player and the item.
      *
-     * @return CollisionCheck refer to item.
+     * @param p reference to Player.
+     * @param i list of item to check collision.
+     *
+     * @return interface implementation of CollisionCheck.
      */
     CollisionCheck getCollisionWithItemChecker(Player p, List<MapElement> i);
     /**
@@ -26,7 +27,7 @@ public interface CollisionCheckFactory {
      *
      * @return CollisionCheck refer to player shot.
      */
-    CollisionCheck getCollisionPlayerShotChecker(Player p, List<MapElement> e);
+    CollisionCheck getCollisionPlayerShotChecker(Player p, List<MapElement> i);
     /**
      * Get collision with enemy.
      * @param p reference to player.
@@ -34,7 +35,7 @@ public interface CollisionCheckFactory {
      *
      * @return CollisionCheck refer to enemy.
      */
-    CollisionCheck getCollisionWithEnemyChecker(Player p, List<MapElement> e);
+    CollisionCheck getCollisionWithEnemyChecker(Player p, List<MapElement> i);
     /**
      * Get collision with enemy shot.
      * @param p reference to player.
@@ -42,5 +43,5 @@ public interface CollisionCheckFactory {
      *
      * @return CollisionCheck refer to enemy shot.
      */
-    CollisionCheck getCollisionWithEnemyShotChecker(Player p, List<MapElement> e);
+    CollisionCheck getCollisionWithEnemyShotChecker(Player p, List<MapElement> i);
 }

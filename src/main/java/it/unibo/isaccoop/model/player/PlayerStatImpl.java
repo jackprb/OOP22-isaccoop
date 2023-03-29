@@ -25,22 +25,22 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
     /**
      * the player speed in the game.
      * */
-    private float speed;
+    private Double speed;
 
     /**
      * the time between two hit.
      * */
-    private float tears;
+    private Double tears;
 
     /**
      * the damage that player deals.
      * */
-    private float damage;
+    private Double damage;
 
     /**
      * the range where the player can hit.
      * */
-    private float range;
+    private Double range;
 
     /**
      * create an enum to set initial stats of player.
@@ -81,10 +81,10 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
         this.heart = PlayerValue.HEART.getValue();
         this.coin = PlayerValue.COIN.getValue();
         this.maxHeart = PlayerValue.MAX_HEART.getValue();
-        this.speed = PlayerValue.SPEED.getValue();
-        this.tears = PlayerValue.TEARS.getValue();
-        this.damage = PlayerValue.DAMAGE.getValue();
-        this.range = PlayerValue.RANGE.getValue();
+        this.speed = Double.valueOf(PlayerValue.SPEED.getValue());
+        this.tears = Double.valueOf(PlayerValue.TEARS.getValue());
+        this.damage = Double.valueOf(PlayerValue.DAMAGE.getValue());
+        this.range = Double.valueOf(PlayerValue.RANGE.getValue());
     }
 
     /**
@@ -115,7 +115,7 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
      * @return the speed of the player
      * */
     @Override
-    public float getSpeed() {
+    public Double getSpeed() {
         return this.speed;
     }
 
@@ -123,7 +123,7 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
      * @return the damage that the player can do
      */
     @Override
-    public float getDamage() {
+    public Double getDamage() {
         return this.damage;
     }
 
@@ -131,7 +131,7 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
      * @return the max range at which player can hit an enemy
      * */
     @Override
-    public float getRange() {
+    public Double getRange() {
         return this.range;
     }
 
@@ -139,7 +139,7 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
      * @return the time between two hit
      * */
     @Override
-    public float getTears() {
+    public Double getTears() {
         return this.tears;
     }
 
@@ -163,25 +163,25 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
 
     /***/
     @Override
-    public void setRange(final float range) {
+    public void setRange(final Double range) {
         this.range = range;
     }
 
     /***/
     @Override
-    public void setSpeed(final float speed) {
+    public void setSpeed(final Double speed) {
         this.speed = speed;
     }
 
     /***/
     @Override
-    public void setTears(final float tears) {
+    public void setTears(final Double tears) {
         this.tears = tears;
     }
 
     /***/
     @Override
-    public void setDamage(final float damage) {
+    public void setDamage(final Double damage) {
         this.damage = damage;
     }
 

@@ -1,25 +1,35 @@
 package it.unibo.isaccoop.model.player;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
+
+import it.unibo.isaccoop.controller.input.InputController;
+import it.unibo.isaccoop.model.common.Direction;
+import it.unibo.isaccoop.model.common.Vector2D;
+import it.unibo.isaccoop.model.enemy.HitStrategy;
+import it.unibo.isaccoop.model.enemy.Hitable;
+import it.unibo.isaccoop.model.enemy.ShootingHitStrategy;
+import it.unibo.isaccoop.model.weapon.BaseWeaponShot;
+import it.unibo.isaccoop.model.weapon.TimeIntervalWeapon;
 
 /**
  * The class for the player.
  * */
-public class Player extends PlayerMovementImpl {
+public class Player extends PlayerMovementImpl implements Hitable {
 
-    /**
-     * Time since last shot.
-     * */
-    private long timeSinceLastShot;
+    private InputController controller;
 
     /***/
-    private final List<PlayerShot> shots = new ArrayList<>();
+    final HitStrategy shootingHitStrategy;
+
+    public Player(){
+        this.shootingHitStrategy = new ShootingHitStrategy(new TimeIntervalWeapon(this.getTears(),
+                (start, direction) -> new BaseWeaponShot(start, direction)));
+    }
 
     /**
      * @param direction the direction in which the player moves
      * */
-    void move(final int direction) {
+    void move(final Direction direction) {
         super.update(direction);
     }
 
@@ -27,11 +37,22 @@ public class Player extends PlayerMovementImpl {
      * @param direction the direction in which the bullet is fired
      * @param distance the distance between the player and the end of the room
      * */
-    void hit(final int direction, final float distance) {
-        if (System.currentTimeMillis() - timeSinceLastShot > super.getTears()) {
-            shots.add(new PlayerShot(direction, super.getCoords(), super.getDamage()));
-            this.timeSinceLastShot = System.currentTimeMillis();
-        }
-        this.shots.forEach(shot -> shot.bulletDirection(shot.getDirection(),  distance));
+    void hit(final Optional<Vector2D> direction, final float distance) {
+        this.shootingHitStrategy.hit(direction, this);
+    }
+
+    /**
+     * @param player
+     * */
+    @Override
+    public void onHit(final PlayerStat player) {
+    }
+
+    /**
+     * 
+     * @return the controller
+     */
+    public InputController getController() {
+        return this.controller;
     }
 }
