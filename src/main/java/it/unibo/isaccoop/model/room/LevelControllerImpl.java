@@ -3,14 +3,18 @@ package it.unibo.isaccoop.model.room;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
+
+import it.unibo.isaccoop.model.common.Direction;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.player.Player;
 
 /**
  * Implementation of {@link LevelController}.
- * 
  */
 public final class LevelControllerImpl implements LevelController {
 
@@ -78,7 +82,11 @@ public final class LevelControllerImpl implements LevelController {
 
     @Override
     public void moveToRoom(final Room room) {
-        this.currentRoom = room;
+        if (isRoomComplete(room)) {
+            this.currentRoom = room;
+            // removes player from current room
+            // and moves it to the specified room
+        }
     }
 
     @Override
@@ -97,5 +105,33 @@ public final class LevelControllerImpl implements LevelController {
 
     private void goToNextLevel() {
         this.currentLevelID++;
+    }
+
+    private List<Room> getAvailableRooms() {
+        final LevelFactoryUtils lvlUtils = new LevelFactoryUtils();
+        // thes the coordinate of current room, as a Pair<Integer, Integer>
+        final Pair<Integer, Integer> roomCoord = point2DToPair(this.currentRoom.getCoords());
+        final List<Pair<Integer, Integer>> neighborRoomCoords = new LinkedList<>();
+
+        // get all neighbor room coordinates (i.e.: the rooms next to the current room, where the player can go)
+        for (final var dir: Direction.values()) {
+            final var newCoord = lvlUtils.getNewCoordinateAlongDirection(roomCoord, dir);
+            if (lvlUtils.isValidCoord(newCoord)) {
+                neighborRoomCoords.add(newCoord);
+            }
+        }
+        return getCurrentLevel().getRooms().stream()
+        .filter(r -> neighborRoomCoords.contains(r.getCoords()))
+        .collect(Collectors.toList());
+        //r.getCoords().getX() - roomCoord.getLeft() == 1)
+    }
+
+    /**
+     * Convert a pair into a Point2D.
+     * @param point2d the initial Point2D
+     * @return the pair converted into a Point2D
+     */
+    private Pair<Integer, Integer> point2DToPair(final Point2D point2d) {
+        return new ImmutablePair<>((int) point2d.getX(), (int) point2d.getY());
     }
 }
