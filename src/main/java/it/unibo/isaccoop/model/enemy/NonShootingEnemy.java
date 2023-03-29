@@ -1,7 +1,7 @@
 package it.unibo.isaccoop.model.enemy;
 
 /***/
-public final class NonShootingEnemy extends AbstractEnemy {
+public final class NonShootingEnemy  extends AbstractEnemy {
 
     /**
      * Constructor for {@link NonShootingEnemy}.

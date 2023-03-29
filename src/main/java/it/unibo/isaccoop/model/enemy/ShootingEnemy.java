@@ -20,5 +20,4 @@ public final class ShootingEnemy extends AbstractEnemy {
     public void hit(final Point2D playerPosition) {
         super.getHitStrategy().hit(Optional.of(playerPosition.sub(super.getCoords())), this);
     }
-
 }
