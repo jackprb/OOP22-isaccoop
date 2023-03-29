@@ -14,13 +14,14 @@ public final class LevelImpl implements Level {
     private final List<Room> rooms = new LinkedList<>();
 
     @Override
-    public void putRooms(final List<Room> rooms) {
-        if (rooms.isEmpty() || rooms.size() < RoomType.values().length) {
+    public void putRooms(final List<Room> roomList) {
+        if (roomList.isEmpty() || roomList.size() < RoomType.values().length) {
+            System.out.println("LevelImpl.putRooms(): roomList.size= " + roomList.size());
             throw new IllegalArgumentException("This level must have at least " + RoomType.values().length
                     + " rooms");
         }
         if (this.rooms.isEmpty()) {
-            this.rooms.addAll(rooms);
+            this.rooms.addAll(roomList);
         } else {
             throw new IllegalStateException("This level already has a room map");
         }
