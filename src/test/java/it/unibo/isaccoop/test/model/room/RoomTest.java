@@ -1,14 +1,12 @@
 package it.unibo.isaccoop.test.model.room;
 
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -105,7 +103,7 @@ class RoomTest {
            final var expected = Optional.of(this.completedExpectedValue.entrySet().stream()
                    .filter(entry -> entry.getKey() == room.getRoomType())
                    .findFirst().get().getValue());
-           assertSame(expected.get(), room.isComplete());
+           assertEquals(expected.get(), room.isComplete());
         }
     }
 
