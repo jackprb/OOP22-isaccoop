@@ -8,7 +8,7 @@ import it.unibo.isaccoop.model.common.Point2D;
  * */
 public class PlayerMovementImpl extends PlayerStatImpl implements PlayerMovement {
 
-    private final float distance = super.getSpeed();
+    private final Double distance = super.getSpeed();
     private final double x = super.getCoords().getX();
     private final double y = super.getCoords().getY();
 
