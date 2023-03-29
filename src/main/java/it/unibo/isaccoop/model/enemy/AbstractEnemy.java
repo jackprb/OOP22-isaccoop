@@ -1,6 +1,9 @@
 package it.unibo.isaccoop.model.enemy;
 
+import java.util.Optional;
+
 import it.unibo.isaccoop.model.common.AbstractMapElement;
+import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.player.PlayerStat;
 
 /***/
@@ -9,7 +12,7 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
     /**
      * Attribute used to update enemy position incrementally.
      * */
-    private static final int SPEED = 10;
+    private static final Double SPEED = 10.0;
 
     /***/
     private MovementStrategy movementStrategy;
@@ -37,6 +40,27 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
     }
 
     /**
+     * Delegates movement to {@link MovementStrategy}.
+     *
+     * @param playerPosition in order to move towards the player if needed
+     * */
+    @Override
+    public void move(final Point2D playerPosition) {
+        final Point2D newPos = this.getMovementStrategy().move(super.getCoords(), playerPosition);
+        super.setCoords(newPos);
+    }
+
+    /**
+     * Delegates hit to {@link HitStrategy}.
+     *
+     * @param playerPosition in order to hit towards the player if needed
+     * */
+    @Override
+    public void hit(final Point2D playerPosition) {
+        this.hitStrategy.hit(Optional.empty(), this);
+    }
+
+    /**
      *  Method to be called when a collision between player and enemy is detected, it decreases
      *  the player's hearts by on.
      *
@@ -61,7 +85,7 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
      *
      * @return enemy speed
      * */
-    protected static int getSpeed() {
+    protected static double getSpeed() {
         return SPEED;
     }
 
@@ -122,4 +146,10 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
         this.movementStrategy = movementStrategy;
     }
 
+    /**
+     * @param hitStrategy
+     * */
+    public void setHitStrategy(final HitStrategy hitStrategy) {
+        this.hitStrategy = hitStrategy;
+    }
 }

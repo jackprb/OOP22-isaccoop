@@ -1,47 +1,24 @@
 package it.unibo.isaccoop.model.enemy;
 
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Optional;
 
 import it.unibo.isaccoop.model.common.Point2D;
-import it.unibo.isaccoop.model.common.Vector2D;
+import it.unibo.isaccoop.model.weapon.BaseWeaponShot;
+import it.unibo.isaccoop.model.weapon.TimeIntervalWeapon;
 
 /***/
 public final class ShootingEnemy extends AbstractEnemy {
 
-    private final EnemyWeapon weapon;
-
     /***/
     public ShootingEnemy() {
-        super(EnemyHearts.ENEMY_HEARTS, new NonShootingHitStrategy(), new NonShootingMovementStrategy());
-        this.weapon = new EnemyWeapon();
+        super(EnemyHearts.ENEMY_HEARTS,
+                new ShootingHitStrategy(new TimeIntervalWeapon(getSpeed(), (start, direction) -> new BaseWeaponShot(start, direction))),
+                new ShootingMovementStrategy());
     }
 
     @Override
     public void hit(final Point2D playerPosition) {
-        this.weapon.shoot(super.getCoords(), playerPosition);
-    }
-
-    @Override
-    public void move(final Point2D playerPosition) {
-        final Vector2D moveVector = new Vector2D(
-                ThreadLocalRandom.current().nextDouble(-ShootingEnemy.getSpeed(), ShootingEnemy.getSpeed()),
-                ThreadLocalRandom.current().nextDouble(-ShootingEnemy.getSpeed(), ShootingEnemy.getSpeed()));
-        super.setCoords(super.getCoords().sum(moveVector));
-    }
-
-    /**
-     *  Get weapon shots of current shooting enemy.
-     *
-     *  @return enemy weapon shots as a {@link List}
-     * */
-    public List<EnemyWeaponShot> getWeaponShots() {
-        return this.weapon.getWeaponShots();
-    }
-
-    @Override
-    public void onShoot() {
-
+        super.getHitStrategy().hit(Optional.of(playerPosition.sub(super.getCoords())), this);
     }
 
 }

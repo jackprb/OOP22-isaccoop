@@ -1,24 +1,26 @@
 package it.unibo.isaccoop.model.player;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
-import it.unibo.isaccoop.model.common.MapElement;
-import it.unibo.isaccoop.model.common.Removable;
+import it.unibo.isaccoop.model.common.Vector2D;
+import it.unibo.isaccoop.model.enemy.HitStrategy;
 import it.unibo.isaccoop.model.enemy.Hitable;
+import it.unibo.isaccoop.model.enemy.ShootingHitStrategy;
+import it.unibo.isaccoop.model.weapon.BaseWeaponShot;
+import it.unibo.isaccoop.model.weapon.TimeIntervalWeapon;
 
 /**
  * The class for the player.
  * */
-public class Player extends PlayerMovementImpl implements Removable, Hitable {
-
-    /**
-     * Time since last shot.
-     * */
-    private long timeSinceLastShot;
+public class Player extends PlayerMovementImpl implements Hitable {
 
     /***/
-    private final List<PlayerShot> shots = new ArrayList<>();
+    final HitStrategy shootingHitStrategy;
+
+    public Player(){
+        this.shootingHitStrategy = new ShootingHitStrategy(new TimeIntervalWeapon(this.getTears(),
+                (start, direction) -> new BaseWeaponShot(start, direction)));
+    }
 
     /**
      * @param direction the direction in which the player moves
@@ -31,28 +33,8 @@ public class Player extends PlayerMovementImpl implements Removable, Hitable {
      * @param direction the direction in which the bullet is fired
      * @param distance the distance between the player and the end of the room
      * */
-    void hit(final int direction, final float distance) {       //distance da togliere, usare Vector2D
-        if (System.currentTimeMillis() - timeSinceLastShot > super.getTears()) {
-            shots.add(new PlayerShot(direction, super.getCoords(), super.getDamage()));
-            this.timeSinceLastShot = System.currentTimeMillis();
-        }
-        this.shots.forEach(shot -> shot.bulletDirection(shot.getDirection(),  distance));
-    }
-
-    /**
-     * @return the list of bullets fired.
-     * */
-    public List<PlayerShot> getShot() {
-        return List.copyOf(shots);
-    }
-
-    /**
-     * Remove the bullet 'e' from the list.
-     * @param e
-     */
-    @Override
-    public void remove(final MapElement e) {
-        this.shots.remove(e);
+    void hit(final Optional<Vector2D> direction, final float distance) {
+        this.shootingHitStrategy.hit(direction, this);
     }
 
     /**
@@ -62,8 +44,4 @@ public class Player extends PlayerMovementImpl implements Removable, Hitable {
     public void onHit(final PlayerStat player) {
     }
 
-    /***/
-    @Override
-    public void onShoot() {
-    }
 }
