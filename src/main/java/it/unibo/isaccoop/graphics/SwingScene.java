@@ -6,24 +6,18 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.KeyEventDispatcher;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-
 import javax.swing.*;
 
 import it.unibo.isaccoop.controller.input.KeyboardInputController;
 import it.unibo.isaccoop.core.GameEngine;
+import it.unibo.isaccoop.model.boundingbox.RectBoundingBox;
 import it.unibo.isaccoop.model.common.Point2D;
-import it.unibo.isaccoop.model.player.Player;
 import it.unibo.isaccoop.model.room.Level;
 import it.unibo.isaccoop.model.room.Room;
 
@@ -121,18 +115,17 @@ public class SwingScene implements Scene {
                 g2.drawString("GAME COMPLETED ", 30, centerY - 50);
                 g2.setFont(scoreFont);
                 g2.setColor(Color.GREEN);
-                int i = 0;
 
             } else {
                 /* drawing the borders */
 
                 Room scene = gameState.getRooms().stream()
                         .filter(r -> r.getPlayer().isPresent()).findFirst().get();
-                RectBoundingBox bbox = scene.getBox();
-                int x0 = getXinPixel(bbox.getULCorner());
-                int y0 = getYinPixel(bbox.getULCorner());
-                int x1 = getXinPixel(bbox.getBRCorner());
-                int y1 = getYinPixel(bbox.getBRCorner());
+                RectBoundingBox bbox = (RectBoundingBox) scene.getBox();
+                int x0 = getXinPixel(new Point2D(0, 0));
+                int y0 = getYinPixel(new Point2D(0, 0));
+                int x1 = getXinPixel(new Point2D(bbox.getWidth(), 0));
+                int y1 = getYinPixel(new Point2D(0, bbox.getHeight()));
 
                 g2.setColor(Color.BLACK);
                 g2.setStroke(strokeBorder);
@@ -145,6 +138,14 @@ public class SwingScene implements Scene {
                     e.updateGraphics(gr);
                 });
             }
+        }
+
+        private int getXinPixel(Point2D p){
+            return (int) Math.round(centerX + p.getX() * ratioX);
+        }
+
+        private int getYinPixel(Point2D p){
+            return (int)  Math.round(centerY - p.getY() * ratioY);
         }
 
         @Override
