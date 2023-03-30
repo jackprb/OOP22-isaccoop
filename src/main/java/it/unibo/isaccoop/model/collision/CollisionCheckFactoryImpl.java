@@ -24,7 +24,7 @@ public final class CollisionCheckFactoryImpl implements CollisionCheckFactory {
     @Override
     public CollisionCheck getCollisionPlayerShotChecker(final Player p, final List<MapElement> i) {
         return room -> i.stream()
-                .filter(elem -> p.getShot().stream()
+                .filter(elem -> p.getWeaponShots().stream()
                 .anyMatch(shot -> shot.getBox()
                         .isCollidingWith(shot.getCoords(), elem.getCoords(), ElementsRadius.ENEMY.getValue())))
                 .forEach(e -> room.notifyEvent(new ConcreteEventFactory().getEnemyShot((Enemy) e)));
