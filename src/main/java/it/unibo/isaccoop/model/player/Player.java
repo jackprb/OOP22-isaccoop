@@ -17,7 +17,7 @@ import it.unibo.isaccoop.model.weapon.WeaponShot;
 /**
  * The class for the player.
  * */
-public class Player extends PlayerMovementImpl implements Hitable<Enemy>, Cloneable {
+public class Player extends PlayerMovementImpl implements Hitable<Enemy> {
 
     private InputController movementController;
     private InputController shootingController;
@@ -27,7 +27,10 @@ public class Player extends PlayerMovementImpl implements Hitable<Enemy>, Clonea
 
     /**
      * Player constructor.
-     * */
+     * 
+     * @param moveController
+     * @param shotController
+     */
     public Player(final InputController moveController, final InputController shotController) {
         this.hitStrategy = new ShootingHitStrategy(new TimeIntervalWeapon(super.getTears(),
                 (start, direction) -> new BaseWeaponShot(start, direction)));
@@ -45,7 +48,7 @@ public class Player extends PlayerMovementImpl implements Hitable<Enemy>, Clonea
     /**
      * @param direction the direction in which the bullet is fired
      * */
-    void hit(final Direction direction) {
+    public void hit(final Direction direction) {
         final Vector2D direct = new Vector2D(direction.getX(), direction.getY());
         this.hitStrategy.hit(Optional.of(direct), this);
     }
@@ -92,13 +95,5 @@ public class Player extends PlayerMovementImpl implements Hitable<Enemy>, Clonea
      */
     public InputController getShootingController() {
         return this.shootingController;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Player clone() throws CloneNotSupportedException {
-        return (Player) super.clone();
     }
 }

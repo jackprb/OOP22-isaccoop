@@ -1,7 +1,5 @@
 package it.unibo.isaccoop.model.common;
 
-import it.unibo.isaccoop.model.room.Room;
-
 /**
  * Enum that models all the types of {@link Room} inside a {@link Level}.
  */
