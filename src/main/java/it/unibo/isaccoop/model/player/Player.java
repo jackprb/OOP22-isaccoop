@@ -19,7 +19,8 @@ import it.unibo.isaccoop.model.weapon.WeaponShot;
  * */
 public class Player extends PlayerMovementImpl implements Hitable<Enemy> {
 
-    private InputController controller;
+    private InputController movementController;
+    private InputController shootingController;
 
     /***/
     private final HitStrategy hitStrategy;
@@ -27,9 +28,11 @@ public class Player extends PlayerMovementImpl implements Hitable<Enemy> {
     /**
      * Player constructor.
      * */
-    public Player() {
+    public Player(final InputController moveController, final InputController shotController) {
         this.hitStrategy = new ShootingHitStrategy(new TimeIntervalWeapon(super.getTears(),
                 (start, direction) -> new BaseWeaponShot(start, direction)));
+        this.movementController = moveController;
+        this.shootingController = shotController;
     }
 
     /**
@@ -76,10 +79,18 @@ public class Player extends PlayerMovementImpl implements Hitable<Enemy> {
     }
 
     /**
-     *
-     * @return the controller
+     * 
+     * @return the movement controller
      */
-    public InputController getController() {
-        return this.controller;
+    public InputController getMovementController() {
+        return this.movementController;
+    }
+
+    /**
+     * 
+     * @return the shooting controller
+     */
+    public InputController getShootingController() {
+        return this.shootingController;
     }
 }
