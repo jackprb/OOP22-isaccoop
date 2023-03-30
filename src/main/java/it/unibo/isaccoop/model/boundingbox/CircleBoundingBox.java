@@ -34,8 +34,8 @@ public class CircleBoundingBox implements BoundingBox {
      * @return true if a collision occours
      */
     @Override
-    public boolean isCollidingWithCricle(final Point2D center, final Point2D center1, final CircleBoundingBox box1) {
-        return new Vector2D(center, center1).module() <= box1.getRadius() + this.radius;
+    public boolean isCollidingWithCricle(final Point2D center, final Point2D center1, final CircleBoundingBox circleBox) {
+        return new Vector2D(center, center1).module() <= circleBox.getRadius() + this.radius;
     }
 
     /**
@@ -46,12 +46,8 @@ public class CircleBoundingBox implements BoundingBox {
      * @return true if a collision occours
      */
     @Override
-    public boolean isCollidingWithRecPerimeter(Point2D center, RectBoundingBox rectangleBox/*int height, int width*/) {
-        if(rectangleBox.getHeight() -  center.getY() <= this.radius || center.getY() <= this.radius 
-                || rectangleBox.getWidth() - center.getX() <= this.radius|| center.getX() <= this.radius) {
-            return true;
-        } else {
-            return false;        
-        }
+    public boolean isCollidingWithRecPerimeter(final Point2D center, final RectBoundingBox rectangleBox) {
+        return rectangleBox.getHeight() -  center.getY() <= this.radius || center.getY() <= this.radius 
+                || rectangleBox.getWidth() - center.getX() <= this.radius || center.getX() <= this.radius;
     }
 }

@@ -16,7 +16,8 @@ public final class CollisionCheckFactoryImpl implements CollisionCheckFactory {
     @Override
     public CollisionCheck getCollisionWithItemChecker(final Player p, final List<MapElement> i) {
         return room -> i.stream()
-                .filter(elem -> elem.getBox().isCollidingWithCricle(elem.getCoords(), p.getCoords(), (CircleBoundingBox) p.getBox()))
+                .filter(elem -> elem.getBox().isCollidingWithCricle(elem.getCoords(), p.getCoords(), 
+                        (CircleBoundingBox) p.getBox()))
                 .forEach(e -> room.notifyEvent(new ConcreteEventFactory().getItemPickUpEvent((Item) e)));
     }
 
@@ -32,14 +33,16 @@ public final class CollisionCheckFactoryImpl implements CollisionCheckFactory {
     @Override
     public CollisionCheck getCollisionWithEnemyChecker(final Player p, final List<MapElement> i) {
         return room -> i.stream()
-                .filter(elem -> elem.getBox().isCollidingWithCricle(elem.getCoords(), p.getCoords(), (CircleBoundingBox) p.getBox()))
+                .filter(elem -> elem.getBox().isCollidingWithCricle(elem.getCoords(), p.getCoords(), 
+                        (CircleBoundingBox) p.getBox()))
                 .forEach(e -> room.notifyEvent(new ConcreteEventFactory().getEnemyHitEvent()));
     }
 
     @Override
     public CollisionCheck getCollisionWithEnemyShotChecker(final Player p, final List<MapElement> i) {
         return room -> i.stream()
-                .filter(elem -> p.getBox().isCollidingWithCricle(p.getCoords(), elem.getCoords(), (CircleBoundingBox) elem.getBox()))
+                .filter(elem -> p.getBox().isCollidingWithCricle(p.getCoords(), elem.getCoords(), 
+                        (CircleBoundingBox) elem.getBox()))
                 .forEach(e -> room.notifyEvent(new ConcreteEventFactory().getEnemyHitEvent()));
     }
 

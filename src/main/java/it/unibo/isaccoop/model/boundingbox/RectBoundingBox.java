@@ -6,7 +6,7 @@ import it.unibo.isaccoop.model.common.Point2D;
  * Implements the BoundingBox interface of a rectangle.
  */
 public class RectBoundingBox implements BoundingBox {
-    
+
     private final int width;
     private final int height;
 
@@ -28,7 +28,7 @@ public class RectBoundingBox implements BoundingBox {
      * @return true if a collision occours
      */
     @Override
-    public boolean isCollidingWithCricle(final Point2D center, final Point2D center1, final CircleBoundingBox box1) {
+    public boolean isCollidingWithCricle(final Point2D center, final Point2D center1, final CircleBoundingBox circleBox) {
         // TODO Auto-generated method stub
         return false;
     }
@@ -41,7 +41,7 @@ public class RectBoundingBox implements BoundingBox {
      * @return true if a collision occours
      */
     @Override
-    public boolean isCollidingWithRecPerimeter(final Point2D center, RectBoundingBox rectangleBox) {
+    public boolean isCollidingWithRecPerimeter(final Point2D center, final RectBoundingBox rectangleBox) {
         // TODO Auto-generated method stub
         return false;
     }
