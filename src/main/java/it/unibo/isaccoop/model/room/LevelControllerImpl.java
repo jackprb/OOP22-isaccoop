@@ -5,10 +5,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
 
-import it.unibo.isaccoop.model.common.Direction;
 import it.unibo.isaccoop.controller.input.InputController;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.player.Player;
@@ -24,8 +21,7 @@ public final class LevelControllerImpl implements LevelController {
     private final List<Level> lvl = new LinkedList<>();
     private int currentLevelID;
     private Room currentRoom;
-    private final Player player = new Player();
-    private final InputController inputController;
+    private final Player player;
 
     /**
      * Create a game with the specified number of levels.
@@ -33,8 +29,8 @@ public final class LevelControllerImpl implements LevelController {
      * @param inputController the inputController to be attached to this level
      */
     public LevelControllerImpl(final int numberOfLevels, final InputController inputController) {
-        final LevelFactoryImpl lvlFactory = new LevelFactoryImpl(this.player);
-        this.inputController = inputController;
+        //final InputController inController = inputController;
+        final LevelFactoryImpl lvlFactory = new LevelFactoryImpl();
         this.currentLevelID = 0;
         Stream.iterate(0, i -> i + 1)
             .limit(numberOfLevels)
@@ -44,6 +40,7 @@ public final class LevelControllerImpl implements LevelController {
                 this.lvl.add(lvlFactory.createLevel(numberOfRooms));
             });
         this.currentRoom = this.lvl.get(this.currentLevelID).getStartRoom();
+        this.player = lvlFactory.getPlayer();
     }
 
     @Override
@@ -83,7 +80,7 @@ public final class LevelControllerImpl implements LevelController {
 
     @Override
     public List<Room> getAccessibleRooms() {
-        return List.of();
+        return getAvailableRooms();
     }
 
     @Override
@@ -109,35 +106,25 @@ public final class LevelControllerImpl implements LevelController {
         return this.lvl.stream().allMatch(l -> l.isComplete());
     }
 
+    /**
+     * Move the player to the next Level.
+     */
     private void goToNextLevel() {
         this.currentLevelID++;
     }
 
+    /**
+     * Finds all available rooms next to the current room.
+     * A room is considered available if it is UP, DOWN, LEFT, RIGHT of the current room
+     * @return the list of ne
+     */
     private List<Room> getAvailableRooms() {
         final LevelFactoryUtils lvlUtils = new LevelFactoryUtils();
-        // thes the coordinate of current room, as a Pair<Integer, Integer>
-        final Pair<Integer, Integer> roomCoord = point2DToPair(this.currentRoom.getCoords());
-        final List<Pair<Integer, Integer>> neighborRoomCoords = new LinkedList<>();
+        final Point2D roomCoord = this.currentRoom.getCoords();
+        final List<Point2D> neighborRoomCoords = lvlUtils.getNeighborRooms(roomCoord);
 
-        // get all neighbor room coordinates (i.e.: the rooms next to the current room, where the player can go)
-        for (final var dir: Direction.values()) {
-            final var newCoord = lvlUtils.getNewCoordinateAlongDirection(roomCoord, dir);
-            if (lvlUtils.isValidCoord(newCoord)) {
-                neighborRoomCoords.add(newCoord);
-            }
-        }
         return getCurrentLevel().getRooms().stream()
-        .filter(r -> neighborRoomCoords.contains(r.getCoords()))
-        .collect(Collectors.toList());
-        //r.getCoords().getX() - roomCoord.getLeft() == 1)
-    }
-
-    /**
-     * Convert a pair into a Point2D.
-     * @param point2d the initial Point2D
-     * @return the pair converted into a Point2D
-     */
-    private Pair<Integer, Integer> point2DToPair(final Point2D point2d) {
-        return new ImmutablePair<>((int) point2d.getX(), (int) point2d.getY());
+                .filter(r -> neighborRoomCoords.contains(r.getCoords()))
+                .collect(Collectors.toList());
     }
 }
