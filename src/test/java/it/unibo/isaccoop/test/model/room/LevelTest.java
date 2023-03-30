@@ -45,7 +45,7 @@ class LevelTest {
 
     @Test 
     void testPutRooms() {
-        // generate another List<Room>
+        // generate another List<Room>, made of 5 rooms, one for each RoomType
         for (final RoomType roomType: RoomType.values()) {
             this.otherRoomList.add(this.roomFactory.buildRoomInProperOrder(new Point2D(roomType.ordinal(), 0)));
         }
@@ -54,7 +54,7 @@ class LevelTest {
         assertThrows(IllegalStateException.class, () -> this.localLevel.putRooms(this.otherRoomList)); 
 
         // the localLevel must have the correct number of rooms
-        assertEquals(this.localLevel.getRooms().size(), NUMBER_OF_ROOMS);
+        assertEquals(this.localLevel.getRooms().size(), this.roomListFromFactory.size());
     }
 
     @Test
