@@ -98,8 +98,13 @@ public final class RoomBuilderUtils {
         }
     }
 
+    /**
+     * Method to create a {@link Player}, that can be placed only in a START room.
+     * @return the player
+     * @throws IllegalStateException if called on a {@link Room} that cannot have the Player.
+     */
     public Player createPlayer() {
-        if(canRoomHavePlayer()) {            
+        if (canRoomHavePlayer()) {
             return new Player(null, null);
         }
         throw new IllegalStateException("cannot create player for NON-START room");

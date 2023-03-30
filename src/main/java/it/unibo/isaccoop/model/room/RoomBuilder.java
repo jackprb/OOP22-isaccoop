@@ -116,7 +116,6 @@ public class RoomBuilder {
         /**
          * Method to put the player inside this room. ONLY for the START room.
          * 
-         * @param player the player to be put inside this room
          * @return this builder
          * @throws IllegalStateException if called on NON START room
          */
