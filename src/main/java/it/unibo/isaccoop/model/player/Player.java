@@ -41,10 +41,10 @@ public class Player extends PlayerMovementImpl implements Hitable<Enemy> {
 
     /**
      * @param direction the direction in which the bullet is fired
-     * @param distance
      * */
-    void hit(final Optional<Vector2D> direction, final float distance) {
-        this.hitStrategy.hit(direction, this);
+    void hit(final Direction direction) {
+        final Vector2D direct = new Vector2D(direction.getX(), direction.getY());
+        this.hitStrategy.hit(Optional.of(direct), this);
     }
 
     /**
