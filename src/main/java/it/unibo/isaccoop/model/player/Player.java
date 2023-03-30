@@ -4,11 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import it.unibo.isaccoop.controller.input.InputController;
+import it.unibo.isaccoop.model.action.HitStrategy;
+import it.unibo.isaccoop.model.action.ShootingHitStrategy;
 import it.unibo.isaccoop.model.common.Direction;
 import it.unibo.isaccoop.model.common.Vector2D;
-import it.unibo.isaccoop.model.enemy.HitStrategy;
+import it.unibo.isaccoop.model.enemy.Enemy;
 import it.unibo.isaccoop.model.enemy.Hitable;
-import it.unibo.isaccoop.model.enemy.ShootingHitStrategy;
 import it.unibo.isaccoop.model.weapon.BaseWeaponShot;
 import it.unibo.isaccoop.model.weapon.TimeIntervalWeapon;
 import it.unibo.isaccoop.model.weapon.WeaponShot;
@@ -16,7 +17,7 @@ import it.unibo.isaccoop.model.weapon.WeaponShot;
 /**
  * The class for the player.
  * */
-public class Player extends PlayerMovementImpl implements Hitable {
+public class Player extends PlayerMovementImpl implements Hitable<Enemy> {
 
     private InputController controller;
 
@@ -40,7 +41,7 @@ public class Player extends PlayerMovementImpl implements Hitable {
 
     /**
      * @param direction the direction in which the bullet is fired
-     * @param distance the distance between the player and the end of the room
+     * @param distance
      * */
     void hit(final Optional<Vector2D> direction, final float distance) {
         this.hitStrategy.hit(direction, this);
@@ -67,10 +68,11 @@ public class Player extends PlayerMovementImpl implements Hitable {
     }
 
     /**
-     * @param player
+     * @param enemy
      * */
     @Override
-    public void onHit(final PlayerStat player) {
+    public void onHit(final Enemy enemy) {
+        enemy.setHearts(this.getDamage());
     }
 
     /**

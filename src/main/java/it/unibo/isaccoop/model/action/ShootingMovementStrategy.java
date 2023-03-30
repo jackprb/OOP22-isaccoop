@@ -1,9 +1,10 @@
-package it.unibo.isaccoop.model.enemy;
+package it.unibo.isaccoop.model.action;
 
 import java.util.concurrent.ThreadLocalRandom;
 
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.Vector2D;
+import it.unibo.isaccoop.model.enemy.ShootingEnemy;
 
 /***/
 public class ShootingMovementStrategy implements MovementStrategy {
