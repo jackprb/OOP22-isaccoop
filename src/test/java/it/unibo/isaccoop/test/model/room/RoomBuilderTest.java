@@ -2,14 +2,16 @@ package it.unibo.isaccoop.test.model.room;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.util.concurrent.ThreadLocalRandom;
+
 import org.junit.jupiter.api.Test;
 
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.RoomType;
 import it.unibo.isaccoop.model.player.Player;
-import it.unibo.isaccoop.model.room.RoomBuilderUtils;
 import it.unibo.isaccoop.model.room.RoomBuilder.Builder;
+import it.unibo.isaccoop.model.room.RoomBuilderUtils;
 
 /**
  * RoomBuilder test.
