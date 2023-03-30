@@ -4,7 +4,10 @@ package it.unibo.isaccoop.core;
  *
  */
 
+import java.util.Collection;
+
 import it.unibo.isaccoop.controller.input.InputController;
+import it.unibo.isaccoop.controller.input.KeyboardInputController;
 /**
  * Interface representing the game engine.
  * */
@@ -19,4 +22,6 @@ public interface GameEngine {
      * @return controller indicated.
      */
     InputController getController(String name);
+    /***/
+    Collection<KeyboardInputController> getKeyboardInputControllers();
 }
