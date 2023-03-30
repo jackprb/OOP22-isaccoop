@@ -31,7 +31,7 @@ class LevelFactoryTest {
 
     @BeforeEach
     void setUp() {
-        this.lvl = this.lvlFactory.createLevel(NUMBER_OF_ROOMS);
+        this.lvl = this.lvlFactory.createLevel();
         this.rooms = lvl.getRooms();
     }
 
