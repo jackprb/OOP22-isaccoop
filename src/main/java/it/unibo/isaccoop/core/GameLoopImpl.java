@@ -3,6 +3,7 @@ package it.unibo.isaccoop.core;
 import java.util.logging.Logger;
 
 import it.unibo.isaccoop.controller.input.InputComponent;
+import it.unibo.isaccoop.graphics.Scene;
 import it.unibo.isaccoop.model.room.Level;
 
 /**
@@ -10,6 +11,7 @@ import it.unibo.isaccoop.model.room.Level;
  */
 public class GameLoopImpl implements GameLoop {
 
+    private Scene view;
     private Level level;
     private InputComponent inputComponent;
     private static final long DEFAULT_PERIOD = 20;
@@ -51,7 +53,7 @@ public class GameLoopImpl implements GameLoop {
     }
     /***/
     private void render() {
-        // TODO Auto-generated method stub
+        view.render();
     }
 
     /**
