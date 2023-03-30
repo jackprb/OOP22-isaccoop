@@ -16,7 +16,7 @@ import it.unibo.isaccoop.model.weapon.WeaponShot;
 /**
  * The class for the player.
  * */
-public class Player extends PlayerMovementImpl implements Hitable {
+public class Player extends PlayerMovementImpl implements Hitable, Cloneable {
 
     private InputController controller;
 
@@ -79,5 +79,13 @@ public class Player extends PlayerMovementImpl implements Hitable {
      */
     public InputController getController() {
         return this.controller;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Player clone() throws CloneNotSupportedException {
+        return (Player) super.clone();
     }
 }
