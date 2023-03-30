@@ -1,7 +1,5 @@
 package it.unibo.isaccoop.model.room;
 
-import it.unibo.isaccoop.model.player.Player;
-
 /**
  * Interface that allows to create a {@link Level} dynamically.
  */
@@ -14,10 +12,4 @@ public interface LevelFactory {
      * @return the level created
      */
     Level createLevel();
-
-    /**
-     * Get the player.
-     * @return the player
-     */
-    Player getPlayer();
 }

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import it.unibo.isaccoop.model.common.Point2D;
-import it.unibo.isaccoop.model.player.Player;
 
 /**
  * Implementation of {@link LevelFactory}.
@@ -24,10 +23,5 @@ public final class LevelFactoryImpl implements LevelFactory {
         final Level lvl = new LevelImpl();
         lvl.putRooms(rooms);
         return lvl;
-    }
-
-    @Override
-    public Player getPlayer() {
-        return this.lvlFactoryUtils.getPlayer().get();
     }
 }
