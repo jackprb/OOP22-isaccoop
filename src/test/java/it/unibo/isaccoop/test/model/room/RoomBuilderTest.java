@@ -74,7 +74,7 @@ class RoomBuilderTest {
             final Builder localBuilder = new Builder(MAX_ROOM_SIZE, MAX_COORD_NUMBER)
                     .putCoord(generateCoord())
                     .roomType(rType);
-            final Player player = new Player();
+            final Player player = new Player(null, null);
             if (utils.canRoomHavePlayer()) {
                 assertEquals(localBuilder.putPlayer(player), localBuilder);
             } else {

@@ -26,7 +26,7 @@ class RoomFactoryTest {
     private static final int MAX_COORD_VALUE = 30; 
     private static final int NUMBER_OF_ROOMS = 10;
 
-    private final RoomFactory rFactory = new RoomFactoryImpl(NUMBER_OF_ROOMS, new Player());
+    private final RoomFactory rFactory = new RoomFactoryImpl(NUMBER_OF_ROOMS, new Player(null, null));
     private Point2D coord;
     private final List<Room> list = new LinkedList<>();
 

@@ -27,7 +27,7 @@ class LevelTest {
     private static final int NUMBER_OF_ROOMS = 10;
 
     // variables for local level
-    private final Player player = new Player();
+    private final Player player = new Player(null, null);
     private final RoomFactory roomFactory = new RoomFactoryImpl(NUMBER_OF_ROOMS, this.player);
     private final Level localLevel = new LevelImpl();
     private final List<Room> otherRoomList = new LinkedList<>();
