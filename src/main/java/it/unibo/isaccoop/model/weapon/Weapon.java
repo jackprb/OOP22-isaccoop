@@ -1,4 +1,4 @@
-package it.unibo.isaccoop.model.enemy;
+package it.unibo.isaccoop.model.weapon;
 
 import java.util.List;
 
