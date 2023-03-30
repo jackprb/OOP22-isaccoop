@@ -30,7 +30,7 @@ public final class RoomBuilderUtils {
      * Create a RoomBuilderUtil object, to access utility methods.
      * @param roomType the type of the room
      */
-    public RoomBuilderUtils(final RoomType roomType) {
+    protected RoomBuilderUtils(final RoomType roomType) {
         this.roomType = roomType;
     }
 
@@ -96,6 +96,13 @@ public final class RoomBuilderUtils {
         } else { // for TREASURE ROOM
             return Optional.of(creatorFactory.createTreasurePowerUps().create());
         }
+    }
+
+    public Player createPlayer() {
+        if(canRoomHavePlayer()) {            
+            return new Player(null, null);
+        }
+        throw new IllegalStateException("cannot create player for NON-START room");
     }
 
     /**

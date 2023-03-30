@@ -120,9 +120,9 @@ public class RoomBuilder {
          * @return this builder
          * @throws IllegalStateException if called on NON START room
          */
-        public Builder putPlayer(final Player player) {
+        public Builder putPlayer() {
             if (this.builderUtils.canRoomHavePlayer()) {
-                this.player = Optional.of(player);
+                this.player = Optional.of(this.builderUtils.createPlayer());
                 return this;
             }
             throw new IllegalStateException(PLAYER_IN_START_ROOM);
