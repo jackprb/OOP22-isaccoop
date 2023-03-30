@@ -4,11 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import it.unibo.isaccoop.controller.input.InputController;
+import it.unibo.isaccoop.model.action.HitStrategy;
+import it.unibo.isaccoop.model.action.ShootingHitStrategy;
 import it.unibo.isaccoop.model.common.Direction;
 import it.unibo.isaccoop.model.common.Vector2D;
-import it.unibo.isaccoop.model.enemy.HitStrategy;
+import it.unibo.isaccoop.model.enemy.Enemy;
 import it.unibo.isaccoop.model.enemy.Hitable;
-import it.unibo.isaccoop.model.enemy.ShootingHitStrategy;
 import it.unibo.isaccoop.model.weapon.BaseWeaponShot;
 import it.unibo.isaccoop.model.weapon.TimeIntervalWeapon;
 import it.unibo.isaccoop.model.weapon.WeaponShot;
@@ -16,9 +17,10 @@ import it.unibo.isaccoop.model.weapon.WeaponShot;
 /**
  * The class for the player.
  * */
-public class Player extends PlayerMovementImpl implements Hitable {
+public class Player extends PlayerMovementImpl implements Hitable<Enemy> {
 
-    private InputController controller;
+    private InputController movementController;
+    private InputController shootingController;
 
     /***/
     private final HitStrategy hitStrategy;
@@ -26,9 +28,11 @@ public class Player extends PlayerMovementImpl implements Hitable {
     /**
      * Player constructor.
      * */
-    public Player() {
+    public Player(final InputController moveController, final InputController shotController) {
         this.hitStrategy = new ShootingHitStrategy(new TimeIntervalWeapon(super.getTears(),
                 (start, direction) -> new BaseWeaponShot(start, direction)));
+        this.movementController = moveController;
+        this.shootingController = shotController;
     }
 
     /**
@@ -40,10 +44,10 @@ public class Player extends PlayerMovementImpl implements Hitable {
 
     /**
      * @param direction the direction in which the bullet is fired
-     * @param distance the distance between the player and the end of the room
      * */
-    void hit(final Optional<Vector2D> direction, final float distance) {
-        this.hitStrategy.hit(direction, this);
+    void hit(final Direction direction) {
+        final Vector2D direct = new Vector2D(direction.getX(), direction.getY());
+        this.hitStrategy.hit(Optional.of(direct), this);
     }
 
     /**
@@ -67,17 +71,26 @@ public class Player extends PlayerMovementImpl implements Hitable {
     }
 
     /**
-     * @param player
+     * @param enemy
      * */
     @Override
-    public void onHit(final PlayerStat player) {
+    public void onHit(final Enemy enemy) {
+        enemy.setHearts(this.getDamage());
     }
 
     /**
-     *
-     * @return the controller
+     * 
+     * @return the movement controller
      */
-    public InputController getController() {
-        return this.controller;
+    public InputController getMovementController() {
+        return this.movementController;
+    }
+
+    /**
+     * 
+     * @return the shooting controller
+     */
+    public InputController getShootingController() {
+        return this.shootingController;
     }
 }

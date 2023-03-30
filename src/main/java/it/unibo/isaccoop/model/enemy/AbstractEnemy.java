@@ -3,6 +3,9 @@ package it.unibo.isaccoop.model.enemy;
 import java.util.List;
 import java.util.Optional;
 
+import it.unibo.isaccoop.model.action.HitStrategy;
+import it.unibo.isaccoop.model.action.MovementStrategy;
+import it.unibo.isaccoop.model.action.ShootingHitStrategy;
 import it.unibo.isaccoop.model.common.AbstractMapElement;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.player.PlayerStat;
@@ -25,7 +28,7 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
     /**
      * Attribute used to store enemy hearts.
      * */
-    private int hearts;
+    private Double hearts;
 
     /**
      * Constructor for {@link AbstractEnemy}.
@@ -86,7 +89,8 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
      *
      *  @return current hearts number
      * */
-    protected int getHearts() {
+    @Override
+    public Double getHearts() {
         return this.hearts;
     }
 
@@ -95,13 +99,13 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
      *
      * @return enemy speed
      * */
-    protected static double getSpeed() {
+    public static double getSpeed() {
         return SPEED;
     }
 
     @Override
     public final boolean isDead() {
-        return this.getHearts() == 0;
+        return this.getHearts() <= 0;
     }
 
 
@@ -112,16 +116,16 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
         /**
          * Enemy max hearts.
          * */
-        ENEMY_HEARTS(3),
+        ENEMY_HEARTS(3.0),
 
         /**
          * Boss max hearts.
          * */
-        BOSS_HEARTS(8);
+        BOSS_HEARTS(8.0);
 
-        private final int maxHearts;
+        private final Double maxHearts;
 
-        EnemyHearts(final int maxHearts) {
+        EnemyHearts(final Double maxHearts) {
             this.maxHearts = maxHearts;
         }
 
@@ -130,7 +134,7 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
          *
          * @return max hearts number
          * */
-        public int getMaxHearts() {
+        public Double getMaxHearts() {
             return this.maxHearts;
         }
     }
@@ -161,5 +165,15 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
      * */
     public void setHitStrategy(final HitStrategy hitStrategy) {
         this.hitStrategy = hitStrategy;
+    }
+
+    /**
+     * @param hearts
+     * */
+    @Override
+    public void setHearts(final Double hearts) {
+        if (!this.isDead()) {
+            this.hearts -= hearts;
+        }
     }
 }
