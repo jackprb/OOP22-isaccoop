@@ -1,9 +1,9 @@
 package it.unibo.isaccoop.model.room;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import it.unibo.isaccoop.model.common.Point2D;
-import it.unibo.isaccoop.model.common.RoomType;
 import it.unibo.isaccoop.model.player.Player;
 
 /**
@@ -11,15 +11,14 @@ import it.unibo.isaccoop.model.player.Player;
  */
 public final class LevelFactoryImpl implements LevelFactory {
 
-    // each level must have at least 5 rooms, one for each RoomType
-    private static final int MIN_NUMBER_OF_ROOMS = RoomType.values().length;
+    private static final int MAX_NUMBER_OF_ROOMS = 30;
+    private static final int MIN_NUMBER_OF_ROOMS = 6;
     private final LevelFactoryUtils lvlFactoryUtils = new LevelFactoryUtils();
 
     @Override
-    public Level createLevel(final int numberOfRooms) {
-        if (numberOfRooms < MIN_NUMBER_OF_ROOMS) {
-            throw new IllegalArgumentException("a level must have at least " + MIN_NUMBER_OF_ROOMS + " rooms");
-        }
+    public Level createLevel() {
+        final int numberOfRooms = ThreadLocalRandom.current().nextInt(
+                MAX_NUMBER_OF_ROOMS - MIN_NUMBER_OF_ROOMS) + MIN_NUMBER_OF_ROOMS;
         final List<Point2D> roomCoords = lvlFactoryUtils.generateRoomCoordinates(numberOfRooms);
         final List<Room> rooms = lvlFactoryUtils.createRooms(roomCoords);
         final Level lvl = new LevelImpl();
