@@ -2,19 +2,15 @@ package it.unibo.isaccoop.model.room;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 
 import it.unibo.isaccoop.model.common.Direction;
 import it.unibo.isaccoop.model.common.Point2D;
-import it.unibo.isaccoop.model.player.Player;
 
 /**
  * Delegated class that contains utility methods to help {@link LevelFactoryImpl} creating 
  * a room.
  */
 public final class LevelFactoryUtils {
-
-    private final Player player = new Player(null, null);
 
     /**
      * Generates dynamically the coordinates that will be used as positions
@@ -42,8 +38,7 @@ public final class LevelFactoryUtils {
      * @param dir the direction along which the coordinate has to ben calculated
      * @return the new coordinate calculated from coordinate coord along direction dir
      */
-    public Point2D getNewCoordinateAlongDirection(
-            final Point2D coord, final Direction dir) {
+    public Point2D getNewCoordinateAlongDirection(final Point2D coord, final Direction dir) {
         return new Point2D(coord.getX() + dir.getX(), coord.getY() + dir.getY());
     }
 
@@ -62,7 +57,7 @@ public final class LevelFactoryUtils {
      * @return the list of created rooms.
      */
     public List<Room> createRooms(final List<Point2D> coordsList) {
-        final RoomFactory rFactory = new RoomFactoryImpl(coordsList.size(), getPlayer().get());
+        final RoomFactory rFactory = new RoomFactoryImpl(coordsList.size());
         final List<Room> rooms = new LinkedList<>();
 
         for (final Point2D coord: coordsList) {
@@ -86,17 +81,5 @@ public final class LevelFactoryUtils {
             }
         }
         return res;
-    }
-
-    /**
-     * Get the player.
-     * @return the player
-     */
-    public Optional<Player> getPlayer() {
-        try {
-            return Optional.of((Player) this.player.clone());
-        } catch (CloneNotSupportedException e) {
-            return Optional.empty();
-        }
     }
 }
