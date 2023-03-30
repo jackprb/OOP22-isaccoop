@@ -8,14 +8,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.isaccoop.model.common.RoomType;
-import it.unibo.isaccoop.model.player.Player;
 import it.unibo.isaccoop.model.room.Level;
 import it.unibo.isaccoop.model.room.LevelFactory;
 import it.unibo.isaccoop.model.room.LevelFactoryImpl;
 import it.unibo.isaccoop.model.room.Room;
 
 /**
- * RoomFactory test.
+ * LevelFactory test.
  * */
 class LevelFactoryTest {
     private static final int NUMBER_OF_ROOMS = 10;
@@ -24,7 +23,7 @@ class LevelFactoryTest {
     private static final int POWERUP_COUNT_IN_SHOP = 3;
     private static final int POWERUP_COUNT_IN_TREASURE_ROOM = 1;
 
-    private final LevelFactory lvlFactory = new LevelFactoryImpl(new Player());
+    private final LevelFactory lvlFactory = new LevelFactoryImpl();
     private Level lvl;
     private List<Room> rooms;
 

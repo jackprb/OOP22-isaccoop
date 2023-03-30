@@ -36,7 +36,7 @@ class LevelTest {
     @BeforeEach
     void setUp() {
         // generate a complete level using LevelFactoryImpl
-        final Level lvl = new LevelFactoryImpl(this.player).createLevel(NUMBER_OF_ROOMS);
+        final Level lvl = new LevelFactoryImpl().createLevel(NUMBER_OF_ROOMS);
         // get the rooms of that level
         this.roomListFromFactory = lvl.getRooms();
         // put the rooms in the localLevel
