@@ -2,14 +2,13 @@ package it.unibo.isaccoop.model.room;
 
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.RoomType;
-import it.unibo.isaccoop.model.player.Player;
 
 /**
  * Implementation of {@link RoomFactory}.
  */
 public final class RoomFactoryImpl implements RoomFactory {
 
-    // strings used as messages when an exception is thrown
+    // messages when an exception is thrown
     private static final int MIN_MAX_ROOM_DIMENSIONS = 200;
     private static final String ALREADY_GENERATED_ALL_ROOMS = "you have already generated all the required rooms";
     private static final String START_ROOM_MUST_BE_FIRST = "the START room must be the FIRST to be generated";
@@ -18,20 +17,16 @@ public final class RoomFactoryImpl implements RoomFactory {
 
     private final int width;
     private final int height;
-    private final Player player;
     private int roomCount;
     private final RoomFactoryLogics rFactoryLogics;
 
     /**
-     * Constructor. Requires the total number of rooms to be created and the player that will be placed in
-     * the START room
+     * Constructor. Requires the total number of rooms to be created.
      * @param totalNumberOfRooms the total number of rooms to be created
-     * @param player the player that will be placed in the START room
      */
-    public RoomFactoryImpl(final int totalNumberOfRooms, final Player player) {
+    public RoomFactoryImpl(final int totalNumberOfRooms) {
         this.width = MIN_MAX_ROOM_DIMENSIONS;
         this.height = MIN_MAX_ROOM_DIMENSIONS;
-        this.player = player;
         this.roomCount = 0;
         this.rFactoryLogics = new RoomFactoryLogics(totalNumberOfRooms);
     }
@@ -45,7 +40,7 @@ public final class RoomFactoryImpl implements RoomFactory {
             return new RoomBuilder.Builder(this.width, this.height)
                     .roomType(RoomType.START)
                     .putCoord(coordInsideLevel)
-                    .putPlayer(player)
+                    .putPlayer()
                     .build();
         }
         throw new IllegalStateException(START_ROOM_MUST_BE_FIRST);
