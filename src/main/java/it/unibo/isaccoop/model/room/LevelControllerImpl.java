@@ -2,7 +2,6 @@ package it.unibo.isaccoop.model.room;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -15,13 +14,9 @@ import it.unibo.isaccoop.model.player.Player;
  */
 public final class LevelControllerImpl implements LevelController {
 
-    private static final int MAX_NUMBER_OF_ROOMS = 30;
-    private static final int MIN_NUMBER_OF_ROOMS = 6;
-
     private final List<Level> lvl = new LinkedList<>();
     private int currentLevelID;
     private Room currentRoom;
-    private final Player player;
 
     /**
      * Create a game with the specified number of levels.
@@ -34,13 +29,8 @@ public final class LevelControllerImpl implements LevelController {
         this.currentLevelID = 0;
         Stream.iterate(0, i -> i + 1)
             .limit(numberOfLevels)
-            .forEach(r -> {
-                final int numberOfRooms = ThreadLocalRandom.current().nextInt(
-                        MAX_NUMBER_OF_ROOMS - MIN_NUMBER_OF_ROOMS) + MIN_NUMBER_OF_ROOMS;
-                this.lvl.add(lvlFactory.createLevel(numberOfRooms));
-            });
+            .forEach(r -> this.lvl.add(lvlFactory.createLevel()));
         this.currentRoom = this.lvl.get(this.currentLevelID).getStartRoom();
-        this.player = lvlFactory.getPlayer();
     }
 
     @Override
@@ -50,12 +40,12 @@ public final class LevelControllerImpl implements LevelController {
 
     @Override
     public List<Room> getRoomsOfCurrentLevel() {
-        return this.getCurrentLevel().getRooms();
+        return getCurrentLevel().getRooms();
     }
 
     @Override
     public Point2D getPlayerRoomCoord() {
-        return this.player.getCoords();
+        return getPlayer().getCoords();
     }
 
     @Override
@@ -65,7 +55,9 @@ public final class LevelControllerImpl implements LevelController {
 
     @Override
     public Player getPlayer() {
-        return this.player;
+        return this.getCurrentLevel().getRooms().stream()
+                .filter(r -> r.getPlayer().isPresent())
+                .findFirst().get().getPlayer().get();
     }
 
     @Override
@@ -80,7 +72,7 @@ public final class LevelControllerImpl implements LevelController {
 
     @Override
     public List<Room> getAccessibleRooms() {
-        return getAvailableRooms();
+        return List.copyOf(getAvailableRooms());
     }
 
     @Override
@@ -111,6 +103,7 @@ public final class LevelControllerImpl implements LevelController {
      */
     private void goToNextLevel() {
         this.currentLevelID++;
+        this.currentRoom = getCurrentLevel().getStartRoom();
     }
 
     /**
