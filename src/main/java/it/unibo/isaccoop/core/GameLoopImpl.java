@@ -1,22 +1,27 @@
 package it.unibo.isaccoop.core;
 
+import java.util.logging.Logger;
+
 import it.unibo.isaccoop.controller.input.InputComponent;
 import it.unibo.isaccoop.model.room.Level;
 
 /**
- *
- *
+ * Implementation of GameLoop.
  */
 public class GameLoopImpl implements GameLoop {
 
     private Level level;
     private InputComponent inputComponent;
-    private long period = 20;
+    private static final long DEFAULT_PERIOD = 20;
+    private static final Logger LOGGER = Logger.getLogger(GameLoopImpl.class.getName());
 
+    /**
+     * Method that represents the main loop of the game.
+     */
     @Override
     public void gameLoop() {
-        while(!level.isComplete()) {
-            long current = System.currentTimeMillis();
+        while (!level.isComplete()) {
+            final long current = System.currentTimeMillis();
             this.processInput();
             this.updateGame();
             this.render();
@@ -24,6 +29,7 @@ public class GameLoopImpl implements GameLoop {
         }
 
     }
+
     /**
      * Private method that updates the input.
      */
@@ -32,7 +38,9 @@ public class GameLoopImpl implements GameLoop {
             .forEach(x -> inputComponent.update(x.getPlayer().get()));
 
     }
-    /***/
+    /**
+     * For each room present, update the room and check the events.
+     * */
     private void updateGame() {
         level.getRooms().stream().filter(r -> r.getPlayer().isPresent())
             .forEach(x -> {
@@ -44,18 +52,22 @@ public class GameLoopImpl implements GameLoop {
     /***/
     private void render() {
         // TODO Auto-generated method stub
-
     }
 
     /**
+     * Method to make the thread wait for the new frame.
      *
+     * @param current represent current time.
      */
-    private void waitForNextFrame(long current){
-        long dt = System.currentTimeMillis() - current;
-        if (dt < period){
+    private void waitForNextFrame(final long current) {
+        final var period = GameLoopImpl.DEFAULT_PERIOD;
+        final long dt = System.currentTimeMillis() - current;
+        if (dt < period) {
             try {
                 Thread.sleep(period - dt);
-            } catch (Exception ex){}
+            } catch (InterruptedException e) {
+                LOGGER.severe(e.getMessage());
+            }
         }
     }
 
