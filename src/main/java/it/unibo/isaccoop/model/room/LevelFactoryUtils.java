@@ -14,7 +14,7 @@ import it.unibo.isaccoop.model.player.Player;
  */
 public final class LevelFactoryUtils {
 
-    private final Player player = new Player();
+    private final Player player = new Player(null, null);
 
     /**
      * Generates dynamically the coordinates that will be used as positions
