@@ -2,14 +2,11 @@ package it.unibo.isaccoop.test.model.room;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import java.util.concurrent.ThreadLocalRandom;
-
 import org.junit.jupiter.api.Test;
 
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.RoomType;
-import it.unibo.isaccoop.model.player.Player;
 import it.unibo.isaccoop.model.room.RoomBuilder.Builder;
 import it.unibo.isaccoop.model.room.RoomBuilderUtils;
 
@@ -74,11 +71,10 @@ class RoomBuilderTest {
             final Builder localBuilder = new Builder(MAX_ROOM_SIZE, MAX_COORD_NUMBER)
                     .putCoord(generateCoord())
                     .roomType(rType);
-            final Player player = new Player(null, null);
             if (utils.canRoomHavePlayer()) {
-                assertEquals(localBuilder.putPlayer(player), localBuilder);
+                assertEquals(localBuilder.putPlayer(), localBuilder);
             } else {
-                assertThrows(IllegalStateException.class, () -> localBuilder.putPlayer(player));
+                assertThrows(IllegalStateException.class, () -> localBuilder.putPlayer());
             }
         }
     }

@@ -30,7 +30,7 @@ public final class RoomBuilderUtils {
      * Create a RoomBuilderUtil object, to access utility methods.
      * @param roomType the type of the room
      */
-    protected RoomBuilderUtils(final RoomType roomType) {
+    public RoomBuilderUtils(final RoomType roomType) {
         this.roomType = roomType;
     }
 

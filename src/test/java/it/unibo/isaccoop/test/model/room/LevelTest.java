@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.RoomType;
-import it.unibo.isaccoop.model.player.Player;
 import it.unibo.isaccoop.model.room.Level;
 import it.unibo.isaccoop.model.room.LevelFactoryImpl;
 import it.unibo.isaccoop.model.room.LevelImpl;
@@ -27,8 +26,7 @@ class LevelTest {
     private static final int NUMBER_OF_ROOMS = 10;
 
     // variables for local level
-    private final Player player = new Player(null, null);
-    private final RoomFactory roomFactory = new RoomFactoryImpl(NUMBER_OF_ROOMS, this.player);
+    private final RoomFactory roomFactory = new RoomFactoryImpl(NUMBER_OF_ROOMS);
     private final Level localLevel = new LevelImpl();
     private final List<Room> otherRoomList = new LinkedList<>();
 
