@@ -18,37 +18,43 @@ import it.unibo.isaccoop.model.powerup.PowerUp;
 public interface Room extends MapElement {
 
     /**
+     * Get the {@link RoomType} of the room, that is, the type of the room itself. 
      * @return the type of this room
      */
     RoomType getRoomType();
 
     /**
-     * Get {@link AIEnemy} attached to this {@link Room}.
-     * @return {@link AIEnemy} attached to this {@link Room}
+     * Get the {@link AIEnemy} attached to this {@link Room}.
+     * @return {@link AIEnemy} attached to this {@link Room}, or {@link Optional#empty()} 
+     * if there is not an {@link AIEnemy} in this room
      * */
     Optional<AIEnemy> getRoomAI();
 
     /**
-     * Get the {@link Item}s in this room.
-     * @return the list of items in this room
+     * Get the list of {@link Item}s in this room.
+     * @return the list of items in this room, or {@link Optional#empty()} 
+     * if there is not a list of {@link Item}s in this room.
      */
     Optional<List<Item>> getItems();
 
     /**
-     * Get the {@link PowerUp}s in this room.
-     * @return the list of powerups in this room
+     * Get the list of {@link PowerUp}s in this room.
+     * @return the list of {@link PowerUp}s in this room, or {@link Optional#empty()} 
+     * if there is not a list of {@link PowerUp}s in this room.
      */
     Optional<List<PowerUp>> getPowerUps();
 
     /**
      * Get the {@link Player}.
-     * @return the player
+     * @return the player, or {@link Optional#empty()} 
+     * if the {@link Player} is not in this room.
      */
     Optional<Player> getPlayer();
 
     /**
      * Get the list of {@link Enemy}.
-     * @return the list of enemies
+     * @return the list of {@link Enemy}, or {@link Optional#empty()} 
+     * if there are no {@link Enemy} in this room.
      */
     Optional<List<Enemy>> getEnemies();
 
