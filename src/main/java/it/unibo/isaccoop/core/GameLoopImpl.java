@@ -37,7 +37,7 @@ public class GameLoopImpl implements GameLoop {
      */
     private void processInput() {
         level.getRooms().stream().filter(r -> r.getPlayer().isPresent())
-            .forEach(x -> inputComponent.update(x.getPlayer().get()));
+            .forEach(x -> inputComponent.update(x.getPlayer().get(), x));
 
     }
     /**

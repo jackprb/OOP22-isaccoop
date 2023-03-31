@@ -2,10 +2,12 @@ package it.unibo.isaccoop.model.collision;
 
 import java.util.List;
 import it.unibo.isaccoop.model.boundingbox.CircleBoundingBox;
+import it.unibo.isaccoop.model.boundingbox.RectBoundingBox;
 import it.unibo.isaccoop.model.common.MapElement;
 import it.unibo.isaccoop.model.enemy.Enemy;
 import it.unibo.isaccoop.model.item.Item;
 import it.unibo.isaccoop.model.player.Player;
+import it.unibo.isaccoop.model.room.Room;
 /**
  *
  * Factory for check Collision.
