@@ -1,13 +1,17 @@
 package it.unibo.isaccoop.model.common;
 
+import it.unibo.isaccoop.graphics.Graphics;
+import it.unibo.isaccoop.graphics.GraphicsComponent;
 import it.unibo.isaccoop.model.boundingbox.BoundingBox;
 import it.unibo.isaccoop.model.boundingbox.CircleBoundingBox;
+import it.unibo.isaccoop.model.boundingbox.RectBoundingBox;
 
 /***/
 public abstract class AbstractMapElement implements MapElement {
 
     private Point2D coords;
     private BoundingBox box;
+    private GraphicsComponent graphicComponent;
 
     /**
      *
@@ -77,6 +81,16 @@ public abstract class AbstractMapElement implements MapElement {
         this.box = new CircleBoundingBox(elemRadius.getValue());
     }
 
+    /**
+     * Constructor for {@link AbstractMapElement} with fixed initial position.
+     * @param width
+     * @param height
+     */
+    public AbstractMapElement(final int width, final int height) {
+        this.coords = new Point2D(0.0, 0.0);
+        this.box = new RectBoundingBox(width, height);
+    }
+
     /***/
     @Override
     public Point2D getCoords() {
@@ -90,11 +104,19 @@ public abstract class AbstractMapElement implements MapElement {
     }
 
     /**
-     * 
+     *
      * @return collision box
      */
     @Override
     public BoundingBox getBox() {
         return this.box;
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void updateGraphics(Graphics g) {
+        graphicComponent.update(this, g);
     }
 }
