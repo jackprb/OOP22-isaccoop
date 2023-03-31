@@ -16,7 +16,6 @@ public final class LevelControllerImpl implements LevelController {
 
     private final List<Level> lvl = new LinkedList<>();
     private int currentLevelID;
-    private Room currentRoom;
 
     /**
      * Create a game with the specified number of levels.
@@ -30,7 +29,6 @@ public final class LevelControllerImpl implements LevelController {
         Stream.iterate(0, i -> i + 1)
             .limit(numberOfLevels)
             .forEach(r -> this.lvl.add(lvlFactory.createLevel()));
-        setCurrentRoom(this.lvl.get(this.currentLevelID).getStartRoom());
     }
 
     @Override
@@ -55,14 +53,14 @@ public final class LevelControllerImpl implements LevelController {
 
     @Override
     public Room getPlayerRoom() {
-        return this.currentRoom;
+        return getCurrentLevel().getRooms().stream()
+                .filter(r -> r.getPlayer().isPresent())
+                .findFirst().get();
     }
 
     @Override
     public Player getPlayer() {
-        return getCurrentLevel().getRooms().stream()
-                .filter(r -> r.getPlayer().isPresent())
-                .findFirst().get().getPlayer().get();
+        return getPlayerRoom().getPlayer().get();
     }
 
     @Override
@@ -79,8 +77,7 @@ public final class LevelControllerImpl implements LevelController {
     @Override
     public void moveToRoom(final Room room) {
         if (isRoomComplete(room) && getPlayerRoom().removePlayer()) {
-            setCurrentRoom(room);          
-            getPlayerRoom().addPlayer(getPlayer());
+            room.addPlayer(getPlayer());
         }
     }
 
@@ -99,19 +96,10 @@ public final class LevelControllerImpl implements LevelController {
     }
 
     /**
-     * Set the specified room as the current room.
-     * @param room the room to be set as the current
-     */
-    private void setCurrentRoom(Room room) {
-        this.currentRoom = room;        
-    }
-
-    /**
      * Move the player to the next Level.
      */
     private void goToNextLevel() {
         this.currentLevelID++;
-        setCurrentRoom(getCurrentLevel().getStartRoom());
     }
 
     /**
