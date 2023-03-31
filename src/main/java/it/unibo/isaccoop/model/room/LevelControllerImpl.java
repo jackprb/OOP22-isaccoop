@@ -40,12 +40,17 @@ public final class LevelControllerImpl implements LevelController {
 
     @Override
     public List<Room> getRoomsOfCurrentLevel() {
-        return getCurrentLevel().getRooms();
+        return List.copyOf(getCurrentLevel().getRooms());
+    }
+
+    @Override
+    public int getNumberOfRooms() {
+        return getRoomsOfCurrentLevel().size();
     }
 
     @Override
     public Point2D getPlayerRoomCoord() {
-        return getPlayer().getCoords();
+        return getPlayerRoom().getCoords();
     }
 
     @Override
@@ -55,7 +60,7 @@ public final class LevelControllerImpl implements LevelController {
 
     @Override
     public Player getPlayer() {
-        return this.getCurrentLevel().getRooms().stream()
+        return getCurrentLevel().getRooms().stream()
                 .filter(r -> r.getPlayer().isPresent())
                 .findFirst().get().getPlayer().get();
     }
@@ -65,10 +70,6 @@ public final class LevelControllerImpl implements LevelController {
         return room.isComplete();
     }
 
-    @Override
-    public int getNumberOfRooms() {
-        return this.getRoomsOfCurrentLevel().size();
-    }
 
     @Override
     public List<Room> getAccessibleRooms() {
@@ -109,7 +110,7 @@ public final class LevelControllerImpl implements LevelController {
     /**
      * Finds all available rooms next to the current room.
      * A room is considered available if it is UP, DOWN, LEFT, RIGHT of the current room
-     * @return the list of ne
+     * @return the list of all available rooms next to the current room
      */
     private List<Room> getAvailableRooms() {
         final LevelFactoryUtils lvlUtils = new LevelFactoryUtils();
