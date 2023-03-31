@@ -10,7 +10,7 @@ import it.unibo.isaccoop.model.player.Player;
 
 /**
  * Implementation of {@link LevelController}.
- * 
+ *
  */
 public final class LevelControllerImpl implements LevelController {
 

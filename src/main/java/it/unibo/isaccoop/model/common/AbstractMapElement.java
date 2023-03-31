@@ -1,5 +1,7 @@
 package it.unibo.isaccoop.model.common;
 
+import it.unibo.isaccoop.graphics.Graphics;
+import it.unibo.isaccoop.graphics.GraphicsComponent;
 import it.unibo.isaccoop.model.boundingbox.BoundingBox;
 import it.unibo.isaccoop.model.boundingbox.CircleBoundingBox;
 import it.unibo.isaccoop.model.boundingbox.RectBoundingBox;
@@ -9,6 +11,7 @@ public abstract class AbstractMapElement implements MapElement {
 
     private Point2D coords;
     private BoundingBox box;
+    private GraphicsComponent graphicComponent;
 
     /**
      *
@@ -101,11 +104,19 @@ public abstract class AbstractMapElement implements MapElement {
     }
 
     /**
-     * 
+     *
      * @return collision box
      */
     @Override
     public BoundingBox getBox() {
         return this.box;
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void updateGraphics(Graphics g) {
+        graphicComponent.update(this, g);
     }
 }
