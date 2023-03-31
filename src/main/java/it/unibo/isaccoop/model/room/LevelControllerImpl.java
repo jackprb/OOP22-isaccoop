@@ -81,7 +81,7 @@ public final class LevelControllerImpl implements LevelController {
 
     @Override
     public List<Room> getAccessibleRooms() {
-        return List.copyOf(getAvailableRooms());
+        return getAvailableRooms();
     }
 
     @Override
@@ -124,6 +124,6 @@ public final class LevelControllerImpl implements LevelController {
 
         return getCurrentLevel().getRooms().stream()
                 .filter(r -> neighborRoomCoords.contains(r.getCoords()))
-                .collect(Collectors.toList());
+                .collect(Collectors.toUnmodifiableList());
     }
 }

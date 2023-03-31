@@ -84,9 +84,9 @@ public interface LevelController {
     boolean areAllLevelsComplete();
 
     /**
-     * Return a list of rooms where the player can go. Player can go to a room that is
+     * Return an umodifiable list of rooms where the player can go. Player can go to a room that is
      * UP, DOWN, LEFT, RIGHT of current room.
-     * @return a list of accessible rooms, near the room where the player is
+     * @return an umodifiable list of accessible rooms, near the room where the player is
      */
     List<Room> getAccessibleRooms();
 
