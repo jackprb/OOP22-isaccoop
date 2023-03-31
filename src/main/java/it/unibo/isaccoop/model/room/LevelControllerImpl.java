@@ -30,7 +30,7 @@ public final class LevelControllerImpl implements LevelController {
         Stream.iterate(0, i -> i + 1)
             .limit(numberOfLevels)
             .forEach(r -> this.lvl.add(lvlFactory.createLevel()));
-        this.currentRoom = this.lvl.get(this.currentLevelID).getStartRoom();
+        setCurrentRoom(this.lvl.get(this.currentLevelID).getStartRoom());
     }
 
     @Override
@@ -78,10 +78,9 @@ public final class LevelControllerImpl implements LevelController {
 
     @Override
     public void moveToRoom(final Room room) {
-        if (isRoomComplete(room)) {
-            this.currentRoom = room;
-            // removes player from current room
-            // and moves it to the specified room
+        if (isRoomComplete(room) && getPlayerRoom().removePlayer()) {
+            setCurrentRoom(room);          
+            getPlayerRoom().addPlayer(getPlayer());
         }
     }
 
@@ -100,11 +99,19 @@ public final class LevelControllerImpl implements LevelController {
     }
 
     /**
+     * Set the specified room as the current room.
+     * @param room the room to be set as the current
+     */
+    private void setCurrentRoom(Room room) {
+        this.currentRoom = room;        
+    }
+
+    /**
      * Move the player to the next Level.
      */
     private void goToNextLevel() {
         this.currentLevelID++;
-        this.currentRoom = getCurrentLevel().getStartRoom();
+        setCurrentRoom(getCurrentLevel().getStartRoom());
     }
 
     /**
@@ -114,7 +121,7 @@ public final class LevelControllerImpl implements LevelController {
      */
     private List<Room> getAvailableRooms() {
         final LevelFactoryUtils lvlUtils = new LevelFactoryUtils();
-        final Point2D roomCoord = this.currentRoom.getCoords();
+        final Point2D roomCoord = getPlayerRoom().getCoords();
         final List<Point2D> neighborRoomCoords = lvlUtils.getNeighborRooms(roomCoord);
 
         return getCurrentLevel().getRooms().stream()
