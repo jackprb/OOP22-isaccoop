@@ -6,37 +6,44 @@ import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.player.Player;
 
 /**
- * Interface to control a {@link Level}.
+ * Interface to control a list of {@link Level}s.
+ * It allows to control and get information about the levels themselves.
  */
 public interface LevelController {
 
     /**
-     * Get the current Level.
+     * Get the current level.
      * @return the current level
      */
     Level getCurrentLevel();
 
     /**
-     * @return the unmodifiable list of all the rooms in this level
+     * Get an unmodifiable list of all rooms in current level.
+     * @return an unmodifiable list of all rooms in current level
      */
     List<Room> getRoomsOfCurrentLevel();
 
     /**
-     * @return the number of rooms inside this level
+     * Get the number of rooms inside current level
+     * @return the number of rooms in current level
      */
     int getNumberOfRooms();
 
     /**
+     * Get the coordinates of the room where the player is 
+     * (i.e.: the coordinate of the room inside current level).
      * @return the coordinates of the room where the player is 
      */
     Point2D getPlayerRoomCoord();
 
     /**
+     * Get the room where the player is.
      * @return the room where the player is 
      */
     Room getPlayerRoom();
 
     /**
+     * Get the player.
      * @return the player
      */
     Player getPlayer();
@@ -45,8 +52,8 @@ public interface LevelController {
      * Check if the specified room is "completed", that is, if there are no more
      * enemies to defeat (STANDARD room), or if the boss has been defeated (BOSS room).
      * @param room the room to check
-     * @return true if all enemies in STANDARD room or the final boss in BOSS room
-     * have been defeated, false otherwise
+     * @return true for NON-STANDARD and NON-BOSS rooms or if all enemies in STANDARD room 
+     * or the final boss in BOSS room have been defeated, false otherwise
      */
     boolean isRoomComplete(Room room);
 
