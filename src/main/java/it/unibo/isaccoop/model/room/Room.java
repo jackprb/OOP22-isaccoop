@@ -67,6 +67,21 @@ public interface Room extends MapElement {
     boolean isComplete();
 
     /**
+     * Put the player inside this room. To be used together with {@link #removePlayer()}
+     * to move a player from a Room to another.
+     * @param player the player to be placed in this room
+     * @return true if the player has been placed successfully in this room, false otherwise
+     */
+    boolean addPlayer(Player player);
+
+    /**
+     * Remove the player from this room. To be used together with {@link #addPlayer(Player)}
+     * to move a player from a Room to another.
+     * @return true if the player has been removed successfully from this room, false otherwise
+     */
+    boolean removePlayer();
+
+    /**
      * 
      */
     void updateRoom();
