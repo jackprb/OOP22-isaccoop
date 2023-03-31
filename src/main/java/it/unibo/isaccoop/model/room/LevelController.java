@@ -24,7 +24,7 @@ public interface LevelController {
     List<Room> getRoomsOfCurrentLevel();
 
     /**
-     * Get the number of rooms inside current level
+     * Get the number of rooms inside current level.
      * @return the number of rooms in current level
      */
     int getNumberOfRooms();
