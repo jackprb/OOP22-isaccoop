@@ -37,6 +37,16 @@ public final class LevelControllerImpl implements LevelController {
     }
 
     @Override
+    public int getCurrentLevelIndex() {
+        return this.currentLevelID;
+    }
+
+    @Override
+    public int getNumberOfLevels() {
+        return this.lvl.size();
+    }
+
+    @Override
     public List<Room> getRoomsOfCurrentLevel() {
         return List.copyOf(getCurrentLevel().getRooms());
     }

@@ -18,6 +18,18 @@ public interface LevelController {
     Level getCurrentLevel();
 
     /**
+     * Get the index of current level among the other levels.
+     * @return the index of current level among the others
+     */
+    int getCurrentLevelIndex();
+
+    /**
+     * Get the number of levels managed by this LevelController.
+     * @return the number of levels managed by this LevelController
+     */
+    int getNumberOfLevels();
+
+    /**
      * Get an unmodifiable list of all rooms in current level.
      * @return an unmodifiable list of all rooms in current level
      */
