@@ -4,6 +4,8 @@ import java.util.List;
 
 /**
  * Interface to model a level, which contains many {@link Room}.
+ * A level can be figured as a 2D grid; each room has its coordinate (i, j), that is, the indices of the
+ * {@link Room} itself as an element of the grid.
  */
 public interface Level {
 
