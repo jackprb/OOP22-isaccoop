@@ -92,7 +92,7 @@ public final class RoomImpl extends MapElementImpl implements Room {
     }
 
     @Override
-    public boolean addPlayer(Player player) {
+    public boolean addPlayer(final Player player) {
         if (this.player.isEmpty() && player != null) {
             this.player = Optional.of(player);
             return true;
@@ -102,7 +102,7 @@ public final class RoomImpl extends MapElementImpl implements Room {
 
     @Override
     public boolean removePlayer() {
-        if(this.player.isPresent()) {            
+        if (this.player.isPresent()) {
             this.player = Optional.empty();
             return true;
         }
