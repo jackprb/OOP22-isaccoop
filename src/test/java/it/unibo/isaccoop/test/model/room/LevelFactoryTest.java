@@ -16,7 +16,7 @@ import it.unibo.isaccoop.model.room.LevelFactoryImpl;
 import it.unibo.isaccoop.model.room.Room;
 
 /**
- * LevelFactory test.
+ * {@link LevelFactory} test.
  * */
 class LevelFactoryTest {
     private static final int MAX_NUMBER_OF_ROOMS = 30;
@@ -25,6 +25,7 @@ class LevelFactoryTest {
     private static final int NON_STANDARD_ROOM_COUNT = 4;
     private static final int POWERUP_COUNT_IN_SHOP = 3;
     private static final int POWERUP_COUNT_IN_TREASURE_ROOM = 1;
+    private static final int BOSS_COUNT = 1;
 
     private final LevelFactory lvlFactory = new LevelFactoryImpl();
     private Level lvl;
@@ -75,6 +76,7 @@ class LevelFactoryTest {
         assertTrue(this.rooms.stream()
                 .filter(r -> r.getRoomType() == RoomType.START)
                 .allMatch(r -> r.getPlayer().isPresent()));
+
         // considering the other rooms, the player will not be in any of them
         assertTrue(this.rooms.stream()
                 .filter(r -> r.getRoomType() != RoomType.START)
@@ -84,10 +86,11 @@ class LevelFactoryTest {
     @Test
     void testPowerUpInTreasureRoom() {
         // when a level is created, there must be powerups only in TREASURE and SHOP rooms
-        // in the treasure room there will be exactly one powerup
         assertTrue(this.rooms.stream()
                 .filter(r -> r.getRoomType() == RoomType.TREASURE)
                 .allMatch(r -> r.getPowerUps().isPresent()));
+
+        // in the treasure room there will be exactly one powerup
         assertTrue(this.rooms.stream()
                 .filter(r -> r.getRoomType() == RoomType.TREASURE)
                 .allMatch(r -> r.getPowerUps().get().size() == POWERUP_COUNT_IN_TREASURE_ROOM));
@@ -96,10 +99,11 @@ class LevelFactoryTest {
     @Test
     void testPowerUpInShopRoom() {
         // when a level is created, there must be powerups only in TREASURE and SHOP rooms
-        // in the shop room there will be exaclty 3 powerups
         assertTrue(this.rooms.stream()
                 .filter(r -> r.getRoomType() == RoomType.SHOP)
                 .allMatch(r -> r.getPowerUps().isPresent()));
+
+        // in the shop room there will be exactly 3 powerups
         assertTrue(this.rooms.stream()
                 .filter(r -> r.getRoomType() == RoomType.SHOP)
                 .allMatch(r -> r.getPowerUps().get().size() == POWERUP_COUNT_IN_SHOP));
@@ -117,10 +121,11 @@ class LevelFactoryTest {
     @Test
     void testItemsInRooms() {
         // when a level is created, there must be at least one item ONLY in STANDARD rooms
-        // only STANDARD rooms must have an item list 
+        // so, only STANDARD rooms must have an item list 
         assertTrue(this.rooms.stream()
                 .filter(r -> r.getItems().isPresent())
                 .allMatch(r -> r.getRoomType() == RoomType.STANDARD));
+
         // all other room types must NOT have an item list
         assertTrue(this.rooms.stream()
                 .filter(r -> r.getRoomAI().isEmpty())
@@ -133,6 +138,7 @@ class LevelFactoryTest {
         assertTrue(this.rooms.stream()
                 .filter(r -> r.getRoomAI().isPresent())
                 .allMatch(r -> checkConditionForAiRoom(r)));
+
         // all other room types must NOT have an AIenemy
         assertTrue(this.rooms.stream()
                 .filter(r -> r.getRoomAI().isEmpty())
@@ -146,6 +152,7 @@ class LevelFactoryTest {
         assertTrue(this.rooms.stream()
                 .filter(r -> checkConditionForAiRoom(r))
                 .allMatch(r -> !r.isComplete()));
+
         // the other rooms are already complete, because there are no enemies
         assertTrue(this.rooms.stream()
                 .filter(r -> !checkConditionForAiRoom(r))
@@ -165,7 +172,7 @@ class LevelFactoryTest {
         // in BOSS room, there must be only ONE enemy (the boss itself)
         assertTrue(this.rooms.stream()
                 .filter(r -> r.getRoomType() == RoomType.BOSS)
-                .allMatch(r -> r.getEnemies().get().size() == 1));
+                .allMatch(r -> r.getEnemies().get().size() == BOSS_COUNT));
     }
 
     @Test
