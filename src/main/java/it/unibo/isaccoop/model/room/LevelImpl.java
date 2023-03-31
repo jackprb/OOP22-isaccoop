@@ -1,6 +1,5 @@
 package it.unibo.isaccoop.model.room;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,13 +21,13 @@ public final class LevelImpl implements Level {
         if (this.rooms.isEmpty()) {
             this.rooms.addAll(roomList);
         } else {
-            throw new IllegalStateException("This level already has a room map");
+            throw new IllegalStateException("This level already has a room list");
         }
     }
 
     @Override
     public List<Room> getRooms() {
-        return Collections.unmodifiableList(this.rooms);
+        return List.copyOf(this.rooms);
     }
 
     @Override
