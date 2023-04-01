@@ -52,21 +52,6 @@ public final class LevelFactoryUtils {
     }
 
     /**
-     * Method to associate rooms to their coordinates.
-     * @param coordsList
-     * @return the list of created rooms.
-     */
-    public List<Room> createRooms(final List<Point2D> coordsList) {
-        final RoomFactory rFactory = new RoomFactoryImpl(coordsList.size());
-        final List<Room> rooms = new LinkedList<>();
-
-        for (final Point2D coord: coordsList) {
-            rooms.add(rFactory.buildRoomInProperOrder(coord));
-        }
-        return rooms;
-    }
-
-    /**
      * Get the coordinates of all neighbor rooms of specified room.
      * A neighbor room is a room that is UP, DOWN, LEFT or RIGHT of the specified room.
      * @param coord the current room coordinate

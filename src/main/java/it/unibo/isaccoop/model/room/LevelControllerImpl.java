@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import it.unibo.isaccoop.controller.input.InputController;
+import it.unibo.isaccoop.core.GameEngine;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.player.Player;
 
@@ -16,15 +16,16 @@ public final class LevelControllerImpl implements LevelController {
 
     private final List<Level> lvl = new LinkedList<>();
     private int currentLevelID;
+    private final Player player;
 
     /**
      * Create a game with the specified number of levels.
      * @param numberOfLevels the number of levels to create
-     * @param inputController the inputController to be attached to this level
+     * @param engine the {@link GameEngine} to be attached to this level
      */
-    public LevelControllerImpl(final int numberOfLevels, final InputController inputController) {
-        //final InputController inController = inputController;
-        final LevelFactoryImpl lvlFactory = new LevelFactoryImpl();
+    public LevelControllerImpl(final int numberOfLevels, final GameEngine engine) {
+        this.player = new Player(engine.getController("keyMove"), engine.getController("keyShot"));
+        final LevelFactory lvlFactory = new LevelFactoryImpl(engine);
         this.currentLevelID = 0;
         Stream.iterate(0, i -> i + 1)
             .limit(numberOfLevels)
