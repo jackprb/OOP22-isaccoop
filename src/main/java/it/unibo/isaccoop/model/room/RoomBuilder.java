@@ -20,7 +20,6 @@ public class RoomBuilder {
     // messages used when an exception is thrown
     private static final String ITEMS_IN_STANDARD_ROOM = "only STANDARD rooms can have items";
     private static final String ENEMIES_BOSS_STANDARD_ROOM = "only STANDARD and BOSS rooms can have enemies";
-    private static final String PLAYER_IN_START_ROOM = "the player must be put ONLY in the START room";
     private static final String POWERUPS_SHOP_TREASURE_ROOM = "only SHOP and TREASURE room can have powerups";
     private static final String INCORRECT_ROOM_CONFIG = "the room cannot be built: some required fields are not set";
 
@@ -111,20 +110,6 @@ public class RoomBuilder {
                 return this;
             }
             throw new IllegalStateException(ENEMIES_BOSS_STANDARD_ROOM);
-        }
-
-        /**
-         * Method to put the player inside this room. ONLY for the START room.
-         * 
-         * @return this builder
-         * @throws IllegalStateException if called on NON START room
-         */
-        public Builder putPlayer() {
-            if (this.builderUtils.canRoomHavePlayer()) {
-                this.player = Optional.of(this.builderUtils.createPlayer());
-                return this;
-            }
-            throw new IllegalStateException(PLAYER_IN_START_ROOM);
         }
 
         /**
