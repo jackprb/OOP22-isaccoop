@@ -1,6 +1,7 @@
 package it.unibo.isaccoop.model.room;
 
 import java.util.List;
+import java.util.Optional;
 
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.player.Player;
@@ -89,6 +90,20 @@ public interface LevelController {
      * @return an umodifiable list of accessible rooms, near the room where the player is
      */
     List<Room> getAccessibleRooms();
+    
+    /**
+     * Get the previous room.
+     * @return the previous room (i.e., the room at the LEFT of the current one), or
+     * Optional.empty if there is not a previous room
+     */
+    Optional<Room> getPreviousRoom();
+
+    /**
+     * Get the next room.
+     * @return the next room (i.e., the room at the RIGHT of the current one), or
+     * Optional.empty if there is not a next room
+     */
+    Optional<Room> getNextRoom();
 
     /**
      * Move the player to the specified room.

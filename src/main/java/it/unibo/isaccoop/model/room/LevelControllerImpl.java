@@ -2,10 +2,12 @@ package it.unibo.isaccoop.model.room;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import it.unibo.isaccoop.core.GameEngine;
+import it.unibo.isaccoop.model.common.Direction;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.player.Player;
 
@@ -83,6 +85,16 @@ public final class LevelControllerImpl implements LevelController {
     public List<Room> getAccessibleRooms() {
         return getAvailableRooms();
     }
+    
+    @Override
+    public Optional<Room> getPreviousRoom() {
+        return getPrevNextRoom(Direction.LEFT);
+    }
+    
+    @Override
+    public Optional<Room> getNextRoom() {
+        return getPrevNextRoom(Direction.RIGHT);
+    }
 
     @Override
     public boolean moveToRoom(final Room room) {
@@ -108,6 +120,20 @@ public final class LevelControllerImpl implements LevelController {
         return this.lvl.stream().allMatch(l -> l.isComplete());
     }
 
+    /**
+     * Get the previous or next room of current room.
+     * @param dir {@link Direction#RIGHT} to get the next room,
+     * {@link Direction#LEFT} to get the previous one
+     * @return the previous or next room of current room, or Optional.empty if not available
+     */
+    private Optional<Room> getPrevNextRoom(final Direction dir) {
+        final LevelFactoryUtils utils = new LevelFactoryUtils();
+        final Point2D coord = utils.getNewCoordinateAlongDirection(getCurrentRoomCoord(), dir);
+        return getCurrentLevel().getRooms().stream()
+                .filter(r -> r.getCoords().equals(coord))
+                .findFirst();
+    }
+    
     /**
      * Move the player to the next Level.
      */
