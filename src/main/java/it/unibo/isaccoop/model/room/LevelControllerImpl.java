@@ -85,10 +85,12 @@ public final class LevelControllerImpl implements LevelController {
     }
 
     @Override
-    public void moveToRoom(final Room room) {
-        if (isRoomComplete(room) && getPlayerRoom().removePlayer()) {
+    public boolean moveToRoom(final Room room) {
+        if (getPlayerRoom().isComplete() && getPlayerRoom().removePlayer()) {
             room.addPlayer(getPlayer());
+            return true;
         }
+        return false;
     }
 
     @Override

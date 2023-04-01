@@ -93,6 +93,8 @@ public interface LevelController {
     /**
      * Move the player to the specified room.
      * @param room the room where the player moves to
+     * @return true if the player can move to the specified room (the current one is complete),
+     * false otherwise
      */
-    void moveToRoom(Room room);
+    boolean moveToRoom(Room room);
 }
