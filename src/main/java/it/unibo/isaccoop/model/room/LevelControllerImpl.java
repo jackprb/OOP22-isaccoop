@@ -52,17 +52,17 @@ public final class LevelControllerImpl implements LevelController {
     }
 
     @Override
-    public int getNumberOfRooms() {
+    public int getNumberOfRoomsOfCurrentLevel() {
         return getRoomsOfCurrentLevel().size();
     }
 
     @Override
-    public Point2D getPlayerRoomCoord() {
-        return getPlayerRoom().getCoords();
+    public Point2D getCurrentRoomCoord() {
+        return getCurrentRoom().getCoords();
     }
 
     @Override
-    public Room getPlayerRoom() {
+    public Room getCurrentRoom() {
         return getCurrentLevel().getRooms().stream()
                 .filter(r -> r.getPlayer().isPresent())
                 .findFirst().get();
@@ -70,14 +70,13 @@ public final class LevelControllerImpl implements LevelController {
 
     @Override
     public Player getPlayer() {
-        return getPlayerRoom().getPlayer().get();
+        return getCurrentRoom().getPlayer().get();
     }
 
     @Override
     public boolean isRoomComplete(final Room room) {
         return room.isComplete();
     }
-
 
     @Override
     public List<Room> getAccessibleRooms() {
@@ -86,8 +85,9 @@ public final class LevelControllerImpl implements LevelController {
 
     @Override
     public boolean moveToRoom(final Room room) {
-        if (getPlayerRoom().isComplete() && getPlayerRoom().removePlayer()) {
-            room.addPlayer(getPlayer());
+        final Player player = getPlayer();
+        if (getCurrentRoom().isComplete() && getCurrentRoom().removePlayer()) {
+            room.addPlayer(player);
             return true;
         }
         return false;
@@ -121,7 +121,7 @@ public final class LevelControllerImpl implements LevelController {
      */
     private List<Room> getAvailableRooms() {
         final LevelFactoryUtils lvlUtils = new LevelFactoryUtils();
-        final Point2D roomCoord = getPlayerRoom().getCoords();
+        final Point2D roomCoord = getCurrentRoom().getCoords();
         final List<Point2D> neighborRoomCoords = lvlUtils.getNeighborRooms(roomCoord);
 
         return getCurrentLevel().getRooms().stream()

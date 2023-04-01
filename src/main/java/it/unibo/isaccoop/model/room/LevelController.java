@@ -39,20 +39,20 @@ public interface LevelController {
      * Get the number of rooms inside current level.
      * @return the number of rooms in current level
      */
-    int getNumberOfRooms();
+    int getNumberOfRoomsOfCurrentLevel();
 
     /**
      * Get the coordinates of the room where the player is 
      * (i.e.: the coordinate of the room inside current level).
      * @return the coordinates of the room where the player is 
      */
-    Point2D getPlayerRoomCoord();
+    Point2D getCurrentRoomCoord();
 
     /**
      * Get the room where the player is.
      * @return the room where the player is 
      */
-    Room getPlayerRoom();
+    Room getCurrentRoom();
 
     /**
      * Get the player.
