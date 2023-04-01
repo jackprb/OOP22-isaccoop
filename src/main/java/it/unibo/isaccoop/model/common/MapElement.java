@@ -1,5 +1,6 @@
 package it.unibo.isaccoop.model.common;
 
+import it.unibo.isaccoop.graphics.Graphics;
 import it.unibo.isaccoop.model.boundingbox.BoundingBox;
 
 /**
@@ -23,4 +24,7 @@ public interface MapElement {
      * @return bounding box refers to this mapElement.
      */
     BoundingBox getBox();
+
+    /***/
+    void updateGraphics(Graphics g);
 }
