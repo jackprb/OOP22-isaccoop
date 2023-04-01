@@ -100,7 +100,7 @@ class RoomTest {
         // purposes only, in this method are needed rooms with correct configuration,
         // so they are created using RoomFactory
         for (int i = 0; i < NUMBER_OF_ROOMS; i++) {
-            final Room room = new RoomFactoryImpl(NUMBER_OF_ROOMS).buildRoomInProperOrder(generateCoord());
+            final Room room = new RoomFactoryImpl(NUMBER_OF_ROOMS, null).buildRoomInProperOrder(generateCoord());
             final var expected = Optional.of(this.completedExpectedValue.entrySet().stream()
                     .filter(entry -> entry.getKey() == room.getRoomType())
                     .findFirst().get().getValue());

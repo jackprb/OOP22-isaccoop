@@ -31,7 +31,7 @@ class LevelTest {
     @BeforeEach
     void setUp() {
         // generate a complete level using LevelFactoryImpl
-        final Level lvl = new LevelFactoryImpl().createLevel();
+        final Level lvl = new LevelFactoryImpl(null).createLevel();
         // get the rooms of that level
         this.roomListFromFactory = lvl.getRooms();
         // put the rooms in the localLevel
@@ -42,7 +42,7 @@ class LevelTest {
     void testPutRooms() {
         // generate another List<Room>, made of 5 rooms, one for each RoomType
         for (final RoomType roomType: RoomType.values()) {
-            this.otherRoomList.add(new RoomFactoryImpl(RoomType.values().length)
+            this.otherRoomList.add(new RoomFactoryImpl(RoomType.values().length, null)
                     .buildRoomInProperOrder(new Point2D(roomType.ordinal(), 0)));
         }
 
