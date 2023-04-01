@@ -1,7 +1,9 @@
 package it.unibo.isaccoop.model.room;
 
 import java.util.List;
+import java.util.Map;
 
+import it.unibo.isaccoop.model.common.Direction;
 import it.unibo.isaccoop.model.player.Player;
 
 /**
@@ -43,6 +45,13 @@ public interface Level {
      * @return the room where the player currently is
      */
     Room getCurrentRoom();
+
+    /**
+     * Get a map containing the rooms near the current one and the direction to reach them.
+     * This map associates a {@link Room} to the {@link Direction} to take to reach it.
+     * @return a map containing the rooms near the current one and the direction to reach them
+     */
+    Map<Direction, Room> getNearRooms();
 
     /**
      * Get the player.

@@ -2,8 +2,10 @@ package it.unibo.isaccoop.model.room;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import it.unibo.isaccoop.model.common.Direction;
 import it.unibo.isaccoop.model.common.RoomType;
 import it.unibo.isaccoop.model.player.Player;
 
@@ -42,22 +44,25 @@ public final class LevelImpl implements Level {
     }
 
     @Override
-    public boolean isComplete() {
+    public boolean isLevelComplete() {
         return this.rooms.stream().allMatch(r -> r.isComplete());
     }
 
     @Override
     public Room getStartRoom() {
-        return this.rooms.stream()
-                .filter(r -> r.getRoomType() == RoomType.START)
+        return this.rooms.stream().filter(r -> r.getRoomType() == RoomType.START)
                 .findFirst().get();
     }
 
     @Override
     public Room getCurrentRoom() {
-        return this.rooms.stream()
-                .filter(r -> r.getPlayer().isPresent())
+        return this.rooms.stream().filter(r -> r.getPlayer().isPresent())
                 .findFirst().get();
+    }
+
+    @Override
+    public Map<Direction, Room> getNearRooms(){
+        return new LevelUtils().getNearAccessibleRooms(getCurrentRoom(), List.copyOf(this.rooms));
     }
 
     @Override
