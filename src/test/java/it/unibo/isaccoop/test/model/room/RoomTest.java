@@ -1,6 +1,7 @@
 package it.unibo.isaccoop.test.model.room;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.HashMap;
 import java.util.List;
@@ -99,12 +100,34 @@ class RoomTest {
         // purposes only, in this method are needed rooms with correct configuration,
         // so they are created using RoomFactory
         for (int i = 0; i < NUMBER_OF_ROOMS; i++) {
-           final Room room = new RoomFactoryImpl(NUMBER_OF_ROOMS).buildRoomInProperOrder(generateCoord());
-           final var expected = Optional.of(this.completedExpectedValue.entrySet().stream()
-                   .filter(entry -> entry.getKey() == room.getRoomType())
-                   .findFirst().get().getValue());
-           assertEquals(expected.get(), room.isComplete());
+            final Room room = new RoomFactoryImpl(NUMBER_OF_ROOMS).buildRoomInProperOrder(generateCoord());
+            final var expected = Optional.of(this.completedExpectedValue.entrySet().stream()
+                    .filter(entry -> entry.getKey() == room.getRoomType())
+                    .findFirst().get().getValue());
+            assertEquals(expected.get(), room.isComplete());
         }
+    }
+
+    @Test
+    void testAddPlayer() {
+        this.rooms.values().forEach(r -> {
+            if (r.getPlayer().isEmpty()) {
+                assertTrue(r.addPlayer(this.player));
+            } else {
+                assertFalse(r.addPlayer(this.player));
+            }
+        });
+    }
+
+    @Test
+    void testRemovePlayer() {
+        this.rooms.values().forEach(r -> {
+            if (r.getPlayer().isPresent()) {
+                assertTrue(r.removePlayer());
+            } else {
+                assertFalse(r.removePlayer());
+            }
+        });
     }
 
     /**
