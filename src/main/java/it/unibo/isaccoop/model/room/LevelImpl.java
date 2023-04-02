@@ -21,7 +21,7 @@ public final class LevelImpl implements Level {
      * Empty Constructor.
      */
     public LevelImpl() {
-        this.player = Optional.of(null);
+        this.player = Optional.of(new Player(null, null));
     }
 
     @Override
