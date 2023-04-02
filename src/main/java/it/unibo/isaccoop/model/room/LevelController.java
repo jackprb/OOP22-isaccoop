@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import it.unibo.isaccoop.model.common.Direction;
-import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.player.Player;
 
 /**
@@ -43,13 +42,6 @@ public interface LevelController {
      * @return the number of rooms in current level
      */
     int getNumberOfRoomsOfCurrentLevel();
-
-    /**
-     * Get the coordinates of the room where the player is 
-     * (i.e.: the coordinate of the room inside current level).
-     * @return the coordinates of the room where the player is 
-     */
-    Point2D getCurrentRoomCoord();
 
     /**
      * Get the room where the player is.
@@ -93,7 +85,7 @@ public interface LevelController {
      * to reach them
      */
     Map<Direction, Room> getAccessibleRooms();
-    
+
     /**
      * Get the previous room.
      * @return the previous room (i.e., the room at the LEFT of the current one), or
