@@ -8,7 +8,6 @@ import java.util.stream.Stream;
 
 import it.unibo.isaccoop.core.GameEngine;
 import it.unibo.isaccoop.model.common.Direction;
-import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.player.Player;
 
 /**
