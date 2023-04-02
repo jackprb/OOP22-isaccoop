@@ -158,4 +158,67 @@ class LevelControllerTest {
                 .filter(e -> e.getKey() == Direction.RIGHT).findFirst().get().getValue());
         assertEquals(this.lvlController.getNextRoom(), expectedRoom);
     }
+
+    @Test
+    void testMoveUsingGetPreviousAndGetNextRoom() {
+        // execute again this test to check that the player is actually in room (0.0, 0.0)
+        testGetPreviousRoom();
+
+        // if player moves to room (1.0, 0.0)
+        assertTrue(this.lvlController.moveToRoom(this.lvlController.getNextRoom().get()));
+        assertEquals(this.lvlController.getCurrentRoom().getCoords(), new Point2D(1.0, 0.0));
+
+        // and then to room (2.0, 0.0)
+        assertTrue(this.lvlController.moveToRoom(this.lvlController.getNextRoom().get()));
+        assertEquals(this.lvlController.getCurrentRoom().getCoords(), new Point2D(2.0, 0.0));
+
+        // now the player can move back to room (1.0, 0.0)
+        assertEquals(this.lvlController.getPreviousRoom().get().getCoords(), new Point2D(1.0, 0.0));
+        assertTrue(this.lvlController.moveToRoom(this.lvlController.getPreviousRoom().get()));
+
+        // and then to room (0.0, 0.0)
+        assertEquals(this.lvlController.getPreviousRoom().get().getCoords(), new Point2D(0.0, 0.0));
+        assertTrue(this.lvlController.moveToRoom(this.lvlController.getPreviousRoom().get()));
+    }
+
+    @Test
+    void testMisuseOfMoveToRoom() {
+        // method moveToRoom() allows the player to move only from near rooms 
+        // in other words, if the player wants to move from room (2.0, 0.0) to (0.0, 0.0)
+        // they must move first to room (1.0, 0.0) and finally in (0.0, 0.0)
+        // (the same if the player wants to move from (1.0, 0.0) to (3.0, 0.0))
+
+        // execute again this test to check that the player is actually in room (0.0, 0.0)
+        testGetPreviousRoom();
+
+        // player moves to room (1.0, 0.0) using getNextRoom()
+        assertTrue(this.lvlController.moveToRoom(this.lvlController.getNextRoom().get()));
+        assertEquals(this.lvlController.getCurrentRoom().getCoords(), new Point2D(1.0, 0.0));
+        // then moves to room (2.0, 0.0) 
+        assertTrue(this.lvlController.moveToRoom(this.lvlController.getNextRoom().get()));
+        assertEquals(this.lvlController.getCurrentRoom().getCoords(), new Point2D(2.0, 0.0));
+        // and then to (3.0, 0.0)
+        assertTrue(this.lvlController.moveToRoom(this.lvlController.getNextRoom().get()));
+        assertEquals(this.lvlController.getCurrentRoom().getCoords(), new Point2D(3.0, 0.0));
+
+        // current room is (3.0, 0.0)
+        final Room room3 = this.lvlController.getCurrentRoom();
+        assertEquals(this.lvlController.getCurrentRoom().getCoords(), new Point2D(3.0, 0.0));
+        // get room (1.0, 0.0)
+        final Room room1 = this.lvlController.getRoomsOfCurrentLevel().stream()
+                .filter(r -> r.getCoords().equals(new Point2D(1.0, 0.0))).findFirst().get();
+        // get room (0.0, 0.0)
+        final Room room0 = this.lvlController.getRoomsOfCurrentLevel().stream()
+                .filter(r -> r.getCoords().equals(new Point2D(0.0, 0.0))).findFirst().get();
+
+        // the player cannot move directly from room (3.0, 0.0) to (1.0, 0.0)
+        assertFalse(this.lvlController.moveToRoom(room1));
+        // player is still in room (3.0, 0.0)
+        assertEquals(this.lvlController.getCurrentRoom().getCoords(), room3.getCoords());
+
+        // and cannot move directly from room (3.0, 0.0) to (0.0, 0.0)
+        assertFalse(this.lvlController.moveToRoom(room0));
+        // again, player is still in room (3.0, 0.0)
+        assertEquals(this.lvlController.getCurrentRoom().getCoords(), room3.getCoords());
+    }
 }
