@@ -2,11 +2,15 @@ package it.unibo.isaccoop.test.model.room;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
+import it.unibo.isaccoop.core.GameEngineImpl;
+import it.unibo.isaccoop.model.common.Direction;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.RoomType;
 import it.unibo.isaccoop.model.room.LevelController;
@@ -15,13 +19,14 @@ import it.unibo.isaccoop.model.room.Room;
 
 /**
  * {@link LevelController} test.
- * */
+ * This test is meant to check if the {@link LevelController} methods work properly.
+ */
 class LevelControllerTest {
 
     private static final int NUMBER_OF_LEVELS = 10;
     private static final int MAX_NUMBER_OF_ROOMS = 30;
     private static final int MIN_NUMBER_OF_ROOMS = 6;
-    private final LevelController lvlController = new LevelControllerImpl(NUMBER_OF_LEVELS, null);
+    private final LevelController lvlController = new LevelControllerImpl(NUMBER_OF_LEVELS, new GameEngineImpl());
 
     @Test 
     void testGetCurrentLevelIndex() {
@@ -61,10 +66,6 @@ class LevelControllerTest {
     }
 
     @Test
-    void testGetPlayer() {
-    }
-
-    @Test
     void testIsRoomComplete() {
         // at the beginning, STANDARD and BOSS rooms must be NOT complete
         // (there are enemies to defeat)
@@ -93,19 +94,68 @@ class LevelControllerTest {
     }
 
     @Test
-    void testGetAccessibleRooms() {
-        // since the rooms are placed horizontally, the start room has coordinate (0.0, 0.0)
-        // and each room has a coordinate (x, 0.0),
-        // at the beginning, the only available room is (1.0)
-        final int accessibleRooms = 1;
-        assertEquals(this.lvlController.getAccessibleRooms().size(), accessibleRooms);
-        assertEquals(this.lvlController.getAccessibleRooms().stream().findFirst().get().getCoords(),
-                new Point2D(1.0, 0.0));
+    void testMoveToRoom() {
+        // this test checks if the player moves correctly from a room to another, NOT using
+        // the dedicated methods getPreviousRoom() and getNextRoom(), to ensure that
+        // this method works independently from them
+
+        // at the beginning, the player is in START room (room coordinate: (0.0, 0.0))
+        assertEquals(this.lvlController.getCurrentRoom().getCoords(), new Point2D(0.0, 0.0));
+
+        // since the level is made up of rooms placed horizontally, the next accessible room has 
+        // coordinate (1.0, 0.0), reachable going RIGHT from current room
+        final var nextRoom1 = this.lvlController.getAccessibleRooms().entrySet().stream()
+                .filter(e -> e.getKey() == Direction.RIGHT).findFirst().get().getValue();
+        assertEquals(nextRoom1.getCoords(), new Point2D(1.0, 0.0));
+
+        // if moveToRoom() returns true, means that the player moved to given room successfully
+        assertTrue(this.lvlController.moveToRoom(nextRoom1));
+
+        // nextRoom can be a SHOP, STANDARD or TREASURE room, but NOT a START or BOSS room
+        assertNotEquals(nextRoom1.getRoomType(), RoomType.START);
+        assertNotEquals(nextRoom1.getRoomType(), RoomType.BOSS);
+
+        // now player is in room (1.0, 0.0) (previously known as nextRoom1)
+        // so find the next room available going RIGHT, that must have coordinate (2.0, 0.0)
+        // and move to it, if such room is already complete (a NON STANDARD room)
+        final var nextRoom2 = this.lvlController.getAccessibleRooms().entrySet().stream()
+                .filter(e -> e.getKey() == Direction.RIGHT).findFirst().get().getValue();
+        assertEquals(nextRoom2.getCoords(), new Point2D(2.0, 0.0));
+
+        // if current room (known as nextRoom1) is complete, player can move to nextRoom2
+        if (this.lvlController.getCurrentRoom().isComplete()) {
+            assertTrue(this.lvlController.moveToRoom(nextRoom2));
+        } else {
+            assertFalse(this.lvlController.moveToRoom(nextRoom2));
+        }
+
+        // now player is in room (2.0, 0.0) (previously known as nextRoom2)
+        // so find the next room available going RIGHT, that must have coordinate (3.0, 0.0)
+        // and move to it, if such room is already complete (a NON STANDARD room)
+        final var nextRoom3 = this.lvlController.getAccessibleRooms().entrySet().stream()
+                .filter(e -> e.getKey() == Direction.RIGHT).findFirst().get().getValue();
+        assertEquals(nextRoom3.getCoords(), new Point2D(3.0, 0.0));
+
+        // if current room (known as nextRoom1) is complete, player can move to nextRoom2
+        if (this.lvlController.getCurrentRoom().isComplete()) {
+            assertTrue(this.lvlController.moveToRoom(nextRoom3));
+        } else {
+            assertFalse(this.lvlController.moveToRoom(nextRoom3));
+        }
     }
 
-    @Test
-    void testMoveToRoom() {
-        final var room = this.lvlController.getAccessibleRooms().stream().findFirst().get();
-        assertTrue(this.lvlController.moveToRoom(room));
+    @Test 
+    void testGetPreviousRoom() {
+        // the player is in room (0.0, 0.0), so there is not a previous room
+        assertEquals(this.lvlController.getCurrentRoom().getCoords(), new Point2D(0.0, 0.0));
+        assertEquals(this.lvlController.getPreviousRoom(), Optional.empty());
+    }
+
+    @Test 
+    void testGetNextRoom() {
+        // the player is room (0.0, 0.0), so the next room is room with coord (1.0, 0.0)
+        final var expectedRoom = Optional.of(this.lvlController.getAccessibleRooms().entrySet().stream()
+                .filter(e -> e.getKey() == Direction.RIGHT).findFirst().get().getValue());
+        assertEquals(this.lvlController.getNextRoom(), expectedRoom);
     }
 }
