@@ -85,12 +85,12 @@ public final class LevelControllerImpl implements LevelController {
     public List<Room> getAccessibleRooms() {
         return getAvailableRooms();
     }
-    
+
     @Override
     public Optional<Room> getPreviousRoom() {
         return getPrevNextRoom(Direction.LEFT);
     }
-    
+
     @Override
     public Optional<Room> getNextRoom() {
         return getPrevNextRoom(Direction.RIGHT);
@@ -108,7 +108,7 @@ public final class LevelControllerImpl implements LevelController {
 
     @Override
     public boolean isCurrentLevelComplete() {
-        if (getCurrentLevel().isComplete()) {
+        if (getCurrentLevel().isLevelComplete()) {
             goToNextLevel();
             return true;
         }
@@ -117,7 +117,7 @@ public final class LevelControllerImpl implements LevelController {
 
     @Override
     public boolean areAllLevelsComplete() {
-        return this.lvl.stream().allMatch(l -> l.isComplete());
+        return this.lvl.stream().allMatch(l -> l.isLevelComplete());
     }
 
     /**
@@ -127,13 +127,13 @@ public final class LevelControllerImpl implements LevelController {
      * @return the previous or next room of current room, or Optional.empty if not available
      */
     private Optional<Room> getPrevNextRoom(final Direction dir) {
-        final LevelFactoryUtils utils = new LevelFactoryUtils();
-        final Point2D coord = utils.getNewCoordinateAlongDirection(getCurrentRoomCoord(), dir);
+        final Point2D coord = new LevelFactoryUtils()
+                .getNewCoordinateAlongDirection(getCurrentRoomCoord(), dir);
         return getCurrentLevel().getRooms().stream()
                 .filter(r -> r.getCoords().equals(coord))
                 .findFirst();
     }
-    
+
     /**
      * Move the player to the next Level.
      */
@@ -147,9 +147,8 @@ public final class LevelControllerImpl implements LevelController {
      * @return the list of all available rooms next to the current room
      */
     private List<Room> getAvailableRooms() {
-        final LevelFactoryUtils lvlUtils = new LevelFactoryUtils();
         final Point2D roomCoord = getCurrentRoom().getCoords();
-        final List<Point2D> neighborRoomCoords = lvlUtils.getNeighborRooms(roomCoord);
+        final List<Point2D> neighborRoomCoords = new LevelFactoryUtils().getNeighborRooms(roomCoord);
 
         return getCurrentLevel().getRooms().stream()
                 .filter(r -> neighborRoomCoords.contains(r.getCoords()))
