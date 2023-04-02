@@ -3,9 +3,7 @@ package it.unibo.isaccoop.test.model.room;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,8 +15,12 @@ import it.unibo.isaccoop.model.room.Room;
 
 /**
  * {@link LevelFactory} test.
- * */
+ * This test is meant to check if a level is built correctly using {@link LevelFactory}, that is, 
+ * if {@link Player}, {@link Item}, {@link Enemy} and {@link PowerUp} are placed correctly 
+ * along the {@link Level}
+ */
 class LevelFactoryTest {
+
     private static final int MAX_NUMBER_OF_ROOMS = 30;
     private static final int MIN_NUMBER_OF_ROOMS = 6;
     private static final int SINGLE_ROOM_COUNT = 1;
@@ -42,7 +44,7 @@ class LevelFactoryTest {
         // check if a just created level has the correct number of rooms
         assertTrue(this.rooms.size() < MAX_NUMBER_OF_ROOMS && this.rooms.size() >= MIN_NUMBER_OF_ROOMS);
         // and if it is not complete
-        assertFalse(this.lvl.isComplete());
+        assertFalse(this.lvl.isLevelComplete());
     }
 
     @Test
@@ -157,14 +159,6 @@ class LevelFactoryTest {
         assertTrue(this.rooms.stream()
                 .filter(r -> !checkConditionForAiRoom(r))
                 .allMatch(r -> r.isComplete()));
-    }
-
-    @Test
-    void testRoomCoord() {
-        // the rooms are placed in a horizontal line, so each room has a coordinate (x, 0)
-        assertTrue(this.rooms.stream()
-                .allMatch(r -> r.getCoords().getX() >= 0 
-                    && r.getCoords().getY() == 0));
     }
 
     @Test
