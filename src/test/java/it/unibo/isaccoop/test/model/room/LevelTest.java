@@ -3,11 +3,13 @@ package it.unibo.isaccoop.test.model.room;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.LinkedList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.unibo.isaccoop.core.GameEngineImpl;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.RoomType;
 import it.unibo.isaccoop.model.room.Level;
@@ -18,7 +20,7 @@ import it.unibo.isaccoop.model.room.RoomFactoryImpl;
 
 /**
  * {@link Level} test.
- * */
+ */
 class LevelTest {
 
     // variables for local level
@@ -31,7 +33,7 @@ class LevelTest {
     @BeforeEach
     void setUp() {
         // generate a complete level using LevelFactoryImpl
-        final Level lvl = new LevelFactoryImpl(null).createLevel();
+        final Level lvl = new LevelFactoryImpl(new GameEngineImpl()).createLevel();
         // get the rooms of that level
         this.roomListFromFactory = lvl.getRooms();
         // put the rooms in the localLevel
@@ -63,7 +65,7 @@ class LevelTest {
     @Test
     void testIsLevelComplete() {
         // a just created level cannot be already complete
-        assertFalse(this.localLevel.isComplete());
+        assertFalse(this.localLevel.isLevelComplete());
     }
 
     @Test
@@ -72,5 +74,36 @@ class LevelTest {
                 .filter(r -> r.getRoomType() == RoomType.START)
                 .findFirst().get();
         assertEquals(this.localLevel.getStartRoom().getRoomType(), startRoom.getRoomType());
+    }
+
+    @Test
+    void testGetCurrentRoom() {
+        // since this.localLevel has the same rooms from this.roomListFromFactory
+        // the current room (the START room/the room where the player is) 
+        // in this.localLevel and in this.roomListFromFactory is the same
+        assertEquals(this.localLevel.getCurrentRoom(), this.roomListFromFactory.stream()
+                .filter(r -> r.getPlayer().isPresent()).findFirst().get());
+    }
+
+    @Test
+    void testGetNearRooms() {
+        // since the rooms are placed horizontally, the start room has coordinate (0.0, 0.0)
+        assertEquals(this.localLevel.getCurrentRoom().getCoords(), new Point2D(0.0, 0.0));
+
+        // and each room has a coordinate (x, 0.0),
+        assertTrue(this.localLevel.getRooms().stream().allMatch(r -> r.getCoords().getY() == 0.0));
+        assertTrue(this.localLevel.getRooms().stream().allMatch(r -> r.getCoords().getX() >= 0.0));
+
+        // at the beginning, the only available room is (1.0)
+        final int accessibleRooms = 1;
+        assertEquals(this.localLevel.getNearRooms().size(), accessibleRooms);
+        assertEquals(this.localLevel.getNearRooms().entrySet().stream()
+                .findFirst().get().getValue().getCoords(), new Point2D(1.0, 0.0));
+    }
+
+    @Test
+    void testIsCurrentRoomComplete() {
+        // at the beginning, the current room is the START room, and must be complete
+        assertTrue(this.localLevel.isCurrentRoomComplete());
     }
 }
