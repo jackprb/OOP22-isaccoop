@@ -1,8 +1,10 @@
 package it.unibo.isaccoop.model.room;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import it.unibo.isaccoop.model.common.Direction;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.player.Player;
 
@@ -85,11 +87,12 @@ public interface LevelController {
     boolean areAllLevelsComplete();
 
     /**
-     * Return an umodifiable list of rooms where the player can go. Player can go to a room that is
-     * UP, DOWN, LEFT, RIGHT of current room.
-     * @return an umodifiable list of accessible rooms, near the room where the player is
+     * Return an umodifiable map of rooms where the player can go, associated with the {@link Direction}
+     * to reach them. Player can go to a room that is UP, DOWN, LEFT, RIGHT of current room.
+     * @return an umodifiable map of accessible rooms, near the room where the player is, and the direction
+     * to reach them
      */
-    List<Room> getAccessibleRooms();
+    Map<Direction, Room> getAccessibleRooms();
     
     /**
      * Get the previous room.

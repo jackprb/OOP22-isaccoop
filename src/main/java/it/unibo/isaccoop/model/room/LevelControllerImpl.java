@@ -2,6 +2,7 @@ package it.unibo.isaccoop.model.room;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -82,8 +83,8 @@ public final class LevelControllerImpl implements LevelController {
     }
 
     @Override
-    public List<Room> getAccessibleRooms() {
-        return getAvailableRooms();
+    public Map<Direction, Room> getAccessibleRooms() {
+        return getCurrentLevel().getNearRooms();
     }
 
     @Override
