@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import it.unibo.isaccoop.core.GameEngine;
@@ -61,11 +60,6 @@ public final class LevelControllerImpl implements LevelController {
     }
 
     @Override
-    public Point2D getCurrentRoomCoord() {
-        return getCurrentRoom().getCoords();
-    }
-
-    @Override
     public Room getCurrentRoom() {
         return getCurrentLevel().getRooms().stream()
                 .filter(r -> r.getPlayer().isPresent())
@@ -100,7 +94,7 @@ public final class LevelControllerImpl implements LevelController {
     @Override
     public boolean moveToRoom(final Room room) {
         final Player player = getPlayer();
-        if (getCurrentRoom().isComplete() && getCurrentRoom().removePlayer()) {
+        if (isValidNewRoom(room) && getCurrentRoom().isComplete() && getCurrentRoom().removePlayer()) {
             room.addPlayer(player);
             return true;
         }
@@ -123,16 +117,17 @@ public final class LevelControllerImpl implements LevelController {
 
     /**
      * Get the previous or next room of current room.
-     * @param dir {@link Direction#RIGHT} to get the next room,
+     * @param dir {@link Direction#RIGHT} to get the next room,<br>
      * {@link Direction#LEFT} to get the previous one
      * @return the previous or next room of current room, or Optional.empty if not available
      */
     private Optional<Room> getPrevNextRoom(final Direction dir) {
-        final Point2D coord = new LevelFactoryUtils()
-                .getNewCoordinateAlongDirection(getCurrentRoomCoord(), dir);
-        return getCurrentLevel().getRooms().stream()
-                .filter(r -> r.getCoords().equals(coord))
-                .findFirst();
+        final var prevNextRoom = getAccessibleRooms().entrySet().stream()
+                .filter(e -> e.getKey() == dir).findFirst();
+        if (prevNextRoom.isPresent()) {
+            return Optional.of(prevNextRoom.get().getValue());
+        }
+        return Optional.empty();
     }
 
     /**
@@ -142,17 +137,8 @@ public final class LevelControllerImpl implements LevelController {
         this.currentLevelID++;
     }
 
-    /**
-     * Finds all available rooms next to the current room.
-     * A room is considered available if it is UP, DOWN, LEFT, RIGHT of the current room
-     * @return the list of all available rooms next to the current room
-     */
-    private List<Room> getAvailableRooms() {
-        final Point2D roomCoord = getCurrentRoom().getCoords();
-        final List<Point2D> neighborRoomCoords = new LevelFactoryUtils().getNeighborRooms(roomCoord);
-
-        return getCurrentLevel().getRooms().stream()
-                .filter(r -> neighborRoomCoords.contains(r.getCoords()))
-                .collect(Collectors.toUnmodifiableList());
+    private boolean isValidNewRoom(final Room destRoom) {
+        return getCurrentRoom().getCoords().getX() - destRoom.getCoords().getX() <= 1.0
+                && getCurrentRoom().getCoords().getY() - destRoom.getCoords().getY() <= 1.0;
     }
 }
