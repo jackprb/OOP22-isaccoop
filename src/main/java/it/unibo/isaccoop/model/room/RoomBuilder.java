@@ -39,7 +39,7 @@ public class RoomBuilder {
         private Optional<List<Item>> items = Optional.empty();
         private Optional<List<PowerUp>> powerups = Optional.empty();
         private Optional<List<Enemy>> enemies = Optional.empty();
-        private Optional<Player> player = Optional.empty();
+        private final Optional<Player> player = Optional.empty();
         private Optional<AIEnemy> roomAI = Optional.empty();
 
         // to access utility methods

@@ -15,7 +15,7 @@ import it.unibo.isaccoop.model.player.Player;
 public final class LevelImpl implements Level {
 
     private final List<Room> rooms = new LinkedList<>();
-    private Optional<Player> player = Optional.empty();
+    private Optional<Player> player;
 
     /**
      * Empty Constructor.
@@ -61,7 +61,7 @@ public final class LevelImpl implements Level {
     }
 
     @Override
-    public Map<Direction, Room> getNearRooms(){
+    public Map<Direction, Room> getNearRooms() {
         return new LevelUtils().getNearAccessibleRooms(getCurrentRoom(), List.copyOf(this.rooms));
     }
 
