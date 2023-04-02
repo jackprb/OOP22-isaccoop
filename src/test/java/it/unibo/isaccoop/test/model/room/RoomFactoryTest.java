@@ -17,8 +17,11 @@ import it.unibo.isaccoop.model.room.RoomFactory;
 import it.unibo.isaccoop.model.room.RoomFactoryImpl;
 
 /**
- * RoomFactory test.
- * */
+ * {@link RoomFactory} test.
+ * This test is meant for checking if the methods in {@link RoomFactory} build correctly 
+ * the requested rooms. To achieve so, this test checks if all fields in a {@link Room} are set
+ * properly, depending on its {@link RoomType}
+ */
 class RoomFactoryTest {
 
     // just for testing purposes
@@ -106,7 +109,7 @@ class RoomFactoryTest {
         assertEquals(startRoom.getCoords(), this.coord);
         assertTrue(startRoom.getEnemies().isEmpty());
         assertTrue(startRoom.getItems().isEmpty());
-        assertTrue(startRoom.getPlayer().isPresent());
+        assertTrue(startRoom.getPlayer().isEmpty());
         assertTrue(startRoom.getRoomAI().isEmpty());
         assertTrue(startRoom.getPowerUps().isEmpty());
         assertEquals(startRoom.getRoomType(), RoomType.START);
