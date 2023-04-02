@@ -1,7 +1,7 @@
 package it.unibo.isaccoop.model.common;
 
 /**
- * Enum that models all the types of {@link Room} inside a {@link Level}.
+ * Thus enum lists all possible types of {@link Room} inside a {@link Level}.
  */
 public enum RoomType {
     /**
