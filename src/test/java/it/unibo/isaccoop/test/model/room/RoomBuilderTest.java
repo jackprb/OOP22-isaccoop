@@ -65,21 +65,6 @@ class RoomBuilderTest {
     }
 
     @Test 
-    void testPutPlayer() {
-        for (final var rType: RoomType.values()) {
-            final RoomBuilderUtils utils = new RoomBuilderUtils(rType);
-            final Builder localBuilder = new Builder(MAX_ROOM_SIZE, MAX_COORD_NUMBER)
-                    .putCoord(generateCoord())
-                    .roomType(rType);
-            if (utils.canRoomHavePlayer()) {
-                assertEquals(localBuilder.putPlayer(), localBuilder);
-            } else {
-                assertThrows(IllegalStateException.class, () -> localBuilder.putPlayer());
-            }
-        }
-    }
-
-    @Test 
     void testPutPowerUps() {
         for (final var rType: RoomType.values()) {
             final RoomBuilderUtils utils = new RoomBuilderUtils(rType);
@@ -96,18 +81,24 @@ class RoomBuilderTest {
 
     @Test 
     void testBuild() {
+        final Builder localBuilder = new Builder(MAX_ROOM_SIZE, MAX_COORD_NUMBER)
+                .putCoord(generateCoord());
+
+        // build() at this point will throw an exception because each room
+        // must have a RoomType
+        assertThrows(IllegalStateException.class, () -> localBuilder.build());
+
         for (final var rType: RoomType.values()) {
-            final Builder localBuilder = new Builder(MAX_ROOM_SIZE, MAX_COORD_NUMBER)
-                    .putCoord(generateCoord())
+            final Builder otherBuilder = new Builder(MAX_ROOM_SIZE, MAX_COORD_NUMBER)
                     .roomType(rType);
 
-            // build() at this point will throw an exception because each room requires
-            // to set at least another field with its dedicated method
-            assertThrows(IllegalStateException.class, () -> localBuilder.build());
-
-            // previous tests check if a room is created correctly, using the correct methods
-            // so such tests are not repeated here
+            // build() at this point will throw an exception because each room
+            // must have a coordinate
+            assertThrows(IllegalStateException.class, () -> otherBuilder.build());
         }
+
+        // previous tests check if a room is created correctly, using the correct methods
+        // so such tests are not repeated here
     }
 
     /**
