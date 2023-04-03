@@ -3,9 +3,7 @@ package it.unibo.isaccoop.test.model.room;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,31 +14,37 @@ import it.unibo.isaccoop.model.room.LevelFactoryImpl;
 import it.unibo.isaccoop.model.room.Room;
 
 /**
- * LevelFactory test.
- * */
+ * {@link LevelFactory} test.
+ * This test is meant to check if a level is built correctly using {@link LevelFactory}, that is, 
+ * if {@link Player}, {@link Item}, {@link Enemy} and {@link PowerUp} are placed correctly 
+ * along the {@link Level}
+ */
 class LevelFactoryTest {
-    private static final int NUMBER_OF_ROOMS = 10;
+
+    private static final int MAX_NUMBER_OF_ROOMS = 30;
+    private static final int MIN_NUMBER_OF_ROOMS = 6;
     private static final int SINGLE_ROOM_COUNT = 1;
     private static final int NON_STANDARD_ROOM_COUNT = 4;
     private static final int POWERUP_COUNT_IN_SHOP = 3;
     private static final int POWERUP_COUNT_IN_TREASURE_ROOM = 1;
+    private static final int BOSS_COUNT = 1;
 
-    private final LevelFactory lvlFactory = new LevelFactoryImpl();
+    private final LevelFactory lvlFactory = new LevelFactoryImpl(null);
     private Level lvl;
     private List<Room> rooms;
 
     @BeforeEach
     void setUp() {
-        this.lvl = this.lvlFactory.createLevel(NUMBER_OF_ROOMS);
+        this.lvl = this.lvlFactory.createLevel();
         this.rooms = lvl.getRooms();
     }
 
     @Test 
     void testRoomCreation() {
         // check if a just created level has the correct number of rooms
-        assertEquals(this.rooms.size(), NUMBER_OF_ROOMS);
+        assertTrue(this.rooms.size() < MAX_NUMBER_OF_ROOMS && this.rooms.size() >= MIN_NUMBER_OF_ROOMS);
         // and if it is not complete
-        assertFalse(this.lvl.isComplete());
+        assertFalse(this.lvl.isLevelComplete());
     }
 
     @Test
@@ -62,14 +66,7 @@ class LevelFactoryTest {
         // in a level, the remaining rooms must be STANDARD
         assertEquals(this.rooms.stream()
                 .filter(r -> r.getRoomType() == RoomType.STANDARD)
-                .count(), NUMBER_OF_ROOMS - NON_STANDARD_ROOM_COUNT);
-
-        //System.out.println("rooms" + rooms);
-        /*rooms.forEach(r -> System.out.println("\n\n\nitems: " + r.getItems() + "\n"
-        + "player: " + r.getPlayer() + "\n"
-        + "powerups: " + r.getPowerUps() + "\n"
-        + "roomAi: " + r.getRoomAI() + "\n"
-        + "roomtype: " + r.getRoomType()));*/
+                .count(), this.rooms.size() - NON_STANDARD_ROOM_COUNT);
     }
 
     @Test 
@@ -81,6 +78,7 @@ class LevelFactoryTest {
         assertTrue(this.rooms.stream()
                 .filter(r -> r.getRoomType() == RoomType.START)
                 .allMatch(r -> r.getPlayer().isPresent()));
+
         // considering the other rooms, the player will not be in any of them
         assertTrue(this.rooms.stream()
                 .filter(r -> r.getRoomType() != RoomType.START)
@@ -90,10 +88,11 @@ class LevelFactoryTest {
     @Test
     void testPowerUpInTreasureRoom() {
         // when a level is created, there must be powerups only in TREASURE and SHOP rooms
-        // in the treasure room there will be exactly one powerup
         assertTrue(this.rooms.stream()
                 .filter(r -> r.getRoomType() == RoomType.TREASURE)
                 .allMatch(r -> r.getPowerUps().isPresent()));
+
+        // in the treasure room there will be exactly one powerup
         assertTrue(this.rooms.stream()
                 .filter(r -> r.getRoomType() == RoomType.TREASURE)
                 .allMatch(r -> r.getPowerUps().get().size() == POWERUP_COUNT_IN_TREASURE_ROOM));
@@ -102,10 +101,11 @@ class LevelFactoryTest {
     @Test
     void testPowerUpInShopRoom() {
         // when a level is created, there must be powerups only in TREASURE and SHOP rooms
-        // in the shop room there will be exaclty 3 powerups
         assertTrue(this.rooms.stream()
                 .filter(r -> r.getRoomType() == RoomType.SHOP)
                 .allMatch(r -> r.getPowerUps().isPresent()));
+
+        // in the shop room there will be exactly 3 powerups
         assertTrue(this.rooms.stream()
                 .filter(r -> r.getRoomType() == RoomType.SHOP)
                 .allMatch(r -> r.getPowerUps().get().size() == POWERUP_COUNT_IN_SHOP));
@@ -123,10 +123,11 @@ class LevelFactoryTest {
     @Test
     void testItemsInRooms() {
         // when a level is created, there must be at least one item ONLY in STANDARD rooms
-        // only STANDARD rooms must have an item list 
+        // so, only STANDARD rooms must have an item list 
         assertTrue(this.rooms.stream()
                 .filter(r -> r.getItems().isPresent())
                 .allMatch(r -> r.getRoomType() == RoomType.STANDARD));
+
         // all other room types must NOT have an item list
         assertTrue(this.rooms.stream()
                 .filter(r -> r.getRoomAI().isEmpty())
@@ -139,6 +140,7 @@ class LevelFactoryTest {
         assertTrue(this.rooms.stream()
                 .filter(r -> r.getRoomAI().isPresent())
                 .allMatch(r -> checkConditionForAiRoom(r)));
+
         // all other room types must NOT have an AIenemy
         assertTrue(this.rooms.stream()
                 .filter(r -> r.getRoomAI().isEmpty())
@@ -152,6 +154,7 @@ class LevelFactoryTest {
         assertTrue(this.rooms.stream()
                 .filter(r -> checkConditionForAiRoom(r))
                 .allMatch(r -> !r.isComplete()));
+
         // the other rooms are already complete, because there are no enemies
         assertTrue(this.rooms.stream()
                 .filter(r -> !checkConditionForAiRoom(r))
@@ -159,19 +162,11 @@ class LevelFactoryTest {
     }
 
     @Test
-    void testRoomCoord() {
-        // the rooms are placed in a horizontal line, so each room has a coordinate (x, 0)
-        assertTrue(this.rooms.stream()
-                .allMatch(r -> r.getCoords().getX() >= 0 
-                    && r.getCoords().getY() == 0));
-    }
-
-    @Test
     void testEnemiesInBossRoom() {
         // in BOSS room, there must be only ONE enemy (the boss itself)
         assertTrue(this.rooms.stream()
                 .filter(r -> r.getRoomType() == RoomType.BOSS)
-                .allMatch(r -> r.getEnemies().get().size() == 1));
+                .allMatch(r -> r.getEnemies().get().size() == BOSS_COUNT));
     }
 
     @Test

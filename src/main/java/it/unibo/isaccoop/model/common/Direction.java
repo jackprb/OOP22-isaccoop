@@ -9,24 +9,24 @@ public enum Direction {
     /**
      * The direction UP.
      */
-    UP(0, -1),
+    UP(0.0, -1.0),
     /**
      * The direction DOWN.
      */
-    DOWN(0, 1),
+    DOWN(0.0, 1.0),
     /**
      * The direction RIGHT.
      */
-    RIGHT(1, 0),
+    RIGHT(1.0, 0.0),
     /**
      * The direction LEFT.
      */
-    LEFT(-1, 0);
+    LEFT(-1.0, 0.0);
 
     private static final Random RND = new Random();
-    private final int x;
-    private final int y;
-    Direction(final int x, final int y) {
+    private final double x;
+    private final double y;
+    Direction(final double x, final double y) {
         this.x = x;
         this.y = y;
     }
@@ -34,14 +34,14 @@ public enum Direction {
     /**
      * @return the x of this direction
      */
-    public int getX() {
+    public double getX() {
         return this.x;
     }
 
     /**
      * @return the y of this direction
      */
-    public int getY() {
+    public double getY() {
         return this.y;
     }
 
