@@ -1,46 +1,66 @@
 package it.unibo.isaccoop.model.room;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
-import it.unibo.isaccoop.model.common.Point2D;
+import it.unibo.isaccoop.model.common.Direction;
+import it.unibo.isaccoop.model.player.Player;
 
 /**
- * Interface to control a {@link Level}.
+ * Interface to control a list of {@link Level}s.
+ * It allows to control and get information about the levels themselves.
  */
 public interface LevelController {
 
     /**
-     * Get the current Level.
+     * Get the current level.
      * @return the current level
      */
     Level getCurrentLevel();
 
     /**
-     * @return the unmodifiable list of all the rooms in this level
+     * Get the index of current level among the other levels.
+     * @return the index of current level among the others
+     */
+    int getCurrentLevelIndex();
+
+    /**
+     * Get the number of levels managed by this LevelController.
+     * @return the number of levels managed by this LevelController
+     */
+    int getNumberOfLevels();
+
+    /**
+     * Get an unmodifiable list of all rooms in current level.
+     * @return an unmodifiable list of all rooms in current level
      */
     List<Room> getRoomsOfCurrentLevel();
 
     /**
-     * @return the number of rooms inside this level
+     * Get the number of rooms inside current level.
+     * @return the number of rooms in current level
      */
-    int getNumberOfRooms();
+    int getNumberOfRoomsOfCurrentLevel();
 
     /**
-     * @return the coordinates of the room where the player is 
-     */
-    Point2D getPlayerRoomCoord();
-
-    /**
+     * Get the room where the player is.
      * @return the room where the player is 
      */
-    Room getPlayerRoom();
+    Room getCurrentRoom();
+
+    /**
+     * Get the player.
+     * @return the player
+     */
+    Player getPlayer();
 
     /**
      * Check if the specified room is "completed", that is, if there are no more
      * enemies to defeat (STANDARD room), or if the boss has been defeated (BOSS room).
      * @param room the room to check
-     * @return true if all enemies in STANDARD room or the final boss in BOSS room
-     * have been defeated, false otherwise
+     * @return true for NON-STANDARD and NON-BOSS rooms or if all enemies in STANDARD room 
+     * or the final boss in BOSS room have been defeated, false otherwise
      */
     boolean isRoomComplete(Room room);
 
@@ -59,14 +79,32 @@ public interface LevelController {
     boolean areAllLevelsComplete();
 
     /**
-     * @return a list of coordinates of accessible rooms, 
-     * near the room where the player is
+     * Return an umodifiable map of rooms where the player can go, associated with the {@link Direction}
+     * to reach them. Player can go to a room that is UP, DOWN, LEFT, RIGHT of current room.
+     * @return an umodifiable map of accessible rooms, near the room where the player is, and the direction
+     * to reach them
      */
-    List<Room> getAccessibleRooms();
+    Map<Direction, Room> getAccessibleRooms();
+
+    /**
+     * Get the previous room.
+     * @return the previous room (i.e., the room at the LEFT of the current one), or
+     * Optional.empty if there is not a previous room
+     */
+    Optional<Room> getPreviousRoom();
+
+    /**
+     * Get the next room.
+     * @return the next room (i.e., the room at the RIGHT of the current one), or
+     * Optional.empty if there is not a next room
+     */
+    Optional<Room> getNextRoom();
 
     /**
      * Move the player to the specified room.
      * @param room the room where the player moves to
+     * @return true if the player can move to the specified room (the current one is complete),
+     * false otherwise
      */
-    void moveToRoom(Room room);
+    boolean moveToRoom(Room room);
 }

@@ -133,7 +133,7 @@ public final class RoomBuilderUtils {
             final Optional<List<Enemy>> enemies, final Optional<Player> player, final Optional<AIEnemy> roomAI) {
         switch (this.roomType) {
         case START:
-            return items.isEmpty() && player.isPresent() && enemies.isEmpty()
+            return items.isEmpty() && player.isEmpty() && enemies.isEmpty()
                     && powerups.isEmpty() && roomAI.isEmpty();
         case SHOP:
         case TREASURE:

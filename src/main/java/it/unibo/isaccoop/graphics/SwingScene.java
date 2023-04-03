@@ -107,7 +107,7 @@ public class SwingScene implements Scene {
                     RenderingHints.VALUE_RENDER_QUALITY);
             g2.clearRect(0,0,this.getWidth(),this.getHeight());
 
-            if (gameState.isComplete()){
+            if (gameState.isLevelComplete()){
 
                 /* drawing the score */
                 g2.setFont(gameOverFont);

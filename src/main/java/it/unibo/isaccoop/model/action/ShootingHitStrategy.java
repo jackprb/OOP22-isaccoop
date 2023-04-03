@@ -35,4 +35,8 @@ public final class ShootingHitStrategy implements HitStrategy {
     public List<WeaponShot> getWeaponShots() {
         return List.copyOf(weapon.getWeaponShots());
     }
+
+    public void removeShot(final WeaponShot shot) {
+        this.weapon.remove(shot);
+    }
 }

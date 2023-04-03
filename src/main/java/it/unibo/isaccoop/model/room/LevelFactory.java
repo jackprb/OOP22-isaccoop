@@ -6,14 +6,10 @@ package it.unibo.isaccoop.model.room;
 public interface LevelFactory {
 
     /**
-     * Generates dynamically a Level made of numberOfRooms {@link Room}s, <br>
-     * that will be placed in a grid with size (gridRows, gridCols). 
-     * <br> So, it is required that <br> numberOfRooms <= (gridRows * gridCols).
-     * It is also required that numberOfRooms >= 5.
+     * Generates dynamically a {@link Level} made of a random number of {@link Room}s.
+     * The level will have at least 6 rooms and at most 30.
      * 
-     * @param numberOfRooms the number of rooms this level will have
-     * @throws IllegalArgumentException if numberOfRooms IS NOT <= (gridRows * gridCols) is not
      * @return the level created
      */
-    Level createLevel(int numberOfRooms);
+    Level createLevel();
 }

@@ -78,10 +78,10 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
 
     /***/
     @Override
-    public List<WeaponShot> getWeaponShots() {
+    public Optional<List<WeaponShot>> getWeaponShots() {
         return this.getHitStrategy() instanceof ShootingHitStrategy
-            ? ((ShootingHitStrategy) this.getHitStrategy()).getWeaponShots()
-            : List.of();
+            ? Optional.of(((ShootingHitStrategy) this.getHitStrategy()).getWeaponShots())
+            : Optional.empty();
     }
 
     /**

@@ -4,6 +4,7 @@ import java.util.List;
 
 import it.unibo.isaccoop.model.common.MapElement;
 import it.unibo.isaccoop.model.player.Player;
+import it.unibo.isaccoop.model.room.Room;
 
 /**
  *
