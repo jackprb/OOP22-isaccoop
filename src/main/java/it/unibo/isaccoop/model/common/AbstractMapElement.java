@@ -127,7 +127,7 @@ public abstract class AbstractMapElement implements MapElement {
      *
      */
     @Override
-    public void updateGraphics(Graphics g) {
+    public void updateGraphics(final Graphics g) {
         graphicComponent.update(this, g);
     }
 }

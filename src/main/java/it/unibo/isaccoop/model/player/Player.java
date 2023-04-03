@@ -20,15 +20,18 @@ import it.unibo.isaccoop.model.weapon.WeaponShot;
  * */
 public class Player extends PlayerMovementImpl implements Hitable<Enemy> {
 
-    private InputController movementController;
-    private InputController shootingController;
+    private final InputController movementController;
+    private final InputController shootingController;
 
     /***/
     private final HitStrategy hitStrategy;
 
     /**
      * Player constructor.
-     * */
+     * @param moveController
+     * @param shotController
+     * @param gr
+     */
     public Player(final InputController moveController, final InputController shotController, final PlayerGraphicsComponents gr) {
         super(gr);
         this.hitStrategy = new ShootingHitStrategy(new TimeIntervalWeapon(super.getTears(),

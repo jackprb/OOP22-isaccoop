@@ -21,9 +21,11 @@ public final class LevelImpl implements Level {
 
     /**
      * Empty Constructor.
+     * @param engine
      */
     public LevelImpl(final GameEngine engine) {
-        this.player = Optional.of(new Player(engine.getController("keyMove"), engine.getController("keyShot"), new PlayerGraphicsComponents()));
+        this.player = Optional.of(new Player(engine.getController("keyMove"), engine.getController("keyShot"),
+                                    new PlayerGraphicsComponents()));
     }
 
     @Override

@@ -24,11 +24,12 @@ public final class ConcreteEventFactory implements EventFactory {
     }
 
     @Override
-    public Event getShotToBoundsEvent(WeaponShot shot) {
+    public Event getShotToBoundsEvent(final WeaponShot shot) {
         return room -> room.getEnemies()
                 .ifPresent(enemies ->
                     enemies.forEach(enemy ->
-                        enemy.getWeaponShots().ifPresent(shots -> ((ShootingHitStrategy) enemy.getHitStrategy()).removeShot(shot))));
+                        enemy.getWeaponShots().ifPresent(shots -> 
+                        ((ShootingHitStrategy) enemy.getHitStrategy()).removeShot(shot))));
     }
 
 }

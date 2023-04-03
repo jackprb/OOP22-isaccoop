@@ -76,8 +76,9 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
 
     /**
      * Player constructor.
+     * @param gr
      * */
-    public PlayerStatImpl(GraphicsComponent gr) {
+    public PlayerStatImpl(final GraphicsComponent gr) {
         super(ElementsRadius.PLAYER, gr);
         this.heart = PlayerValue.HEART.getValue();
         this.coin = PlayerValue.COIN.getValue();

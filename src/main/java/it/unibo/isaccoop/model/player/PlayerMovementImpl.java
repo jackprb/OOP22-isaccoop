@@ -16,6 +16,7 @@ public class PlayerMovementImpl extends PlayerStatImpl implements PlayerMovement
 
     /**
      * Constructor.
+     * @param gr
      * */
     public PlayerMovementImpl(final GraphicsComponent gr) {
         super(gr);
@@ -29,8 +30,9 @@ public class PlayerMovementImpl extends PlayerStatImpl implements PlayerMovement
         super.setCoords(this.getMovePreview(direction));
     }
 
+    /***/
     @Override
-    public Point2D getMovePreview(Direction direction) {
+    public Point2D getMovePreview(final Direction direction) {
         switch (direction) {
         case UP:
             return new Point2D(x, y - distance);

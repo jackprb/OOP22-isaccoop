@@ -32,7 +32,7 @@ public interface EventFactory {
     Event getEnemyHitEvent(Enemy enemy);
 
     /**
-     *  Get a new event when a shot is colliding with the room boundaries
+     *  Get a new event when a shot is colliding with the room boundaries.
      *
      *  @param shot shot colliding
      *  @return event created

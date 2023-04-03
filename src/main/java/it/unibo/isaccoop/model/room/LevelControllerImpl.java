@@ -26,7 +26,8 @@ public final class LevelControllerImpl implements LevelController {
      * @param engine the {@link GameEngine} to be attached to this level
      */
     public LevelControllerImpl(final int numberOfLevels, final GameEngine engine) {
-        this.player = new Player(engine.getController("keyMove"), engine.getController("keyShot"), new PlayerGraphicsComponents());
+        this.player = new Player(engine.getController("keyMove"), engine.getController("keyShot"),
+                                    new PlayerGraphicsComponents());
         final LevelFactory lvlFactory = new LevelFactoryImpl(engine);
         this.currentLevelID = 0;
         Stream.iterate(0, i -> i + 1)

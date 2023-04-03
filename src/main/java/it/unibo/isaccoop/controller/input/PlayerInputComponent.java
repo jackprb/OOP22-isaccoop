@@ -10,7 +10,10 @@ import it.unibo.isaccoop.model.room.Room;
 public class PlayerInputComponent implements InputComponent {
 
     private final RectBoundingBox roomBoundingBox;
-
+    /**
+     *
+     * @param room reference to Room
+     */
     public PlayerInputComponent(final Room room) {
         this.roomBoundingBox = (RectBoundingBox) room.getBox();
     }
