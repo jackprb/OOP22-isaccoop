@@ -1,8 +1,11 @@
 package it.unibo.isaccoop.core;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import it.unibo.isaccoop.controller.input.InputComponent;
+import it.unibo.isaccoop.controller.input.PlayerInputComponent;
+import it.unibo.isaccoop.controller.input.ShotInputComponent;
 import it.unibo.isaccoop.graphics.Scene;
 import it.unibo.isaccoop.model.room.Level;
 
@@ -13,9 +16,22 @@ public class GameLoopImpl implements GameLoop {
 
     private Scene view;
     private Level level;
-    private InputComponent inputComponent;
+    private List<InputComponent> inputComponents;
     private static final long DEFAULT_PERIOD = 20;
     private static final Logger LOGGER = Logger.getLogger(GameLoopImpl.class.getName());
+
+    /**
+     * GameLoopImpl constructor.
+     *
+     * @param view to be handle into game loop
+     * @param level to be handle into game loop
+     */
+    public GameLoopImpl(final Scene view, final Level level) {
+        this.view = view;
+        this.level = level;
+        this.inputComponents = List.of(new PlayerInputComponent(this.level.getCurrentRoom()),
+                new ShotInputComponent());
+    }
 
     /**
      * Method that represents the main loop of the game.
@@ -37,7 +53,7 @@ public class GameLoopImpl implements GameLoop {
      */
     private void processInput() {
         level.getRooms().stream().filter(r -> r.getPlayer().isPresent())
-            .forEach(x -> inputComponent.update(x.getPlayer().get()));
+            .forEach(x -> this.inputComponents.forEach(c -> c.update(x.getPlayer().get())));
 
     }
     /**

@@ -24,7 +24,7 @@ public final class RoomFactoryImpl implements RoomFactory {
     /**
      * Constructor. Requires the total number of rooms to be created.
      * @param totalNumberOfRooms the total number of rooms to be created
-     * @param engine 
+     * @param engine
      */
     public RoomFactoryImpl(final int totalNumberOfRooms, final GameEngine engine) {
         this.width = MIN_MAX_ROOM_DIMENSIONS;
@@ -126,7 +126,7 @@ public final class RoomFactoryImpl implements RoomFactory {
 
     @Override
     public Room buildRoomInProperOrder(final Point2D coordInsideLevel) {
-        if (this.rFactoryLogics.canBuildStartRoom(roomCount) 
+        if (this.rFactoryLogics.canBuildStartRoom(roomCount)
                 && !this.rFactoryLogics.hasAlreadyBuiltStartRoom()) {
             return buildStartRoom(coordInsideLevel);
         }
