@@ -1,7 +1,8 @@
-package it.unibo.isaccoop.model.enemy;
+package it.unibo.isaccoop.model.action;
 
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.Vector2D;
+import it.unibo.isaccoop.model.enemy.NonShootingEnemy;
 
 /***/
 public class NonShootingMovementStrategy implements MovementStrategy {

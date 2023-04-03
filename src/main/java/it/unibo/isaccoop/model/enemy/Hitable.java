@@ -1,17 +1,17 @@
 package it.unibo.isaccoop.model.enemy;
 
-import it.unibo.isaccoop.model.player.PlayerStat;
-
 /**
  * Generic Hitable subject.
+ *
+ * @param <E> entity type to be passed to onHit method
  * */
-public interface Hitable {
+public interface Hitable<E> {
 
     /**
      * Method to be called when the culpable is hit.
      *
-     * @param player player object in order to handle collision with enemy
+     * @param entity entity object in order to handle collision with another entity
      * */
-    void onHit(PlayerStat player);
+    void onHit(E entity);
 
 }

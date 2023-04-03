@@ -1,13 +1,18 @@
 package it.unibo.isaccoop.model.common;
 
+import it.unibo.isaccoop.graphics.Graphics;
+import it.unibo.isaccoop.graphics.GraphicsComponent;
+import it.unibo.isaccoop.graphics.RoomGraphicsComponent;
 import it.unibo.isaccoop.model.boundingbox.BoundingBox;
 import it.unibo.isaccoop.model.boundingbox.CircleBoundingBox;
+import it.unibo.isaccoop.model.boundingbox.RectBoundingBox;
 
 /***/
 public abstract class AbstractMapElement implements MapElement {
 
     private Point2D coords;
     private BoundingBox box;
+    private GraphicsComponent graphicComponent;
 
     /**
      *
@@ -77,6 +82,28 @@ public abstract class AbstractMapElement implements MapElement {
         this.box = new CircleBoundingBox(elemRadius.getValue());
     }
 
+    /**
+     * Constructor for {@link AbstractMapElement} with fixed initial position.
+     * @param elemRadius based on the type of the element
+     * @param gr
+     * */
+    public AbstractMapElement(final ElementsRadius elemRadius, final GraphicsComponent gr) {
+        this.coords = new Point2D(0.0, 0.0);
+        this.box = new CircleBoundingBox(elemRadius.getValue());
+        this.graphicComponent = gr;
+    }
+
+    /**
+     * Constructor for {@link AbstractMapElement} with fixed initial position.
+     * @param width
+     * @param height
+     */
+    public AbstractMapElement(final int width, final int height) {
+        this.coords = new Point2D(0.0, 0.0);
+        this.box = new RectBoundingBox(width, height);
+        this.graphicComponent = new RoomGraphicsComponent();
+    }
+
     /***/
     @Override
     public Point2D getCoords() {
@@ -90,11 +117,19 @@ public abstract class AbstractMapElement implements MapElement {
     }
 
     /**
-     * 
+     *
      * @return collision box
      */
     @Override
     public BoundingBox getBox() {
         return this.box;
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void updateGraphics(final Graphics g) {
+        graphicComponent.update(this, g);
     }
 }

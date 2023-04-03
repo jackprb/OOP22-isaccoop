@@ -7,9 +7,8 @@ import org.junit.jupiter.api.Test;
 
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.RoomType;
-import it.unibo.isaccoop.model.player.Player;
-import it.unibo.isaccoop.model.room.RoomBuilderUtils;
 import it.unibo.isaccoop.model.room.RoomBuilder.Builder;
+import it.unibo.isaccoop.model.room.RoomBuilderUtils;
 
 /**
  * RoomBuilder test.
@@ -66,22 +65,6 @@ class RoomBuilderTest {
     }
 
     @Test 
-    void testPutPlayer() {
-        for (final var rType: RoomType.values()) {
-            final RoomBuilderUtils utils = new RoomBuilderUtils(rType);
-            final Builder localBuilder = new Builder(MAX_ROOM_SIZE, MAX_COORD_NUMBER)
-                    .putCoord(generateCoord())
-                    .roomType(rType);
-            final Player player = new Player();
-            if (utils.canRoomHavePlayer()) {
-                assertEquals(localBuilder.putPlayer(player), localBuilder);
-            } else {
-                assertThrows(IllegalStateException.class, () -> localBuilder.putPlayer(player));
-            }
-        }
-    }
-
-    @Test 
     void testPutPowerUps() {
         for (final var rType: RoomType.values()) {
             final RoomBuilderUtils utils = new RoomBuilderUtils(rType);
@@ -98,18 +81,24 @@ class RoomBuilderTest {
 
     @Test 
     void testBuild() {
+        final Builder localBuilder = new Builder(MAX_ROOM_SIZE, MAX_COORD_NUMBER)
+                .putCoord(generateCoord());
+
+        // build() at this point will throw an exception because each room
+        // must have a RoomType
+        assertThrows(IllegalStateException.class, () -> localBuilder.build());
+
         for (final var rType: RoomType.values()) {
-            final Builder localBuilder = new Builder(MAX_ROOM_SIZE, MAX_COORD_NUMBER)
-                    .putCoord(generateCoord())
+            final Builder otherBuilder = new Builder(MAX_ROOM_SIZE, MAX_COORD_NUMBER)
                     .roomType(rType);
 
-            // build() at this point will throw an exception because each room requires
-            // to set at least another field with its dedicated method
-            assertThrows(IllegalStateException.class, () -> localBuilder.build());
-
-            // previous tests check if a room is created correctly, using the correct methods
-            // so such tests are not repeated here
+            // build() at this point will throw an exception because each room
+            // must have a coordinate
+            assertThrows(IllegalStateException.class, () -> otherBuilder.build());
         }
+
+        // previous tests check if a room is created correctly, using the correct methods
+        // so such tests are not repeated here
     }
 
     /**

@@ -4,18 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.unibo.isaccoop.model.common.MapElement;
-import it.unibo.isaccoop.model.enemy.Weapon;
-import it.unibo.isaccoop.model.enemy.WeaponShot;
 
+/***/
 public abstract class AbstractWeapon implements Weapon {
 
-    protected final List<WeaponShot> weaponShots;
+    /**
+     * Weapon shots list field.
+     * */
+    private final List<WeaponShot> weaponShots;
 
     /**
      *  Constructor for {@link EnemyWeapon}.
      * */
     public AbstractWeapon() {
        this.weaponShots = new ArrayList<>();
+    }
+
+    /**
+     *  Add weapon shot to weapon shots list.
+     *
+     *  @param newShot new shot to attach to shots list
+     * */
+    protected void addWeaponShot(final WeaponShot newShot) {
+        this.weaponShots.add(newShot);
     }
 
     /**

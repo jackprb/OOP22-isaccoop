@@ -1,8 +1,11 @@
 package it.unibo.isaccoop.test.model.room;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,23 +17,42 @@ import it.unibo.isaccoop.model.room.RoomFactory;
 import it.unibo.isaccoop.model.room.RoomFactoryImpl;
 
 /**
- * RoomFactory test.
- * */
+ * {@link RoomFactory} test.
+ * This test is meant for checking if the methods in {@link RoomFactory} build correctly 
+ * the requested rooms. To achieve so, this test checks if all fields in a {@link Room} are set
+ * properly, depending on its {@link RoomType}
+ */
 class RoomFactoryTest {
 
-    private final RoomFactory rFactory = new RoomFactoryImpl();
+    // just for testing purposes
+    private static final int MAX_COORD_VALUE = 30; 
+    private static final int NUMBER_OF_ROOMS = 10;
+
+    private final RoomFactory rFactory = new RoomFactoryImpl(NUMBER_OF_ROOMS, null);
     private Point2D coord;
-    private static final int MAX_COORD_VALUE = 30; // just for testing purposes 
+    private final List<Room> list = new LinkedList<>();
 
     @BeforeEach
     void setUp() {
         this.coord = new Point2D(ThreadLocalRandom.current().nextInt(MAX_COORD_VALUE), 
                 ThreadLocalRandom.current().nextInt(MAX_COORD_VALUE));
+
+        // creates a list of rooms, that will be checked in the following tests
+        for (int i = 0; i < NUMBER_OF_ROOMS; i++) {
+            assertDoesNotThrow(() -> this.list.add(this.rFactory.buildRoomInProperOrder(this.coord)));
+        }
+
+        // TREASURE, SHOP AND STANDARD rooms can be created directly with their methods: 
+        // they can be at any position inside a level
+        // BOSS and START cannot be created directly with their methods: 
+        // the START room must always be the first, the BOSS room must always be the last
     }
 
     @Test 
     void testBuildBossRoom() {
-        final Room bossRoom = this.rFactory.buildBossRoom(this.coord);
+        final Room bossRoom = this.list.stream()
+                .filter(r -> r.getRoomType() == RoomType.BOSS)
+                .findFirst().get();
 
         // check if all fields are set properly
         assertEquals(bossRoom.getCoords(), this.coord);
@@ -45,7 +67,9 @@ class RoomFactoryTest {
 
     @Test
     void testBuildStandardRoom() {
-        final Room standardRoom = this.rFactory.buildStandardRoom(this.coord);
+        final Room standardRoom = this.list.stream()
+                .filter(r -> r.getRoomType() == RoomType.STANDARD)
+                .findFirst().get();
 
         // check if all fields are set properly
         assertEquals(standardRoom.getCoords(), this.coord);
@@ -60,7 +84,9 @@ class RoomFactoryTest {
 
     @Test
     void testBuildShopRoom() {
-        final Room shopRoom = this.rFactory.buildShopRoom(this.coord);
+        final Room shopRoom = this.list.stream()
+                .filter(r -> r.getRoomType() == RoomType.SHOP)
+                .findFirst().get();
 
         // check if all fields are set properly
         assertEquals(shopRoom.getCoords(), this.coord);
@@ -75,13 +101,15 @@ class RoomFactoryTest {
 
     @Test
     void testBuildStartRoom() {
-        final Room startRoom = this.rFactory.buildStartRoom(this.coord);
+        final Room startRoom = this.list.stream()
+                .filter(r -> r.getRoomType() == RoomType.START)
+                .findFirst().get();
 
         // check if all fields are set properly
         assertEquals(startRoom.getCoords(), this.coord);
         assertTrue(startRoom.getEnemies().isEmpty());
         assertTrue(startRoom.getItems().isEmpty());
-        assertTrue(startRoom.getPlayer().isPresent());
+        assertTrue(startRoom.getPlayer().isEmpty());
         assertTrue(startRoom.getRoomAI().isEmpty());
         assertTrue(startRoom.getPowerUps().isEmpty());
         assertEquals(startRoom.getRoomType(), RoomType.START);
@@ -90,7 +118,9 @@ class RoomFactoryTest {
 
     @Test
     void testBuildTreasureRoom() {
-        final Room treasureRoom = this.rFactory.buildTreasureRoom(this.coord);
+        final Room treasureRoom = this.list.stream()
+                .filter(r -> r.getRoomType() == RoomType.TREASURE)
+                .findFirst().get();
 
         // check if all fields are set properly
         assertEquals(treasureRoom.getCoords(), this.coord);
@@ -101,14 +131,5 @@ class RoomFactoryTest {
         assertTrue(treasureRoom.getPowerUps().isPresent());
         assertEquals(treasureRoom.getRoomType(), RoomType.TREASURE);
         assertTrue(treasureRoom.isComplete());
-    }
-
-    @Test
-    void testBuildRoomOfType() {
-        for (final var roomType: RoomType.values()) {
-            final Room room = this.rFactory.buildRoomOfType(roomType, this.coord);
-            // check if the generated room is of the correct type
-            assertEquals(room.getRoomType(), roomType);
-        }
     }
 }

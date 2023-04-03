@@ -1,5 +1,6 @@
 package it.unibo.isaccoop.model.player;
 
+import it.unibo.isaccoop.graphics.GraphicsComponent;
 import it.unibo.isaccoop.model.common.AbstractMapElement;
 
 /**
@@ -75,9 +76,10 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
 
     /**
      * Player constructor.
+     * @param gr
      * */
-    public PlayerStatImpl() {
-        super(ElementsRadius.PLAYER);
+    public PlayerStatImpl(final GraphicsComponent gr) {
+        super(ElementsRadius.PLAYER, gr);
         this.heart = PlayerValue.HEART.getValue();
         this.coin = PlayerValue.COIN.getValue();
         this.maxHeart = PlayerValue.MAX_HEART.getValue();
