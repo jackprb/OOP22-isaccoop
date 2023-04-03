@@ -28,6 +28,10 @@ public class GameEngineImpl implements GameEngine {
     private Scene view;
     private final Map<String, InputController> controllers = new HashMap<>();
     private Level gameState;
+    private static final int WIDTH = 600;
+    private static final int HEIGHT = 700;
+    private static final int WIDTH_RATIO = 20;
+    private static final int HEIGHT_RATIO = 20;
     /**
      * Method that initializes the initial game values.
      */
@@ -35,18 +39,15 @@ public class GameEngineImpl implements GameEngine {
     public void initGame() {
         this.controllers.put("keyMove", new KeyboardInputController(VK_W, VK_S, VK_A, VK_D));
         this.controllers.put("keyShot", new KeyboardInputController(VK_UP, VK_DOWN, VK_LEFT, VK_RIGHT));
-        this.view = new SwingScene(gameState, this, 600, 700, 20,20);
+        this.view = new SwingScene(gameState, this, WIDTH, HEIGHT, WIDTH_RATIO, HEIGHT_RATIO);
     }
-    /**
-     * Method that returns the controllers present in the game engine.
-     * @param name reference to specific controller.
-     * @return controller indicated.
-     */
+    /***/
     @Override
     public InputController getController(final String name) {
         return this.controllers.get(name);
     }
     /***/
+    @Override
     public Collection<KeyboardInputController> getKeyboardInputControllers() {
         Collection<KeyboardInputController> contr = new ArrayList<KeyboardInputController>();
         for (InputController c: controllers.values()) {

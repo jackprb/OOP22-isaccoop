@@ -1,7 +1,10 @@
 package it.unibo.isaccoop.graphics;
 
 import java.awt.Graphics2D;
-
+/**
+ * Represents the graphics in the swing.
+ *
+ */
 public class SwingGraphics implements Graphics {
 
     private Graphics2D g2;
@@ -10,13 +13,20 @@ public class SwingGraphics implements Graphics {
     private int centerY;
     private double ratioX;
     private double ratioY;
-
-    public SwingGraphics(Graphics2D g2, int centerX, int centerY, double ratioX, double ratioY){
-            this.g2 = g2;
-            this.centerX = centerX;
-            this.centerY = centerY;
-            this.ratioX = ratioX;
-            this.ratioY = ratioY;
+    /**
+     *
+     * @param g2
+     * @param centerX
+     * @param centerY
+     * @param ratioX
+     * @param ratioY
+     */
+    public SwingGraphics(final Graphics2D g2, final int centerX, final int centerY, final double ratioX, final double ratioY) {
+        this.g2 = g2;
+        this.centerX = centerX;
+        this.centerY = centerY;
+        this.ratioX = ratioX;
+        this.ratioY = ratioY;
     }
 
     @Override

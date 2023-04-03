@@ -22,6 +22,8 @@ public interface GameEngine {
      * @return controller indicated.
      */
     InputController getController(String name);
-    /***/
+    /**
+     * @return InputController refers to String name
+     */
     Collection<KeyboardInputController> getKeyboardInputControllers();
 }

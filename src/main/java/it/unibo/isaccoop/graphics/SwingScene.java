@@ -12,7 +12,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import javax.swing.*;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import it.unibo.isaccoop.controller.input.KeyboardInputController;
 import it.unibo.isaccoop.core.GameEngine;
@@ -20,46 +23,61 @@ import it.unibo.isaccoop.model.boundingbox.RectBoundingBox;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.room.Level;
 import it.unibo.isaccoop.model.room.Room;
-
+/**
+ * Represent the scene with Swing.
+ *
+ */
 public class SwingScene implements Scene {
 
     private JFrame frame;
     private ScenePanel panel;
-    private GameEngine engine;
-    private Level gameState;
-
-    public SwingScene(Level gameState, GameEngine engine, int w, int h, double width, double height){
+    private final GameEngine engine;
+    private final Level gameState;
+    private static final int SCORE_FONT = 36;
+    private static final int GAME_OVER_FONT = 88;
+    /**
+     *
+     * @param gameState
+     * @param engine
+     * @param w
+     * @param h
+     * @param width
+     * @param height
+     */
+    public SwingScene(final Level gameState, final GameEngine engine,
+            final int w, final int h, final double width, final double height) {
         frame = new JFrame("Isaccoop");
-        frame.setSize(w,h);
-        frame.setMinimumSize(new Dimension(w,h));
+        frame.setSize(w, h);
+        frame.setMinimumSize(new Dimension(w, h));
         frame.setResizable(false);
         this.gameState = gameState;
         this.engine = engine;
-        panel = new ScenePanel(w,h, width, height);
+        panel = new ScenePanel(w, h, width, height);
         frame.getContentPane().add(panel);
-        frame.addWindowListener(new WindowAdapter(){
-            public void windowClosing(WindowEvent ev){
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(final WindowEvent ev) {
                 System.exit(-1);
             }
-            public void windowClosed(WindowEvent ev){
+            public void windowClosed(final WindowEvent ev) {
                 System.exit(-1);
             }
         });
         frame.pack();
         frame.setVisible(true);
     }
-
-    public void render(){
+    /***/
+    @Override
+    public void render() {
         try {
             SwingUtilities.invokeAndWait(() -> {
                 frame.repaint();
             });
-        } catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
-
-    public void renderGameOver(){
+    /***/
+    public void renderGameOver() {
         /*
         try {
             SwingUtilities.invokeAndWait(() -> {
@@ -70,7 +88,7 @@ public class SwingScene implements Scene {
         }
         */
     }
-
+    /***/
     public class ScenePanel extends JPanel implements KeyListener {
 
         private static final long serialVersionUID = 1L;
@@ -80,16 +98,22 @@ public class SwingScene implements Scene {
         private double ratioY;
         private Font scoreFont, gameOverFont;
         private Stroke strokeBorder = new BasicStroke(2f);
+        /**
+         *
+         * @param w
+         * @param h
+         * @param width
+         * @param height
+         */
+        public ScenePanel(final int w, final int h, final double width, final double height) {
+            setSize(w, h);
+            centerX = w / 2;
+            centerY = h / 2;
+            ratioX = w / width;
+            ratioY = h / height;
 
-        public ScenePanel(int w, int h, double width, double height){
-            setSize(w,h);
-            centerX = w/2;
-            centerY = h/2;
-            ratioX = w/width;
-            ratioY = h/height;
-
-            scoreFont = new Font("Verdana", Font.PLAIN, 36);
-            gameOverFont = new Font("Verdana", Font.PLAIN, 88);
+            scoreFont = new Font("Verdana", Font.PLAIN, SCORE_FONT);
+            gameOverFont = new Font("Verdana", Font.PLAIN, GAME_OVER_FONT);
 
             this.addKeyListener(this);
             setFocusable(true);
@@ -97,17 +121,19 @@ public class SwingScene implements Scene {
             requestFocusInWindow();
 
         }
-
-        public void paint(Graphics g){
+        /**
+         * @param g reference to Graphics.
+         */
+        public void paint(final Graphics g) {
             Graphics2D g2 = (Graphics2D) g;
 
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                     RenderingHints.VALUE_ANTIALIAS_ON);
             g2.setRenderingHint(RenderingHints.KEY_RENDERING,
                     RenderingHints.VALUE_RENDER_QUALITY);
-            g2.clearRect(0,0,this.getWidth(),this.getHeight());
+            g2.clearRect(0, 0, this.getWidth(), this.getHeight());
 
-            if (gameState.isLevelComplete()){
+            if (gameState.isLevelComplete()) {
 
                 /* drawing the score */
                 g2.setFont(gameOverFont);
@@ -129,41 +155,45 @@ public class SwingScene implements Scene {
 
                 g2.setColor(Color.BLACK);
                 g2.setStroke(strokeBorder);
-                g2.drawRect(x0, y0, x1-x0, y1-y0);
+                g2.drawRect(x0, y0, x1 - x0, y1 - y0);
 
                 /* drawing the game objects */
 
                 SwingGraphics gr = new SwingGraphics(g2, centerX, centerY, ratioX, ratioY);
-                scene.getEnemies().get().forEach( e -> {
+                scene.getEnemies().get().forEach(e -> {
                     e.updateGraphics(gr);
                 });
             }
         }
 
-        private int getXinPixel(Point2D p){
+        private int getXinPixel(final Point2D p) {
             return (int) Math.round(centerX + p.getX() * ratioX);
         }
 
-        private int getYinPixel(Point2D p){
+        private int getYinPixel(final Point2D p) {
             return (int)  Math.round(centerY - p.getY() * ratioY);
         }
-
+        /**
+         * @param e reference to KeyEvent.
+         */
         @Override
-        public void keyPressed(KeyEvent e) {
+        public void keyPressed(final KeyEvent e) {
             for (KeyboardInputController ctrl: engine.getKeyboardInputControllers()) {
                 ctrl.notifyKeyPressed(e.getKeyCode());
             }
         }
-
+        /**
+         * @param e reference to KeyEvent.
+         */
         @Override
-        public void keyReleased(KeyEvent e) {
+        public void keyReleased(final KeyEvent e) {
             for (KeyboardInputController ctrl: engine.getKeyboardInputControllers()) {
                 ctrl.notifyKeyReleased(e.getKeyCode());
             }
         }
 
         @Override
-        public void keyTyped(KeyEvent e) {}
+        public void keyTyped(final KeyEvent e) { }
 
     }
 }
