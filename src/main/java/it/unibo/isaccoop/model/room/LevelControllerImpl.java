@@ -17,7 +17,6 @@ public final class LevelControllerImpl implements LevelController {
 
     private final List<Level> lvl = new LinkedList<>();
     private int currentLevelID;
-    private final Player player;
 
     /**
      * Create a game with the specified number of levels.
@@ -25,7 +24,6 @@ public final class LevelControllerImpl implements LevelController {
      * @param engine the {@link GameEngine} to be attached to this level
      */
     public LevelControllerImpl(final int numberOfLevels, final GameEngine engine) {
-        this.player = new Player(engine.getController("keyMove"), engine.getController("keyShot"));
         final LevelFactory lvlFactory = new LevelFactoryImpl(engine);
         this.currentLevelID = 0;
         Stream.iterate(0, i -> i + 1)
@@ -81,13 +79,13 @@ public final class LevelControllerImpl implements LevelController {
     }
 
     @Override
-    public Optional<Room> getPreviousRoom() {
-        return getPrevNextRoom(Direction.LEFT);
+    public void moveToPreviousRoom() {
+        getPrevNextRoom(Direction.LEFT).ifPresent(r -> moveToRoom(r));
     }
 
     @Override
-    public Optional<Room> getNextRoom() {
-        return getPrevNextRoom(Direction.RIGHT);
+    public void moveToNextRoom() {
+        getPrevNextRoom(Direction.RIGHT).ifPresent(r -> moveToRoom(r));
     }
 
     @Override
