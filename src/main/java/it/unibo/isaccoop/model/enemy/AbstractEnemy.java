@@ -142,6 +142,7 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
     /**
      * @return the strategy of the hit
      * */
+    @Override
     public HitStrategy getHitStrategy() {
         return this.hitStrategy;
     }

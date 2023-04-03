@@ -35,6 +35,9 @@ public interface Enemy extends EnemyActions, Hitable<PlayerStat>, MapElement {
      * */
     Optional<List<WeaponShot>> getWeaponShots();
 
+    /**
+     * @return the hit strategy
+     * */
     HitStrategy getHitStrategy();
 
 

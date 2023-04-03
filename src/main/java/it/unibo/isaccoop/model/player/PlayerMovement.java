@@ -10,12 +10,12 @@ public interface PlayerMovement {
 
     /**
      * Update the player position.
-     * @param pos as position where the player moves
+     * @param direction the direction where player is moving
      * */
     void update(Direction direction);
 
     /**
-     * Get the next position in preview;
+     * Get the next position in preview.
      * @param direction the direction in which the player moves
      * @return the future position of the player in the direction
      * */
