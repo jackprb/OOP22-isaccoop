@@ -86,20 +86,12 @@ public interface LevelController {
     Map<Direction, Room> getAccessibleRooms();
 
     /**
-     * Get the previous room.
+     * Move to the previous room.
      */
     void moveToPreviousRoom();
 
     /**
-     * Get the next room.
+     * Move to the next room.
      */
     void moveToNextRoom();
-
-    /**
-     * Move the player to the specified room.
-     * @param room the room where the player moves to
-     * @return true if the player can move to the specified room (the current one is complete),
-     * false otherwise
-     */
-    boolean moveToRoom(Room room);
 }
