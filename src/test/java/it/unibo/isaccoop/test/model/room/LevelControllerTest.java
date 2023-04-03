@@ -91,7 +91,7 @@ class LevelControllerTest {
     }
 
     @Test 
-    void testGetPreviousRoom() {
+    void testMoveToPreviousRoom() {
         // the player is in room (0.0, 0.0), so there is not a previous room
         assertEquals(this.lvlController.getCurrentRoom().getCoords(), new Point2D(0.0, 0.0));
         // the player does not move, because there is not a previous room
@@ -101,7 +101,7 @@ class LevelControllerTest {
     }
 
     @Test 
-    void testGetNextRoom() {
+    void testMoveToNextRoom() {
         // the player is in room (0.0, 0.0), so the next room is room with coord (1.0, 0.0)
         assertEquals(this.lvlController.getCurrentRoom().getCoords(), new Point2D(0.0, 0.0));
         // the player moves to next room
@@ -113,7 +113,7 @@ class LevelControllerTest {
     @Test
     void testMoveUsingGetPreviousAndGetNextRoom() {
         // execute again this test to check that the player is actually in room (0.0, 0.0)
-        testGetPreviousRoom();
+        testMoveToPreviousRoom();
 
         // if player moves to room (1.0, 0.0)
         this.lvlController.moveToNextRoom();
