@@ -115,7 +115,7 @@ public final class LevelControllerImpl implements LevelController {
         }
         return false;
     }
-    
+
     /**
      * Get the previous or next room of current room.
      * @param dir {@link Direction#RIGHT} to get the next room,<br>
