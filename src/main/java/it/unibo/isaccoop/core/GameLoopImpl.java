@@ -22,7 +22,7 @@ public class GameLoopImpl implements GameLoop {
      */
     @Override
     public void gameLoop() {
-        while (!level.isComplete()) {
+        while (!level.isLevelComplete()) {
             final long current = System.currentTimeMillis();
             this.processInput();
             this.updateGame();

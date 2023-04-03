@@ -1,14 +1,13 @@
 package it.unibo.isaccoop.test.model.room;
 
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -33,18 +32,19 @@ import it.unibo.isaccoop.model.room.RoomImpl;
 class RoomTest {
 
     private static final int MAX_COORD_NUMBER = 20;
+    private static final int NUMBER_OF_ROOMS = 10;
     private static final int MAX_ROOM_SIZE = 200;
     private final Map<RoomType, Room> rooms = new HashMap<>();
     private final Map<RoomType, Boolean> completedExpectedValue = Map.of(
-            RoomType.START, true, RoomType.SHOP, true, RoomType.STANDARD, false,
-            RoomType.BOSS, false, RoomType.TREASURE, true);
+            RoomType.START, true, RoomType.SHOP, true, RoomType.TREASURE, true, 
+            RoomType.STANDARD, false, RoomType.BOSS, false);
 
     private final CreatorFactory creator = new ConcreteCreatorFactory();
     private final List<Enemy> enemies = creator.createEnemies().create();
     private final AIEnemy aienemy = new ConcreteAIEnemy(enemies);
     private final List<Item> items = creator.createItems().create();
     private final List<PowerUp> powerups = creator.createShopPowerUps().create();
-    private final Player player = new Player();
+    private final Player player = new Player(null, null);
 
     @BeforeEach
     void setUp() {
@@ -99,13 +99,35 @@ class RoomTest {
         // since the rooms generated in method setUp() have illegal configurations made for testing
         // purposes only, in this method are needed rooms with correct configuration,
         // so they are created using RoomFactory
-        for (final var rType: RoomType.values()) {
-           final Room room = new RoomFactoryImpl().buildRoomOfType(rType, generateCoord());
-           final Optional<Boolean> expected = Optional.of(this.completedExpectedValue.entrySet().stream()
-                   .filter(entry -> entry.getKey() == rType)
-                   .findFirst().get().getValue());
-           assertSame(expected.get(), room.isComplete());
+        for (int i = 0; i < NUMBER_OF_ROOMS; i++) {
+            final Room room = new RoomFactoryImpl(NUMBER_OF_ROOMS, null).buildRoomInProperOrder(generateCoord());
+            final var expected = Optional.of(this.completedExpectedValue.entrySet().stream()
+                    .filter(entry -> entry.getKey() == room.getRoomType())
+                    .findFirst().get().getValue());
+            assertEquals(expected.get(), room.isComplete());
         }
+    }
+
+    @Test
+    void testAddPlayer() {
+        this.rooms.values().forEach(r -> {
+            if (r.getPlayer().isEmpty()) {
+                assertTrue(r.addPlayer(this.player));
+            } else {
+                assertFalse(r.addPlayer(this.player));
+            }
+        });
+    }
+
+    @Test
+    void testRemovePlayer() {
+        this.rooms.values().forEach(r -> {
+            if (r.getPlayer().isPresent()) {
+                assertTrue(r.removePlayer());
+            } else {
+                assertFalse(r.removePlayer());
+            }
+        });
     }
 
     /**

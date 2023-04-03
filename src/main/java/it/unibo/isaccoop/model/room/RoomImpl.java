@@ -25,7 +25,7 @@ public final class RoomImpl extends MapElementImpl implements Room {
     private final Optional<AIEnemy> roomAi;
     private final Optional<List<Item>> items;
     private final Optional<List<PowerUp>> powerups;
-    private final Optional<Player> player;
+    private Optional<Player> player;
     private final Queue<Event> eventsQueue;
     private final Optional<List<Enemy>> enemies;
 
@@ -89,6 +89,24 @@ public final class RoomImpl extends MapElementImpl implements Room {
     @Override
     public boolean isComplete() {
         return completionConditions();
+    }
+
+    @Override
+    public boolean addPlayer(final Player player) {
+        if (this.player.isEmpty() && player != null) {
+            this.player = Optional.of(player);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean removePlayer() {
+        if (this.player.isPresent()) {
+            this.player = Optional.empty();
+            return true;
+        }
+        return false;
     }
 
     @Override

@@ -2,43 +2,35 @@ package it.unibo.isaccoop.model.room;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Stream;
 
-import it.unibo.isaccoop.model.common.Point2D;
+import it.unibo.isaccoop.core.GameEngine;
+import it.unibo.isaccoop.model.common.Direction;
 import it.unibo.isaccoop.model.player.Player;
 
 /**
  * Implementation of {@link LevelController}.
- *
  */
 public final class LevelControllerImpl implements LevelController {
 
-    private static final int MAX_NUMBER_OF_ROOMS = 30;
-    private static final int MIN_NUMBER_OF_ROOMS = 6;
-
     private final List<Level> lvl = new LinkedList<>();
     private int currentLevelID;
-    private Room currentRoom;
-    private final Player player = new Player();
+    private final Player player;
 
     /**
      * Create a game with the specified number of levels.
      * @param numberOfLevels the number of levels to create
+     * @param engine the {@link GameEngine} to be attached to this level
      */
-    public LevelControllerImpl(final int numberOfLevels) {
-        final LevelFactoryImpl lvlFactory = new LevelFactoryImpl();
+    public LevelControllerImpl(final int numberOfLevels, final GameEngine engine) {
+        this.player = new Player(engine.getController("keyMove"), engine.getController("keyShot"));
+        final LevelFactory lvlFactory = new LevelFactoryImpl(engine);
         this.currentLevelID = 0;
-        /*for (int i = 0; i < numberOfLevels; i++) {
-        }*/
         Stream.iterate(0, i -> i + 1)
-        .limit(numberOfLevels)
-        .forEach(r -> {
-            final int numberOfRooms = ThreadLocalRandom.current().nextInt(
-                    MAX_NUMBER_OF_ROOMS - MIN_NUMBER_OF_ROOMS) + MIN_NUMBER_OF_ROOMS;
-            this.lvl.add(lvlFactory.createLevel(numberOfRooms));
-        });
-        this.currentRoom = this.lvl.get(this.currentLevelID).getStartRoom();
+            .limit(numberOfLevels)
+            .forEach(r -> this.lvl.add(lvlFactory.createLevel()));
     }
 
     @Override
@@ -47,18 +39,35 @@ public final class LevelControllerImpl implements LevelController {
     }
 
     @Override
+    public int getCurrentLevelIndex() {
+        return this.currentLevelID;
+    }
+
+    @Override
+    public int getNumberOfLevels() {
+        return this.lvl.size();
+    }
+
+    @Override
     public List<Room> getRoomsOfCurrentLevel() {
-        return this.getCurrentLevel().getRooms();
+        return List.copyOf(getCurrentLevel().getRooms());
     }
 
     @Override
-    public Point2D getPlayerRoomCoord() {
-        return this.player.getCoords();
+    public int getNumberOfRoomsOfCurrentLevel() {
+        return getRoomsOfCurrentLevel().size();
     }
 
     @Override
-    public Room getPlayerRoom() {
-        return this.currentRoom;
+    public Room getCurrentRoom() {
+        return getCurrentLevel().getRooms().stream()
+                .filter(r -> r.getPlayer().isPresent())
+                .findFirst().get();
+    }
+
+    @Override
+    public Player getPlayer() {
+        return getCurrentRoom().getPlayer().get();
     }
 
     @Override
@@ -67,23 +76,33 @@ public final class LevelControllerImpl implements LevelController {
     }
 
     @Override
-    public int getNumberOfRooms() {
-        return this.getRoomsOfCurrentLevel().size();
+    public Map<Direction, Room> getAccessibleRooms() {
+        return getCurrentLevel().getNearRooms();
     }
 
     @Override
-    public List<Room> getAccessibleRooms() {
-        return List.of();
+    public Optional<Room> getPreviousRoom() {
+        return getPrevNextRoom(Direction.LEFT);
     }
 
     @Override
-    public void moveToRoom(final Room room) {
-        this.currentRoom = room;
+    public Optional<Room> getNextRoom() {
+        return getPrevNextRoom(Direction.RIGHT);
+    }
+
+    @Override
+    public boolean moveToRoom(final Room room) {
+        final Player player = getPlayer();
+        if (isValidNewRoom(room) && getCurrentRoom().isComplete() && getCurrentRoom().removePlayer()) {
+            room.addPlayer(player);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public boolean isCurrentLevelComplete() {
-        if (getCurrentLevel().isComplete()) {
+        if (getCurrentLevel().isLevelComplete()) {
             goToNextLevel();
             return true;
         }
@@ -92,10 +111,33 @@ public final class LevelControllerImpl implements LevelController {
 
     @Override
     public boolean areAllLevelsComplete() {
-        return this.lvl.stream().allMatch(l -> l.isComplete());
+        return this.lvl.stream().allMatch(l -> l.isLevelComplete());
     }
 
+    /**
+     * Get the previous or next room of current room.
+     * @param dir {@link Direction#RIGHT} to get the next room,<br>
+     * {@link Direction#LEFT} to get the previous one
+     * @return the previous or next room of current room, or Optional.empty if not available
+     */
+    private Optional<Room> getPrevNextRoom(final Direction dir) {
+        final var prevNextRoom = getAccessibleRooms().entrySet().stream()
+                .filter(e -> e.getKey() == dir).findFirst();
+        if (prevNextRoom.isPresent()) {
+            return Optional.of(prevNextRoom.get().getValue());
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * Move the player to the next Level.
+     */
     private void goToNextLevel() {
         this.currentLevelID++;
+    }
+
+    private boolean isValidNewRoom(final Room destRoom) {
+        return getCurrentRoom().getCoords().getX() - destRoom.getCoords().getX() <= 1.0
+                && getCurrentRoom().getCoords().getY() - destRoom.getCoords().getY() <= 1.0;
     }
 }
