@@ -2,6 +2,7 @@ package it.unibo.isaccoop.model.common;
 
 import it.unibo.isaccoop.graphics.Graphics;
 import it.unibo.isaccoop.graphics.GraphicsComponent;
+import it.unibo.isaccoop.graphics.RoomGraphicsComponent;
 import it.unibo.isaccoop.model.boundingbox.BoundingBox;
 import it.unibo.isaccoop.model.boundingbox.CircleBoundingBox;
 import it.unibo.isaccoop.model.boundingbox.RectBoundingBox;
@@ -100,6 +101,7 @@ public abstract class AbstractMapElement implements MapElement {
     public AbstractMapElement(final int width, final int height) {
         this.coords = new Point2D(0.0, 0.0);
         this.box = new RectBoundingBox(width, height);
+        this.graphicComponent = new RoomGraphicsComponent();
     }
 
     /***/

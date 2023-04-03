@@ -10,10 +10,6 @@ import it.unibo.isaccoop.model.common.Point2D;
  * */
 public class PlayerMovementImpl extends PlayerStatImpl implements PlayerMovement {
 
-    private final Double distance = super.getSpeed();
-    private final double x = super.getCoords().getX();
-    private final double y = super.getCoords().getY();
-
     /**
      * Constructor.
      * @param gr
@@ -33,6 +29,9 @@ public class PlayerMovementImpl extends PlayerStatImpl implements PlayerMovement
     /***/
     @Override
     public Point2D getMovePreview(final Direction direction) {
+        final Double distance = super.getSpeed();
+        final double x = super.getCoords().getX();
+        final double y = super.getCoords().getY();
         switch (direction) {
         case UP:
             return new Point2D(x, y - distance);
