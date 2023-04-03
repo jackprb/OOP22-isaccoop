@@ -89,16 +89,6 @@ public final class LevelControllerImpl implements LevelController {
     }
 
     @Override
-    public boolean moveToRoom(final Room room) {
-        final Player player = getPlayer();
-        if (isValidNewRoom(room) && getCurrentRoom().isComplete() && getCurrentRoom().removePlayer()) {
-            room.addPlayer(player);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
     public boolean isCurrentLevelComplete() {
         if (getCurrentLevel().isLevelComplete()) {
             goToNextLevel();
@@ -112,6 +102,20 @@ public final class LevelControllerImpl implements LevelController {
         return this.lvl.stream().allMatch(l -> l.isLevelComplete());
     }
 
+    /**
+     * Utility method to check if the player can move to the specified room.
+     * @param room the room to move to
+     * @return true if the player can move to the given room, false otherwise
+     */
+    private boolean moveToRoom(final Room room) {
+        final Player player = getPlayer();
+        if (isValidNewRoom(room) && getCurrentRoom().isComplete() && getCurrentRoom().removePlayer()) {
+            room.addPlayer(player);
+            return true;
+        }
+        return false;
+    }
+    
     /**
      * Get the previous or next room of current room.
      * @param dir {@link Direction#RIGHT} to get the next room,<br>
