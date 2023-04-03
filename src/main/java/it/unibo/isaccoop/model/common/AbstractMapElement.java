@@ -83,6 +83,17 @@ public abstract class AbstractMapElement implements MapElement {
 
     /**
      * Constructor for {@link AbstractMapElement} with fixed initial position.
+     * @param elemRadius based on the type of the element
+     * @param gr
+     * */
+    public AbstractMapElement(final ElementsRadius elemRadius, final GraphicsComponent gr) {
+        this.coords = new Point2D(0.0, 0.0);
+        this.box = new CircleBoundingBox(elemRadius.getValue());
+        this.graphicComponent = gr;
+    }
+
+    /**
+     * Constructor for {@link AbstractMapElement} with fixed initial position.
      * @param width
      * @param height
      */

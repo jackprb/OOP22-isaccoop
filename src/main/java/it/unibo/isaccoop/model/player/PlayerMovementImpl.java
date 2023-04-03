@@ -1,5 +1,6 @@
 package it.unibo.isaccoop.model.player;
 
+import it.unibo.isaccoop.graphics.GraphicsComponent;
 import it.unibo.isaccoop.model.common.Direction;
 import it.unibo.isaccoop.model.common.Point2D;
 
@@ -13,7 +14,16 @@ public class PlayerMovementImpl extends PlayerStatImpl implements PlayerMovement
     private final double x = super.getCoords().getX();
     private final double y = super.getCoords().getY();
 
+    /**
+     * Constructor.
+     * */
+    public PlayerMovementImpl(final GraphicsComponent gr) {
+        super(gr);
+    }
 
+    /**
+     * @param direction the direction which the player moves
+     * */
     @Override
     public void update(final Direction direction) {
         super.setCoords(this.getMovePreview(direction));
