@@ -4,8 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.LinkedList;
 import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +26,7 @@ import it.unibo.isaccoop.model.room.RoomFactoryImpl;
 class LevelTest {
 
     // variables for local level
-    private final Level localLevel = new LevelImpl();
+    private final Level localLevel = new LevelImpl(new GameEngineImpl());
     private final List<Room> otherRoomList = new LinkedList<>();
 
     // variable to store data generated from LevelFactoryImpl
@@ -40,7 +42,7 @@ class LevelTest {
         this.localLevel.putRooms(this.roomListFromFactory); // the level has no rooms -> OK
     }
 
-    @Test 
+    @Test
     void testPutRooms() {
         // generate another List<Room>, made of 5 rooms, one for each RoomType
         for (final RoomType roomType: RoomType.values()) {
@@ -49,7 +51,7 @@ class LevelTest {
         }
 
         // the level already has rooms (set in method setUp()) -> throw exception
-        assertThrows(IllegalStateException.class, () -> this.localLevel.putRooms(this.otherRoomList)); 
+        assertThrows(IllegalStateException.class, () -> this.localLevel.putRooms(this.otherRoomList));
 
         // the localLevel must have the correct number of rooms
         assertEquals(this.localLevel.getRooms().size(), this.roomListFromFactory.size());
@@ -79,7 +81,7 @@ class LevelTest {
     @Test
     void testGetCurrentRoom() {
         // since this.localLevel has the same rooms from this.roomListFromFactory
-        // the current room (the START room/the room where the player is) 
+        // the current room (the START room/the room where the player is)
         // in this.localLevel and in this.roomListFromFactory is the same
         assertEquals(this.localLevel.getCurrentRoom(), this.roomListFromFactory.stream()
                 .filter(r -> r.getPlayer().isPresent()).findFirst().get());

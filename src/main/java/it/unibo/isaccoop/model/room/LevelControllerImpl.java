@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import it.unibo.isaccoop.core.GameEngine;
+import it.unibo.isaccoop.graphics.PlayerGraphicsComponents;
 import it.unibo.isaccoop.model.common.Direction;
 import it.unibo.isaccoop.model.player.Player;
 
@@ -25,7 +26,7 @@ public final class LevelControllerImpl implements LevelController {
      * @param engine the {@link GameEngine} to be attached to this level
      */
     public LevelControllerImpl(final int numberOfLevels, final GameEngine engine) {
-        this.player = new Player(engine.getController("keyMove"), engine.getController("keyShot"));
+        this.player = new Player(engine.getController("keyMove"), engine.getController("keyShot"), new PlayerGraphicsComponents());
         final LevelFactory lvlFactory = new LevelFactoryImpl(engine);
         this.currentLevelID = 0;
         Stream.iterate(0, i -> i + 1)

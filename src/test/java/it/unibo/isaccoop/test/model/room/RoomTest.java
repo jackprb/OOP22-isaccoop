@@ -3,11 +3,13 @@ package it.unibo.isaccoop.test.model.room;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -36,7 +38,7 @@ class RoomTest {
     private static final int MAX_ROOM_SIZE = 200;
     private final Map<RoomType, Room> rooms = new HashMap<>();
     private final Map<RoomType, Boolean> completedExpectedValue = Map.of(
-            RoomType.START, true, RoomType.SHOP, true, RoomType.TREASURE, true, 
+            RoomType.START, true, RoomType.SHOP, true, RoomType.TREASURE, true,
             RoomType.STANDARD, false, RoomType.BOSS, false);
 
     private final CreatorFactory creator = new ConcreteCreatorFactory();
@@ -44,7 +46,7 @@ class RoomTest {
     private final AIEnemy aienemy = new ConcreteAIEnemy(enemies);
     private final List<Item> items = creator.createItems().create();
     private final List<PowerUp> powerups = creator.createShopPowerUps().create();
-    private final Player player = new Player(null, null);
+    private final Player player = new Player(null, null, null);
 
     @BeforeEach
     void setUp() {
