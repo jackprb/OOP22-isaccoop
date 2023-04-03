@@ -9,10 +9,10 @@ public class SwingGraphics implements Graphics {
 
     private Graphics2D g2;
 
-    private int centerX;
-    private int centerY;
-    private double ratioX;
-    private double ratioY;
+    private final int centerX;
+    private final int centerY;
+    private final double ratioX;
+    private final double ratioY;
     /**
      *
      * @param g2
