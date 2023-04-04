@@ -5,14 +5,14 @@ import java.awt.Image;
 import java.awt.Toolkit;
 
 import it.unibo.isaccoop.model.common.MapElement;
+
 /**
  * Represents the graphics in the swing.
- *
  */
 public class SwingGraphics implements Graphics {
 
     private java.awt.Graphics g2;
-
+    private static final String RES_PATH = "src/main/resources/it/unibo/isaccoop/images/";
     private final double ratioX;
     private final double ratioY;
     /**
@@ -31,7 +31,7 @@ public class SwingGraphics implements Graphics {
 
     @Override
     public void drawRoom(final MapElement room) {
-        Image img = Toolkit.getDefaultToolkit().getImage("resources/floor.png");
+        final Image img = Toolkit.getDefaultToolkit().getImage(RES_PATH + "floor.png");
         this.g2.drawImage(img, (int) room.getCoords().getX(), (int) room.getCoords().getY(), null);
     }
 
@@ -42,7 +42,7 @@ public class SwingGraphics implements Graphics {
 
     @Override
     public void drawPlayer(final MapElement player) {
-        Image img = Toolkit.getDefaultToolkit().getImage("resources/player.gif");
+        final Image img = Toolkit.getDefaultToolkit().getImage(RES_PATH + "player.gif");
         this.g2.drawImage(img, (int) player.getCoords().getX(), (int) player.getCoords().getY(), null);
     }
 
