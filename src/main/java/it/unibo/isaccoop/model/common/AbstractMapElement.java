@@ -1,8 +1,9 @@
 package it.unibo.isaccoop.model.common;
 
+import java.util.Objects;
+
 import it.unibo.isaccoop.graphics.Graphics;
 import it.unibo.isaccoop.graphics.GraphicsComponent;
-import it.unibo.isaccoop.graphics.RoomGraphicsComponent;
 import it.unibo.isaccoop.model.boundingbox.BoundingBox;
 import it.unibo.isaccoop.model.boundingbox.CircleBoundingBox;
 import it.unibo.isaccoop.model.boundingbox.RectBoundingBox;
@@ -97,11 +98,12 @@ public abstract class AbstractMapElement implements MapElement {
      * Constructor for {@link AbstractMapElement} with fixed initial position.
      * @param width
      * @param height
+     * @param gr graphics component
      */
-    public AbstractMapElement(final int width, final int height) {
+    public AbstractMapElement(final int width, final int height, final GraphicsComponent gr) {
         this.coords = new Point2D(0.0, 0.0);
         this.box = new RectBoundingBox(width, height);
-        this.graphicComponent = new RoomGraphicsComponent();
+        this.graphicComponent = gr;
     }
 
     /***/
@@ -132,4 +134,23 @@ public abstract class AbstractMapElement implements MapElement {
     public void updateGraphics(final Graphics g) {
         graphicComponent.update(this, g);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(coords);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        AbstractMapElement other = (AbstractMapElement) obj;
+        return Double.compare(coords.getX(), other.coords.getX()) == 0 &&
+                Double.compare(coords.getY(), other.coords.getY()) == 0;
+    }
+
 }

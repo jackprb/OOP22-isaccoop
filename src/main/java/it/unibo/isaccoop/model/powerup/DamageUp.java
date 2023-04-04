@@ -1,5 +1,6 @@
 package it.unibo.isaccoop.model.powerup;
 
+import it.unibo.isaccoop.graphics.factory.PowerUpGraphicsComponentImpl;
 import it.unibo.isaccoop.model.player.PlayerStat;
 
 /**
@@ -9,6 +10,12 @@ public class DamageUp extends PowerUp {
 
     private static final float DAMAGE_SUPER_UP = 1;
     private static final float DAMAGE_UP = 2;
+
+    /***/
+    public DamageUp() {
+        super(new PowerUpGraphicsComponentImpl().getDamageUpGraphicsComponent(isSuperItem()));
+    }
+
     /**
      *  Increase the player's damage.
      *  @param p reference to player.

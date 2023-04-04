@@ -1,5 +1,6 @@
 package it.unibo.isaccoop.model.item;
 
+import it.unibo.isaccoop.graphics.factory.ItemGraphicsComponentImpl;
 import it.unibo.isaccoop.model.player.PlayerStat;
 
 /**
@@ -9,6 +10,11 @@ public class Coin extends AbstractItem {
 
     private static final int COIN_UP = 1;
 
+    /***/
+    public Coin() {
+        super(new ItemGraphicsComponentImpl().getCoinGraphicsComponent());
+    }
+
     /**
      *  Method for interacting with player money.
      *  @param p reference to player.
@@ -17,5 +23,7 @@ public class Coin extends AbstractItem {
     public void interact(final PlayerStat p) {
         p.setCoin(p.getCoin() + COIN_UP);
     }
+
+
 
 }

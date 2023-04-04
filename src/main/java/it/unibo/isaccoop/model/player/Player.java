@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import it.unibo.isaccoop.controller.input.InputController;
-import it.unibo.isaccoop.graphics.PlayerGraphicsComponent;
+import it.unibo.isaccoop.graphics.GraphicsComponent;
 import it.unibo.isaccoop.model.action.HitStrategy;
 import it.unibo.isaccoop.model.action.ShootingHitStrategy;
 import it.unibo.isaccoop.model.common.Direction;
@@ -32,7 +32,7 @@ public class Player extends PlayerMovementImpl implements Hitable<Enemy> {
      * @param shotController
      * @param gr
      */
-    public Player(final InputController moveController, final InputController shotController, final PlayerGraphicsComponent gr) {
+    public Player(final InputController moveController, final InputController shotController, final GraphicsComponent gr) {
         super(gr);
         this.hitStrategy = new ShootingHitStrategy(new TimeIntervalWeapon(super.getTears(),
                 (start, direction) -> new BaseWeaponShot(start, direction)));

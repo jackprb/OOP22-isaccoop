@@ -112,7 +112,7 @@ public final class RoomImpl extends MapElementImpl implements Room {
 
     @Override
     public void updateRoom() {
-        // TODO Auto-generated method stub
+        this.roomAi.ifPresent(r -> r.updateEnemies(this.player.get()));
     }
 
     @Override
@@ -122,7 +122,10 @@ public final class RoomImpl extends MapElementImpl implements Room {
 
     @Override
     public void executeEvents() {
-
+        this.eventsQueue.forEach(e -> {
+            e.execute(this);
+            this.eventsQueue.remove();
+        });
     }
 
     @Override
