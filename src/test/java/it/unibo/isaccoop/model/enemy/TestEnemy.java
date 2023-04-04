@@ -34,6 +34,8 @@ public class TestEnemy {
 
         gameState.getCurrentLevel().getCurrentRoom().getEnemies().ifPresent(l -> l.forEach(e -> ai.remove(e)));
 
+        gameState.getCurrentLevel().getCurrentRoom().getEnemies().ifPresent(l -> System.out.println(l.size()));
+
         gameEngine.run();
     }
 }
