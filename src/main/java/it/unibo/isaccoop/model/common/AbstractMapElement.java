@@ -1,5 +1,7 @@
 package it.unibo.isaccoop.model.common;
 
+import java.util.Objects;
+
 import it.unibo.isaccoop.graphics.Graphics;
 import it.unibo.isaccoop.graphics.GraphicsComponent;
 import it.unibo.isaccoop.graphics.RoomGraphicsComponent;
@@ -132,4 +134,23 @@ public abstract class AbstractMapElement implements MapElement {
     public void updateGraphics(final Graphics g) {
         graphicComponent.update(this, g);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(coords);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        AbstractMapElement other = (AbstractMapElement) obj;
+        return Objects.equals(coords.getX(), other.coords.getX()) &&
+                Objects.equals(coords.getY(), other.coords.getY());
+    }
+
 }
