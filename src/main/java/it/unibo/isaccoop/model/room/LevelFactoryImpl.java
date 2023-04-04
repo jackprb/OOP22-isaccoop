@@ -49,7 +49,7 @@ public final class LevelFactoryImpl implements LevelFactory {
      * @return the list of created rooms.
      */
     private List<Room> createRooms(final List<Point2D> coordsList) {
-        final RoomFactory rFactory = new RoomFactoryImpl(coordsList.size(), engine);
+        final RoomFactory rFactory = new RoomFactoryImpl(coordsList.size());
         final List<Room> rooms = new LinkedList<>();
 
         for (final Point2D coord: coordsList) {

@@ -46,7 +46,8 @@ public final class RoomImpl extends MapElementImpl implements Room {
             final Optional<AIEnemy> roomAI, final Optional<List<Item>> items,
             final Optional<List<PowerUp>> powerups, final Optional<Player> player,
             final Optional<List<Enemy>> enemies) {
-        super(width, height, coord);
+        super(width, height);
+        super.setCoords(coord);
         this.roomType = roomType;
         this.roomAi = roomAI;
         this.items = items;

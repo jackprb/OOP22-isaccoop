@@ -1,6 +1,5 @@
 package it.unibo.isaccoop.model.room;
 
-import it.unibo.isaccoop.core.GameEngine;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.RoomType;
 
@@ -24,9 +23,8 @@ public final class RoomFactoryImpl implements RoomFactory {
     /**
      * Constructor. Requires the total number of rooms to be created.
      * @param totalNumberOfRooms the total number of rooms to be created
-     * @param engine
      */
-    public RoomFactoryImpl(final int totalNumberOfRooms, final GameEngine engine) {
+    public RoomFactoryImpl(final int totalNumberOfRooms) {
         this.width = MIN_MAX_ROOM_DIMENSIONS;
         this.height = MIN_MAX_ROOM_DIMENSIONS;
         this.roomCount = 0;

@@ -7,7 +7,6 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import it.unibo.isaccoop.core.GameEngine;
-import it.unibo.isaccoop.graphics.PlayerGraphicsComponent;
 import it.unibo.isaccoop.model.common.Direction;
 import it.unibo.isaccoop.model.player.Player;
 
@@ -18,7 +17,6 @@ public final class LevelControllerImpl implements LevelController {
 
     private final List<Level> lvl = new LinkedList<>();
     private int currentLevelID;
-    private final Player player;
 
     /**
      * Create a game with the specified number of levels.
@@ -26,8 +24,6 @@ public final class LevelControllerImpl implements LevelController {
      * @param engine the {@link GameEngine} to be attached to this level
      */
     public LevelControllerImpl(final int numberOfLevels, final GameEngine engine) {
-        this.player = new Player(engine.getController("keyMove"), engine.getController("keyShot"),
-                                    new PlayerGraphicsComponent());
         final LevelFactory lvlFactory = new LevelFactoryImpl(engine);
         this.currentLevelID = 0;
         Stream.iterate(0, i -> i + 1)
@@ -83,23 +79,13 @@ public final class LevelControllerImpl implements LevelController {
     }
 
     @Override
-    public Optional<Room> getPreviousRoom() {
-        return getPrevNextRoom(Direction.LEFT);
+    public void moveToPreviousRoom() {
+        getPrevNextRoom(Direction.LEFT).ifPresent(r -> moveToRoom(r));
     }
 
     @Override
-    public Optional<Room> getNextRoom() {
-        return getPrevNextRoom(Direction.RIGHT);
-    }
-
-    @Override
-    public boolean moveToRoom(final Room room) {
-        final Player player = getPlayer();
-        if (isValidNewRoom(room) && getCurrentRoom().isComplete() && getCurrentRoom().removePlayer()) {
-            room.addPlayer(player);
-            return true;
-        }
-        return false;
+    public void moveToNextRoom() {
+        getPrevNextRoom(Direction.RIGHT).ifPresent(r -> moveToRoom(r));
     }
 
     @Override
@@ -114,6 +100,20 @@ public final class LevelControllerImpl implements LevelController {
     @Override
     public boolean areAllLevelsComplete() {
         return this.lvl.stream().allMatch(l -> l.isLevelComplete());
+    }
+
+    /**
+     * Utility method to check if the player can move to the specified room.
+     * @param room the room to move to
+     * @return true if the player can move to the given room, false otherwise
+     */
+    private boolean moveToRoom(final Room room) {
+        final Player player = getPlayer();
+        if (isValidNewRoom(room) && getCurrentRoom().isComplete() && getCurrentRoom().removePlayer()) {
+            room.addPlayer(player);
+            return true;
+        }
+        return false;
     }
 
     /**
