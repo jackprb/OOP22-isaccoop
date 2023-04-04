@@ -1,5 +1,6 @@
 package it.unibo.isaccoop.model.ai;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import it.unibo.isaccoop.model.common.MapElement;
@@ -16,7 +17,7 @@ public class ConcreteAIEnemy implements AIEnemy {
      * @param enemies enemies to attach to {@link ConcreteAIEnemy} as a {@link List}
      * */
     public ConcreteAIEnemy(final List<Enemy> enemies) {
-        this.controlledEnemies = List.copyOf(enemies);
+        this.controlledEnemies = new ArrayList<Enemy>(enemies);
     }
 
     /***/
