@@ -1,6 +1,5 @@
 package it.unibo.isaccoop.model.powerup;
 
-import it.unibo.isaccoop.graphics.GraphicsComponent;
 import it.unibo.isaccoop.graphics.factory.PowerUpGraphicsComponentImpl;
 import it.unibo.isaccoop.model.player.PlayerStat;
 
@@ -14,7 +13,7 @@ public class HealthUp extends PowerUp {
     private static final int HEALTH_UP = 1;
 
     /***/
-    public HealthUp(GraphicsComponent gr) {
+    public HealthUp() {
         super(new PowerUpGraphicsComponentImpl().getHealthUpGraphicsComponent(isSuperItem()));
     }
 

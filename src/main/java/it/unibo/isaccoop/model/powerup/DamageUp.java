@@ -1,6 +1,5 @@
 package it.unibo.isaccoop.model.powerup;
 
-import it.unibo.isaccoop.graphics.GraphicsComponent;
 import it.unibo.isaccoop.graphics.factory.PowerUpGraphicsComponentImpl;
 import it.unibo.isaccoop.model.player.PlayerStat;
 
@@ -13,7 +12,7 @@ public class DamageUp extends PowerUp {
     private static final float DAMAGE_UP = 2;
 
     /***/
-    public DamageUp(GraphicsComponent gr) {
+    public DamageUp() {
         super(new PowerUpGraphicsComponentImpl().getDamageUpGraphicsComponent(isSuperItem()));
     }
 

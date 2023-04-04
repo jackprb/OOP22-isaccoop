@@ -7,12 +7,12 @@ public final class ConcreteEnemyGraphicsComponentFactory extends AbstractGraphic
 
     @Override
     public GraphicsComponent getNonShootingGraphicsComponent() {
-        return super.getElementAsImageGraphicsComponent("nonShootinhEnemy1.gif");
+        return super.getElementAsImageGraphicsComponent("nonShootingEnemy1.gif");
     }
 
     @Override
     public GraphicsComponent getShootingGraphicsComponent() {
-        return super.getElementAsImageGraphicsComponent("shootinhEnemy.gif");
+        return super.getElementAsImageGraphicsComponent("shootingEnemy.gif");
     }
 
     @Override
