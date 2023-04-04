@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import it.unibo.isaccoop.core.GameEngine;
-import it.unibo.isaccoop.graphics.PlayerGraphicsComponent;
+import it.unibo.isaccoop.graphics.factory.ConcretePlayerGraphicsComponentFactory;
 import it.unibo.isaccoop.model.common.Direction;
 import it.unibo.isaccoop.model.common.RoomType;
 import it.unibo.isaccoop.model.player.Player;
@@ -25,7 +25,7 @@ public final class LevelImpl implements Level {
      */
     public LevelImpl(final GameEngine engine) {
         this.player = Optional.of(new Player(engine.getController("keyMove"), engine.getController("keyShot"),
-                                    new PlayerGraphicsComponent()));
+                                    new ConcretePlayerGraphicsComponentFactory().getPlayerGraphicsComponent()));
     }
 
     @Override

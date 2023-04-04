@@ -3,6 +3,7 @@ package it.unibo.isaccoop.model.enemy;
 import java.util.List;
 import java.util.Optional;
 
+import it.unibo.isaccoop.graphics.GraphicsComponent;
 import it.unibo.isaccoop.model.action.HitStrategy;
 import it.unibo.isaccoop.model.action.MovementStrategy;
 import it.unibo.isaccoop.model.action.ShootingHitStrategy;
@@ -36,9 +37,11 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
      * @param maxHearts max hearts number for the enemy
      * @param hitStrategy the strategy for the hit
      * @param movementStrategy the strategy for the movement
+     * @param graphicComponent enemy graphics component
      * */
-    public AbstractEnemy(final EnemyHearts maxHearts, final HitStrategy hitStrategy, final MovementStrategy movementStrategy) {
-        super(ElementsRadius.ENEMY);
+    public AbstractEnemy(final EnemyHearts maxHearts, final HitStrategy hitStrategy, final MovementStrategy movementStrategy,
+            final GraphicsComponent graphicComponent) {
+        super(ElementsRadius.ENEMY, graphicComponent);
         this.hitStrategy = hitStrategy;
         this.movementStrategy = movementStrategy;
         this.hearts = maxHearts.getMaxHearts();

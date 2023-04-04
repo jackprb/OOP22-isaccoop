@@ -1,6 +1,8 @@
 package it.unibo.isaccoop.model.common;
 import java.util.Objects;
 
+import it.unibo.isaccoop.graphics.factory.ConcreteRoomGraphicsComponentFactory;
+
 /**
  * Implementation of {@link MapElement}.
  */
@@ -14,7 +16,7 @@ public class MapElementImpl extends AbstractMapElement {
      * @param height vertical dimension of this MapElement
      */
     public MapElementImpl(final int width, final int height) {
-        super(width, height);
+        super(width, height, new ConcreteRoomGraphicsComponentFactory().getRoomGraphicsComponent());
         this.width = width;
         this.height = height;
     }
