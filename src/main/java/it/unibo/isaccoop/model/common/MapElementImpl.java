@@ -12,7 +12,6 @@ public class MapElementImpl extends AbstractMapElement {
     /**
      * @param width horizontal dimension of this MapElement
      * @param height vertical dimension of this MapElement
-     * @param coord coordinates of this MapElement
      */
     public MapElementImpl(final int width, final int height) {
         super(width, height);
