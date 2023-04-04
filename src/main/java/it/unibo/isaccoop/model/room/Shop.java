@@ -17,5 +17,5 @@ public interface Shop {
      * @param powerUp
      * @return true if the power up has been purchased
      */
-    Boolean buyItem(Player player, PowerUp powerUp);
+    boolean buyItem(Player player, PowerUp powerUp);
 }

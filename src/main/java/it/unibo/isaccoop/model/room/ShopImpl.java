@@ -16,7 +16,7 @@ public class ShopImpl implements Shop {
      * @return true if the power up has been purchased
      */
     @Override
-    public Boolean buyItem(final Player player, final PowerUp powerUp) {
+    public boolean buyItem(final Player player, final PowerUp powerUp) {
         if (player.getCoin() >= powerUp.getPrice()) {
             player.setCoin(player.getCoin() - powerUp.getPrice());
             powerUp.interact(player);
