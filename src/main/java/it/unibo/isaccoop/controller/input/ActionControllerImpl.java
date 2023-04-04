@@ -3,7 +3,7 @@ package it.unibo.isaccoop.controller.input;
  * Class that manages the pressure of the buttons,
  * saving only the last key pressed until it is used.
  */
-public class AntionControllerImpl implements ActionController {
+public class ActionControllerImpl implements ActionController {
 
     private final int keyEsc;
     private final int keyNextDoor;
@@ -17,7 +17,7 @@ public class AntionControllerImpl implements ActionController {
      * @param keyNextDoor
      * @param keyPrevDoor
      */
-    public AntionControllerImpl(final int keyEsc, final int keyNextDoor, final int keyPrevDoor) {
+    public ActionControllerImpl(final int keyEsc, final int keyNextDoor, final int keyPrevDoor) {
         super();
         this.keyEsc = keyEsc;
         this.keyNextDoor = keyNextDoor;
