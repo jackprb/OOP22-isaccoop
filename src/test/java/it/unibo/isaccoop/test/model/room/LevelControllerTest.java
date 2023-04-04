@@ -95,7 +95,7 @@ class LevelControllerTest {
         // the player is in room (0.0, 0.0), so there is not a previous room
         assertEquals(this.lvlController.getCurrentRoom().getCoords(), new Point2D(0.0, 0.0));
         // the player does not move, because there is not a previous room
-        this.lvlController.moveToPreviousRoom(); 
+        this.lvlController.getCurrentLevel().moveToPreviousRoom(); 
         // so the player is still in room (0.0, 0.0)
         assertEquals(this.lvlController.getCurrentRoom().getCoords(), new Point2D(0.0, 0.0));
     }
@@ -105,7 +105,7 @@ class LevelControllerTest {
         // the player is in room (0.0, 0.0), so the next room is room with coord (1.0, 0.0)
         assertEquals(this.lvlController.getCurrentRoom().getCoords(), new Point2D(0.0, 0.0));
         // the player moves to next room
-        this.lvlController.moveToNextRoom();
+        this.lvlController.getCurrentLevel().moveToNextRoom();
         // so the player is now in room (1.0, 0.0)
         assertEquals(this.lvlController.getCurrentRoom().getCoords(), new Point2D(1.0, 0.0));
     }
@@ -116,19 +116,19 @@ class LevelControllerTest {
         testMoveToPreviousRoom();
 
         // if player moves to room (1.0, 0.0)
-        this.lvlController.moveToNextRoom();
+        this.lvlController.getCurrentLevel().moveToNextRoom();
         assertEquals(this.lvlController.getCurrentRoom().getCoords(), new Point2D(1.0, 0.0));
 
         // and then to room (2.0, 0.0)
-        this.lvlController.moveToNextRoom();
+        this.lvlController.getCurrentLevel().moveToNextRoom();
         assertEquals(this.lvlController.getCurrentRoom().getCoords(), new Point2D(2.0, 0.0));
 
         // now the player can move back to room (1.0, 0.0)
-        this.lvlController.moveToPreviousRoom();
+        this.lvlController.getCurrentLevel().moveToPreviousRoom();
         assertEquals(this.lvlController.getCurrentRoom().getCoords(), new Point2D(1.0, 0.0));
 
         // and then to room (0.0, 0.0)
-        this.lvlController.moveToPreviousRoom();
+        this.lvlController.getCurrentLevel().moveToPreviousRoom();
         assertEquals(this.lvlController.getCurrentRoom().getCoords(), new Point2D(0.0, 0.0));
     }
 }

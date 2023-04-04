@@ -12,7 +12,7 @@ import it.unibo.isaccoop.model.common.Point2D;
  */
 public final class LevelFactoryImpl implements LevelFactory {
 
-    private static final int MAX_NUMBER_OF_ROOMS = 30;
+    private static final int MAX_NUMBER_OF_ROOMS = 10;
     private static final int MIN_NUMBER_OF_ROOMS = 6;
     private final LevelFactoryUtils lvlFactoryUtils = new LevelFactoryUtils();
     private final GameEngine engine;
