@@ -58,7 +58,12 @@ public class GameMenu {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 try {
-                    new GameEngineImpl().run();
+                    Thread thread = new Thread(){
+                        public void run(){
+                            new GameEngineImpl().run();
+                        }
+                     };
+                    thread.start();
                     hide();
                 } catch (Exception e1) {
                     JOptionPane.showMessageDialog(frame, e1, "Error", JOptionPane.ERROR_MESSAGE);
