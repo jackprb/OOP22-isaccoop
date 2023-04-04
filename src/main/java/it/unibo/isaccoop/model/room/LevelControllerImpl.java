@@ -2,12 +2,9 @@ package it.unibo.isaccoop.model.room;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import it.unibo.isaccoop.core.GameEngine;
-import it.unibo.isaccoop.model.common.Direction;
 import it.unibo.isaccoop.model.player.Player;
 
 /**
@@ -74,21 +71,6 @@ public final class LevelControllerImpl implements LevelController {
     }
 
     @Override
-    public Map<Direction, Room> getAccessibleRooms() {
-        return getCurrentLevel().getNearRooms();
-    }
-
-    @Override
-    public void moveToPreviousRoom() {
-        getPrevNextRoom(Direction.LEFT).ifPresent(r -> moveToRoom(r));
-    }
-
-    @Override
-    public void moveToNextRoom() {
-        getPrevNextRoom(Direction.RIGHT).ifPresent(r -> moveToRoom(r));
-    }
-
-    @Override
     public boolean isCurrentLevelComplete() {
         if (getCurrentLevel().isLevelComplete()) {
             goToNextLevel();
@@ -103,43 +85,9 @@ public final class LevelControllerImpl implements LevelController {
     }
 
     /**
-     * Utility method to check if the player can move to the specified room.
-     * @param room the room to move to
-     * @return true if the player can move to the given room, false otherwise
-     */
-    private boolean moveToRoom(final Room room) {
-        final Player player = getPlayer();
-        if (isValidNewRoom(room) && getCurrentRoom().isComplete() && getCurrentRoom().removePlayer()) {
-            room.addPlayer(player);
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Get the previous or next room of current room.
-     * @param dir {@link Direction#RIGHT} to get the next room,<br>
-     * {@link Direction#LEFT} to get the previous one
-     * @return the previous or next room of current room, or Optional.empty if not available
-     */
-    private Optional<Room> getPrevNextRoom(final Direction dir) {
-        final var prevNextRoom = getAccessibleRooms().entrySet().stream()
-                .filter(e -> e.getKey() == dir).findFirst();
-        if (prevNextRoom.isPresent()) {
-            return Optional.of(prevNextRoom.get().getValue());
-        }
-        return Optional.empty();
-    }
-
-    /**
      * Move the player to the next Level.
      */
     private void goToNextLevel() {
         this.currentLevelID++;
-    }
-
-    private boolean isValidNewRoom(final Room destRoom) {
-        return getCurrentRoom().getCoords().getX() - destRoom.getCoords().getX() <= 1.0
-                && getCurrentRoom().getCoords().getY() - destRoom.getCoords().getY() <= 1.0;
     }
 }
