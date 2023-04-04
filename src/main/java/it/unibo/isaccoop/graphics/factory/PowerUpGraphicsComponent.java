@@ -6,6 +6,13 @@ import it.unibo.isaccoop.graphics.GraphicsComponent;
 public interface PowerUpGraphicsComponent {
 
     /**
+     * Get damage up powerUp graphics component.
+     *
+     * @return Damage graphics component
+     * */
+    GraphicsComponent getDamageUpGraphicsComponent(Boolean isSuper);
+
+    /**
      * Get coin up powerUp graphics component.
      *
      * @return CoinUp graphics component

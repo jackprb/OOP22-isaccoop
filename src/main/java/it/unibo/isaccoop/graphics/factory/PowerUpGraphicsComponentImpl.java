@@ -2,36 +2,42 @@ package it.unibo.isaccoop.graphics.factory;
 
 import it.unibo.isaccoop.graphics.GraphicsComponent;
 
-public class PowerUpGraphicsComponentImpl implements PowerUpGraphicsComponent {
+public class PowerUpGraphicsComponentImpl extends AbstractGraphicsComponentFactory implements PowerUpGraphicsComponent {
+
+    @Override
+    public GraphicsComponent getDamageUpGraphicsComponent(Boolean isSuper) {
+        return isSuper ? super.getElementAsImageGraphicsComponent("damage_up.gif")
+                : super.getElementAsImageGraphicsComponent("damage_super_up.gif");
+    }
 
     @Override
     public GraphicsComponent getCoinUpGraphicsComponent(Boolean isSuper) {
-        return isSuper ? (obj, w) -> w.drawElementAsImage(obj, "coin.gif")
-                : (obj, w) -> w.drawElementAsImage(obj, "nonShootinhEnemy1.gif");
+        return isSuper ? super.getElementAsImageGraphicsComponent("coin_up.gif")
+                : super.getElementAsImageGraphicsComponent("coin_super_up.gif");
     }
 
     @Override
     public GraphicsComponent getHealthUpGraphicsComponent(Boolean isSuper) {
-        // TODO Auto-generated method stub
-        return null;
+        return isSuper ? super.getElementAsImageGraphicsComponent("health_up")
+                : super.getElementAsImageGraphicsComponent("health_super_up");
     }
 
     @Override
     public GraphicsComponent getRangeUpGraphicsComponent(Boolean isSuper) {
-        // TODO Auto-generated method stub
-        return null;
+        return isSuper ? super.getElementAsImageGraphicsComponent("range_up")
+                : super.getElementAsImageGraphicsComponent("range_super_up");
     }
 
     @Override
     public GraphicsComponent getSpeedUpGraphicsComponent(Boolean isSuper) {
-        // TODO Auto-generated method stub
-        return null;
+        return isSuper ? super.getElementAsImageGraphicsComponent("speed_up")
+                : super.getElementAsImageGraphicsComponent("speed_super_up");
     }
 
     @Override
     public GraphicsComponent getTearsUpGraphicsComponent(Boolean isSuper) {
-        // TODO Auto-generated method stub
-        return null;
+        return isSuper ? super.getElementAsImageGraphicsComponent("tears_up")
+                : super.getElementAsImageGraphicsComponent("tears_super_up");
     }
 
 }

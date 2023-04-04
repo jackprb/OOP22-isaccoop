@@ -2,11 +2,11 @@ package it.unibo.isaccoop.graphics.factory;
 
 import it.unibo.isaccoop.graphics.GraphicsComponent;
 /***/
-public class ItemGraphicsComponentImpl implements ItemGraphicsComponent {
+public class ItemGraphicsComponentImpl extends AbstractGraphicsComponentFactory implements ItemGraphicsComponent {
 
     @Override
     public GraphicsComponent getHeartGraphicsComponent() {
-        return (obj, w) -> w.drawElementAsImage(obj, "heart.gif");
+        return super.getElementAsImageGraphicsComponent("heart.gif");
     }
 
     @Override
