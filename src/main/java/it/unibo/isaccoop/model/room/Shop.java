@@ -1,32 +1,21 @@
 package it.unibo.isaccoop.model.room;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.commons.lang3.tuple.Pair;
-
+import it.unibo.isaccoop.model.player.Player;
+import it.unibo.isaccoop.model.powerup.PowerUp;
 
 /**
  * 
- * */
-public class Shop {
-    private final Map<Pair<Integer, Integer>, Integer> powerUPs = new HashMap<>();
-    /**
-     * @param powerUPs
-     * Generate of N_POWER_UP in the PowerUP list.
-     */
-    public Shop(final Map<Pair<Integer, Integer>, Integer> powerUPs) {
-        this.powerUPs.putAll(powerUPs);
-    }
- 
-    /**
-     * 
-     * @param heroPos
-     */
-    public void useItem(final Pair<Integer, Integer> heroPos) {
-        //final var powerUP = this.powerUPs.get(heroPos);
-        //powerUP.interact();
-        this.powerUPs.remove(heroPos);
-    }
+ * Interface that models the purchase of items in the shop.
+ *
+ */
+public interface Shop {
 
+    /**
+     * Method that applies the collected powerup to the player, if the player 
+     * has enough coins to buy it.
+     * @param player
+     * @param powerUp
+     * @return true if the power up has been purchased
+     */
+    Boolean buyItem(Player player, PowerUp powerUp);
 }

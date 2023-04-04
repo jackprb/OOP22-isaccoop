@@ -25,6 +25,8 @@ public interface MapElement {
      */
     BoundingBox getBox();
 
-    /***/
+    /**
+     * @param g
+     * */
     void updateGraphics(Graphics g);
 }

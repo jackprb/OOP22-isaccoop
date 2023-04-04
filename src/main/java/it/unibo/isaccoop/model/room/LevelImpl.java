@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import it.unibo.isaccoop.core.GameEngine;
+import it.unibo.isaccoop.graphics.PlayerGraphicsComponent;
 import it.unibo.isaccoop.model.common.Direction;
 import it.unibo.isaccoop.model.common.RoomType;
 import it.unibo.isaccoop.model.player.Player;
@@ -15,13 +17,15 @@ import it.unibo.isaccoop.model.player.Player;
 public final class LevelImpl implements Level {
 
     private final List<Room> rooms = new LinkedList<>();
-    private Optional<Player> player;
+    private final Optional<Player> player;
 
     /**
      * Empty Constructor.
+     * @param engine
      */
-    public LevelImpl() {
-        this.player = Optional.of(new Player(null, null));
+    public LevelImpl(final GameEngine engine) {
+        this.player = Optional.of(new Player(engine.getController("keyMove"), engine.getController("keyShot"),
+                                    new PlayerGraphicsComponent()));
     }
 
     @Override

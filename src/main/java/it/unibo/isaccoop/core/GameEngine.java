@@ -13,15 +13,18 @@ import it.unibo.isaccoop.controller.input.KeyboardInputController;
  * */
 public interface GameEngine {
     /**
-     * Method that initializes the initial game values.
+     * Method that starts the game engine.
      */
-    void initGame();
+    void run();
+
     /**
      * Method that returns the controllers present in the game engine.
      * @param name reference to specific controller.
      * @return controller indicated.
      */
     InputController getController(String name);
-    /***/
+    /**
+     * @return InputController refers to String name
+     */
     Collection<KeyboardInputController> getKeyboardInputControllers();
 }

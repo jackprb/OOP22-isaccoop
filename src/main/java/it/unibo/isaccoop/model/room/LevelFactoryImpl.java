@@ -31,7 +31,7 @@ public final class LevelFactoryImpl implements LevelFactory {
                 MAX_NUMBER_OF_ROOMS - MIN_NUMBER_OF_ROOMS) + MIN_NUMBER_OF_ROOMS;
         final List<Point2D> roomCoords = lvlFactoryUtils.generateRoomCoordinates(numberOfRooms);
         final List<Room> rooms = createRooms(roomCoords);
-        final Level lvl = new LevelImpl();
+        final Level lvl = new LevelImpl(this.engine);
         lvl.putRooms(rooms);
         return lvl;
     }
