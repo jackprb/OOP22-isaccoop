@@ -7,6 +7,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.unibo.isaccoop.core.GameEngineImpl;
 import it.unibo.isaccoop.model.common.RoomType;
 import it.unibo.isaccoop.model.room.Level;
 import it.unibo.isaccoop.model.room.LevelFactory;
@@ -29,7 +30,7 @@ class LevelFactoryTest {
     private static final int POWERUP_COUNT_IN_TREASURE_ROOM = 1;
     private static final int BOSS_COUNT = 1;
 
-    private final LevelFactory lvlFactory = new LevelFactoryImpl(null);
+    private final LevelFactory lvlFactory = new LevelFactoryImpl(new GameEngineImpl());
     private Level lvl;
     private List<Room> rooms;
 
