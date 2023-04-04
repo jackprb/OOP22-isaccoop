@@ -149,8 +149,8 @@ public abstract class AbstractMapElement implements MapElement {
         if (getClass() != obj.getClass())
             return false;
         AbstractMapElement other = (AbstractMapElement) obj;
-        return Objects.equals(coords.getX(), other.coords.getX()) &&
-                Objects.equals(coords.getY(), other.coords.getY());
+        return Double.compare(coords.getX(), other.coords.getX()) == 0 &&
+                Double.compare(coords.getY(), other.coords.getY()) == 0;
     }
 
 }
