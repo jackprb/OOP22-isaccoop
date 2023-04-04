@@ -1,11 +1,15 @@
 package it.unibo.isaccoop.graphics;
 
-import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -25,14 +29,30 @@ public class GameMenu {
      * 
      */
     public GameMenu() {
-        final JPanel canvas = new JPanel();
-
-        canvas.setLayout(new BorderLayout());
-        canvas.add(play, BorderLayout.PAGE_START);
-        canvas.add(help, BorderLayout.CENTER);
-        canvas.add(quit, BorderLayout.PAGE_END);
-        this.frame.setContentPane(canvas);
+        this.frame.getContentPane().setLayout(new BoxLayout(this.frame.getContentPane(), BoxLayout.Y_AXIS));
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        final JPanel canvas = new JPanel();
+        final JPanel buttons = new JPanel();
+        final JLabel title = new JLabel("Isaccopp");
+        title.setFont(new Font("Arial", Font.PLAIN, 40));
+
+        canvas.add(title);
+        buttons.add(play);
+        buttons.add(help);
+        buttons.add(quit);
+
+        canvas.setAlignmentX(Component.CENTER_ALIGNMENT);
+        canvas.setPreferredSize(new Dimension(300, 500));
+        canvas.setMaximumSize(new Dimension(300, 500));
+
+        buttons.setAlignmentX(Component.CENTER_ALIGNMENT);
+        buttons.setAlignmentY(Component.CENTER_ALIGNMENT);
+        buttons.setPreferredSize(new Dimension(100, 1000));
+        buttons.setMaximumSize(new Dimension(100, 500));
+
+        frame.getContentPane().add(canvas);
+        frame.getContentPane().add(buttons);
 
         play.addActionListener(new ActionListener() {
             @Override
@@ -76,7 +96,7 @@ public class GameMenu {
     /***/
     public void display() {
         this.frame.setLocationByPlatform(true);
-        this.frame.pack();
+        this.frame.setSize(800, 400);
         this.frame.setVisible(true);
     }
 
