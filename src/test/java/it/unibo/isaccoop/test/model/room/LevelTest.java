@@ -46,7 +46,7 @@ class LevelTest {
     void testPutRooms() {
         // generate another List<Room>, made of 5 rooms, one for each RoomType
         for (final RoomType roomType: RoomType.values()) {
-            this.otherRoomList.add(new RoomFactoryImpl(RoomType.values().length, null)
+            this.otherRoomList.add(new RoomFactoryImpl(RoomType.values().length)
                     .buildRoomInProperOrder(new Point2D(roomType.ordinal(), 0)));
         }
 
