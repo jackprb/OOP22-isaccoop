@@ -3,11 +3,11 @@ package it.unibo.isaccoop.graphics.factory;
 import it.unibo.isaccoop.graphics.GraphicsComponent;
 
 /***/
-public final class ConcreteRoomGraphicsComponentFactory implements RoomGraphicsComponentFactory {
+public final class ConcreteRoomGraphicsComponentFactory extends AbstractGraphicsComponentFactory implements RoomGraphicsComponentFactory {
 
     @Override
     public GraphicsComponent getRoomGraphicsComponent() {
-        return (obj, w) -> w.drawElementAsImage(obj, "floor.png");
+        return super.getElementAsImageGraphicsComponent("floor.png");
     }
 
 }
