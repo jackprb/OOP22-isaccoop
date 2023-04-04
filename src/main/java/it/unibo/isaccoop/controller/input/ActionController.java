@@ -12,13 +12,13 @@ public interface ActionController {
 
     /**
      * 
-     * @return true if NextDoor button has been pressed
+     * @return true if NextRoom button has been pressed
      */
-    boolean isNextDoor();
+    boolean isNextRoom();
 
     /**
      * 
-     * @return true if PrevDoor button has been pressed
+     * @return true if PrevRoom button has been pressed
      */
-    boolean isPrevDoor();
+    boolean isPrevRoom();
 }

@@ -6,22 +6,22 @@ package it.unibo.isaccoop.controller.input;
 public class ActionControllerImpl implements ActionController {
 
     private final int keyEsc;
-    private final int keyNextDoor;
-    private final int keyPrevDoor;
+    private final int keyNextRoom;
+    private final int keyPrevRoom;
 
     private boolean isEsc;
-    private boolean isNextDoor;
-    private boolean isPrevDoor;
+    private boolean isNextRoom;
+    private boolean isPrevRoom;
     /**
      * @param keyEsc
-     * @param keyNextDoor
-     * @param keyPrevDoor
+     * @param keyNextRoom
+     * @param keyPrevRoom
      */
-    public ActionControllerImpl(final int keyEsc, final int keyNextDoor, final int keyPrevDoor) {
+    public ActionControllerImpl(final int keyEsc, final int keyNextRoom, final int keyPrevRoom) {
         super();
         this.keyEsc = keyEsc;
-        this.keyNextDoor = keyNextDoor;
-        this.keyPrevDoor = keyPrevDoor;
+        this.keyNextRoom = keyNextRoom;
+        this.keyPrevRoom = keyPrevRoom;
     }
 
     /**
@@ -32,10 +32,10 @@ public class ActionControllerImpl implements ActionController {
         this.setAllFalse();
         if (keyCode == this.keyEsc) {
             this.isEsc = true;
-        } else if (keyCode == this.keyNextDoor) {
-            this.isNextDoor = true;
-        } else if (keyCode == this.keyPrevDoor) {
-            this.isPrevDoor = true;
+        } else if (keyCode == this.keyNextRoom) {
+            this.isNextRoom = true;
+        } else if (keyCode == this.keyPrevRoom) {
+            this.isPrevRoom = true;
         }
     }
 
@@ -44,8 +44,8 @@ public class ActionControllerImpl implements ActionController {
      */
     private void setAllFalse() {
         this.isEsc = false;
-        this.isNextDoor = false;
-        this.isPrevDoor = false;
+        this.isNextRoom = false;
+        this.isPrevRoom = false;
     }
 
     /**
@@ -64,8 +64,8 @@ public class ActionControllerImpl implements ActionController {
      * {@inheritDoc}
      */
     @Override
-    public boolean isNextDoor() {
-        if (this.isNextDoor) {
+    public boolean isNextRoom() {
+        if (this.isNextRoom) {
             this.setAllFalse();
             return true;
         }
@@ -76,8 +76,8 @@ public class ActionControllerImpl implements ActionController {
      * {@inheritDoc}
      */
     @Override
-    public boolean isPrevDoor() {
-        if (this.isPrevDoor) {
+    public boolean isPrevRoom() {
+        if (this.isPrevRoom) {
             this.setAllFalse();
             return true;
         }
