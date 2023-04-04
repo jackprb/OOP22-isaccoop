@@ -1,5 +1,6 @@
 package it.unibo.isaccoop.model.item;
 
+import it.unibo.isaccoop.graphics.GraphicsComponent;
 import it.unibo.isaccoop.model.common.AbstractMapElement;
 import it.unibo.isaccoop.model.player.PlayerStat;
 
@@ -11,8 +12,8 @@ public abstract class AbstractItem extends AbstractMapElement implements Item {
     /**
      * Constructor.
      */
-    public AbstractItem() {
-        super(ElementsRadius.ITEM);
+    public AbstractItem(GraphicsComponent gr) {
+        super(ElementsRadius.ITEM, gr);
     }
 
     /**

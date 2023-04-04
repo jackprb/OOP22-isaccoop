@@ -2,6 +2,7 @@ package it.unibo.isaccoop.model.enemy;
 
 import java.util.Optional;
 
+import it.unibo.isaccoop.graphics.factory.ConcreteEnemyGraphicsComponentFactory;
 import it.unibo.isaccoop.model.action.NonShootingHitStrategy;
 import it.unibo.isaccoop.model.action.NonShootingMovementStrategy;
 import it.unibo.isaccoop.model.action.ShootingHitStrategy;
@@ -34,7 +35,8 @@ public class Boss extends AbstractEnemy {
      * Boss constructor.
      * */
     public Boss() {
-        super(EnemyHearts.BOSS_HEARTS, new NonShootingHitStrategy(), new NonShootingMovementStrategy());
+        super(EnemyHearts.BOSS_HEARTS, new NonShootingHitStrategy(), new NonShootingMovementStrategy(),
+                new ConcreteEnemyGraphicsComponentFactory().getBossGraphicsComponent());
         this.lastChangeTime = System.currentTimeMillis();
         this.isShotBoss = false;
     }
