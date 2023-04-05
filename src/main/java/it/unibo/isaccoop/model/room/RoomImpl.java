@@ -27,7 +27,6 @@ public final class RoomImpl extends MapElementImpl implements Room {
     private final Optional<List<PowerUp>> powerups;
     private Optional<Player> player;
     private final Queue<Event> eventsQueue;
-    private final Optional<List<Enemy>> enemies;
 
     /**
      * Use {@link RoomFactory} to create a new {@link Room}.
@@ -39,13 +38,11 @@ public final class RoomImpl extends MapElementImpl implements Room {
      * @param items the items in this room
      * @param powerups the powerups in this room
      * @param player the player
-     * @param enemies the list of enemies
      */
     public RoomImpl(final int width, final int height,
             final Point2D coord, final RoomType roomType,
             final Optional<AIEnemy> roomAI, final Optional<List<Item>> items,
-            final Optional<List<PowerUp>> powerups, final Optional<Player> player,
-            final Optional<List<Enemy>> enemies) {
+            final Optional<List<PowerUp>> powerups, final Optional<Player> player) {
         super(width, height);
         super.setCoords(coord);
         this.roomType = roomType;
@@ -54,7 +51,6 @@ public final class RoomImpl extends MapElementImpl implements Room {
         this.powerups = powerups;
         this.player = player;
         this.eventsQueue = new ArrayDeque<>();
-        this.enemies = enemies;
     }
 
     @Override
@@ -84,7 +80,7 @@ public final class RoomImpl extends MapElementImpl implements Room {
 
     @Override
     public Optional<List<Enemy>> getEnemies() {
-        return this.enemies;
+        return Optional.of(this.roomAi.get().getControlledEnemies());
     }
 
     @Override
@@ -132,7 +128,7 @@ public final class RoomImpl extends MapElementImpl implements Room {
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + Objects.hash(super.getCoords(), enemies, items, player, powerups, roomAi, roomType);
+        result = prime * result + Objects.hash(super.getCoords(), items, player, powerups, roomAi, roomType);
         return result;
     }
 
@@ -148,7 +144,7 @@ public final class RoomImpl extends MapElementImpl implements Room {
             return false;
         }
         final RoomImpl other = (RoomImpl) obj;
-        return Objects.equals(enemies, other.enemies) && Objects.equals(items, other.items)
+        return Objects.equals(items, other.items)
                 && Objects.equals(player, other.player) && Objects.equals(powerups, other.powerups)
                 && Objects.equals(roomAi, other.roomAi) && roomType == other.roomType;
     }
@@ -159,10 +155,11 @@ public final class RoomImpl extends MapElementImpl implements Room {
      */
     private boolean completionConditions() {
         // NON STANDARD and NOT BOSS rooms are already complete (there are no enemies)
-        if (this.enemies.isEmpty()) {
+        if (this.roomAi.isEmpty()) {
             return true;
         }
         // STANDARD and BOSS rooms: if the player has defeated all enemies -> the room is complete
-        return this.enemies.isPresent() && this.enemies.get().stream().allMatch(e -> e.isDead());
+        return this.roomAi.isPresent() && this.roomAi.get().getControlledEnemies().stream()
+                .allMatch(e -> e.isDead());
     }
 }
