@@ -63,7 +63,7 @@ public final class GameEngineImpl implements GameEngine {
         this.actionController = new ActionControllerImpl(VK_ESCAPE, VK_N, VK_P);
         var gameState = new LevelControllerImpl(GameEngineImpl.MAX_ROOMS, this).getCurrentLevel();
         this.gameLoop = new GameLoopImpl(new SwingScene(gameState, this, WIDTH, HEIGHT, WIDTH_RATIO, HEIGHT_RATIO),
-                gameState);
+                gameState, this.getActionController());
 
     }
     /**

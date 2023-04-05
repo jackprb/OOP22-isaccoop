@@ -22,7 +22,7 @@ public class TestEnemy {
     GameEngine gameEngine = new GameEngineImpl();
     LevelController gameState = new LevelControllerImpl(MAX_ROOMS, gameEngine);
     GameLoop gameLoop = new GameLoopImpl(new SwingScene(gameState.getCurrentLevel(), gameEngine, WIDTH, HEIGHT, WIDTH_RATIO, HEIGHT_RATIO),
-            gameState.getCurrentLevel());
+            gameState.getCurrentLevel(), gameEngine.getActionController());
 
     @Test
     void testEnemyGraphics() {
