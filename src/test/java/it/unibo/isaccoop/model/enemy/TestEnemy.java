@@ -1,10 +1,14 @@
 package it.unibo.isaccoop.model.enemy;
 
+import static java.awt.event.KeyEvent.VK_ESCAPE;
+import static java.awt.event.KeyEvent.VK_N;
+import static java.awt.event.KeyEvent.VK_P;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import it.unibo.isaccoop.controller.input.ActionControllerImpl;
 import it.unibo.isaccoop.core.GameEngine;
 import it.unibo.isaccoop.core.GameEngineImpl;
 import it.unibo.isaccoop.core.GameLoop;
@@ -23,7 +27,7 @@ public class TestEnemy {
     GameEngine gameEngine = new GameEngineImpl();
     LevelController gameState = new LevelControllerImpl(MAX_ROOMS, gameEngine);
     GameLoop gameLoop = new GameLoopImpl(new SwingScene(gameState.getCurrentLevel(), gameEngine, WIDTH, HEIGHT),
-            gameState.getCurrentLevel());
+            gameState.getCurrentLevel(), new ActionControllerImpl(VK_ESCAPE, VK_N, VK_P));
 
     public TestEnemy() {
         this.moveToStandardRoom();

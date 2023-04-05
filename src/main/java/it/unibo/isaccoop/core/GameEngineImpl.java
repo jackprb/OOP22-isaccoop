@@ -1,12 +1,12 @@
 package it.unibo.isaccoop.core;
 
 import static java.awt.event.KeyEvent.VK_A;
-import static java.awt.event.KeyEvent.VK_N;
-import static java.awt.event.KeyEvent.VK_P;
-import static java.awt.event.KeyEvent.VK_ESCAPE;
 import static java.awt.event.KeyEvent.VK_D;
 import static java.awt.event.KeyEvent.VK_DOWN;
+import static java.awt.event.KeyEvent.VK_ESCAPE;
 import static java.awt.event.KeyEvent.VK_LEFT;
+import static java.awt.event.KeyEvent.VK_N;
+import static java.awt.event.KeyEvent.VK_P;
 import static java.awt.event.KeyEvent.VK_RIGHT;
 import static java.awt.event.KeyEvent.VK_S;
 import static java.awt.event.KeyEvent.VK_UP;
@@ -61,11 +61,11 @@ public final class GameEngineImpl implements GameEngine {
         this.actionController = new ActionControllerImpl(VK_ESCAPE, VK_N, VK_P);
         var gameState = new LevelControllerImpl(GameEngineImpl.MAX_ROOMS, this).getCurrentLevel();
         this.gameLoop = new GameLoopImpl(new SwingScene(gameState, this, WIDTH, HEIGHT),
-                gameState);
+                gameState, this.actionController);
 
     }
     /**
-     * {@inheritDoc} 
+     * {@inheritDoc}
      */
     @Override
     public InputController getController(final String name) {
