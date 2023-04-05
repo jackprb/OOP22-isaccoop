@@ -18,12 +18,14 @@ public final class LevelImpl implements Level {
 
     private final List<Room> rooms = new LinkedList<>();
     private final Optional<Player> player;
+    private final Minimap minimap;
 
     /**
      * Empty Constructor.
      * @param engine
      */
     public LevelImpl(final GameEngine engine) {
+        this.minimap = new MinimapImpl();
         this.player = Optional.of(new Player(engine.getController("keyMove"), engine.getController("keyShot"),
                                     new ConcretePlayerGraphicsComponentFactory().getPlayerGraphicsComponent()));
     }
@@ -92,6 +94,11 @@ public final class LevelImpl implements Level {
     @Override
     public void moveToNextRoom() {
         getPrevNextRoom(Direction.RIGHT).ifPresent(r -> moveToRoom(r));
+    }
+
+    @Override
+    public Minimap getMinimap() {
+        return this.minimap;
     }
 
     /**

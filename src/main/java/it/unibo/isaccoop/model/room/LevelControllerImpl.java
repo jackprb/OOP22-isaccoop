@@ -14,7 +14,6 @@ public final class LevelControllerImpl implements LevelController {
 
     private final List<Level> lvl = new LinkedList<>();
     private int currentLevelID;
-    private final Minimap minimap;
 
     /**
      * Create a game with the specified number of levels.
@@ -27,8 +26,6 @@ public final class LevelControllerImpl implements LevelController {
         Stream.iterate(0, i -> i + 1)
             .limit(numberOfLevels)
             .forEach(r -> this.lvl.add(lvlFactory.createLevel()));
-        this.minimap = new MinimapImpl();
-        updateMinimap();
     }
 
     @Override
@@ -87,23 +84,10 @@ public final class LevelControllerImpl implements LevelController {
         return this.lvl.stream().allMatch(l -> l.isLevelComplete());
     }
 
-    @Override
-    public Minimap getMinimap() {
-        return this.minimap;
-    }
-
     /**
      * Move the player to the next Level.
      */
     private void goToNextLevel() {
         this.currentLevelID++;
-        updateMinimap();
-    }
-
-    /**
-     * Update the minimap, when a level is complete and before moving to the next one.
-     */
-    private void updateMinimap() {
-        this.minimap.setLevel(getCurrentLevel());
     }
 }
