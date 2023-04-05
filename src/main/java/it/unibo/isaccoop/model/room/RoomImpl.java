@@ -80,6 +80,9 @@ public final class RoomImpl extends MapElementImpl implements Room {
 
     @Override
     public Optional<List<Enemy>> getEnemies() {
+        if (this.roomAi.isEmpty()) {
+            return Optional.empty();
+        }
         return Optional.of(this.roomAi.get().getControlledEnemies());
     }
 
