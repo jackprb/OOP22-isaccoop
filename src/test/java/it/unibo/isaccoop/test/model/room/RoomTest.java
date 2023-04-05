@@ -55,8 +55,7 @@ class RoomTest {
             // even if in the game this must not happen (this is only to check that the getters are
             // working properly)
             this.rooms.put(type, new RoomImpl(getRandomNumber(), getRandomNumber(), generateCoord(), type,
-                    Optional.of(aienemy), Optional.of(items), Optional.of(powerups), Optional.of(player),
-                    Optional.of(enemies)));
+                    Optional.of(aienemy), Optional.of(items), Optional.of(powerups), Optional.of(player)));
         }
     }
 
@@ -88,12 +87,6 @@ class RoomTest {
     void testGetPlayer() {
         assertTrue(this.rooms.values().stream()
                 .allMatch(r -> r.getPlayer().get() == this.player));
-    }
-
-    @Test
-    void testGetEnemies() {
-        assertTrue(this.rooms.values().stream()
-                .allMatch(r -> r.getEnemies().get() == this.enemies));
     }
 
     @Test
