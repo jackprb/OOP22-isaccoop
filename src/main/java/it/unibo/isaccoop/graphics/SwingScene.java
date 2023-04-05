@@ -20,6 +20,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import it.unibo.isaccoop.controller.input.ActionControllerImpl;
 import it.unibo.isaccoop.controller.input.KeyboardInputController;
 import it.unibo.isaccoop.core.GameEngine;
 import it.unibo.isaccoop.model.room.Level;
@@ -187,6 +188,7 @@ public class SwingScene implements Scene {
             for (final KeyboardInputController ctrl: engine.getKeyboardInputControllers()) {
                 ctrl.notifyKeyPressed(e.getKeyCode());
             }
+            engine.getActionController().notifyKeyPressed(e.getKeyCode());
         }
         /**
          * @param e reference to KeyEvent.
