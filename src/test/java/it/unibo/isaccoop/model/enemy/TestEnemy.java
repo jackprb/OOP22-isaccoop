@@ -1,5 +1,8 @@
 package it.unibo.isaccoop.model.enemy;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
 import it.unibo.isaccoop.core.GameEngine;
@@ -24,16 +27,25 @@ public class TestEnemy {
     GameLoop gameLoop = new GameLoopImpl(new SwingScene(gameState.getCurrentLevel(), gameEngine, WIDTH, HEIGHT, WIDTH_RATIO, HEIGHT_RATIO),
             gameState.getCurrentLevel());
 
+    public TestEnemy() {
+        this.moveToStandardRoom();
+    }
+
     @Test
-    void testEnemyGraphics() {
-        gameState.getCurrentLevel().moveToNextRoom();
-        gameState.getCurrentLevel().moveToNextRoom();
-        gameState.getCurrentLevel().moveToNextRoom();
+    public void testEnemyRemove() {
         var ai = gameState.getCurrentLevel().getCurrentRoom().getRoomAI().get();
-
-
         gameState.getCurrentLevel().getCurrentRoom().getEnemies().ifPresent(l -> l.forEach(e -> ai.remove(e)));
+        gameState.getCurrentLevel().getCurrentRoom().getEnemies().ifPresent(l -> assertEquals(0, l.size()));
+    }
 
-        gameEngine.run();
+    @Test
+    public void testEnemyView() {
+        assertDoesNotThrow(() -> this.gameEngine.run());
+    }
+
+    private void moveToStandardRoom() {
+        gameState.getCurrentLevel().moveToNextRoom();
+        gameState.getCurrentLevel().moveToNextRoom();
+        gameState.getCurrentLevel().moveToNextRoom();
     }
 }

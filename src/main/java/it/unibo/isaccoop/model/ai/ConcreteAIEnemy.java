@@ -29,11 +29,8 @@ public class ConcreteAIEnemy implements AIEnemy {
         });
     }
 
-    /**
-     * Get controlled enemies list of this {@link ConcreteAIEnemy}.
-     *
-     * @return controlled enemies list
-     * */
+    /***/
+    @Override
     public List<Enemy> getControlledEnemies() {
         return List.copyOf(this.controlledEnemies);
     }

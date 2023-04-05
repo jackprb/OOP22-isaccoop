@@ -1,7 +1,10 @@
 package it.unibo.isaccoop.model.ai;
 
+import java.util.List;
+
 import it.unibo.isaccoop.model.common.MapElement;
 import it.unibo.isaccoop.model.common.Removable;
+import it.unibo.isaccoop.model.enemy.Enemy;
 
 /***/
 public interface AIEnemy extends Removable {
@@ -12,5 +15,12 @@ public interface AIEnemy extends Removable {
      * @param player player in game in order to handle enemy actions
      * */
     void updateEnemies(MapElement player);
+
+    /**
+     * Get controlled enemies list of this {@link ConcreteAIEnemy}.
+     *
+     * @return controlled enemies list
+     * */
+    List<Enemy> getControlledEnemies();
 
 }
