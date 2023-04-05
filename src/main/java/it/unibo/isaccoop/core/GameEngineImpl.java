@@ -77,8 +77,8 @@ public final class GameEngineImpl implements GameEngine {
      * {@inheritDoc}
      */
     @Override
-    public ActionController getActionController() {
-        return this.actionController;
+    public ActionControllerImpl getActionController() {
+        return ((ActionControllerImpl) this.actionController);
     }
     /**
      * {@inheritDoc}
