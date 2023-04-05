@@ -53,4 +53,9 @@ public abstract class AbstractGUIFrame implements GUIFrame {
     public void setResizeProportion(final int proportion) {
         this.frameResizeProportion = proportion;
     }
+
+    @Override
+    public JFrame getJFrame() {
+        return this.frame;
+    }
 }

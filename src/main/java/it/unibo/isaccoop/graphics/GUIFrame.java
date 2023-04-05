@@ -36,4 +36,10 @@ public interface GUIFrame {
      * Method to set the resize proportion of a {@link JFrame}, depending on the sceen dimension.
      */
     void setResizeProportion(int proportion);
+
+    /**
+     * Get the {@link JFrame}.
+     * @return the Jframe
+     */
+    JFrame getJFrame();
 }
