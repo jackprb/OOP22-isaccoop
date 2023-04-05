@@ -138,7 +138,7 @@ public class RoomBuilder {
             if (areThereMinimumRequirements() && canBuildRoom()) {
                 return new RoomImpl(this.width, this.height, this.coord.get(),
                         this.roomType.get(), this.roomAI, this.items, this.powerups, 
-                        this.player, this.enemies);
+                        this.player);
             }
             throw new IllegalStateException(INCORRECT_ROOM_CONFIG);
         }
