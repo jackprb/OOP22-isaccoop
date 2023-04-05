@@ -13,11 +13,11 @@ import org.junit.jupiter.api.Test;
  * Class to test item.
  *
  */
-public class TestItem {
-    private PlayerStat stat = new PlayerStatImpl(null);
-    private Item coin = new Coin();
-    private Item heart = new Heart();
-    private PowerUp damageUp = new DamageUp();
+class TestItem {
+    private final PlayerStat stat = new PlayerStatImpl(null);
+    private final Item coin = new Coin();
+    private final Item heart = new Heart();
+    private final PowerUp damageUp = new DamageUp();
 
     /***/
     @Test
