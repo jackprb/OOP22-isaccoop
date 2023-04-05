@@ -1,6 +1,9 @@
 package it.unibo.isaccoop.core;
 
 import static java.awt.event.KeyEvent.VK_A;
+import static java.awt.event.KeyEvent.VK_N;
+import static java.awt.event.KeyEvent.VK_P;
+import static java.awt.event.KeyEvent.VK_ESCAPE;
 import static java.awt.event.KeyEvent.VK_D;
 import static java.awt.event.KeyEvent.VK_DOWN;
 import static java.awt.event.KeyEvent.VK_LEFT;
@@ -14,6 +17,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import it.unibo.isaccoop.controller.input.ActionController;
+import it.unibo.isaccoop.controller.input.ActionControllerImpl;
 import it.unibo.isaccoop.controller.input.InputController;
 import it.unibo.isaccoop.controller.input.KeyboardInputController;
 import it.unibo.isaccoop.graphics.SwingScene;
@@ -25,6 +30,7 @@ import it.unibo.isaccoop.model.room.LevelControllerImpl;
 public final class GameEngineImpl implements GameEngine {
 
     private final Map<String, InputController> controllers = new HashMap<>();
+    private ActionController actionController;
     private GameLoop gameLoop;
 
     private static final int MAX_ROOMS = 5;
@@ -40,6 +46,9 @@ public final class GameEngineImpl implements GameEngine {
         this.initGame();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void run() {
         this.gameLoop.gameLoop();
@@ -51,17 +60,29 @@ public final class GameEngineImpl implements GameEngine {
     private void initGame() {
         this.controllers.put("keyMove", new KeyboardInputController(VK_W, VK_S, VK_A, VK_D));
         this.controllers.put("keyShot", new KeyboardInputController(VK_UP, VK_DOWN, VK_LEFT, VK_RIGHT));
+        this.actionController = new ActionControllerImpl(VK_ESCAPE, VK_N, VK_P);
         var gameState = new LevelControllerImpl(GameEngineImpl.MAX_ROOMS, this).getCurrentLevel();
         this.gameLoop = new GameLoopImpl(new SwingScene(gameState, this, WIDTH, HEIGHT, WIDTH_RATIO, HEIGHT_RATIO),
-                gameState);
+                gameState, this.getActionController());
 
     }
-    /***/
+    /**
+     * {@inheritDoc} 
+     */
     @Override
     public InputController getController(final String name) {
         return this.controllers.get(name);
     }
-    /***/
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ActionControllerImpl getActionController() {
+        return ((ActionControllerImpl) this.actionController);
+    }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Collection<KeyboardInputController> getKeyboardInputControllers() {
         final Collection<KeyboardInputController> contr = new ArrayList<>();
@@ -71,6 +92,6 @@ public final class GameEngineImpl implements GameEngine {
                 }
         }
         return contr;
-}
+    }
 
 }

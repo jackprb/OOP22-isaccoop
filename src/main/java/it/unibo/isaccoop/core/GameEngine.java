@@ -6,6 +6,7 @@ package it.unibo.isaccoop.core;
 
 import java.util.Collection;
 
+import it.unibo.isaccoop.controller.input.ActionControllerImpl;
 import it.unibo.isaccoop.controller.input.InputController;
 import it.unibo.isaccoop.controller.input.KeyboardInputController;
 /**
@@ -23,6 +24,13 @@ public interface GameEngine {
      * @return controller indicated.
      */
     InputController getController(String name);
+
+    /**
+     * Method that returns the ActionController present in the game engine.
+     * @return actionController indicated.
+     */
+    ActionControllerImpl getActionController();
+
     /**
      * @return InputController refers to String name
      */
