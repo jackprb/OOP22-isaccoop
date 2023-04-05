@@ -1,5 +1,6 @@
 package it.unibo.isaccoop.model.powerup;
 
+import it.unibo.isaccoop.graphics.GraphicsComponent;
 import it.unibo.isaccoop.graphics.factory.PowerUpGraphicsComponentImpl;
 import it.unibo.isaccoop.model.player.PlayerStat;
 
@@ -8,12 +9,12 @@ import it.unibo.isaccoop.model.player.PlayerStat;
  * */
 public class DamageUp extends PowerUp {
 
-    private static final float DAMAGE_SUPER_UP = 1;
-    private static final float DAMAGE_UP = 2;
+    private static final float DAMAGE_SUPER_UP = 2;
+    private static final float DAMAGE_UP = 1;
 
     /***/
     public DamageUp() {
-        super(new PowerUpGraphicsComponentImpl().getDamageUpGraphicsComponent(isSuperItem()));
+        super(new PowerUpGraphicsComponentImpl().getDamageUpGraphicsComponent(false));
     }
 
     /**
@@ -27,7 +28,12 @@ public class DamageUp extends PowerUp {
         } else {
             p.setDamage(p.getDamage() + DAMAGE_UP);
         }
+    }
 
+    /***/
+    @Override
+    protected GraphicsComponent updateSuperGraphics(final Boolean isSuper) {
+        return new PowerUpGraphicsComponentImpl().getDamageUpGraphicsComponent(isSuper);
     }
 
 }
