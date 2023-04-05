@@ -22,8 +22,8 @@ import it.unibo.isaccoop.model.room.Room;
  */
 public class MinimapGUI extends JPanel {
 
-    private static final int MIN_WIDTH_FRAME = 500;
-    private static final int MIN_HEIGHT_FRAME = 300;
+    private static final int PANEL_WIDTH = 1300;
+    private static final int PANEL_HEIGHT = 100;
     private static final Font FONT = new Font("Verdana", Font.PLAIN, 12);
     private static final String TITLE = "Minimap";
     private static final Map<CellStatus, Color> COLOR_MAP = Map.of(
@@ -57,17 +57,20 @@ public class MinimapGUI extends JPanel {
 
     /**
      * Create a new GUI for {@link Minimap}.
+     * @param minimapHeight
+     * @param roomWidth
      */
-    public MinimapGUI(final Level level) {
+    public MinimapGUI(final Level level, final int roomWidth, final int minimapHeight) {
         this.lvl = level;
 
         // main layout
+        this.setSize(roomWidth, minimapHeight);
         this.setLayout(new BorderLayout());
         // layout where to place the rooms
-        final JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        final JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         this.add(centerPanel, BorderLayout.CENTER);
         // flow layout where to place some information about the current level
-        final JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        final JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         topPanel.add(lblInfoRoom);
         this.add(topPanel, BorderLayout.NORTH);
 
@@ -109,7 +112,7 @@ public class MinimapGUI extends JPanel {
      * @return a string that contains information about status of current room
      */
     private String getRoomStatusString() {
-        return "rooms completed: " + lvl.getMinimap().getCompletedRooms().size()
+        return "Rooms Completed: " + lvl.getMinimap().getCompletedRooms().size()
             + " of " + lvl.getRooms().size();
     }
 

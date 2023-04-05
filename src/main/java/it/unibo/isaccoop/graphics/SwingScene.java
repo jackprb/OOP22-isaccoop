@@ -20,7 +20,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import it.unibo.isaccoop.controller.input.ActionControllerImpl;
 import it.unibo.isaccoop.controller.input.KeyboardInputController;
 import it.unibo.isaccoop.core.GameEngine;
 import it.unibo.isaccoop.model.room.Level;
@@ -38,6 +37,11 @@ public class SwingScene implements Scene {
     private static final int SCORE_FONT = 36;
     private static final int GAME_OVER_FONT = 88;
 
+    private static final int ROOM_WIDTH = 1370;
+    private static final int ROOM_HEIGHT = 760;
+    private static final int MINIMAP_HEIGHT = 100;
+
+
     /**
      *
      * @param gameState
@@ -47,19 +51,18 @@ public class SwingScene implements Scene {
      * @param width
      * @param height
      */
-    public SwingScene(final Level gameState, final GameEngine engine,
-            final int w, final int h) {
+    public SwingScene(final Level gameState, final GameEngine engine) {
 
         final JPanel containerPanel = new JPanel(new BorderLayout());
         frame = new JFrame("Isaccoop");
-        frame.setSize(w, h);
-        frame.setMinimumSize(new Dimension(w, h));
+        frame.setSize(ROOM_WIDTH, ROOM_HEIGHT + MINIMAP_HEIGHT);
+        frame.setMinimumSize(new Dimension(ROOM_WIDTH, ROOM_HEIGHT + MINIMAP_HEIGHT));
         frame.setResizable(false);
         this.gameState = gameState;
         this.engine = engine;
-        containerPanel.add(new ScenePanel(w, h, gameState.getCurrentRoom().getWidth(), gameState.getCurrentRoom().getHeight()),
+        containerPanel.add(new ScenePanel(ROOM_WIDTH, ROOM_HEIGHT, gameState.getCurrentRoom().getWidth(), gameState.getCurrentRoom().getHeight()),
                 BorderLayout.CENTER);
-        containerPanel.add(new MinimapGUI(gameState), BorderLayout.PAGE_END);
+        containerPanel.add(new MinimapGUI(gameState, ROOM_WIDTH, MINIMAP_HEIGHT), BorderLayout.PAGE_END);
         frame.getContentPane().add(containerPanel);
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -111,7 +114,6 @@ public class SwingScene implements Scene {
         private final Font gameOverFont;
         private final Stroke strokeBorder;
 
-        private final MinimapGUI minimap;
         /**
          *
          * @param w
@@ -120,7 +122,6 @@ public class SwingScene implements Scene {
          * @param height
          */
         public ScenePanel(final int w, final int h, final double width, final double height) {
-            this.minimap = new MinimapGUI(gameState);
             setSize(w, h);
             centerX = w / 2;
             centerY = h / 2;
@@ -174,8 +175,6 @@ public class SwingScene implements Scene {
                 scene.getEnemies().ifPresent(l -> l.forEach(e -> e.updateGraphics(gr)));
                 scene.getItems().ifPresent(l -> l.forEach(i -> i.updateGraphics(gr)));
                 scene.getPowerUps().ifPresent(l -> l.forEach(p -> p.updateGraphics(gr)));
-
-                this.minimap.paint(g2);
 
             }
         }

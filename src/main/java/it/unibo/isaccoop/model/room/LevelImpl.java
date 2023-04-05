@@ -25,7 +25,7 @@ public final class LevelImpl implements Level {
      * @param engine
      */
     public LevelImpl(final GameEngine engine) {
-        this.minimap = new MinimapImpl();
+        this.minimap = new MinimapImpl(this);
         this.player = Optional.of(new Player(engine.getController("keyMove"), engine.getController("keyShot"),
                                     new ConcretePlayerGraphicsComponentFactory().getPlayerGraphicsComponent()));
     }

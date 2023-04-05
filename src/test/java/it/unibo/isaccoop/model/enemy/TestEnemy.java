@@ -20,13 +20,10 @@ import it.unibo.isaccoop.model.room.LevelControllerImpl;
 public class TestEnemy {
 
     private static final int MAX_ROOMS = 5;
-    private static final int WIDTH = 1366;
-    private static final int HEIGHT = 768;
-
 
     GameEngine gameEngine = new GameEngineImpl();
     LevelController gameState = new LevelControllerImpl(MAX_ROOMS, gameEngine);
-    GameLoop gameLoop = new GameLoopImpl(new SwingScene(gameState.getCurrentLevel(), gameEngine, WIDTH, HEIGHT),
+    GameLoop gameLoop = new GameLoopImpl(new SwingScene(gameState.getCurrentLevel(), gameEngine),
             gameState.getCurrentLevel(), new ActionControllerImpl(VK_ESCAPE, VK_N, VK_P));
 
     public TestEnemy() {
