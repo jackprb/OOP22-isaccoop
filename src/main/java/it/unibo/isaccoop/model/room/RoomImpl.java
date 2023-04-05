@@ -27,6 +27,8 @@ public final class RoomImpl extends MapElementImpl implements Room {
     private final Optional<List<PowerUp>> powerups;
     private Optional<Player> player;
     private final Queue<Event> eventsQueue;
+    private final int width;
+    private final int height;
 
     /**
      * Use {@link RoomFactory} to create a new {@link Room}.
@@ -51,6 +53,8 @@ public final class RoomImpl extends MapElementImpl implements Room {
         this.powerups = powerups;
         this.player = player;
         this.eventsQueue = new ArrayDeque<>();
+        this.width = width;
+        this.height = height;
     }
 
     @Override
@@ -84,6 +88,16 @@ public final class RoomImpl extends MapElementImpl implements Room {
             return Optional.empty();
         }
         return Optional.of(this.roomAi.get().getControlledEnemies());
+    }
+
+    @Override
+    public int getWidth() {
+        return this.width;
+    }
+
+    @Override
+    public int getHeight() {
+        return this.height;
     }
 
     @Override
