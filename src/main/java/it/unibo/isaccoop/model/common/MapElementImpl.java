@@ -22,24 +22,6 @@ public class MapElementImpl extends AbstractMapElement {
     }
 
     /**
-     * return width of this object.
-     *
-     * @return map element width
-     */
-    public int getWidth() {
-        return this.width;
-    }
-
-    /**
-     * return height of this object.
-     *
-     * @return map element height
-     */
-    public int getHeight() {
-        return this.height;
-    }
-
-    /**
      * generate hash of this object.
      */
     @Override
