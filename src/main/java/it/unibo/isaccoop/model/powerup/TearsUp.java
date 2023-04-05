@@ -1,5 +1,6 @@
 package it.unibo.isaccoop.model.powerup;
 
+import it.unibo.isaccoop.graphics.factory.PowerUpGraphicsComponentImpl;
 import it.unibo.isaccoop.model.player.PlayerStat;
 
 /**
@@ -9,6 +10,12 @@ public class TearsUp extends PowerUp {
 
     private static final int TEARS_SUPER_UP = 2;
     private static final int TEARS_UP = 1;
+
+    /***/
+    public TearsUp() {
+        super(new PowerUpGraphicsComponentImpl().getTearsUpGraphicsComponent(isSuperItem()));
+    }
+
     /**
      *  Increase the player's speed.
      *  @param p reference to player.

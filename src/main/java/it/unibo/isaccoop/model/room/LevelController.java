@@ -1,9 +1,7 @@
 package it.unibo.isaccoop.model.room;
 
 import java.util.List;
-import java.util.Map;
 
-import it.unibo.isaccoop.model.common.Direction;
 import it.unibo.isaccoop.model.player.Player;
 
 /**
@@ -76,22 +74,10 @@ public interface LevelController {
      * @return true if all levels are complete, false otherwise
      */
     boolean areAllLevelsComplete();
-
+    
     /**
-     * Return an umodifiable map of rooms where the player can go, associated with the {@link Direction}
-     * to reach them. Player can go to a room that is UP, DOWN, LEFT, RIGHT of current room.
-     * @return an umodifiable map of accessible rooms, near the room where the player is, and the direction
-     * to reach them
+     * Get the {@link Minimap} for this {@link LevelController}.
+     * @return the {@link Minimap}
      */
-    Map<Direction, Room> getAccessibleRooms();
-
-    /**
-     * Move to the previous room.
-     */
-    void moveToPreviousRoom();
-
-    /**
-     * Move to the next room.
-     */
-    void moveToNextRoom();
+    Minimap getMinimap();
 }

@@ -66,4 +66,22 @@ public interface Level {
      * or the final boss in BOSS room have been defeated, <br>false otherwise
      */
     boolean isCurrentRoomComplete();
+
+    /**
+     * Return an umodifiable map of rooms where the player can go, associated with the {@link Direction}
+     * to reach them. Player can go to a room that is UP, DOWN, LEFT, RIGHT of current room.
+     * @return an umodifiable map of accessible rooms, near the room where the player is, and the direction
+     * to reach them
+     */
+    Map<Direction, Room> getAccessibleRooms();
+
+    /**
+     * Move to the previous room.
+     */
+    void moveToPreviousRoom();
+
+    /**
+     * Move to the next room.
+     */
+    void moveToNextRoom();
 }

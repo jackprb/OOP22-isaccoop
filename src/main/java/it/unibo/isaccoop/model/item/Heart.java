@@ -1,5 +1,6 @@
 package it.unibo.isaccoop.model.item;
 
+import it.unibo.isaccoop.graphics.factory.ItemGraphicsComponentImpl;
 import it.unibo.isaccoop.model.player.PlayerStat;
 
 /**
@@ -8,6 +9,11 @@ import it.unibo.isaccoop.model.player.PlayerStat;
 public class Heart extends AbstractItem {
 
     private static final int HEART_UP = 1;
+
+    /***/
+    public Heart() {
+        super(new ItemGraphicsComponentImpl().getHeartGraphicsComponent());
+    }
 
     /**
      *  Method for interacting with player heart.
