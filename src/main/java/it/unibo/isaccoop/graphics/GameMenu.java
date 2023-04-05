@@ -34,16 +34,55 @@ public class GameMenu {
     private static final int FONT_SIZE = 30;
 
     /**
+     * Enum for setting colors.
+     * */
+    public enum Colors {
+        /**
+         * Menu background-color.
+         */
+        MENU(150, 75, 50);
+
+        private final int x;
+        private final int y;
+        private final int z;
+        Colors(final int x, final int y, final int z) {
+            this.x = x;
+            this.y = y;
+            this.z = z;
+        }
+
+        /**
+         * @return the first parameter in the rgb standard
+         */
+        public int getX() {
+            return this.x;
+        }
+
+        /**
+         * @return the second parameter in the rgb standard
+         */
+        public int getY() {
+            return this.y;
+        }
+
+        /**
+         * @return the third parameter in the rgb standard
+         */
+        public int getZ() {
+            return this.z;
+        }
+    }
+    /**
      *
      */
     public GameMenu() {
         this.frame.getContentPane().setLayout(new BoxLayout(this.frame.getContentPane(), BoxLayout.Y_AXIS));
-        this.frame.getContentPane().setBackground(new java.awt.Color(150, 75, 50));
+        this.frame.getContentPane().setBackground(new java.awt.Color(Colors.MENU.getX(), Colors.MENU.getY(), Colors.MENU.getZ()));
         this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         final JPanel canvas = new JPanel();
-        canvas.setBackground(new java.awt.Color(150, 75, 50));
+        canvas.setBackground(new java.awt.Color(Colors.MENU.getX(), Colors.MENU.getY(), Colors.MENU.getZ()));
         final JPanel buttons = new JPanel();
-        buttons.setBackground(new java.awt.Color(150, 75, 50));
+        buttons.setBackground(new java.awt.Color(Colors.MENU.getX(), Colors.MENU.getY(), Colors.MENU.getZ()));
         final JLabel title = new JLabel("Isaccopp");
         title.setFont(new Font("Arial", Font.PLAIN, sw / FONT_SIZE));
 
