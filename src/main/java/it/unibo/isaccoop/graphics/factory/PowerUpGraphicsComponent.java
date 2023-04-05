@@ -8,12 +8,16 @@ public interface PowerUpGraphicsComponent {
     /**
      * Get damage up powerUp graphics component.
      *
+     * @param isSuper true if item is super
+     * 
      * @return Damage graphics component
      * */
     GraphicsComponent getDamageUpGraphicsComponent(Boolean isSuper);
 
     /**
      * Get coin up powerUp graphics component.
+     * 
+     * @param isSuper true if item is super
      *
      * @return CoinUp graphics component
      * */
@@ -21,6 +25,8 @@ public interface PowerUpGraphicsComponent {
 
     /**
      * Get Health Up graphics component.
+     * 
+     * @param isSuper true if item is super
      *
      * @return HealthUp graphics component
      * */
@@ -28,6 +34,8 @@ public interface PowerUpGraphicsComponent {
 
     /**
      * Get range up graphics component.
+     * 
+     * @param isSuper true if item is super
      *
      * @return RangeUp graphics component
      * */
@@ -35,6 +43,8 @@ public interface PowerUpGraphicsComponent {
 
     /**
      * Get speed up graphics component.
+     * 
+     * @param isSuper true if item is super
      *
      * @return SpeedUp graphics component
      * */
@@ -42,6 +52,8 @@ public interface PowerUpGraphicsComponent {
 
     /**
      * Get tears up graphics component.
+     * 
+     * @param isSuper true if item is super
      *
      * @return TearsUp graphics component
      * */

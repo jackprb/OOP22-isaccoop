@@ -74,7 +74,7 @@ public interface LevelController {
      * @return true if all levels are complete, false otherwise
      */
     boolean areAllLevelsComplete();
-    
+
     /**
      * Get the {@link Minimap} for this {@link LevelController}.
      * @return the {@link Minimap}
