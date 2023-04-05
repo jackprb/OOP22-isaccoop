@@ -118,6 +118,11 @@ public abstract class AbstractMapElement implements MapElement {
         this.coords = new Point2D(coords.getX(), coords.getY());
     }
 
+    /***/
+    protected void setGraphicsComponents(final GraphicsComponent gr) {
+        this.graphicComponent = gr;
+    }
+
     /**
      *
      * @return collision box
