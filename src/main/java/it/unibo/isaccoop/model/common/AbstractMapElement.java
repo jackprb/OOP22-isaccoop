@@ -89,7 +89,7 @@ public abstract class AbstractMapElement implements MapElement {
      * @param gr
      * */
     public AbstractMapElement(final ElementsRadius elemRadius, final GraphicsComponent gr) {
-        this.coords = new Point2D(0.0, 0.0);
+        this.coords = new Point2D(20.0, 20.0);
         this.box = new CircleBoundingBox(elemRadius.getValue());
         this.graphicComponent = gr;
     }
