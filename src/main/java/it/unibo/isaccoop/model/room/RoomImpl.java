@@ -8,8 +8,10 @@ import java.util.Queue;
 
 import it.unibo.isaccoop.model.ai.AIEnemy;
 import it.unibo.isaccoop.model.collision.Event;
+import it.unibo.isaccoop.model.common.MapElement;
 import it.unibo.isaccoop.model.common.MapElementImpl;
 import it.unibo.isaccoop.model.common.Point2D;
+import it.unibo.isaccoop.model.common.Removable;
 import it.unibo.isaccoop.model.common.RoomType;
 import it.unibo.isaccoop.model.enemy.Enemy;
 import it.unibo.isaccoop.model.item.Item;
@@ -19,7 +21,7 @@ import it.unibo.isaccoop.model.powerup.PowerUp;
 /**
  * Implementation of {@link Room}.
  */
-public final class RoomImpl extends MapElementImpl implements Room {
+public final class RoomImpl extends MapElementImpl implements Room, Removable {
 
     private final RoomType roomType;
     private final Optional<AIEnemy> roomAi;
@@ -139,6 +141,12 @@ public final class RoomImpl extends MapElementImpl implements Room {
             e.execute(this);
             this.eventsQueue.remove();
         });
+    }
+
+    @Override
+    public void remove(final MapElement e) {
+        this.items.ifPresent(list -> list.remove(e));
+        this.powerups.ifPresent(list -> list.remove(e));
     }
 
     @Override
