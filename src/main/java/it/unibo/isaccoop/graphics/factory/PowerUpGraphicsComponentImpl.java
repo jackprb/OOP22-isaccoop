@@ -41,9 +41,9 @@ public class PowerUpGraphicsComponentImpl extends AbstractGraphicsComponentFacto
 
     /***/
     @Override
-    public GraphicsComponent getTearsUpGraphicsComponent(final Boolean isSuper) {
-        return isSuper ? super.getElementAsImageGraphicsComponent("tears_up")
-                : super.getElementAsImageGraphicsComponent("tears_super_up");
+    public GraphicsComponent getTearsUpGraphicsComponent(Boolean isSuper) {
+        return isSuper ? super.getElementAsImageGraphicsComponent("tears_up.png")
+                : super.getElementAsImageGraphicsComponent("tears_super_up.gif");
     }
 
 }
