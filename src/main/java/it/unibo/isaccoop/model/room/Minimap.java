@@ -3,16 +3,10 @@ package it.unibo.isaccoop.model.room;
 import java.util.List;
 
 /**
- * Interface that models the in-game minimap, 
+ * Interface that models the in-game minimap,
  * that represents the layout of the {@link Level}.
  */
 public interface Minimap {
-
-    /**
-     * Set the level to be shown.
-     * @param currentLevel
-     */
-    void setLevel(Level currentLevel);
 
     /**
      * Get the current room (where the player is).

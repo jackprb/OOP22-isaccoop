@@ -11,8 +11,7 @@ public final class MinimapImpl implements Minimap {
 
     private Optional<Level> lvl = Optional.empty();
 
-    @Override
-    public void setLevel(final Level currentLevel) {
+    public MinimapImpl(final Level currentLevel) {
         this.lvl = Optional.of(currentLevel);
     }
 

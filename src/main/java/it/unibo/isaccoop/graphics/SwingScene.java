@@ -1,6 +1,7 @@
 package it.unibo.isaccoop.graphics;
 
 import java.awt.BasicStroke;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -8,6 +9,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
@@ -19,11 +21,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import it.unibo.isaccoop.controller.input.ActionControllerImpl;
 import it.unibo.isaccoop.controller.input.KeyboardInputController;
 import it.unibo.isaccoop.core.GameEngine;
-import it.unibo.isaccoop.model.boundingbox.RectBoundingBox;
-import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.room.Level;
 import it.unibo.isaccoop.model.room.Room;
 /**
@@ -38,6 +37,11 @@ public class SwingScene implements Scene {
     private final Level gameState;
     private static final int SCORE_FONT = 36;
     private static final int GAME_OVER_FONT = 88;
+
+    private static final int MINIMAP_HEIGHT = 100;
+    private static final int ROOM_WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+    private static final int ROOM_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - MINIMAP_HEIGHT*2;
+
     /**
      *
      * @param gameState
@@ -47,17 +51,19 @@ public class SwingScene implements Scene {
      * @param width
      * @param height
      */
-    public SwingScene(final Level gameState, final GameEngine engine,
-            final int w, final int h, final double width, final double height) {
-        final ScenePanel panel;
+    public SwingScene(final Level gameState, final GameEngine engine) {
+
+        final JPanel containerPanel = new JPanel(new BorderLayout());
         frame = new JFrame("Isaccoop");
-        frame.setSize(w, h);
-        frame.setMinimumSize(new Dimension(w, h));
+        frame.setSize(ROOM_WIDTH, ROOM_HEIGHT + MINIMAP_HEIGHT);
+        frame.setMinimumSize(new Dimension(ROOM_WIDTH, ROOM_HEIGHT + MINIMAP_HEIGHT));
         frame.setResizable(false);
         this.gameState = gameState;
         this.engine = engine;
-        panel = new ScenePanel(w, h, width, height);
-        frame.getContentPane().add(panel);
+        containerPanel.add(new ScenePanel(ROOM_WIDTH, ROOM_HEIGHT, gameState.getCurrentRoom().getWidth(), gameState.getCurrentRoom().getHeight()),
+                BorderLayout.CENTER);
+        containerPanel.add(new MinimapGUI(gameState, ROOM_WIDTH, MINIMAP_HEIGHT), BorderLayout.PAGE_END);
+        frame.getContentPane().add(containerPanel);
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(final WindowEvent ev) {
@@ -70,6 +76,7 @@ public class SwingScene implements Scene {
         });
         frame.pack();
         frame.setVisible(true);
+        //
     }
     /***/
     @Override
@@ -106,6 +113,7 @@ public class SwingScene implements Scene {
         private final Font scoreFont;
         private final Font gameOverFont;
         private final Stroke strokeBorder;
+
         /**
          *
          * @param w
@@ -157,15 +165,6 @@ public class SwingScene implements Scene {
 
                 final Room scene = gameState.getRooms().stream()
                         .filter(r -> r.getPlayer().isPresent()).findFirst().get();
-                final RectBoundingBox bbox = (RectBoundingBox) scene.getBox();
-                final int x0 = getXinPixel(new Point2D(0, 0));
-                final int y0 = getYinPixel(new Point2D(0, 0));
-                final int x1 = getXinPixel(new Point2D(bbox.getWidth(), 0));
-                final int y1 = getYinPixel(new Point2D(0, bbox.getHeight()));
-
-                g2.setColor(Color.BLACK);
-                g2.setStroke(strokeBorder);
-                g2.drawRect(x0, y0, x1 - x0, y1 - y0);
 
                 /* drawing the game objects */
 
@@ -180,13 +179,6 @@ public class SwingScene implements Scene {
             }
         }
 
-        private int getXinPixel(final Point2D p) {
-            return (int) Math.round(centerX + p.getX() * ratioX);
-        }
-
-        private int getYinPixel(final Point2D p) {
-            return (int)  Math.round(centerY - p.getY() * ratioY);
-        }
         /**
          * @param e reference to KeyEvent.
          */

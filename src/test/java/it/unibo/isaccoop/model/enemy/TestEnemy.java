@@ -1,10 +1,14 @@
 package it.unibo.isaccoop.model.enemy;
 
+import static java.awt.event.KeyEvent.VK_ESCAPE;
+import static java.awt.event.KeyEvent.VK_N;
+import static java.awt.event.KeyEvent.VK_P;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import it.unibo.isaccoop.controller.input.ActionControllerImpl;
 import it.unibo.isaccoop.core.GameEngine;
 import it.unibo.isaccoop.core.GameEngineImpl;
 import it.unibo.isaccoop.core.GameLoop;
@@ -16,16 +20,11 @@ import it.unibo.isaccoop.model.room.LevelControllerImpl;
 public class TestEnemy {
 
     private static final int MAX_ROOMS = 5;
-    private static final int WIDTH = 1000;
-    private static final int HEIGHT = 1000;
-    private static final int WIDTH_RATIO = 20;
-    private static final int HEIGHT_RATIO = 20;
-
 
     GameEngine gameEngine = new GameEngineImpl();
     LevelController gameState = new LevelControllerImpl(MAX_ROOMS, gameEngine);
-    GameLoop gameLoop = new GameLoopImpl(new SwingScene(gameState.getCurrentLevel(), gameEngine, WIDTH, HEIGHT, WIDTH_RATIO, HEIGHT_RATIO),
-            gameState.getCurrentLevel(), gameEngine.getActionController());
+    GameLoop gameLoop = new GameLoopImpl(new SwingScene(gameState.getCurrentLevel(), gameEngine),
+            gameState.getCurrentLevel(), new ActionControllerImpl(VK_ESCAPE, VK_N, VK_P));
 
     public TestEnemy() {
         this.moveToStandardRoom();

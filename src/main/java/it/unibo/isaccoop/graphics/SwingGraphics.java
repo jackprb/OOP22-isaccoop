@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 import javax.swing.ImageIcon;
 
 import it.unibo.isaccoop.model.common.MapElement;
+import it.unibo.isaccoop.model.common.Point2D;
+import it.unibo.isaccoop.model.room.Room;
 
 /**
  * Represents the graphics in the swing.
@@ -33,7 +35,22 @@ public final class SwingGraphics implements Graphics {
     @Override
     public void drawElementAsImage(final MapElement element, final String imageName) {
        var imageIcon = new ImageIcon(ClassLoader.getSystemResource(RES_PATH + imageName));
-       this.g2.drawImage(imageIcon.getImage(), (int) element.getCoords().getX(), (int) element.getCoords().getY(), null);
+
+       if(element instanceof Room) {
+           var room = ((Room) element);
+           this.g2.drawImage(imageIcon.getImage(), 0, 0, (int) Math.round(room.getWidth() * this.ratioX), (int) Math.round(room.getHeight() * this.ratioY),null);
+       } else {
+           this.g2.drawImage(imageIcon.getImage(), this.getXinPixel(element.getCoords()), this.getYinPixel(element.getCoords()), null);
+       }
+
+    }
+
+    private int getXinPixel(final Point2D p) {
+        return (int) Math.round(p.getX() * ratioX);
+    }
+
+    private int getYinPixel(final Point2D p) {
+        return (int)  Math.round(p.getY() * ratioY);
     }
 
 }
