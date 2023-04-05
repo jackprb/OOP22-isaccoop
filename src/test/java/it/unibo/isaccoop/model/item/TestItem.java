@@ -21,7 +21,7 @@ public class TestItem {
 
     /***/
     @Test
-    void testItem() {
+    void testPowerUp() {
         /**
          * Test PowerUp.
          */
@@ -32,6 +32,11 @@ public class TestItem {
         damageUp.setSuperItem(false);
         damageUp.interact(stat);
         assertEquals(4, stat.getDamage());
+    }
+
+    /***/
+    @Test
+    void testItem() {
 
         /**
          * Test Item Coin.
@@ -45,7 +50,5 @@ public class TestItem {
         assertEquals(3, stat.getHeart());
         heart.interact(stat);
         assertEquals(3, stat.getHeart());
-
-
     }
 }

@@ -1,5 +1,6 @@
 package it.unibo.isaccoop.model.powerup;
 
+import it.unibo.isaccoop.graphics.GraphicsComponent;
 import it.unibo.isaccoop.graphics.factory.PowerUpGraphicsComponentImpl;
 import it.unibo.isaccoop.model.player.PlayerStat;
 
@@ -13,7 +14,7 @@ public class TearsUp extends PowerUp {
 
     /***/
     public TearsUp() {
-        super(new PowerUpGraphicsComponentImpl().getTearsUpGraphicsComponent(isSuperItem()));
+        super(new PowerUpGraphicsComponentImpl().getTearsUpGraphicsComponent(false));
     }
 
     /**
@@ -29,4 +30,9 @@ public class TearsUp extends PowerUp {
         }
     }
 
+    /***/
+    @Override
+    protected GraphicsComponent updateSuperGraphics(Boolean isSuper) {
+        return new PowerUpGraphicsComponentImpl().getTearsUpGraphicsComponent(isSuper);
+    }
 }

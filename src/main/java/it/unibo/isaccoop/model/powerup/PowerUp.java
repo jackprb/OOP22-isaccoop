@@ -12,10 +12,13 @@ public abstract class PowerUp extends AbstractItem {
     private static final int PRICE = 3;
     private static final int SUPER_PRICE = 8;
 
-    private static boolean superItem;
+    private Boolean superItem;
 
-    /***/
-    public PowerUp(GraphicsComponent gr) {
+    /**
+     *
+     * @param gr reference to GraphicsComponent.
+     */
+    public PowerUp(final GraphicsComponent gr) {
         super(gr);
     }
 
@@ -28,21 +31,25 @@ public abstract class PowerUp extends AbstractItem {
     /**
      * @return true if is a super item
      * */
-    public static boolean isSuperItem() {
+    public Boolean isSuperItem() {
         return superItem;
     }
     /**
      * @param superItem true for change boolean variable
      * */
-    public void setSuperItem(final boolean superItem) {
-        PowerUp.superItem = superItem;
+    public void setSuperItem(final Boolean superItem) {
+        super.setGraphicsComponents(updateSuperGraphics(superItem));
+        this.superItem = superItem;
     }
     /**
      *
      * @return price of the powerUp.
      */
     public int getPrice() {
-        return PowerUp.isSuperItem() ? PowerUp.SUPER_PRICE : PowerUp.PRICE;
+        return this.isSuperItem() ? PowerUp.SUPER_PRICE : PowerUp.PRICE;
     }
+
+    /***/
+    protected abstract GraphicsComponent updateSuperGraphics(Boolean isSuper);
 
 }

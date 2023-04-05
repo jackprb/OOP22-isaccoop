@@ -1,5 +1,6 @@
 package it.unibo.isaccoop.model.powerup;
 
+import it.unibo.isaccoop.graphics.GraphicsComponent;
 import it.unibo.isaccoop.graphics.factory.PowerUpGraphicsComponentImpl;
 import it.unibo.isaccoop.model.player.PlayerStat;
 
@@ -13,7 +14,7 @@ public class RangeUp extends PowerUp {
 
     /***/
     public RangeUp() {
-        super(new PowerUpGraphicsComponentImpl().getRangeUpGraphicsComponent(isSuperItem()));
+        super(new PowerUpGraphicsComponentImpl().getRangeUpGraphicsComponent(false));
     }
 
     /**
@@ -29,4 +30,9 @@ public class RangeUp extends PowerUp {
         }
     }
 
+    /***/
+    @Override
+    protected GraphicsComponent updateSuperGraphics(Boolean isSuper) {
+        return new PowerUpGraphicsComponentImpl().getRangeUpGraphicsComponent(isSuper);
+    }
 }
