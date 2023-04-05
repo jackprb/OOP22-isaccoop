@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
@@ -37,10 +38,9 @@ public class SwingScene implements Scene {
     private static final int SCORE_FONT = 36;
     private static final int GAME_OVER_FONT = 88;
 
-    private static final int ROOM_WIDTH = 1370;
-    private static final int ROOM_HEIGHT = 760;
     private static final int MINIMAP_HEIGHT = 100;
-
+    private static final int ROOM_WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+    private static final int ROOM_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - MINIMAP_HEIGHT*2;
 
     /**
      *

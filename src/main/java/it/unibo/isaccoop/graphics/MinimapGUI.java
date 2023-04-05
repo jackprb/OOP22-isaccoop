@@ -22,8 +22,6 @@ import it.unibo.isaccoop.model.room.Room;
  */
 public class MinimapGUI extends JPanel {
 
-    private static final int PANEL_WIDTH = 1300;
-    private static final int PANEL_HEIGHT = 100;
     private static final Font FONT = new Font("Verdana", Font.PLAIN, 12);
     private static final String TITLE = "Minimap";
     private static final Map<CellStatus, Color> COLOR_MAP = Map.of(
