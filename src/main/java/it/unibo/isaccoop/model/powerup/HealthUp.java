@@ -33,7 +33,7 @@ public class HealthUp extends PowerUp {
 
     /***/
     @Override
-    protected GraphicsComponent updateSuperGraphics(Boolean isSuper) {
+    protected GraphicsComponent updateSuperGraphics(final Boolean isSuper) {
         return new PowerUpGraphicsComponentImpl().getHealthUpGraphicsComponent(isSuper);
     }
 }

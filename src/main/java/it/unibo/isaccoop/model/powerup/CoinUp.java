@@ -32,7 +32,7 @@ public class CoinUp extends PowerUp {
 
     /***/
     @Override
-    protected GraphicsComponent updateSuperGraphics(Boolean isSuper) {
+    protected GraphicsComponent updateSuperGraphics(final Boolean isSuper) {
         return new PowerUpGraphicsComponentImpl().getCoinUpGraphicsComponent(isSuper);
     }
 }

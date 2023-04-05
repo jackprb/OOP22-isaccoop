@@ -49,7 +49,12 @@ public abstract class PowerUp extends AbstractItem {
         return this.isSuperItem() ? PowerUp.SUPER_PRICE : PowerUp.PRICE;
     }
 
-    /***/
-    protected abstract GraphicsComponent updateSuperGraphics(Boolean isSuper);
+    /**
+     * Update super graphics to differentiate the power ups in the graphics.
+     *
+     * @param isSuper
+     * @return GraphicsComponent refer to PowerUp
+     */
+    protected abstract GraphicsComponent updateSuperGraphics(final Boolean isSuper);
 
 }
