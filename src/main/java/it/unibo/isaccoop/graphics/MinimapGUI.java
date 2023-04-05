@@ -2,14 +2,13 @@ package it.unibo.isaccoop.graphics;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -21,9 +20,8 @@ import it.unibo.isaccoop.model.room.Room;
  * Creates a Gui to display the {@link Minimap}.
  * This GUI shows some information about the {@link Level} currently played.
  */
-public class MinimapGUI extends AbstractGUIFrame{
+public class MinimapGUI extends JPanel {
 
-    private static final int MAX_NUMBER_OF_LEVELS = 10;
     private static final int MIN_WIDTH_FRAME = 500;
     private static final int MIN_HEIGHT_FRAME = 300;
     private static final Font FONT = new Font("Verdana", Font.PLAIN, 12);
@@ -34,8 +32,6 @@ public class MinimapGUI extends AbstractGUIFrame{
             CellStatus.UNCOMPLETED_ROOM, new Color(243, 225, 75), //yellow
             CellStatus.COMPLETED_ROOM, new Color(139, 218, 83)); //green
 
-    private final JFrame frame = new JFrame(TITLE);
-    private final JLabel lblInfoLvl = new JLabel();
     private final JLabel lblInfoRoom = new JLabel();
     private final Level lvl;
     private final Map<JButton, Room> btns = new HashMap<>();
@@ -64,20 +60,16 @@ public class MinimapGUI extends AbstractGUIFrame{
      */
     public MinimapGUI(final Level level) {
         this.lvl = level;
-        super.setTitle(TITLE);
-        super.getJFrame().setMinimumSize(new Dimension(MIN_WIDTH_FRAME, MIN_HEIGHT_FRAME));
 
         // main layout
-        final JPanel mainPanel = new JPanel(new BorderLayout());
-        this.frame.getContentPane().add(mainPanel);
+        this.setLayout(new BorderLayout());
         // layout where to place the rooms
         final JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        mainPanel.add(centerPanel, BorderLayout.CENTER);
+        this.add(centerPanel, BorderLayout.CENTER);
         // flow layout where to place some information about the current level
         final JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        topPanel.add(lblInfoLvl);
         topPanel.add(lblInfoRoom);
-        mainPanel.add(topPanel, BorderLayout.NORTH);
+        this.add(topPanel, BorderLayout.NORTH);
 
         /*final ActionListener al = e -> {
             var button = (JButton)e.getSource();
@@ -93,8 +85,8 @@ public class MinimapGUI extends AbstractGUIFrame{
     }
 
     @Override
-    public void updateView() {
-        lblInfoLvl.setText(getLevelStatusString());
+    public void paint(Graphics g) {
+        super.paint(g);
         lblInfoRoom.setText(getRoomStatusString());
         this.btns.forEach((btn, r) -> {
             final var currRoom = this.lvl.getCurrentRoom();
@@ -121,11 +113,4 @@ public class MinimapGUI extends AbstractGUIFrame{
             + " of " + lvl.getRooms().size();
     }
 
-    /**
-     * Return a string to show information about the status of current level.
-     * @return a string that contains information about status of current level
-     */
-    private String getLevelStatusString() {
-        return "level: " + lvl.getCurrentLevelIndex() + " of " + lvl.getNumberOfLevels();
-    }
 }
