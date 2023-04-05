@@ -7,15 +7,14 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import it.unibo.isaccoop.core.GameEngine;
-import it.unibo.isaccoop.core.GameEngineImpl;
-import it.unibo.isaccoop.model.room.LevelController;
-import it.unibo.isaccoop.model.room.LevelControllerImpl;
+import it.unibo.isaccoop.model.room.Level;
+import it.unibo.isaccoop.model.room.Minimap;
 import it.unibo.isaccoop.model.room.Room;
 
 /**
@@ -38,7 +37,7 @@ public class MinimapGUI extends AbstractGUIFrame{
     private final JFrame frame = new JFrame(TITLE);
     private final JLabel lblInfoLvl = new JLabel();
     private final JLabel lblInfoRoom = new JLabel();
-    private final LevelController lvlController = new LevelControllerImpl(MAX_NUMBER_OF_LEVELS, new GameEngineImpl());
+    private final Level lvl;
     private final Map<JButton, Room> btns = new HashMap<>();
 
     private enum CellStatus {
@@ -63,7 +62,8 @@ public class MinimapGUI extends AbstractGUIFrame{
     /**
      * Create a new GUI for {@link Minimap}.
      */
-    public MinimapGUI(final GameEngine gameEngine) {
+    public MinimapGUI(final Level level) {
+        this.lvl = level;
         super.setTitle(TITLE);
         super.getJFrame().setMinimumSize(new Dimension(MIN_WIDTH_FRAME, MIN_HEIGHT_FRAME));
 
@@ -83,12 +83,12 @@ public class MinimapGUI extends AbstractGUIFrame{
             var button = (JButton)e.getSource();
             var indexBtn = this.btns.indexOf(button); //indice di btn cliccato in lista di btn
         };*/
-        for (int i = 0; i < lvlController.getNumberOfRoomsOfCurrentLevel(); i++) {
+        for (int i = 0; i < lvl.getRooms().size(); i++) {
             final JButton jb = new JButton(Integer.toString(i));
             jb.setFont(FONT);
             centerPanel.add(jb);
             jb.setEnabled(false);
-            this.btns.put(jb, lvlController.getRoomsOfCurrentLevel().get(i));
+            this.btns.put(jb, lvl.getRooms().get(i));
         }
     }
 
@@ -97,9 +97,9 @@ public class MinimapGUI extends AbstractGUIFrame{
         lblInfoLvl.setText(getLevelStatusString());
         lblInfoRoom.setText(getRoomStatusString());
         this.btns.forEach((btn, r) -> {
-            final var currRoom = this.lvlController.getCurrentLevel().getCurrentRoom();
-            final var completeRooms = this.lvlController.getMinimap().getCompletedRooms();
-            final var uncompleteRooms = this.lvlController.getMinimap().getUncompletedRooms();
+            final var currRoom = this.lvl.getCurrentRoom();
+            final var completeRooms = this.lvl.getMinimap().getCompletedRooms();
+            final var uncompleteRooms = this.lvl.getMinimap().getUncompletedRooms();
             if (currRoom.equals(r)) {
                 btn.setBackground(COLOR_MAP.get(CellStatus.PLAYER));
             } else if (completeRooms.contains(r)) {
@@ -117,8 +117,8 @@ public class MinimapGUI extends AbstractGUIFrame{
      * @return a string that contains information about status of current room
      */
     private String getRoomStatusString() {
-        return "rooms completed: " + lvlController.getMinimap().getCompletedRooms().size() 
-            + " of " + lvlController.getNumberOfRoomsOfCurrentLevel();
+        return "rooms completed: " + lvl.getMinimap().getCompletedRooms().size()
+            + " of " + lvl.getRooms().size();
     }
 
     /**
@@ -126,6 +126,6 @@ public class MinimapGUI extends AbstractGUIFrame{
      * @return a string that contains information about status of current level
      */
     private String getLevelStatusString() {
-        return "level: " + lvlController.getCurrentLevelIndex() + " of " + lvlController.getNumberOfLevels();
+        return "level: " + lvl.getCurrentLevelIndex() + " of " + lvl.getNumberOfLevels();
     }
 }

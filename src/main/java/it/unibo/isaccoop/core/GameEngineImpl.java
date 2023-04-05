@@ -28,10 +28,8 @@ public final class GameEngineImpl implements GameEngine {
     private GameLoop gameLoop;
 
     private static final int MAX_ROOMS = 5;
-    private static final int WIDTH = 1000;
-    private static final int HEIGHT = 1000;
-    private static final int WIDTH_RATIO = 20;
-    private static final int HEIGHT_RATIO = 20;
+    private static final int WIDTH = 1366;
+    private static final int HEIGHT = 768;
 
     /**
      * GameEngineImp constructor.
@@ -52,7 +50,7 @@ public final class GameEngineImpl implements GameEngine {
         this.controllers.put("keyMove", new KeyboardInputController(VK_W, VK_S, VK_A, VK_D));
         this.controllers.put("keyShot", new KeyboardInputController(VK_UP, VK_DOWN, VK_LEFT, VK_RIGHT));
         var gameState = new LevelControllerImpl(GameEngineImpl.MAX_ROOMS, this).getCurrentLevel();
-        this.gameLoop = new GameLoopImpl(new SwingScene(gameState, this, WIDTH, HEIGHT, WIDTH_RATIO, HEIGHT_RATIO),
+        this.gameLoop = new GameLoopImpl(new SwingScene(gameState, this, WIDTH, HEIGHT),
                 gameState);
 
     }

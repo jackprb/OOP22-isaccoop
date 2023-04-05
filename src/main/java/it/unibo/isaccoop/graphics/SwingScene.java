@@ -47,7 +47,7 @@ public class SwingScene implements Scene {
      * @param height
      */
     public SwingScene(final Level gameState, final GameEngine engine,
-            final int w, final int h, final double width, final double height) {
+            final int w, final int h) {
         final ScenePanel panel;
         frame = new JFrame("Isaccoop");
         frame.setSize(w, h);
@@ -55,7 +55,7 @@ public class SwingScene implements Scene {
         frame.setResizable(false);
         this.gameState = gameState;
         this.engine = engine;
-        panel = new ScenePanel(w, h, width, height);
+        panel = new ScenePanel(w, h, gameState.getCurrentRoom().getWidth(), gameState.getCurrentRoom().getHeight());
         frame.getContentPane().add(panel);
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -69,6 +69,7 @@ public class SwingScene implements Scene {
         });
         frame.pack();
         frame.setVisible(true);
+        //new MinimapGUI(gameState);
     }
     /***/
     @Override
@@ -157,14 +158,10 @@ public class SwingScene implements Scene {
                 final Room scene = gameState.getRooms().stream()
                         .filter(r -> r.getPlayer().isPresent()).findFirst().get();
                 final RectBoundingBox bbox = (RectBoundingBox) scene.getBox();
-                final int x0 = getXinPixel(new Point2D(0, 0));
-                final int y0 = getYinPixel(new Point2D(0, 0));
-                final int x1 = getXinPixel(new Point2D(bbox.getWidth(), 0));
-                final int y1 = getYinPixel(new Point2D(0, bbox.getHeight()));
 
                 g2.setColor(Color.BLACK);
                 g2.setStroke(strokeBorder);
-                g2.drawRect(x0, y0, x1 - x0, y1 - y0);
+                g2.drawRect(0, 0, bbox.getWidth() * ((int) ratioX), bbox.getHeight() * ((int)ratioY));
 
                 /* drawing the game objects */
 
