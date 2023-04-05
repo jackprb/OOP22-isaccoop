@@ -11,6 +11,10 @@ public final class MinimapImpl implements Minimap {
 
     private Optional<Level> lvl = Optional.empty();
 
+    /**
+     * Constructor, used to set the level of which to show the layout (and some basic information). 
+     * @param currentLevel the level of which to show the layout inside the {@link Minimap} itself.
+     */
     public MinimapImpl(final Level currentLevel) {
         this.lvl = Optional.of(currentLevel);
     }
