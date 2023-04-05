@@ -84,4 +84,10 @@ public interface Level {
      * Move to the next room.
      */
     void moveToNextRoom();
+
+    /**
+     * Get the {@link Minimap} for this {@link LevelController}.
+     * @return the {@link Minimap}
+     */
+    Minimap getMinimap();
 }
