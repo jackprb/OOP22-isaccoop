@@ -14,7 +14,7 @@ public final class LevelControllerImpl implements LevelController {
 
     private final List<Level> lvl = new LinkedList<>();
     private int currentLevelID;
-    private Minimap minimap;
+    private final Minimap minimap;
 
     /**
      * Create a game with the specified number of levels.
@@ -104,6 +104,6 @@ public final class LevelControllerImpl implements LevelController {
      * Update the minimap, when a level is complete and before moving to the next one.
      */
     private void updateMinimap() {
-        this.minimap.setLevel(getCurrentLevel());        
+        this.minimap.setLevel(getCurrentLevel());
     }
 }
