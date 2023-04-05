@@ -28,7 +28,7 @@ public final class LevelControllerImpl implements LevelController {
             .limit(numberOfLevels)
             .forEach(r -> this.lvl.add(lvlFactory.createLevel()));
         this.minimap = new MinimapImpl();
-        this.minimap.setLevel(getCurrentLevel());
+        updateMinimap();
     }
 
     @Override
@@ -97,5 +97,13 @@ public final class LevelControllerImpl implements LevelController {
      */
     private void goToNextLevel() {
         this.currentLevelID++;
+        updateMinimap();
+    }
+
+    /**
+     * Update the minimap, when a level is complete and before moving to the next one.
+     */
+    private void updateMinimap() {
+        this.minimap.setLevel(getCurrentLevel());        
     }
 }
