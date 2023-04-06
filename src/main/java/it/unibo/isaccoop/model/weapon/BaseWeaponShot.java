@@ -1,7 +1,6 @@
 package it.unibo.isaccoop.model.weapon;
 
 import it.unibo.isaccoop.graphics.GraphicsComponent;
-import it.unibo.isaccoop.graphics.factory.ConcreteEnemyGraphicsComponentFactory;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.Vector2D;
 
