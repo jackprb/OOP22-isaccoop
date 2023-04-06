@@ -38,16 +38,13 @@ public class SwingScene implements Scene {
 
     private static final int MINIMAP_HEIGHT = 100;
     private static final int ROOM_WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-    private static final int ROOM_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - MINIMAP_HEIGHT*2;
+    private static final int ROOM_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight()
+            - MINIMAP_HEIGHT * 2;
 
     /**
-     *
-     * @param gameState
-     * @param engine
-     * @param w
-     * @param h
-     * @param width
-     * @param height
+     * Constructor.
+     * @param gameState the level to play
+     * @param engine the {@link GameEngine}
      */
     public SwingScene(final Level gameState, final GameEngine engine) {
 
@@ -58,8 +55,8 @@ public class SwingScene implements Scene {
         frame.setResizable(false);
         this.gameState = gameState;
         this.engine = engine;
-        containerPanel.add(new ScenePanel(ROOM_WIDTH, ROOM_HEIGHT, gameState.getCurrentRoom().getWidth(), gameState.getCurrentRoom().getHeight()),
-                BorderLayout.CENTER);
+        containerPanel.add(new ScenePanel(ROOM_WIDTH, ROOM_HEIGHT, gameState.getCurrentRoom().getWidth(),
+                gameState.getCurrentRoom().getHeight()), BorderLayout.CENTER);
         containerPanel.add(new OverlayGUI(gameState, ROOM_WIDTH, MINIMAP_HEIGHT), BorderLayout.PAGE_END);
         frame.getContentPane().add(containerPanel);
         frame.addWindowListener(new WindowAdapter() {
