@@ -87,4 +87,11 @@ public class Player extends PlayerMovementImpl implements Hitable<Enemy> {
     public InputController getShootingController() {
         return this.shootingController;
     }
+
+    /**
+     * Get player hit strategy.
+     * */
+    public HitStrategy getHitStrategy() {
+        return hitStrategy;
+    }
 }

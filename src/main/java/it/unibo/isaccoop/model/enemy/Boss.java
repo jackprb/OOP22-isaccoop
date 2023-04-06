@@ -23,6 +23,11 @@ public class Boss extends AbstractEnemy {
     private static final int CHANGE_TIME = 10_000;
 
     /**
+     * Weapon Time interval between shots
+     * */
+    private static final double WEAPON_INTERVAL = 1_000;
+
+    /**
      * The time since the last change.
      * */
     private long lastChangeTime;
@@ -62,13 +67,12 @@ public class Boss extends AbstractEnemy {
         if (this.changeMode()) {
             if (super.getHitStrategy() instanceof ShootingHitStrategy) {
                 super.setHitStrategy(new NonShootingHitStrategy());
-                super.getHitStrategy().hit(Optional.empty(), this);
             } else {
-                super.setHitStrategy(new ShootingHitStrategy(new TimeIntervalWeapon(super.getSpeed(),
+                super.setHitStrategy(new ShootingHitStrategy(new TimeIntervalWeapon(Boss.WEAPON_INTERVAL,
                         (start, direction) -> new BaseWeaponShot(start, direction))));
-                super.getHitStrategy().hit(Optional.of(playerPosition.sub(this.getCoords())), this);
             }
         }
+        super.getHitStrategy().hit(Optional.of(playerPosition.sub(this.getCoords())), this);
     }
 
     /**
@@ -83,7 +87,7 @@ public class Boss extends AbstractEnemy {
                 super.setMovementStrategy(new ShootingMovementStrategy());
             }
         }
-        super.getMovementStrategy().move(super.getCoords(), playerPosition);
+        super.move(playerPosition, containerBox);
     }
 
 }

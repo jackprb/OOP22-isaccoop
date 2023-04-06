@@ -31,11 +31,6 @@ public interface PlayerStat {
     Double getDamage();
 
     /**
-     * @return the max range at which player can hit an enemy
-     * */
-    Double getRange();
-
-    /**
      * @return the time between two hit
      * */
     Double getTears();
@@ -57,12 +52,6 @@ public interface PlayerStat {
      * set the coin of the player
      * */
     void setCoin(int coin);
-
-    /**
-     * @param range the range where the player can hit
-     * set the new range
-     * */
-    void setRange(Double range);
 
     /**
      * @param speed the new speed
