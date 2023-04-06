@@ -20,7 +20,6 @@ import it.unibo.isaccoop.model.powerup.CoinUp;
 import it.unibo.isaccoop.model.powerup.DamageUp;
 import it.unibo.isaccoop.model.powerup.HealthUp;
 import it.unibo.isaccoop.model.powerup.PowerUp;
-import it.unibo.isaccoop.model.powerup.RangeUp;
 import it.unibo.isaccoop.model.powerup.SpeedUp;
 import it.unibo.isaccoop.model.powerup.TearsUp;
 
@@ -30,7 +29,7 @@ public final class ConcreteCreatorFactory implements CreatorFactory {
     private static final int ITEMS_IN_ROOM = 3;
     private static final List<Class<? extends Item>> ITEM_LIST = new ArrayList<>(List.of(Coin.class, Heart.class));
     private static final List<Class<? extends PowerUp>> POWER_UPS_LIST = new ArrayList<>(List.of(CoinUp.class,
-            DamageUp.class, HealthUp.class, RangeUp.class, SpeedUp.class, TearsUp.class));
+            DamageUp.class, HealthUp.class, SpeedUp.class, TearsUp.class));
 
     private static final int MAX_ENEMIES = 5;
 

@@ -27,13 +27,6 @@ public class PowerUpGraphicsComponentImpl extends AbstractGraphicsComponentFacto
 
     /***/
     @Override
-    public GraphicsComponent getRangeUpGraphicsComponent(final Boolean isSuper) {
-        return isSuper ? super.getElementAsImageGraphicsComponent("range_super_up.png")
-                : super.getElementAsImageGraphicsComponent("range_up.png");
-    }
-
-    /***/
-    @Override
     public GraphicsComponent getSpeedUpGraphicsComponent(final Boolean isSuper) {
         return isSuper ? super.getElementAsImageGraphicsComponent("speed_super_up.png")
                 : super.getElementAsImageGraphicsComponent("speed_up.png");
