@@ -10,12 +10,20 @@ public final class ConcreteEventFactory implements EventFactory {
 
     @Override
     public Event getItemPickUpEvent(final Item target) {
-        return room -> room.getPlayer().ifPresent(target::interact);
+        return room -> room.getPlayer().ifPresent(player -> {
+            target.interact(player);
+            room.remove(target);
+        });
     }
 
     @Override
     public Event getEnemyShotEvent(final Enemy enemy) {
-        return room -> room.getPlayer().ifPresent(player -> player.onHit(enemy));
+        return room -> room.getPlayer().ifPresent(player -> {
+            player.onHit(enemy);
+            if(enemy.getHearts() == 0) {
+                room.remove(enemy);
+            }
+        });
     }
 
     @Override
@@ -28,7 +36,7 @@ public final class ConcreteEventFactory implements EventFactory {
         return room -> room.getEnemies()
                 .ifPresent(enemies ->
                     enemies.forEach(enemy ->
-                        enemy.getWeaponShots().ifPresent(shots -> 
+                        enemy.getWeaponShots().ifPresent(shots ->
                         ((ShootingHitStrategy) enemy.getHitStrategy()).removeShot(shot))));
     }
 

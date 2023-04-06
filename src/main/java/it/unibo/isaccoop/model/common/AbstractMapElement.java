@@ -9,7 +9,7 @@ import it.unibo.isaccoop.model.boundingbox.CircleBoundingBox;
 import it.unibo.isaccoop.model.boundingbox.RectBoundingBox;
 
 /**
- * 
+ *
  */
 public abstract class AbstractMapElement implements MapElement {
 
@@ -129,7 +129,7 @@ public abstract class AbstractMapElement implements MapElement {
     }
 
     /**
-     * 
+     *
      * @param gr
      */
     protected void setGraphicsComponents(final GraphicsComponent gr) {
@@ -176,7 +176,7 @@ public abstract class AbstractMapElement implements MapElement {
             return false;
         }
         final AbstractMapElement other = (AbstractMapElement) obj;
-        return Double.compare(coords.getX(), other.coords.getX()) == 0 
+        return Double.compare(coords.getX(), other.coords.getX()) == 0
                 && Double.compare(coords.getY(), other.coords.getY()) == 0;
     }
 }

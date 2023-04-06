@@ -2,7 +2,8 @@ package it.unibo.isaccoop.model.collision;
 
 import java.util.List;
 
-import it.unibo.isaccoop.model.common.MapElement;
+import it.unibo.isaccoop.model.enemy.Enemy;
+import it.unibo.isaccoop.model.item.Item;
 import it.unibo.isaccoop.model.player.Player;
 
 /**
@@ -19,7 +20,7 @@ public interface CollisionCheckFactory {
      *
      * @return interface implementation of CollisionCheck.
      */
-    CollisionCheck getCollisionWithItemChecker(Player p, List<MapElement> i);
+    CollisionCheck getCollisionWithItemChecker(Player p, List<? extends Item> i);
     /**
      * Get collision with player shot.
      * @param p reference to player.
@@ -27,7 +28,7 @@ public interface CollisionCheckFactory {
      *
      * @return CollisionCheck refer to player shot.
      */
-    CollisionCheck getCollisionPlayerShotChecker(Player p, List<MapElement> i);
+    CollisionCheck getCollisionPlayerShotChecker(Player p, List<Enemy> i);
     /**
      * Get collision with enemy.
      * @param p reference to player.
@@ -35,7 +36,7 @@ public interface CollisionCheckFactory {
      *
      * @return CollisionCheck refer to enemy.
      */
-    CollisionCheck getCollisionWithEnemyChecker(Player p, List<MapElement> i);
+    CollisionCheck getCollisionWithEnemyChecker(Player p, List<Enemy> i);
     /**
      * Get collision with enemy shot.
      * @param p reference to player.
@@ -43,5 +44,5 @@ public interface CollisionCheckFactory {
      *
      * @return CollisionCheck refer to enemy shot.
      */
-    CollisionCheck getCollisionWithEnemyShotChecker(Player p, List<MapElement> i);
+    CollisionCheck getCollisionWithEnemyShotChecker(Player p, List<Enemy> i);
 }

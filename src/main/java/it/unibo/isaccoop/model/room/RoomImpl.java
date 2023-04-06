@@ -7,11 +7,11 @@ import java.util.Optional;
 import java.util.Queue;
 
 import it.unibo.isaccoop.model.ai.AIEnemy;
+import it.unibo.isaccoop.model.collision.CollisionCheckFactoryImpl;
 import it.unibo.isaccoop.model.collision.Event;
 import it.unibo.isaccoop.model.common.MapElement;
 import it.unibo.isaccoop.model.common.MapElementImpl;
 import it.unibo.isaccoop.model.common.Point2D;
-import it.unibo.isaccoop.model.common.Removable;
 import it.unibo.isaccoop.model.common.RoomType;
 import it.unibo.isaccoop.model.enemy.Enemy;
 import it.unibo.isaccoop.model.item.Item;
@@ -21,7 +21,7 @@ import it.unibo.isaccoop.model.powerup.PowerUp;
 /**
  * Implementation of {@link Room}.
  */
-public final class RoomImpl extends MapElementImpl implements Room, Removable {
+public final class RoomImpl extends MapElementImpl implements Room {
 
     private final RoomType roomType;
     private final Optional<AIEnemy> roomAi;
@@ -127,6 +127,7 @@ public final class RoomImpl extends MapElementImpl implements Room, Removable {
 
     @Override
     public void updateRoom() {
+        this.checkRoomEvents();
         this.roomAi.ifPresent(r -> r.updateEnemies(this.player.get(), this.getBox()));
         this.player.ifPresent(player -> player.getWeaponShots().forEach(shot -> shot.tickShot()));
     }
@@ -146,6 +147,7 @@ public final class RoomImpl extends MapElementImpl implements Room, Removable {
 
     @Override
     public void remove(final MapElement e) {
+        this.roomAi.ifPresent(ai -> ai.remove(e));
         this.items.ifPresent(list -> list.remove(e));
         this.powerups.ifPresent(list -> list.remove(e));
     }
@@ -187,5 +189,25 @@ public final class RoomImpl extends MapElementImpl implements Room, Removable {
         // STANDARD and BOSS rooms: if the player has defeated all enemies -> the room is complete
         return this.roomAi.isPresent() && this.roomAi.get().getControlledEnemies().stream()
                 .allMatch(e -> e.isDead());
+    }
+
+    /**
+     * Method to check and notify room events.
+     * */
+    private void checkRoomEvents() {
+        var checkEventFactory = new CollisionCheckFactoryImpl();
+        if(this.player.isPresent()) {
+            if(this.getEnemies().isPresent()) {
+                checkEventFactory.getCollisionPlayerShotChecker(this.player.get(), this.getEnemies().get()).handleCollision(this);
+                checkEventFactory.getCollisionWithEnemyChecker(this.player.get(), this.getEnemies().get()).handleCollision(this);
+                checkEventFactory.getCollisionWithEnemyShotChecker(this.player.get(), this.getEnemies().get()).handleCollision(this);
+            }
+            if(this.powerups.isPresent()) {
+                checkEventFactory.getCollisionWithItemChecker(this.player.get(), this.powerups.get()).handleCollision(this);
+            }
+            if(this.items.isPresent()) {
+                checkEventFactory.getCollisionWithItemChecker(this.player.get(), this.items.get()).handleCollision(this);
+            }
+        }
     }
 }
