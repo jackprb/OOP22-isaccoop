@@ -1,13 +1,43 @@
 Welcome in Isaccoop User Guide.
 
-Keys to control the player:
+Quick start guide
 
- W: Move up
- A: Move to left
- S: Move down
- D: Move to right
-
- ARROW_UP: shoot up
- ARROW_DOWN: shoot down
- ARROW_LEFT: shoot to left
- ARROW_RIGHT: shoot to right
+Keys to control the player:
+W: Move up
+A: Move left
+S: Move down
+D: Move right
+ARROW_UP: shoot up
+ARROW_DOWN: shoot down
+ARROW_LEFT: shoot left
+ARROW_RIGHT: shoot right
+
+General gameplay information
+In the game there are 5 types of rooms:
+ - START: the empty room where the player starts
+ - SHOP: the room where you can buy powerups, using the money previously collected
+ - TREASURE: the room that contains a free power up
+ - STANDARD: a room with enemies to defeat
+ - BOSS: the room with the final boss (it is the last room).
+
+A level is made of rooms.
+At the bottom of the game window, there is the "minimap", where you can see some information
+about the level you are playing.
+A room is completed if there are no more enemies to defeat, (marked in GREEN on the minimap)
+otherwise if the are still enemies to defeat (marked in YELLOW on the minimap).
+The room you are currently in is marked in RED on the minimap.
+The START, SHOP and TREASURE rooms are already completed because there are no enemies there,
+whereas STANDARD and BOSS room are not completed because you will have to defeat all enemies
+in there.
+
+IMPORTANT NOTICE! When you enter a STANDARD room, you cannot leave it until you defeat all
+enemies.
+When you enter the BOSS room, you will have to defeat the BOSS. If you defeat it, the game ends.
+
+ITEMS:
+
+ENEMIES:
+
+POWERUP:
+
+BOSS:

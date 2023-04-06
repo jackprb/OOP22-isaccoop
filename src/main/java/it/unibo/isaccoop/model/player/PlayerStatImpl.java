@@ -39,11 +39,6 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
     private Double damage;
 
     /**
-     * the range where the player can hit.
-     * */
-    private Double range;
-
-    /**
      * create an enum to set initial stats of player.
      * */
     private enum PlayerValue {
@@ -52,9 +47,8 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
         COIN(0),
         MAX_HEART(3),
         SPEED(1),
-        TEARS(1),
-        DAMAGE(1),
-        RANGE(1);
+        TEARS(1000),
+        DAMAGE(1);
 
         private int value;
 
@@ -86,7 +80,6 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
         this.speed = Double.valueOf(PlayerValue.SPEED.getValue());
         this.tears = Double.valueOf(PlayerValue.TEARS.getValue());
         this.damage = Double.valueOf(PlayerValue.DAMAGE.getValue());
-        this.range = Double.valueOf(PlayerValue.RANGE.getValue());
     }
 
     /**
@@ -130,14 +123,6 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
     }
 
     /**
-     * @return the max range at which player can hit an enemy
-     * */
-    @Override
-    public Double getRange() {
-        return this.range;
-    }
-
-    /**
      * @return the time between two hit
      * */
     @Override
@@ -161,12 +146,6 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
     @Override
     public void setCoin(final int coin) {
         this.coin = coin;
-    }
-
-    /***/
-    @Override
-    public void setRange(final Double range) {
-        this.range = range;
     }
 
     /***/
