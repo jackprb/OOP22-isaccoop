@@ -40,7 +40,11 @@ public final class SwingGraphics implements Graphics {
            var room = ((Room) element);
            this.g2.drawImage(imageIcon.getImage(), 0, 0, (int) Math.round(room.getWidth() * this.ratioX), (int) Math.round(room.getHeight() * this.ratioY),null);
        } else {
-           this.g2.drawImage(imageIcon.getImage(), this.getXinPixel(element.getCoords()), this.getYinPixel(element.getCoords()), null);
+           var centerY = imageIcon.getImage().getHeight(null) /2;
+           var centerX = imageIcon.getImage().getWidth(null) /2;
+           var h = this.getYinPixel(element.getCoords()) - centerY;
+           var w = this.getXinPixel(element.getCoords()) - centerX;
+           this.g2.drawImage(imageIcon.getImage(), w, h, null);
        }
 
     }
@@ -51,6 +55,10 @@ public final class SwingGraphics implements Graphics {
 
     private int getYinPixel(final Point2D p) {
         return (int)  Math.round(p.getY() * ratioY);
+    }
+
+    private int getDeltaXinPixel(double dx){
+        return (int)  Math.round(dx * ratioX);
     }
 
 }
