@@ -57,8 +57,4 @@ public final class SwingGraphics implements Graphics {
         return (int)  Math.round(p.getY() * ratioY);
     }
 
-    private int getDeltaXinPixel(double dx){
-        return (int)  Math.round(dx * ratioX);
-    }
-
 }
