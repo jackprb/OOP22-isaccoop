@@ -10,7 +10,7 @@ import it.unibo.isaccoop.model.player.PlayerStat;
 public abstract class PowerUp extends AbstractItem {
 
     private static final int PRICE = 3;
-    private static final int SUPER_PRICE = 8;
+    private static final int SUPER_PRICE = 6;
 
     private Boolean superItem;
 

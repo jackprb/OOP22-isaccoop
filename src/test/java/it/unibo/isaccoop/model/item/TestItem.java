@@ -3,8 +3,8 @@ package it.unibo.isaccoop.model.item;
 import it.unibo.isaccoop.model.player.PlayerStat;
 import it.unibo.isaccoop.model.player.PlayerStatImpl;
 import it.unibo.isaccoop.model.powerup.DamageUp;
+import it.unibo.isaccoop.model.powerup.HealthUp;
 import it.unibo.isaccoop.model.powerup.PowerUp;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
@@ -18,13 +18,11 @@ class TestItem {
     private final Item coin = new Coin();
     private final Item heart = new Heart();
     private final PowerUp damageUp = new DamageUp();
+    private final PowerUp healthUp = new HealthUp();
 
     /***/
     @Test
     void testPowerUp() {
-        /**
-         * Test PowerUp.
-         */
         assertEquals(1, stat.getDamage());
         damageUp.setSuperItem(true);
         damageUp.interact(stat);
@@ -32,6 +30,15 @@ class TestItem {
         damageUp.setSuperItem(false);
         damageUp.interact(stat);
         assertEquals(4, stat.getDamage());
+
+        assertEquals(3, stat.getMaxHeart());
+        healthUp.setSuperItem(true);
+        healthUp.interact(stat);
+        assertEquals(5, stat.getMaxHeart());
+        healthUp.setSuperItem(false);
+        healthUp.interact(stat);
+        assertEquals(6, stat.getMaxHeart());
+
     }
 
     /***/
