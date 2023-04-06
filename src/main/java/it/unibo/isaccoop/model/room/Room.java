@@ -6,6 +6,7 @@ import java.util.Optional;
 import it.unibo.isaccoop.model.ai.AIEnemy;
 import it.unibo.isaccoop.model.collision.Event;
 import it.unibo.isaccoop.model.common.MapElement;
+import it.unibo.isaccoop.model.common.Removable;
 import it.unibo.isaccoop.model.common.RoomType;
 import it.unibo.isaccoop.model.enemy.Enemy;
 import it.unibo.isaccoop.model.item.Item;
@@ -15,45 +16,45 @@ import it.unibo.isaccoop.model.powerup.PowerUp;
 /**
  * Interface to model the concept of Room inside the game.
  */
-public interface Room extends MapElement {
+public interface Room extends MapElement, Removable {
 
     /**
-     * Get the {@link RoomType} of the room, that is, the type of the room itself. 
+     * Get the {@link RoomType} of the room, that is, the type of the room itself.
      * @return the type of this room
      */
     RoomType getRoomType();
 
     /**
      * Get the {@link AIEnemy} attached to this {@link Room}.
-     * @return {@link AIEnemy} attached to this {@link Room}, or {@link Optional#empty()} 
+     * @return {@link AIEnemy} attached to this {@link Room}, or {@link Optional#empty()}
      * if there is not an {@link AIEnemy} in this room
      * */
     Optional<AIEnemy> getRoomAI();
 
     /**
      * Get the list of {@link Item}s in this room.
-     * @return the list of items in this room, or {@link Optional#empty()} 
+     * @return the list of items in this room, or {@link Optional#empty()}
      * if there is not a list of {@link Item}s in this room.
      */
     Optional<List<Item>> getItems();
 
     /**
      * Get the list of {@link PowerUp}s in this room.
-     * @return the list of {@link PowerUp}s in this room, or {@link Optional#empty()} 
+     * @return the list of {@link PowerUp}s in this room, or {@link Optional#empty()}
      * if there is not a list of {@link PowerUp}s in this room.
      */
     Optional<List<PowerUp>> getPowerUps();
 
     /**
      * Get the {@link Player}.
-     * @return the player, or {@link Optional#empty()} 
+     * @return the player, or {@link Optional#empty()}
      * if the {@link Player} is not in this room.
      */
     Optional<Player> getPlayer();
 
     /**
      * Get the list of {@link Enemy}.
-     * @return the list of {@link Enemy}, or {@link Optional#empty()} 
+     * @return the list of {@link Enemy}, or {@link Optional#empty()}
      * if there are no {@link Enemy} in this room.
      */
     Optional<List<Enemy>> getEnemies();
@@ -75,7 +76,7 @@ public interface Room extends MapElement {
     /**
      * Check if this room is complete.
      * A room is complete if all enemies in there are defeated.
-     * Rooms with neither enemies nor boss are already complete. 
+     * Rooms with neither enemies nor boss are already complete.
      * @return true if this room is complete, false otherwise
      */
     boolean isComplete();
