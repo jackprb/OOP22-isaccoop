@@ -1,5 +1,8 @@
-package it.unibo.isaccoop.model.item;
+package it.unibo.isaccoop.test.model.item;
 
+import it.unibo.isaccoop.model.item.Coin;
+import it.unibo.isaccoop.model.item.Heart;
+import it.unibo.isaccoop.model.item.Item;
 import it.unibo.isaccoop.model.player.PlayerStat;
 import it.unibo.isaccoop.model.player.PlayerStatImpl;
 import it.unibo.isaccoop.model.powerup.DamageUp;

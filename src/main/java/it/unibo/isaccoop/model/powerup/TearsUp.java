@@ -9,8 +9,8 @@ import it.unibo.isaccoop.model.player.PlayerStat;
  * */
 public class TearsUp extends PowerUp {
 
-    private static final int TEARS_SUPER_UP = 2;
-    private static final int TEARS_UP = 1;
+    private static final int TEARS_SUPER_UP = -500;
+    private static final int TEARS_UP = -800;
 
     /***/
     public TearsUp() {
