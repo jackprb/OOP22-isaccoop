@@ -42,4 +42,5 @@ public final class ShootingHitStrategy implements HitStrategy {
     public void removeShot(final WeaponShot shot) {
         this.weapon.remove(shot);
     }
+
 }
