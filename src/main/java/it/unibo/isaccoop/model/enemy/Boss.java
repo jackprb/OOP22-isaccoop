@@ -65,7 +65,8 @@ public class Boss extends AbstractEnemy {
                 super.getHitStrategy().hit(Optional.empty(), this);
             } else {
                 super.setHitStrategy(new ShootingHitStrategy(new TimeIntervalWeapon(super.getSpeed(),
-                        (start, direction) -> new BaseWeaponShot(start, direction))));
+                        (start, direction) -> new BaseWeaponShot(start, direction, new ConcreteEnemyGraphicsComponentFactory()
+                                .getBossBaseWeaponShotGraphicsComponent()))));
                 super.getHitStrategy().hit(Optional.of(playerPosition.sub(this.getCoords())), this);
             }
         }
