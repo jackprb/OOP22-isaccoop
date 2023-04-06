@@ -20,7 +20,7 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
     /**
      * Attribute used to update enemy position incrementally.
      * */
-    private static final Double SPEED = 1.0;
+    private static final Double SPEED = 0.5;
 
     /***/
     private MovementStrategy movementStrategy;
