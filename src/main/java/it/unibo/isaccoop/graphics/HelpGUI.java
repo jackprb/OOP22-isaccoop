@@ -19,10 +19,9 @@ public class HelpGUI extends AbstractGUIFrame {
     private static final String TITLE = "Isaccoop User Guide";
     private static final String RES_PATH = "it/unibo/isaccoop/help/";
     private static final String CANNOT_FIND_HELPFILE = "Cannot find the help file \"help.txt\"";
+    private static final String NEWLINE = System.lineSeparator();
     private static final int TEXTAREA_COLS = 50;
     private static final int TEXTAREA_ROWS = 10;
-    private final JButton btnClose = new JButton("Close");
-    private final JTextArea textArea = new JTextArea(TEXTAREA_ROWS, TEXTAREA_COLS);
 
     /**
      * Constructor. No parameters required.
@@ -32,6 +31,8 @@ public class HelpGUI extends AbstractGUIFrame {
         super();
         super.setTitle(TITLE);
 
+        final JButton btnClose = new JButton("Close");
+        final JTextArea textArea = new JTextArea(TEXTAREA_ROWS, TEXTAREA_COLS);
         Stream<String> linesStream = null;
         try {
             final InputStream in = Objects.requireNonNull(
@@ -39,16 +40,16 @@ public class HelpGUI extends AbstractGUIFrame {
             final BufferedReader br = new BufferedReader(new InputStreamReader(in));
             linesStream = br.lines();
         } catch (NullPointerException e) {
-            e.printStackTrace();
         }
 
         // get the main BorderLayout
         final JFrame frame = super.getJFrame();
+        // add the textArea, where to display the help
         frame.add(new JScrollPane(textArea), BorderLayout.CENTER);
 
         if (linesStream != null) {
             final StringBuilder strBuilder = new StringBuilder();
-            linesStream.forEach(s -> strBuilder.append(s));
+            linesStream.forEach(s -> strBuilder.append(s + NEWLINE));
             textArea.setText(strBuilder.toString());
         } else {
             textArea.setText(CANNOT_FIND_HELPFILE);
@@ -62,6 +63,5 @@ public class HelpGUI extends AbstractGUIFrame {
 
     @Override
     public void updateView() {
-
     }
 }
