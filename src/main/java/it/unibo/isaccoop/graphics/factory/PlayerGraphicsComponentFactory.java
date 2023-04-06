@@ -12,4 +12,11 @@ public interface PlayerGraphicsComponentFactory {
      * */
     GraphicsComponent getPlayerGraphicsComponent();
 
+    /**
+     * Get base weapon shot graphics component.
+     *
+     * @return base weapon shot graphics component
+     * */
+    GraphicsComponent getPlayerBaseWeaponShotGraphicsComponent();
+
 }
