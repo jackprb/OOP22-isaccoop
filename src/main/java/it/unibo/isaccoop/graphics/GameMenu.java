@@ -83,7 +83,7 @@ public class GameMenu {
         canvas.setBackground(new java.awt.Color(Colors.MENU.getX(), Colors.MENU.getY(), Colors.MENU.getZ()));
         final JPanel buttons = new JPanel();
         buttons.setBackground(new java.awt.Color(Colors.MENU.getX(), Colors.MENU.getY(), Colors.MENU.getZ()));
-        final JLabel title = new JLabel("Isaccopp");
+        final JLabel title = new JLabel("Isaccoop");
         title.setFont(new Font("Arial", Font.PLAIN, sw / FONT_SIZE));
 
         canvas.add(title);
@@ -110,9 +110,7 @@ public class GameMenu {
                     Thread thread = new Thread() {
                         @Override
                         public void run() {
-                            final GameEngineImpl gameEngine = new GameEngineImpl();
-                            gameEngine.run();
-                            //new MinimapGUI(gameEngine).display();
+                            new GameEngineImpl().run();
                         }
                      };
                     thread.start();
@@ -140,7 +138,13 @@ public class GameMenu {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 try {
-
+                    final Thread thread = new Thread() {
+                        @Override
+                        public void run() {
+                            new HelpGUI().display();
+                        }
+                     };
+                    thread.start();
                 } catch (Exception e1) {
                     JOptionPane.showMessageDialog(frame, e1, "Error", JOptionPane.ERROR_MESSAGE);
                     e1.printStackTrace();
