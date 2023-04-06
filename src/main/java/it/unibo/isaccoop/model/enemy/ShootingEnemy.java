@@ -12,12 +12,15 @@ import it.unibo.isaccoop.model.weapon.TimeIntervalWeapon;
 /***/
 public final class ShootingEnemy extends AbstractEnemy {
 
+    /**
+     * Weapon Time interval between shots
+     * */
     private static final double WEAPON_INTERVAL = 5000;
 
     /***/
     public ShootingEnemy() {
         super(EnemyHearts.ENEMY_HEARTS,
-                new ShootingHitStrategy(new TimeIntervalWeapon(WEAPON_INTERVAL,
+                new ShootingHitStrategy(new TimeIntervalWeapon(ShootingEnemy.WEAPON_INTERVAL,
                         (start, direction) -> new BaseWeaponShot(start, direction))), new ShootingMovementStrategy(),
                 new ConcreteEnemyGraphicsComponentFactory().getShootingGraphicsComponent());
     }
