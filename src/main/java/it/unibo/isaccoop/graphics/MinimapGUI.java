@@ -15,7 +15,7 @@ import it.unibo.isaccoop.model.room.Level;
 import it.unibo.isaccoop.model.room.Room;
 
 /**
- * Creates a Gui to display the {@link Minimap}.
+ * Creates a GUI to display the {@link Minimap}.
  * This GUI shows some information about the {@link Level} currently played.
  */
 public class MinimapGUI extends JPanel {
@@ -36,19 +36,28 @@ public class MinimapGUI extends JPanel {
         /**
          * Where the player is.
          */
-        PLAYER,
+        PLAYER("You are here"),
         /**
          * Where there is not a playable room.
          */
-        NO_ROOM_HERE,
+        NO_ROOM_HERE("Inaccessible room"),
         /**
          * Uncompleted room (there are still enemies to defeat).
          */
-        UNCOMPLETED_ROOM,
+        UNCOMPLETED_ROOM("Uncompleted room"),
         /**
          * Completed room (there are no more enemies to defeat).
          */
-        COMPLETED_ROOM;
+        COMPLETED_ROOM("Completed room");
+        
+        private final String descr;
+        private CellStatus(final String descr) {
+            this.descr = descr;
+        }
+        
+        private String getDescr() {
+            return this.descr;
+        }
     }
 
     /**
