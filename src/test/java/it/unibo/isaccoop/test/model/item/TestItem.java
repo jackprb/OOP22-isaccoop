@@ -47,16 +47,9 @@ class TestItem {
     /***/
     @Test
     void testItem() {
-
-        /**
-         * Test Item Coin.
-         * */
         coin.interact(stat);
         assertEquals(1, stat.getCoin());
 
-        /**
-         * Test Item Heart.
-         */
         assertEquals(3, stat.getHeart());
         heart.interact(stat);
         assertEquals(3, stat.getHeart());
