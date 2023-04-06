@@ -75,7 +75,7 @@ public class OverlayGUI extends JPanel {
     public OverlayGUI(final Level level, final int roomWidth, final int minimapHeight) {
         this.lvl = level;
 
-        final int horizontalGap = roomWidth / 15;
+        final int horizontalGap = roomWidth / 16;
         final int verticalGap = 10;
 
         // main layout
@@ -167,12 +167,12 @@ public class OverlayGUI extends JPanel {
     private List<String> getStatsStringsPart1() {
         return List.of("Player statistics:", 
                 "Coins: " + this.lvl.getPlayer().getCoin(),
-                "Damage: " + this.lvl.getPlayer().getDamage(),
-                "Hearts: " + this.lvl.getPlayer().getHeart() + " / " + this.lvl.getPlayer().getMaxHeart());
+                "Damage: " + this.lvl.getPlayer().getDamage());
     }
 
     private List<String> getStatsStringsPart2() {
-        return List.of(" ", "Hit range: " + this.lvl.getPlayer().getRange(),
+        return List.of(
+                "Hearts: " + this.lvl.getPlayer().getHeart() + " / " + this.lvl.getPlayer().getMaxHeart(),
                 "Speed: " + this.lvl.getPlayer().getSpeed(),
                 "Tears: " + this.lvl.getPlayer().getTears());   
     }
