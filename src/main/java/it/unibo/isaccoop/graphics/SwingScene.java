@@ -1,6 +1,5 @@
 package it.unibo.isaccoop.graphics;
 
-import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,7 +7,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.Stroke;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -112,7 +110,6 @@ public class SwingScene implements Scene {
         private final double ratioY;
         private final Font scoreFont;
         private final Font gameOverFont;
-        private final Stroke strokeBorder;
 
         /**
          *
@@ -127,7 +124,6 @@ public class SwingScene implements Scene {
             centerY = h / 2;
             ratioX = w / width;
             ratioY = h / height;
-            this.strokeBorder = new BasicStroke(2f);
 
             scoreFont = new Font("Verdana", Font.PLAIN, SCORE_FONT);
             gameOverFont = new Font("Verdana", Font.PLAIN, GAME_OVER_FONT);

@@ -8,12 +8,15 @@ import it.unibo.isaccoop.model.boundingbox.BoundingBox;
 import it.unibo.isaccoop.model.boundingbox.CircleBoundingBox;
 import it.unibo.isaccoop.model.boundingbox.RectBoundingBox;
 
-/***/
+/**
+ * 
+ */
 public abstract class AbstractMapElement implements MapElement {
 
     private Point2D coords;
     private BoundingBox box;
     private GraphicsComponent graphicComponent;
+    private static final double FIXED_INITIAL_POSITION = 5.0;
 
     /**
      *
@@ -51,7 +54,7 @@ public abstract class AbstractMapElement implements MapElement {
          * @param value
          * set the value.
          * */
-         ElementsRadius(final Double value) {
+        ElementsRadius(final Double value) {
             this.value = value;
         }
 
@@ -78,7 +81,7 @@ public abstract class AbstractMapElement implements MapElement {
     /**
      * Constructor for {@link AbstractMapElement} with fixed initial position.
      * @param elemRadius based on the type of the element
-     * */
+     */
     public AbstractMapElement(final ElementsRadius elemRadius) {
         this.coords = new Point2D(0.0, 0.0);
         this.box = new CircleBoundingBox(elemRadius.getValue());
@@ -87,10 +90,10 @@ public abstract class AbstractMapElement implements MapElement {
     /**
      * Constructor for {@link AbstractMapElement} with fixed initial position.
      * @param elemRadius based on the type of the element
-     * @param gr
+     * @param gr the {@link GraphicsComponent} for this {@link MapElement}
      * */
     public AbstractMapElement(final ElementsRadius elemRadius, final GraphicsComponent gr) {
-        this.coords = new Point2D(5.0, 5.0);
+        this.coords = new Point2D(FIXED_INITIAL_POSITION, FIXED_INITIAL_POSITION);
         this.box = new CircleBoundingBox(elemRadius.getValue());
         this.graphicComponent = gr;
     }
@@ -107,25 +110,34 @@ public abstract class AbstractMapElement implements MapElement {
         this.graphicComponent = gr;
     }
 
-    /***/
+    /**
+     * Get the coordinate of this {@link MapElement}.
+     * @return the coordinate of this {@link MapElement}, as a {@link Point2D}
+     */
     @Override
     public Point2D getCoords() {
         return new Point2D(this.coords.getX(), this.coords.getY());
     }
 
-    /***/
+    /**
+     * Set the coordinate of this {@link MapElement}.
+     * @param coords the {@link Point2D} to be set as coordinate of this {@link MapElement}
+     */
     @Override
     public void setCoords(final Point2D coords) {
         this.coords = new Point2D(coords.getX(), coords.getY());
     }
 
-    /***/
+    /**
+     * 
+     * @param gr
+     */
     protected void setGraphicsComponents(final GraphicsComponent gr) {
         this.graphicComponent = gr;
     }
 
     /**
-     *
+     * Get the collision box of this {@link MapElement}.
      * @return collision box
      */
     @Override
@@ -141,22 +153,30 @@ public abstract class AbstractMapElement implements MapElement {
         graphicComponent.update(this, g);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         return Objects.hash(coords);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
+    public boolean equals(final Object obj) {
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        AbstractMapElement other = (AbstractMapElement) obj;
-        return Double.compare(coords.getX(), other.coords.getX()) == 0 &&
-                Double.compare(coords.getY(), other.coords.getY()) == 0;
+        }
+        final AbstractMapElement other = (AbstractMapElement) obj;
+        return Double.compare(coords.getX(), other.coords.getX()) == 0 
+                && Double.compare(coords.getY(), other.coords.getY()) == 0;
     }
-
 }

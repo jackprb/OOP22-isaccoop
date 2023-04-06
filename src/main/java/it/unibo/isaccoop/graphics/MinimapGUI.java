@@ -7,13 +7,11 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import it.unibo.isaccoop.model.room.Level;
-import it.unibo.isaccoop.model.room.Minimap;
 import it.unibo.isaccoop.model.room.Room;
 
 /**
@@ -22,8 +20,8 @@ import it.unibo.isaccoop.model.room.Room;
  */
 public class MinimapGUI extends JPanel {
 
+    private static final long serialVersionUID = -4109905993803098411L;
     private static final Font FONT = new Font("Verdana", Font.PLAIN, 12);
-    private static final String TITLE = "Minimap";
     private static final Map<CellStatus, Color> COLOR_MAP = Map.of(
             CellStatus.PLAYER, new Color(255, 0, 0), //red
             CellStatus.NO_ROOM_HERE, new Color(120, 120, 120), //grey
@@ -55,8 +53,9 @@ public class MinimapGUI extends JPanel {
 
     /**
      * Create a new GUI for {@link Minimap}.
-     * @param minimapHeight
-     * @param roomWidth
+     * @param level the level of which to show the layout
+     * @param roomWidth the width of the minimap
+     * @param minimapHeight the height of the minimap
      */
     public MinimapGUI(final Level level, final int roomWidth, final int minimapHeight) {
         this.lvl = level;
@@ -72,10 +71,6 @@ public class MinimapGUI extends JPanel {
         topPanel.add(lblInfoRoom);
         this.add(topPanel, BorderLayout.NORTH);
 
-        /*final ActionListener al = e -> {
-            var button = (JButton)e.getSource();
-            var indexBtn = this.btns.indexOf(button); //indice di btn cliccato in lista di btn
-        };*/
         for (int i = 0; i < lvl.getRooms().size(); i++) {
             final JButton jb = new JButton(Integer.toString(i));
             jb.setFont(FONT);
@@ -85,8 +80,11 @@ public class MinimapGUI extends JPanel {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void paint(Graphics g) {
+    public void paint(final Graphics g) {
         super.paint(g);
         lblInfoRoom.setText(getRoomStatusString());
         this.btns.forEach((btn, r) -> {
@@ -113,5 +111,4 @@ public class MinimapGUI extends JPanel {
         return "Rooms Completed: " + lvl.getMinimap().getCompletedRooms().size()
             + " of " + lvl.getRooms().size();
     }
-
 }
