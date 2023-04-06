@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
  */
 public final class MinimapImpl implements Minimap {
 
-    private Optional<Level> lvl = Optional.empty();
+    private final Optional<Level> lvl;
 
     /**
      * Constructor, used to set the level of which to show the layout (and some basic information). 

@@ -51,7 +51,7 @@ public abstract class AbstractMapElement implements MapElement {
          * @param value
          * set the value.
          * */
-         ElementsRadius(final Double value) {
+        ElementsRadius(final Double value) {
             this.value = value;
         }
 
@@ -106,13 +106,19 @@ public abstract class AbstractMapElement implements MapElement {
         this.graphicComponent = gr;
     }
 
-    /***/
+    /**
+     * Get the coordinate of this {@link MapElement}.
+     * @return the coordinate of this {@link MapElement}, as a {@link Point2D}
+     */
     @Override
     public Point2D getCoords() {
         return new Point2D(this.coords.getX(), this.coords.getY());
     }
 
-    /***/
+    /**
+     * Set the coordinate of this {@link MapElement}.
+     * @param coords the {@link Point2D} to be set as coordinate of this {@link MapElement}
+     */
     @Override
     public void setCoords(final Point2D coords) {
         this.coords = new Point2D(coords.getX(), coords.getY());
@@ -124,7 +130,7 @@ public abstract class AbstractMapElement implements MapElement {
     }
 
     /**
-     *
+     * Get the collision box of this {@link MapElement}.
      * @return collision box
      */
     @Override
@@ -146,16 +152,18 @@ public abstract class AbstractMapElement implements MapElement {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
+    public boolean equals(final Object obj) {
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        AbstractMapElement other = (AbstractMapElement) obj;
+        }
+        final AbstractMapElement other = (AbstractMapElement) obj;
         return Double.compare(coords.getX(), other.coords.getX()) == 0 &&
                 Double.compare(coords.getY(), other.coords.getY()) == 0;
     }
-
 }
