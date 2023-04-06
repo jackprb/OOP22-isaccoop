@@ -18,13 +18,14 @@ public class HelpGUI extends AbstractGUIFrame {
 
     private static final String TITLE = "Isaccoop User Guide";
     private static final String RES_PATH = "it/unibo/isaccoop/help/";
+    private static final String CANNOT_FIND_HELPFILE = "Cannot find the help file \"help.txt\"";
     private static final int TEXTAREA_COLS = 50;
     private static final int TEXTAREA_ROWS = 10;
     private final JButton btnClose = new JButton("Close");
     private final JTextArea textArea = new JTextArea(TEXTAREA_ROWS, TEXTAREA_COLS);
 
     /**
-     * Constructor. No parameters requiered.
+     * Constructor. No parameters required.
      * Creates a GUI to show the game help.
      */
     protected HelpGUI() {
@@ -50,8 +51,9 @@ public class HelpGUI extends AbstractGUIFrame {
             linesStream.forEach(s -> strBuilder.append(s));
             textArea.setText(strBuilder.toString());
         } else {
-            textArea.setText("Cannot find the help file \"help.txt\"");
+            textArea.setText(CANNOT_FIND_HELPFILE);
         }
+
         btnClose.addActionListener(l -> {
             this.getJFrame().setVisible(false);
         });
