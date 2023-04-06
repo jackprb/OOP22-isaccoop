@@ -14,6 +14,10 @@ public abstract class AbstractGUIFrame implements GUIFrame {
     private final JFrame frame = new JFrame("");
     private int frameResizeProportion = 2;
 
+    /**
+     * Constructor.
+     * Creates a default main panel (that uses a {@link BorderLayout} for this {@link JFrame}.
+     */
     protected AbstractGUIFrame() {
         // the main panel
         final JPanel mainPanel = new JPanel(new BorderLayout());
