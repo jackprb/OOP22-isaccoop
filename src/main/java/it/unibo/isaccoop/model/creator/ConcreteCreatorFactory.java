@@ -44,7 +44,7 @@ public final class ConcreteCreatorFactory implements CreatorFactory {
 
     @Override
     public Creator<Enemy> createBoss() {
-        return () -> List.of(new Boss());
+        return () -> Stream.of(new Boss()).collect(Collectors.toList());
     }
 
     @Override
@@ -57,7 +57,7 @@ public final class ConcreteCreatorFactory implements CreatorFactory {
 
     @Override
     public Creator<PowerUp> createTreasurePowerUps() {
-        return () -> List.of(this.generatePowerUp().get());
+        return () -> Stream.of(this.generatePowerUp().get()).collect(Collectors.toList());
     }
 
     @Override
