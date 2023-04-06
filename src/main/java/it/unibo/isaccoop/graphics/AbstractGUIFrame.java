@@ -1,8 +1,10 @@
 package it.unibo.isaccoop.graphics;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  * Abstract class that implements common methods of {@link GUIFrame}.
@@ -11,6 +13,12 @@ public abstract class AbstractGUIFrame implements GUIFrame {
 
     private final JFrame frame = new JFrame("");
     private int frameResizeProportion = 2;
+
+    protected AbstractGUIFrame() {
+        // the main panel
+        final JPanel mainPanel = new JPanel(new BorderLayout());
+        this.frame.getContentPane().add(mainPanel);
+    }
 
     /**
      * {@inheritDoc}
@@ -45,7 +53,6 @@ public abstract class AbstractGUIFrame implements GUIFrame {
          * on screen. Results may vary, but it is generally the best choice.
          */
         this.frame.setLocationByPlatform(true);
-        this.updateView();
         this.frame.pack();
         this.frame.setVisible(true);
     }
