@@ -185,4 +185,5 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
             this.hearts -= hearts;
         }
     }
+
 }

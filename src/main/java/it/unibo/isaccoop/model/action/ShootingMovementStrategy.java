@@ -4,7 +4,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.Vector2D;
-import it.unibo.isaccoop.model.enemy.ShootingEnemy;
+import it.unibo.isaccoop.model.enemy.AbstractEnemy;
 
 /***/
 public class ShootingMovementStrategy implements MovementStrategy {
@@ -25,7 +25,7 @@ public class ShootingMovementStrategy implements MovementStrategy {
             this.elapsedNewVector = System.currentTimeMillis();
             this.movementVector = this.getRandomVector();
         }
-        return enemyPosition.sum(this.movementVector.getNormalized().mul(ShootingEnemy.getSpeed()));
+        return enemyPosition.sum(this.movementVector.getNormalized().mul(AbstractEnemy.getSpeed()));
     }
 
     private Vector2D getRandomVector() {
