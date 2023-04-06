@@ -60,7 +60,7 @@ public class SwingScene implements Scene {
         this.engine = engine;
         containerPanel.add(new ScenePanel(ROOM_WIDTH, ROOM_HEIGHT, gameState.getCurrentRoom().getWidth(), gameState.getCurrentRoom().getHeight()),
                 BorderLayout.CENTER);
-        containerPanel.add(new MinimapGUI(gameState, ROOM_WIDTH, MINIMAP_HEIGHT), BorderLayout.PAGE_END);
+        containerPanel.add(new OverlayGUI(gameState, ROOM_WIDTH, MINIMAP_HEIGHT), BorderLayout.PAGE_END);
         frame.getContentPane().add(containerPanel);
         frame.addWindowListener(new WindowAdapter() {
             @Override

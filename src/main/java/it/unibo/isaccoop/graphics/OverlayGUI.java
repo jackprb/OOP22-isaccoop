@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 
 import it.unibo.isaccoop.model.player.PlayerStat;
 import it.unibo.isaccoop.model.room.Level;
+import it.unibo.isaccoop.model.room.Minimap;
 import it.unibo.isaccoop.model.room.Room;
 
 /**
@@ -95,7 +96,7 @@ public class OverlayGUI extends JPanel {
         final JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         topPanel.add(lblInfoRoom);
         minimapPanel.add(topPanel, BorderLayout.NORTH);
-        
+
         // legend to explain the meaning of minimap
         final JPanel legendPanel = new JPanel();
         legendPanel.setLayout(new BoxLayout(legendPanel, BoxLayout.X_AXIS));
@@ -185,7 +186,7 @@ public class OverlayGUI extends JPanel {
      * @return an unmodifiable list containing first part of player statistics
      */
     private List<String> getStatsStringsPart1() {
-        return List.of("Player statistics:", 
+        return List.of("Player statistics:",
                 "Coins: " + this.lvl.getPlayer().getCoin(),
                 "Damage: " + this.lvl.getPlayer().getDamage());
     }

@@ -21,7 +21,7 @@ public final class ShootingEnemy extends AbstractEnemy {
     public ShootingEnemy() {
         super(EnemyHearts.ENEMY_HEARTS,
                 new ShootingHitStrategy(new TimeIntervalWeapon(ShootingEnemy.WEAPON_INTERVAL,
-                        (start, direction) -> new BaseWeaponShot(start, direction))), new ShootingMovementStrategy(),
+                        (start, direction) -> new BaseWeaponShot(start, direction, new ConcreteEnemyGraphicsComponentFactory().getEnemyBaseWeaponShotGraphicsComponent()))), new ShootingMovementStrategy(),
                 new ConcreteEnemyGraphicsComponentFactory().getShootingGraphicsComponent());
     }
 
