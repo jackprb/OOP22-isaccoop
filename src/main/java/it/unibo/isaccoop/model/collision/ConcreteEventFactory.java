@@ -11,12 +11,11 @@ import it.unibo.isaccoop.model.weapon.WeaponShot;
 
 /***/
 public final class ConcreteEventFactory implements EventFactory {
-
+    private final static Shop shop = new ShopImpl();
     @Override
     public Event getItemPickUpEvent(final Item target) {
         return room -> room.getPlayer().ifPresent(player -> {
             if (room.getRoomType() == RoomType.SHOP) {
-                Shop shop = new ShopImpl();
                 if (shop.buyItem(player, (PowerUp) target)) {
                     room.remove(target);
                 }

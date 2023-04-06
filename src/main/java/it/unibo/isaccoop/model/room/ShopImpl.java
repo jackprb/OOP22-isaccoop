@@ -1,6 +1,6 @@
 package it.unibo.isaccoop.model.room;
 
-import it.unibo.isaccoop.model.player.Player;
+import it.unibo.isaccoop.model.player.PlayerStat;
 import it.unibo.isaccoop.model.powerup.PowerUp;
 
 /**
@@ -16,7 +16,7 @@ public class ShopImpl implements Shop {
      * @return true if the power up has been purchased
      */
     @Override
-    public boolean buyItem(final Player player, final PowerUp powerUp) {
+    public boolean buyItem(final PlayerStat player, final PowerUp powerUp) {
         if (player.getCoin() >= powerUp.getPrice()) {
             player.setCoin(player.getCoin() - powerUp.getPrice());
             powerUp.interact(player);
