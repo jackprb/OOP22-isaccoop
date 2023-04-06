@@ -14,9 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import it.unibo.isaccoop.model.player.PlayerStat;
 import it.unibo.isaccoop.model.room.Level;
-import it.unibo.isaccoop.model.room.Minimap;
 import it.unibo.isaccoop.model.room.Room;
 
 /**
@@ -128,7 +126,7 @@ public class OverlayGUI extends JPanel {
         this.add(legendPanel);
 
         for (int i = 0; i < lvl.getRooms().size(); i++) {
-            final JButton jb = new JButton(Integer.toString(i+1));
+            final JButton jb = new JButton(Integer.toString(i + 1));
             jb.setFont(FONT);
             centerPanel.add(jb);
             jb.setEnabled(false);
@@ -199,6 +197,6 @@ public class OverlayGUI extends JPanel {
         return List.of(
                 "Hearts: " + this.lvl.getPlayer().getHeart() + " of " + this.lvl.getPlayer().getMaxHeart(),
                 "Speed: " + this.lvl.getPlayer().getSpeed(),
-                "Tears: " + this.lvl.getPlayer().getTears());   
+                "Tears: " + this.lvl.getPlayer().getTears());
     }
 }
