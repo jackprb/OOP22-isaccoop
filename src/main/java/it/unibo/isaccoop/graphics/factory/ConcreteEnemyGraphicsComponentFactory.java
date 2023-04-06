@@ -20,4 +20,9 @@ public final class ConcreteEnemyGraphicsComponentFactory extends AbstractGraphic
         return super.getElementAsImageGraphicsComponent("EnemyBoss.gif");
     }
 
+    @Override
+    public GraphicsComponent getBaseWeaponShotGraphicsComponent() {
+        return super.getElementAsImageGraphicsComponent("enemyShoot.gif");
+    }
+
 }

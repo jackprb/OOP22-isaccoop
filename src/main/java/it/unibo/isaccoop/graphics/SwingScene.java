@@ -171,10 +171,13 @@ public class SwingScene implements Scene {
                 final SwingGraphics gr = new SwingGraphics(g2, ratioX, ratioY);
 
                 scene.updateGraphics(gr);
-                scene.getPlayer().ifPresent(p -> p.updateGraphics(gr));
-                scene.getEnemies().ifPresent(l -> l.forEach(e -> e.updateGraphics(gr)));
                 scene.getItems().ifPresent(l -> l.forEach(i -> i.updateGraphics(gr)));
                 scene.getPowerUps().ifPresent(l -> l.forEach(p -> p.updateGraphics(gr)));
+                scene.getEnemies().ifPresent(l -> l.forEach(e -> {
+                    e.updateGraphics(gr);
+                    e.getWeaponShots().ifPresent(shots -> shots.forEach(shot -> shot.updateGraphics(gr)));
+                }));
+                scene.getPlayer().ifPresent(p -> p.updateGraphics(gr));
 
             }
         }
