@@ -1,12 +1,12 @@
 package it.unibo.isaccoop.core;
 
 import static java.awt.event.KeyEvent.VK_A;
-import static java.awt.event.KeyEvent.VK_N;
-import static java.awt.event.KeyEvent.VK_P;
-import static java.awt.event.KeyEvent.VK_ESCAPE;
 import static java.awt.event.KeyEvent.VK_D;
 import static java.awt.event.KeyEvent.VK_DOWN;
+import static java.awt.event.KeyEvent.VK_ESCAPE;
 import static java.awt.event.KeyEvent.VK_LEFT;
+import static java.awt.event.KeyEvent.VK_N;
+import static java.awt.event.KeyEvent.VK_P;
 import static java.awt.event.KeyEvent.VK_RIGHT;
 import static java.awt.event.KeyEvent.VK_S;
 import static java.awt.event.KeyEvent.VK_UP;
@@ -34,10 +34,6 @@ public final class GameEngineImpl implements GameEngine {
     private GameLoop gameLoop;
 
     private static final int MAX_ROOMS = 5;
-    private static final int WIDTH = 1000;
-    private static final int HEIGHT = 1000;
-    private static final int WIDTH_RATIO = 20;
-    private static final int HEIGHT_RATIO = 20;
 
     /**
      * GameEngineImp constructor.
@@ -62,12 +58,12 @@ public final class GameEngineImpl implements GameEngine {
         this.controllers.put("keyShot", new KeyboardInputController(VK_UP, VK_DOWN, VK_LEFT, VK_RIGHT));
         this.actionController = new ActionControllerImpl(VK_ESCAPE, VK_N, VK_P);
         var gameState = new LevelControllerImpl(GameEngineImpl.MAX_ROOMS, this).getCurrentLevel();
-        this.gameLoop = new GameLoopImpl(new SwingScene(gameState, this, WIDTH, HEIGHT, WIDTH_RATIO, HEIGHT_RATIO),
-                gameState, this.getActionController());
+        this.gameLoop = new GameLoopImpl(new SwingScene(gameState, this),
+                gameState, this.actionController);
 
     }
     /**
-     * {@inheritDoc} 
+     * {@inheritDoc}
      */
     @Override
     public InputController getController(final String name) {

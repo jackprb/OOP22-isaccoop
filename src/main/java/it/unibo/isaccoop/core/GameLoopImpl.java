@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 
 import it.unibo.isaccoop.controller.input.ActionComponent;
 import it.unibo.isaccoop.controller.input.ActionComponentImpl;
-import it.unibo.isaccoop.controller.input.ActionControllerImpl;
+import it.unibo.isaccoop.controller.input.ActionController;
 import it.unibo.isaccoop.controller.input.InputComponent;
 import it.unibo.isaccoop.controller.input.PlayerInputComponent;
 import it.unibo.isaccoop.controller.input.ShotInputComponent;
@@ -21,7 +21,7 @@ public class GameLoopImpl implements GameLoop {
     private Level level;
     private List<InputComponent> inputComponents;
     private ActionComponent actionComponent;
-    private ActionControllerImpl actionController;
+    private ActionController actionController;
     private static final long DEFAULT_PERIOD = 20;
     private static final Logger LOGGER = Logger.getLogger(GameLoopImpl.class.getName());
 
@@ -31,7 +31,7 @@ public class GameLoopImpl implements GameLoop {
      * @param view to be handle into game loop
      * @param level to be handle into game loop
      */
-    public GameLoopImpl(final Scene view, final Level level, final ActionControllerImpl actionController) {
+    public GameLoopImpl(final Scene view, final Level level, final ActionController actionController) {
         this.view = view;
         this.level = level;
         this.inputComponents = List.of(new PlayerInputComponent(this.level.getCurrentRoom()),

@@ -59,6 +59,20 @@ public interface Room extends MapElement {
     Optional<List<Enemy>> getEnemies();
 
     /**
+     * return width of this room.
+     *
+     * @return width of this room
+     */
+    public int getWidth();
+
+    /**
+     * return height of this room.
+     *
+     * @return height of this room
+     */
+    public int getHeight();
+
+    /**
      * Check if this room is complete.
      * A room is complete if all enemies in there are defeated.
      * Rooms with neither enemies nor boss are already complete. 
