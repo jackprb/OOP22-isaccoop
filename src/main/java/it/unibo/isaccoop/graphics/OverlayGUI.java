@@ -6,19 +6,25 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import it.unibo.isaccoop.model.player.PlayerStat;
 import it.unibo.isaccoop.model.room.Level;
 import it.unibo.isaccoop.model.room.Room;
 
 /**
- * Creates a GUI to display the {@link Minimap}.
- * This GUI shows some information about the {@link Level} currently played.
+ * Creates a GUI to display the {@link Minimap}, the {@link PlayerStat}s and a legend explaining
+ * the meaning of colors of {@link Minimap}.
+ * This GUI shows: <br> the room the player is, <br> the completed rooms, <br> the uncompleted rooms
+ * <br>a legend to explain the minimap colors, <br>the player statistics.
  */
-public class MinimapGUI extends JPanel {
+public class OverlayGUI extends JPanel {
 
     private static final long serialVersionUID = -4109905993803098411L;
     private static final Font FONT = new Font("Verdana", Font.PLAIN, 12);
@@ -49,12 +55,12 @@ public class MinimapGUI extends JPanel {
          * Completed room (there are no more enemies to defeat).
          */
         COMPLETED_ROOM("Completed room");
-        
+
         private final String descr;
         private CellStatus(final String descr) {
             this.descr = descr;
         }
-        
+
         private String getDescr() {
             return this.descr;
         }
@@ -66,33 +72,59 @@ public class MinimapGUI extends JPanel {
      * @param roomWidth the width of the minimap
      * @param minimapHeight the height of the minimap
      */
-    public MinimapGUI(final Level level, final int roomWidth, final int minimapHeight) {
+    public OverlayGUI(final Level level, final int roomWidth, final int minimapHeight) {
         this.lvl = level;
+
+        final int horizontalGap = roomWidth / 15;
+        final int verticalGap = 10;
 
         // main layout
         this.setSize(roomWidth, minimapHeight);
-        this.setLayout(new BorderLayout());
-        // layout where to place the rooms
+        this.setLayout(new FlowLayout(FlowLayout.CENTER, horizontalGap, verticalGap));
+
+        // minimap container
+        final JPanel minimapPanel = new JPanel(new BorderLayout());
+        // panel where to place the rooms
         final JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        this.add(centerPanel, BorderLayout.CENTER);
-        // flow layout where to place some information about the current level
+        minimapPanel.add(centerPanel, BorderLayout.CENTER);
+        // panel where to place some information about the current level
         final JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         topPanel.add(lblInfoRoom);
-        this.add(topPanel, BorderLayout.NORTH);
-
+        minimapPanel.add(topPanel, BorderLayout.NORTH);
+        
         // legend to explain the meaning of minimap
-        final JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        final JPanel legendPanel = new JPanel();
+        legendPanel.setLayout(new BoxLayout(legendPanel, BoxLayout.X_AXIS));
         final JLabel lblInfo = new JLabel("Legend: ");
-        bottomPanel.add(lblInfo);
+        legendPanel.add(lblInfo);
         COLOR_MAP.forEach((cellStatus, color) -> {
             final JButton btn = new JButton(cellStatus.getDescr());
             btn.setBackground(color);
-            bottomPanel.add(btn);
+            legendPanel.add(btn);
         });
-        this.add(bottomPanel, BorderLayout.SOUTH);
+
+        // stats container part 1
+        final JPanel statsPanel1 = new JPanel();
+        statsPanel1.setLayout(new BoxLayout(statsPanel1, BoxLayout.Y_AXIS));
+        getStatsStringsPart1().forEach(str -> {
+            final JLabel lblStat = new JLabel(str);
+            statsPanel1.add(lblStat);
+        });
+        // stats container part 2
+        final JPanel statsPanel2 = new JPanel();
+        statsPanel2.setLayout(new BoxLayout(statsPanel2, BoxLayout.Y_AXIS));
+        getStatsStringsPart2().forEach(str -> {
+            final JLabel lblStat = new JLabel(str);
+            statsPanel2.add(lblStat);
+        });
+
+        this.add(minimapPanel);
+        this.add(statsPanel1);
+        this.add(statsPanel2);
+        this.add(legendPanel);
 
         for (int i = 0; i < lvl.getRooms().size(); i++) {
-            final JButton jb = new JButton(Integer.toString(i));
+            final JButton jb = new JButton(Integer.toString(i+1));
             jb.setFont(FONT);
             centerPanel.add(jb);
             jb.setEnabled(false);
@@ -129,6 +161,19 @@ public class MinimapGUI extends JPanel {
      */
     private String getRoomStatusString() {
         return "Rooms Completed: " + lvl.getMinimap().getCompletedRooms().size()
-            + " of " + lvl.getRooms().size();
+                + " of " + lvl.getRooms().size();
+    }
+
+    private List<String> getStatsStringsPart1() {
+        return List.of("Player statistics:", 
+                "Coins: " + this.lvl.getPlayer().getCoin(),
+                "Damage: " + this.lvl.getPlayer().getDamage(),
+                "Hearts: " + this.lvl.getPlayer().getHeart() + " / " + this.lvl.getPlayer().getMaxHeart());
+    }
+
+    private List<String> getStatsStringsPart2() {
+        return List.of(" ", "Hit range: " + this.lvl.getPlayer().getRange(),
+                "Speed: " + this.lvl.getPlayer().getSpeed(),
+                "Tears: " + this.lvl.getPlayer().getTears());   
     }
 }
