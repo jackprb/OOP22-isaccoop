@@ -63,7 +63,7 @@ public final class ConcreteCreatorFactory implements CreatorFactory {
     @Override
     public Creator<Item> createItems() {
         return () -> Stream.iterate(0, x -> x + 1)
-        .limit(ThreadLocalRandom.current().nextInt(ConcreteCreatorFactory.ITEMS_IN_ROOM))
+        .limit(ThreadLocalRandom.current().nextInt(ConcreteCreatorFactory.ITEMS_IN_ROOM) + 1)
         .map(e -> this.generateRandomItem().get())
         .collect(Collectors.toList());
     }
