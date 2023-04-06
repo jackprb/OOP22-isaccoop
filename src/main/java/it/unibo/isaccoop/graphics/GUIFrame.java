@@ -34,6 +34,10 @@ public interface GUIFrame {
 
     /**
      * Method to set the resize proportion of a {@link JFrame}, depending on the sceen dimension.
+     * @param proportion the proportion to be used to resize the frame.
+     * The resized frame will have <br> 
+     * width = (previousWidth / proportion)
+     * height = (previousWidth / proportion)
      */
     void setResizeProportion(int proportion);
 

@@ -63,14 +63,14 @@ public interface Room extends MapElement {
      *
      * @return width of this room
      */
-    public int getWidth();
+    int getWidth();
 
     /**
      * return height of this room.
      *
      * @return height of this room
      */
-    public int getHeight();
+    int getHeight();
 
     /**
      * Check if this room is complete.
@@ -96,7 +96,7 @@ public interface Room extends MapElement {
     boolean removePlayer();
 
     /**
-     * 
+     * Updates the enemies inside the room, if present. Otherwise, does nothing.
      */
     void updateRoom();
 

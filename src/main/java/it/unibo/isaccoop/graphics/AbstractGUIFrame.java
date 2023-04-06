@@ -12,11 +12,17 @@ public abstract class AbstractGUIFrame implements GUIFrame {
     private final JFrame frame = new JFrame("");
     private int frameResizeProportion = 2;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setTitle(final String title) {
         this.frame.setTitle(title);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void display() {
         /*
@@ -44,16 +50,25 @@ public abstract class AbstractGUIFrame implements GUIFrame {
         this.frame.setVisible(true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void hide() {
         this.frame.setVisible(false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setResizeProportion(final int proportion) {
         this.frameResizeProportion = proportion;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public JFrame getJFrame() {
         return this.frame;
