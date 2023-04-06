@@ -80,6 +80,17 @@ public class MinimapGUI extends JPanel {
         topPanel.add(lblInfoRoom);
         this.add(topPanel, BorderLayout.NORTH);
 
+        // legend to explain the meaning of minimap
+        final JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        final JLabel lblInfo = new JLabel("Legend: ");
+        bottomPanel.add(lblInfo);
+        COLOR_MAP.forEach((cellStatus, color) -> {
+            final JButton btn = new JButton(cellStatus.getDescr());
+            btn.setBackground(color);
+            bottomPanel.add(btn);
+        });
+        this.add(bottomPanel, BorderLayout.SOUTH);
+
         for (int i = 0; i < lvl.getRooms().size(); i++) {
             final JButton jb = new JButton(Integer.toString(i));
             jb.setFont(FONT);
