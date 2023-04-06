@@ -27,6 +27,7 @@ public class ConcreteAIEnemy implements AIEnemy {
         this.controlledEnemies.forEach(enemy -> {
             enemy.move(player.getCoords(), containerBox);
             enemy.hit(player.getCoords());
+            enemy.getWeaponShots().ifPresent(shots -> shots.forEach(shot -> shot.tickShot()));
         });
     }
 

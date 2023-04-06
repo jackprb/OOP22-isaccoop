@@ -36,9 +36,6 @@ public class TimeIntervalWeapon extends AbstractWeapon {
             super.addWeaponShot(this.weaponShotSupplier.apply(startPosition, direction));
             this.timeSinceLastShot = System.currentTimeMillis();
         }
-        super.getWeaponShots().forEach(shot -> shot.tickShot());
     }
-
-
 
 }

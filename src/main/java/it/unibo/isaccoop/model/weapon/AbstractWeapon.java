@@ -29,6 +29,11 @@ public abstract class AbstractWeapon implements Weapon {
         this.weaponShots.add(newShot);
     }
 
+    @Override
+    public void tickShots() {
+        this.weaponShots.forEach(shot -> shot.tickShot());
+    }
+
     /**
      * Get the {@link EnemyWeaponShot} list for this {@link EnemyWeapon}.
      *
