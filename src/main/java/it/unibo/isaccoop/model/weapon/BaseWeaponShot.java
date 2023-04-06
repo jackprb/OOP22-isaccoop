@@ -1,5 +1,6 @@
 package it.unibo.isaccoop.model.weapon;
 
+import it.unibo.isaccoop.graphics.factory.ConcreteEnemyGraphicsComponentFactory;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.Vector2D;
 
@@ -13,7 +14,7 @@ public class BaseWeaponShot extends AbstractWeaponShot {
      * @param direction shot direction vector
      * */
     public BaseWeaponShot(final Point2D startPosition, final Vector2D direction) {
-        super(startPosition, direction);
+        super(startPosition, direction, new ConcreteEnemyGraphicsComponentFactory().getBaseWeaponShotGraphicsComponent());
     }
 
     /**
@@ -22,7 +23,7 @@ public class BaseWeaponShot extends AbstractWeaponShot {
      * */
     @Override
     public void tickShot() {
-        super.setCoords(super.getCoords().sum(this.getShotVector().mul(super.getSpeed())));
+        super.setCoords(super.getCoords().sum(this.getShotVector().getNormalized().mul(super.getSpeed())));
     }
 
 }

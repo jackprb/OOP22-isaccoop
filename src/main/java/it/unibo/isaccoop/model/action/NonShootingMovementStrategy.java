@@ -10,7 +10,7 @@ public class NonShootingMovementStrategy implements MovementStrategy {
     /***/
     @Override
     public Point2D move(final Point2D enemyPosition, final Point2D playerPosition) {
-        final Vector2D movementVector = playerPosition.sub(enemyPosition).mul(1.0 / NonShootingEnemy.getSpeed());
+        final Vector2D movementVector = playerPosition.sub(enemyPosition).getNormalized().mul(NonShootingEnemy.getSpeed());
         return enemyPosition.sum(movementVector);
     }
 }

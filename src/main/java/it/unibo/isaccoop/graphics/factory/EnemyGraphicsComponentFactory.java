@@ -26,4 +26,11 @@ public interface EnemyGraphicsComponentFactory {
      * */
     GraphicsComponent getBossGraphicsComponent();
 
+    /**
+     * Get base weapon shot graphics component.
+     *
+     * @return base weapon shot graphics component
+     * */
+    GraphicsComponent getBaseWeaponShotGraphicsComponent();
+
 }

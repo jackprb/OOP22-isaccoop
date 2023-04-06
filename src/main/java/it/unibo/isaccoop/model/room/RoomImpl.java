@@ -127,7 +127,7 @@ public final class RoomImpl extends MapElementImpl implements Room, Removable {
 
     @Override
     public void updateRoom() {
-        this.roomAi.ifPresent(r -> r.updateEnemies(this.player.get()));
+        this.roomAi.ifPresent(r -> r.updateEnemies(this.player.get(), this.getBox()));
     }
 
     @Override

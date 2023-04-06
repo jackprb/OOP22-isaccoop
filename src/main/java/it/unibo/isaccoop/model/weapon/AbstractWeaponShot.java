@@ -1,5 +1,6 @@
 package it.unibo.isaccoop.model.weapon;
 
+import it.unibo.isaccoop.graphics.GraphicsComponent;
 import it.unibo.isaccoop.model.common.AbstractMapElement;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.Vector2D;
@@ -7,7 +8,7 @@ import it.unibo.isaccoop.model.common.Vector2D;
 /***/
 public abstract class AbstractWeaponShot extends AbstractMapElement implements WeaponShot {
 
-    private static final Double SPEED = 10.0;
+    private static final Double SPEED = 2.0;
     private final Vector2D shotVector;
 
     /**
@@ -16,8 +17,8 @@ public abstract class AbstractWeaponShot extends AbstractMapElement implements W
      *  @param startPosition start {@link EnemyWeaponShot} position as a {@link Pair}
      *  @param direction shot vector
      * */
-    public AbstractWeaponShot(final Point2D startPosition, final Vector2D direction) {
-        super(startPosition, ElementsRadius.BULLET);
+    public AbstractWeaponShot(final Point2D startPosition, final Vector2D direction, final GraphicsComponent gComponent) {
+        super(startPosition, ElementsRadius.BULLET, gComponent);
         this.shotVector = direction;
     }
 
