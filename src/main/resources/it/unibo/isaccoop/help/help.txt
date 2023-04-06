@@ -1,0 +1,13 @@
+Welcome in Isaccoop User Guide.
+
+Keys to control the player:
+
+ W: Move up
+ A: Move to left
+ S: Move down
+ D: Move to right
+
+ ARROW_UP: shoot up
+ ARROW_DOWN: shoot down
+ ARROW_LEFT: shoot to left
+ ARROW_RIGHT: shoot to right
