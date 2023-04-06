@@ -16,6 +16,11 @@ public interface Weapon extends Removable {
     void shoot(Point2D startPosition, Vector2D direction);
 
     /**
+     * Update weapon shots state.
+     * */
+    void tickShots();
+
+    /**
      * @return weapon shots list
      * */
     List<WeaponShot> getWeaponShots();

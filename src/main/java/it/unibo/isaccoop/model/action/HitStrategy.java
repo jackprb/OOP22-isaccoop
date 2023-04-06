@@ -13,4 +13,5 @@ public interface HitStrategy {
      * @param caller
      * */
     void hit(Optional<Vector2D> direction, MapElement caller);
+
 }
