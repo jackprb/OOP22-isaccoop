@@ -10,4 +10,9 @@ public final class ConcretePlayerGraphicsComponentFactory extends AbstractGraphi
         return super.getElementAsImageGraphicsComponent("player.gif");
     }
 
+    @Override
+    public GraphicsComponent getPlayerBaseWeaponShotGraphicsComponent() {
+        return super.getElementAsImageGraphicsComponent("playerShot.png");
+    }
+
 }
