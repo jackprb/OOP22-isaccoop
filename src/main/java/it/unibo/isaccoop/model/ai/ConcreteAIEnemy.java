@@ -3,6 +3,7 @@ package it.unibo.isaccoop.model.ai;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.unibo.isaccoop.model.boundingbox.BoundingBox;
 import it.unibo.isaccoop.model.common.MapElement;
 import it.unibo.isaccoop.model.enemy.Enemy;
 
@@ -22,9 +23,9 @@ public class ConcreteAIEnemy implements AIEnemy {
 
     /***/
     @Override
-    public void updateEnemies(final MapElement player) {
+    public void updateEnemies(final MapElement player, final BoundingBox containerBox) {
         this.controlledEnemies.forEach(enemy -> {
-            enemy.move(player.getCoords());
+            enemy.move(player.getCoords(), containerBox);
             enemy.hit(player.getCoords());
         });
     }

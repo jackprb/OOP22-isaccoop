@@ -1,5 +1,6 @@
 package it.unibo.isaccoop.model.enemy;
 
+import it.unibo.isaccoop.model.boundingbox.BoundingBox;
 import it.unibo.isaccoop.model.common.Point2D;
 
 /***/
@@ -17,6 +18,6 @@ public interface EnemyActions {
      *
      * @param playerPosition current player position
      * */
-    void move(Point2D playerPosition);
+    void move(Point2D playerPosition, BoundingBox containerBox);
 
 }

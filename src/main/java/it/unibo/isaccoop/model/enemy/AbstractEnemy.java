@@ -7,6 +7,8 @@ import it.unibo.isaccoop.graphics.GraphicsComponent;
 import it.unibo.isaccoop.model.action.HitStrategy;
 import it.unibo.isaccoop.model.action.MovementStrategy;
 import it.unibo.isaccoop.model.action.ShootingHitStrategy;
+import it.unibo.isaccoop.model.boundingbox.BoundingBox;
+import it.unibo.isaccoop.model.boundingbox.RectBoundingBox;
 import it.unibo.isaccoop.model.common.AbstractMapElement;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.player.PlayerStat;
@@ -18,7 +20,7 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
     /**
      * Attribute used to update enemy position incrementally.
      * */
-    private static final Double SPEED = 10.0;
+    private static final Double SPEED = 1.0;
 
     /***/
     private MovementStrategy movementStrategy;
@@ -53,9 +55,12 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
      * @param playerPosition in order to move towards the player if needed
      * */
     @Override
-    public void move(final Point2D playerPosition) {
-        final Point2D newPos = this.getMovementStrategy().move(super.getCoords(), playerPosition);
-        super.setCoords(newPos);
+    public void move(final Point2D playerPosition, final BoundingBox containerBox) {
+        final Point2D newPos = this.getMovementStrategy().move(this.getCoords(), playerPosition);
+
+        if(!this.getBox().isCollidingWithRecPerimeter(newPos, (RectBoundingBox) containerBox)) {
+            super.setCoords(newPos);
+        }
     }
 
     /**

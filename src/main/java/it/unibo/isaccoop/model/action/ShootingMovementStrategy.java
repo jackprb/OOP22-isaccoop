@@ -8,6 +8,6 @@ public class ShootingMovementStrategy implements MovementStrategy {
     /***/
     @Override
     public Point2D move(final Point2D enemyPosition, final Point2D playerPosition) {
-        return enemyPosition.sum(enemyPosition.sub(playerPosition).getNormalized());
+        return enemyPosition.sum(enemyPosition.sub(playerPosition).getNormalized().mul(0.1));
     }
 }

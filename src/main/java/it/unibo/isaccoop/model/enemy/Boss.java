@@ -7,6 +7,7 @@ import it.unibo.isaccoop.model.action.NonShootingHitStrategy;
 import it.unibo.isaccoop.model.action.NonShootingMovementStrategy;
 import it.unibo.isaccoop.model.action.ShootingHitStrategy;
 import it.unibo.isaccoop.model.action.ShootingMovementStrategy;
+import it.unibo.isaccoop.model.boundingbox.BoundingBox;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.weapon.BaseWeaponShot;
 import it.unibo.isaccoop.model.weapon.TimeIntervalWeapon;
@@ -74,7 +75,7 @@ public class Boss extends AbstractEnemy {
      * Move the boss towards the player.
      * */
     @Override
-    public void move(final Point2D playerPosition) {
+    public void move(final Point2D playerPosition, final BoundingBox containerBox) {
         if (this.changeMode()) {
             if (super.getMovementStrategy() instanceof ShootingMovementStrategy) {
                 super.setMovementStrategy(new NonShootingMovementStrategy());
@@ -82,7 +83,7 @@ public class Boss extends AbstractEnemy {
                 super.setMovementStrategy(new ShootingMovementStrategy());
             }
         }
-        super.getMovementStrategy().move(this.getCoords(), playerPosition);
+        super.getMovementStrategy().move(super.getCoords(), playerPosition);
     }
 
 }
