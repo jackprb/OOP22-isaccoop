@@ -9,8 +9,8 @@ import it.unibo.isaccoop.model.player.PlayerStat;
  * */
 public class CoinUp extends PowerUp {
 
-    private static final int COIN_UP = 10;
-    private static final int COIN_SUPER_UP = 20;
+    private static final int COIN_UP = 4;
+    private static final int COIN_SUPER_UP = 8;
 
     /***/
     public CoinUp() {

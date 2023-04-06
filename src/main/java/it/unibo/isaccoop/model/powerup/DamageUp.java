@@ -9,8 +9,8 @@ import it.unibo.isaccoop.model.player.PlayerStat;
  * */
 public class DamageUp extends PowerUp {
 
-    private static final float DAMAGE_SUPER_UP = 2;
-    private static final float DAMAGE_UP = 1;
+    private static final Double DAMAGE_SUPER_UP = 2.0;
+    private static final Double DAMAGE_UP = 1.0;
 
     /***/
     public DamageUp() {
