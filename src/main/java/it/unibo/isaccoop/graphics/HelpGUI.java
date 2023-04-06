@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Objects;
 import java.util.stream.Stream;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,7 +19,7 @@ public class HelpGUI extends AbstractGUIFrame {
     private static final String RES_PATH = "it/unibo/isaccoop/help/";
     private static final String CANNOT_FIND_HELPFILE = "Cannot find the help file \"help.txt\"";
     private static final String NEWLINE = System.lineSeparator();
-    private static final int TEXTAREA_COLS = 50;
+    private static final int TEXTAREA_COLS = 60;
     private static final int TEXTAREA_ROWS = 10;
 
     /**
@@ -33,27 +32,26 @@ public class HelpGUI extends AbstractGUIFrame {
 
         final JButton btnClose = new JButton("Close");
         final JTextArea textArea = new JTextArea(TEXTAREA_ROWS, TEXTAREA_COLS);
-        Stream<String> linesStream = null;
-        try {
-            final InputStream in = Objects.requireNonNull(
-                    ClassLoader.getSystemResourceAsStream(RES_PATH + "help.txt"));
+
+        // if exists, load the file "help.txt" from the resources folder as a stream<String> 
+        // and put it in a textarea
+        final InputStream in = ClassLoader.getSystemResourceAsStream(RES_PATH + "help.txt");
+        if (in != null) {
             final BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            linesStream = br.lines();
-        } catch (NullPointerException e) {
+            final Stream<String> linesStream = br.lines();
+
+            final StringBuilder strBuilder = new StringBuilder();
+            linesStream.forEach(s -> strBuilder.append(s + NEWLINE));
+            textArea.setText(strBuilder.toString());
+        } else {
+            // if the file does not exist, put an alternate message in textarea
+            textArea.setText(CANNOT_FIND_HELPFILE);
         }
 
         // get the main BorderLayout
         final JFrame frame = super.getJFrame();
         // add the textArea, where to display the help
         frame.add(new JScrollPane(textArea), BorderLayout.CENTER);
-
-        if (linesStream != null) {
-            final StringBuilder strBuilder = new StringBuilder();
-            linesStream.forEach(s -> strBuilder.append(s + NEWLINE));
-            textArea.setText(strBuilder.toString());
-        } else {
-            textArea.setText(CANNOT_FIND_HELPFILE);
-        }
 
         btnClose.addActionListener(l -> {
             this.getJFrame().setVisible(false);
