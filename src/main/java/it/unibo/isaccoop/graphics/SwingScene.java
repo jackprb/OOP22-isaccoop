@@ -8,7 +8,6 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -37,10 +36,10 @@ public class SwingScene implements Scene {
     private final Level gameState;
     private static final int GAME_OVER_FONT = 30;
 
-    private static final int MINIMAP_HEIGHT = 100;
+    private static final int MINIMAP_HEIGHT = 150;
     private static final int ROOM_WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     private static final int ROOM_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight()
-            - MINIMAP_HEIGHT * 2;
+            - MINIMAP_HEIGHT;
 
     /**
      * Constructor.
@@ -52,12 +51,13 @@ public class SwingScene implements Scene {
         final JPanel containerPanel = new JPanel(new BorderLayout());
         frame = new JFrame("Isaccoop");
         frame.setSize(ROOM_WIDTH, ROOM_HEIGHT + MINIMAP_HEIGHT);
+        frame.setPreferredSize(new Dimension(ROOM_WIDTH, ROOM_HEIGHT + MINIMAP_HEIGHT));
         frame.setMinimumSize(new Dimension(ROOM_WIDTH, ROOM_HEIGHT + MINIMAP_HEIGHT));
         frame.setResizable(false);
         this.gameState = gameState;
         this.engine = engine;
         containerPanel.add(new ScenePanel(ROOM_WIDTH, ROOM_HEIGHT, gameState.getCurrentRoom().getWidth(),
-                gameState.getCurrentRoom().getHeight()), BorderLayout.CENTER);
+                gameState.getCurrentRoom().getHeight()));
         containerPanel.add(new OverlayGUI(gameState, ROOM_WIDTH, MINIMAP_HEIGHT), BorderLayout.PAGE_END);
         frame.getContentPane().add(containerPanel);
         frame.addWindowListener(new WindowAdapter() {
@@ -118,10 +118,12 @@ public class SwingScene implements Scene {
          */
         public ScenePanel(final int w, final int h, final double width, final double height) {
             setSize(w, h);
+            setPreferredSize(new Dimension(w, h));
+            setMinimumSize(new Dimension(w, h));
             centerX = w / 2;
             centerY = h / 2;
-            ratioX = w / width;
-            ratioY = h / height;
+            ratioX = this.getWidth() / width;
+            ratioY = this.getHeight() / height;
 
             gameOverFont = new Font("Verdana", Font.PLAIN, w / GAME_OVER_FONT);
 
@@ -139,11 +141,13 @@ public class SwingScene implements Scene {
         public void paint(final Graphics g) {
             final Graphics2D g2 = (Graphics2D) g;
 
+            /*
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                     RenderingHints.VALUE_ANTIALIAS_ON);
             g2.setRenderingHint(RenderingHints.KEY_RENDERING,
                     RenderingHints.VALUE_RENDER_QUALITY);
             g2.clearRect(0, 0, this.getWidth(), this.getHeight());
+            */
 
             if (gameState.isLevelComplete()) {
 
