@@ -195,24 +195,31 @@ public final class RoomImpl extends MapElementImpl implements Room {
      * Method to check and notify room events.
      * */
     private void checkRoomEvents() {
-        var checkEventFactory = new CollisionCheckFactoryImpl();
-        if(this.player.isPresent()) {
-            if(this.getEnemies().isPresent()) {
-                checkEventFactory.getCollisionPlayerShotChecker(this.player.get(), this.getEnemies().get()).handleCollision(this);
-                checkEventFactory.getCollisionWithEnemyChecker(this.player.get(), this.getEnemies().get()).handleCollision(this);
-                checkEventFactory.getCollisionWithEnemyShotChecker(this.player.get(), this.getEnemies().get()).handleCollision(this);
+        final var checkEventFactory = new CollisionCheckFactoryImpl();
+        if (this.player.isPresent()) {
+            if (this.getEnemies().isPresent()) {
+                checkEventFactory.getCollisionPlayerShotChecker(this.player.get(), this.getEnemies().get())
+                    .handleCollision(this);
+                checkEventFactory.getCollisionWithEnemyChecker(this.player.get(), this.getEnemies().get())
+                    .handleCollision(this);
+                checkEventFactory.getCollisionWithEnemyShotChecker(this.player.get(), this.getEnemies().get())
+                    .handleCollision(this);
 
                 this.getEnemies().get().stream()
                     .filter(enemy -> enemy.getWeaponShots().isPresent())
-                    .forEach(enemy -> checkEventFactory.getShotsCollisionWithBoundariesChecker(enemy.getWeaponShots().get()).handleCollision(this));
+                    .forEach(enemy -> checkEventFactory.getShotsCollisionWithBoundariesChecker(
+                            enemy.getWeaponShots().get()).handleCollision(this));
             }
-            if(this.powerups.isPresent()) {
-                checkEventFactory.getCollisionWithItemChecker(this.player.get(), this.powerups.get()).handleCollision(this);
+            if (this.powerups.isPresent()) {
+                checkEventFactory.getCollisionWithItemChecker(this.player.get(), this.powerups.get())
+                .handleCollision(this);
             }
-            if(this.items.isPresent()) {
-                checkEventFactory.getCollisionWithItemChecker(this.player.get(), this.items.get()).handleCollision(this);
+            if (this.items.isPresent()) {
+                checkEventFactory.getCollisionWithItemChecker(this.player.get(), this.items.get())
+                .handleCollision(this);
             }
-            checkEventFactory.getShotsCollisionWithBoundariesChecker(this.player.get().getWeaponShots()).handleCollision(this);
+            checkEventFactory.getShotsCollisionWithBoundariesChecker(this.player.get().getWeaponShots())
+                .handleCollision(this);
         }
     }
 }

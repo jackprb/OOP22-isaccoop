@@ -1,6 +1,6 @@
 package it.unibo.isaccoop.model.room;
 
-import it.unibo.isaccoop.model.player.Player;
+import it.unibo.isaccoop.model.player.PlayerStat;
 import it.unibo.isaccoop.model.powerup.PowerUp;
 
 /**
@@ -17,5 +17,5 @@ public interface Shop {
      * @param powerUp
      * @return true if the power up has been purchased
      */
-    boolean buyItem(Player player, PowerUp powerUp);
+    boolean buyItem(PlayerStat player, PowerUp powerUp);
 }
