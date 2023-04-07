@@ -6,15 +6,14 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import it.unibo.isaccoop.model.player.PlayerStat;
 import it.unibo.isaccoop.model.room.Level;
 import it.unibo.isaccoop.model.room.Room;
 
@@ -35,6 +34,10 @@ public class OverlayGUI extends JPanel {
             CellStatus.COMPLETED_ROOM, new Color(139, 218, 83)); //green
 
     private final JLabel lblInfoRoom = new JLabel();
+    private final JPanel statsPanel1 = new JPanel();
+    private final JPanel statsPanel2 = new JPanel();
+    private final List<JLabel> stats1 = new LinkedList<>();
+    private final List<JLabel> stats2 = new LinkedList<>();
     private final Level lvl;
     private final Map<JButton, Room> btns = new HashMap<>();
 
@@ -57,7 +60,7 @@ public class OverlayGUI extends JPanel {
         COMPLETED_ROOM("Completed room");
 
         private final String descr;
-        private CellStatus(final String descr) {
+        CellStatus(final String descr) {
             this.descr = descr;
         }
 
@@ -74,8 +77,8 @@ public class OverlayGUI extends JPanel {
      */
     public OverlayGUI(final Level level, final int roomWidth, final int minimapHeight) {
         this.lvl = level;
-
-        final int horizontalGap = roomWidth / 15;
+        final int proportion = 21;
+        final int horizontalGap = roomWidth / proportion;
         final int verticalGap = 10;
 
         // main layout
@@ -91,7 +94,7 @@ public class OverlayGUI extends JPanel {
         final JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         topPanel.add(lblInfoRoom);
         minimapPanel.add(topPanel, BorderLayout.NORTH);
-        
+
         // legend to explain the meaning of minimap
         final JPanel legendPanel = new JPanel();
         legendPanel.setLayout(new BoxLayout(legendPanel, BoxLayout.X_AXIS));
@@ -103,28 +106,27 @@ public class OverlayGUI extends JPanel {
             legendPanel.add(btn);
         });
 
-        // stats container part 1
-        final JPanel statsPanel1 = new JPanel();
-        statsPanel1.setLayout(new BoxLayout(statsPanel1, BoxLayout.Y_AXIS));
-        getStatsStringsPart1().forEach(str -> {
-            final JLabel lblStat = new JLabel(str);
-            statsPanel1.add(lblStat);
+        // creates labels for stat strings part 1
+        this.statsPanel1.setLayout(new BoxLayout(this.statsPanel1, BoxLayout.Y_AXIS));
+        getStatsStringsPart1().forEach(s -> {
+            final JLabel lbl = new JLabel(" ");
+            this.stats1.add(lbl);
+            this.statsPanel1.add(lbl);
         });
-        // stats container part 2
-        final JPanel statsPanel2 = new JPanel();
-        statsPanel2.setLayout(new BoxLayout(statsPanel2, BoxLayout.Y_AXIS));
-        getStatsStringsPart2().forEach(str -> {
-            final JLabel lblStat = new JLabel(str);
-            statsPanel2.add(lblStat);
+        // creates labels for stat strings part 2
+        this.statsPanel2.setLayout(new BoxLayout(this.statsPanel2, BoxLayout.Y_AXIS));
+        getStatsStringsPart2().forEach(s -> {
+            final JLabel lbl = new JLabel(" ");
+            this.stats2.add(lbl);
+            this.statsPanel2.add(lbl);
         });
-
         this.add(minimapPanel);
-        this.add(statsPanel1);
-        this.add(statsPanel2);
+        this.add(this.statsPanel1);
+        this.add(this.statsPanel2);
         this.add(legendPanel);
 
         for (int i = 0; i < lvl.getRooms().size(); i++) {
-            final JButton jb = new JButton(Integer.toString(i+1));
+            final JButton jb = new JButton(Integer.toString(i + 1));
             jb.setFont(FONT);
             centerPanel.add(jb);
             jb.setEnabled(false);
@@ -153,6 +155,19 @@ public class OverlayGUI extends JPanel {
                 btn.setBackground(COLOR_MAP.get(CellStatus.NO_ROOM_HERE));
             }
         });
+        updatePlayerStats();
+    }
+
+    /**
+     * Updates player stats.
+     */
+    private void updatePlayerStats() {
+        for (int i = 0; i < this.stats1.size(); i++) {
+            this.stats1.get(i).setText(getStatsStringsPart1().get(i));
+        }
+        for (int i = 0; i < this.stats2.size(); i++) {
+            this.stats2.get(i).setText(getStatsStringsPart2().get(i));
+        }
     }
 
     /**
@@ -164,16 +179,24 @@ public class OverlayGUI extends JPanel {
                 + " of " + lvl.getRooms().size();
     }
 
+    /**
+     * Build a list containing first part of player statistics, as strings.
+     * @return an unmodifiable list containing first part of player statistics
+     */
     private List<String> getStatsStringsPart1() {
-        return List.of("Player statistics:", 
+        return List.of("Player statistics:",
                 "Coins: " + this.lvl.getPlayer().getCoin(),
-                "Damage: " + this.lvl.getPlayer().getDamage(),
-                "Hearts: " + this.lvl.getPlayer().getHeart() + " / " + this.lvl.getPlayer().getMaxHeart());
+                "Damage: " + this.lvl.getPlayer().getDamage());
     }
 
+    /**
+     * Build a list containing second part of player statistics, as strings.
+     * @return an unmodifiable list containing second part of player statistics
+     */
     private List<String> getStatsStringsPart2() {
-        return List.of(" ", "Hit range: " + this.lvl.getPlayer().getRange(),
+        return List.of(
+                "Hearts: " + this.lvl.getPlayer().getHeart() + " of " + this.lvl.getPlayer().getMaxHeart(),
                 "Speed: " + this.lvl.getPlayer().getSpeed(),
-                "Tears: " + this.lvl.getPlayer().getTears());   
+                "Tears: " + this.lvl.getPlayer().getTears());
     }
 }
