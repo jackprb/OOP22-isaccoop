@@ -13,31 +13,58 @@ ARROW_LEFT: shoot left
 ARROW_RIGHT: shoot right
 
 General gameplay information
+
 In the game there are 5 types of rooms:
  - START: the empty room where the player starts
  - SHOP: the room where you can buy powerups, using the money previously collected
  - TREASURE: the room that contains a free power up
  - STANDARD: a room with enemies to defeat
- - BOSS: the room with the final boss (it is the last room).
+ - BOSS: the room with the final boss (the last room).
 
 A level is made of rooms.
-At the bottom of the game window, there is the "minimap", where you can see some information
+At the bottom left of the game window, there is the "minimap", where you can see some information
 about the level you are playing.
+
 A room is completed if there are no more enemies to defeat, (marked in GREEN on the minimap)
-otherwise if the are still enemies to defeat (marked in YELLOW on the minimap).
+otherwise, it is not completed if the are still enemies to defeat (marked in YELLOW on the minimap).
 The room you are currently in is marked in RED on the minimap.
+
 The START, SHOP and TREASURE rooms are already completed because there are no enemies there,
 whereas STANDARD and BOSS room are not completed because you will have to defeat all enemies
 in there.
+
+To defeat an enemy, shoot towards it until it disappears.
+Different enemies require a different number of shoots to be defeated.
 
 IMPORTANT NOTICE! When you enter a STANDARD room, you cannot leave it until you defeat all
 enemies.
 When you enter the BOSS room, you will have to defeat the BOSS. If you defeat it, the game ends.
 
 ITEMS:
+	- coin: a simple coin. Collect them to buy powerups in the shop.
+	- heart: 1 heart = 1 life. If you loose all your hearts, the game ends.
 
 ENEMIES:
+The enemies try to hit the player to make they loose hearts. There are two types of enemies:
+	- shooting enemy: this enemy will shoot fireballs towards the player.
+	- non shooting enemy: this enemy will move towards the player.
 
 POWERUP:
+	- standard powerup: 
+		- coin: you collect 4 coins
+		- damage: each of your shoots will cause a higher damage to enemies 
+			(+1 to previous damage): default damage is 1
+		- health: increase player hearts (+1)
+		- speed: increase player speed (+0.5), default speed is 1
+		- tears: increase player shooting speed (1 shoot/0.6 seconds), default is 1 shoot/second
 
+	- super powerup: like the standard powerup but more powerful
+		- super coin: you collect 8 coins
+		- super damage: each of your shoots will cause a higher damage to enemies 
+			(+2 to previous damage)
+		- super health: increase player hearts (+2)
+		- super speed: increase player speed (+1)
+		- super tears: increase player shooting speed (1 shoot/0.4 seconds),
 BOSS:
+	- will appear only in the last room. 
+	- will shoot green powerballs towards the player
