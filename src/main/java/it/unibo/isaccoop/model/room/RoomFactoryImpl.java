@@ -9,7 +9,8 @@ import it.unibo.isaccoop.model.common.RoomType;
 public final class RoomFactoryImpl implements RoomFactory {
 
     // messages when an exception is thrown
-    private static final int MIN_MAX_ROOM_DIMENSIONS = 200;
+    private static final int ROOM_WIDTH = 300;
+    private static final int ROOM_HEIGHT = 200;
     private static final String ALREADY_GENERATED_ALL_ROOMS = "you have already generated all the required rooms";
     private static final String START_ROOM_MUST_BE_FIRST = "the START room must be the FIRST to be generated";
     private static final String BOSS_ROOM_MUST_BE_LAST = "the BOSS room must be the LAST to be generated";
@@ -25,8 +26,8 @@ public final class RoomFactoryImpl implements RoomFactory {
      * @param totalNumberOfRooms the total number of rooms to be created
      */
     public RoomFactoryImpl(final int totalNumberOfRooms) {
-        this.width = MIN_MAX_ROOM_DIMENSIONS;
-        this.height = MIN_MAX_ROOM_DIMENSIONS;
+        this.width = ROOM_WIDTH;
+        this.height = ROOM_HEIGHT;
         this.roomCount = 0;
         this.rFactoryLogics = new RoomFactoryLogics(totalNumberOfRooms);
     }

@@ -17,19 +17,20 @@ import it.unibo.isaccoop.model.room.Level;
  */
 public class GameLoopImpl implements GameLoop {
 
-    private Scene view;
-    private Level level;
-    private List<InputComponent> inputComponents;
-    private ActionComponent actionComponent;
-    private ActionController actionController;
+    private final Scene view;
+    private final Level level;
+    private final List<InputComponent> inputComponents;
+    private final ActionComponent actionComponent;
+    private final ActionController actionController;
     private static final long DEFAULT_PERIOD = 20;
     private static final Logger LOGGER = Logger.getLogger(GameLoopImpl.class.getName());
 
     /**
      * GameLoopImpl constructor.
      *
-     * @param view to be handle into game loop
-     * @param level to be handle into game loop
+     * @param view to be handled into game loop
+     * @param level to be handled into game loop
+     * @param actionController the actionController to manage keys pressed
      */
     public GameLoopImpl(final Scene view, final Level level, final ActionController actionController) {
         this.view = view;

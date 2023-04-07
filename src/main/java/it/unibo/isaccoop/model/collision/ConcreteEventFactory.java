@@ -30,7 +30,7 @@ public final class ConcreteEventFactory implements EventFactory {
     public Event getEnemyShotEvent(final Enemy enemy) {
         return room -> room.getPlayer().ifPresent(player -> {
             player.onHit(enemy);
-            if(enemy.getHearts() == 0) {
+            if(enemy.isDead()) {
                 room.remove(enemy);
             }
         });
