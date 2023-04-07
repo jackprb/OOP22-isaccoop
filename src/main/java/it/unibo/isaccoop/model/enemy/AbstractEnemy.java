@@ -81,7 +81,9 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
      * */
     @Override
     public void onHit(final PlayerStat player) {
-        player.setHeart(player.getHeart() - 1);
+        if(!player.isDead()) {
+            player.setHeart(player.getHeart() - 1);
+        }
     }
 
     /***/

@@ -10,7 +10,7 @@ public class TimeIntervalWeapon extends AbstractWeapon {
 
     private final BiFunction<Point2D, Vector2D, WeaponShot> weaponShotSupplier;
     private long timeSinceLastShot;
-    private final Double shotTimeInterval;
+    private double shotTimeInterval;
 
     /**
      * TimeIntervalWeapon constructor.
@@ -36,6 +36,11 @@ public class TimeIntervalWeapon extends AbstractWeapon {
             super.addWeaponShot(this.weaponShotSupplier.apply(startPosition, direction));
             this.timeSinceLastShot = System.currentTimeMillis();
         }
+    }
+
+    @Override
+    public void setWeaponInterval(double interval) {
+        this.shotTimeInterval = interval;
     }
 
 }

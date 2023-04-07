@@ -171,7 +171,7 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
      * */
     @Override
     public boolean isDead() {
-        return this.heart == 0;
+        return this.heart <= 0;
     }
 
     /**
