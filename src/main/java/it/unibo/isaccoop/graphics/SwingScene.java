@@ -15,7 +15,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Logger;
-
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -24,9 +24,9 @@ import it.unibo.isaccoop.controller.input.KeyboardInputController;
 import it.unibo.isaccoop.core.GameEngine;
 import it.unibo.isaccoop.model.room.Level;
 import it.unibo.isaccoop.model.room.Room;
+
 /**
- * Represent the scene with Swing.
- *
+ * Represents the game scene, implemented with Swing.
  */
 public class SwingScene implements Scene {
 
@@ -72,8 +72,8 @@ public class SwingScene implements Scene {
         });
         frame.pack();
         frame.setVisible(true);
-        //
     }
+
     /***/
     @Override
     public void render() {
@@ -85,6 +85,7 @@ public class SwingScene implements Scene {
             LOGGER.severe(ex.getMessage());
         }
     }
+
     /***/
     @Override
     public void renderGameOver() {
@@ -98,6 +99,7 @@ public class SwingScene implements Scene {
         }
          */
     }
+
     /***/
     public class ScenePanel extends JPanel implements KeyListener {
 
@@ -132,8 +134,8 @@ public class SwingScene implements Scene {
             setFocusable(true);
             setFocusTraversalKeysEnabled(false);
             requestFocusInWindow();
-
         }
+
         /**
          * @param g reference to Graphics.
          */
@@ -149,22 +151,30 @@ public class SwingScene implements Scene {
             g2.clearRect(0, 0, this.getWidth(), this.getHeight());
             */
 
-            if (gameState.isLevelComplete()) {
+            // hidden button to go back to main menu
+            final JButton btnGoToMenu = new JButton(" ");
+            btnGoToMenu.addActionListener(l -> {
+                new GameMenu().display();
+                frame.setVisible(false);
+            });
 
+            if (gameState.isLevelComplete()) {
                 /* drawing the score */
                 g2.setFont(gameOverFont);
                 g2.setColor(this.backgroundColor);
                 g2.fillRect(0, 0, this.getWidth(), this.getHeight());
                 g2.setColor(Color.BLACK);
                 this.drawCenteredString(g2, "GAME COMPLETED", getVisibleRect(), gameOverFont);
+                this.add(btnGoToMenu);
 
-            } else if(gameState.getPlayer().isDead()) {
+            } else if (gameState.getPlayer().isDead()) {
                 /* drawing the score */
                 g2.setFont(gameOverFont);
                 g2.setColor(this.backgroundColor);
                 g2.fillRect(0, 0, this.getWidth(), this.getHeight());
                 g2.setColor(Color.BLACK);
                 this.drawCenteredString(g2, "GAME OVER", getVisibleRect(), gameOverFont);
+                this.add(btnGoToMenu);
 
             } else {
                 /* drawing the borders */
@@ -201,6 +211,7 @@ public class SwingScene implements Scene {
             }
             engine.getActionController().notifyKeyPressed(e.getKeyCode());
         }
+
         /**
          * @param e reference to KeyEvent.
          */
@@ -220,19 +231,19 @@ public class SwingScene implements Scene {
          * @param g The Graphics instance.
          * @param text The String to draw.
          * @param rect The Rectangle to center the text in.
+         * @param font the Font of the text
          */
-        private void drawCenteredString(Graphics g, String text, Rectangle rect, Font font) {
+        private void drawCenteredString(final Graphics g, final String text, final Rectangle rect, final Font font) {
             // Get the FontMetrics
-            FontMetrics metrics = g.getFontMetrics(font);
+            final FontMetrics metrics = g.getFontMetrics(font);
             // Determine the X coordinate for the text
-            int x = rect.x + (rect.width - metrics.stringWidth(text)) / 2;
+            final int x = rect.x + (rect.width - metrics.stringWidth(text)) / 2;
             // Determine the Y coordinate for the text (note we add the ascent, as in java 2d 0 is top of the screen)
-            int y = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
+            final int y = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
             // Set the font
             g.setFont(font);
             // Draw the String
             g.drawString(text, x, y);
         }
-
     }
 }

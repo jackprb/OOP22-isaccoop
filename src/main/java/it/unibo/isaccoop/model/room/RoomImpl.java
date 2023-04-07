@@ -208,12 +208,15 @@ public final class RoomImpl extends MapElementImpl implements Room {
 
                 this.getEnemies().get().stream()
                     .forEach(enemy -> {
-                        if(enemy.getWeaponShots().isPresent()) {
-                            checkEventFactory.getShotsCollisionToRemoveChecker(enemy.getWeaponShots().get(), this.player.get().getCoords(), (CircleBoundingBox) this.player.get().getBox()).handleCollision(this);
+                        if (enemy.getWeaponShots().isPresent()) {
+                            checkEventFactory.getShotsCollisionToRemoveChecker(enemy.getWeaponShots().get(),
+                                    this.player.get().getCoords(),
+                                    (CircleBoundingBox) this.player.get().getBox()).handleCollision(this);
                         }
-                        checkEventFactory.getShotsCollisionToRemoveChecker(this.player.get().getWeaponShots(), enemy.getCoords(),(CircleBoundingBox) enemy.getBox()).handleCollision(this);
+                        checkEventFactory.getShotsCollisionToRemoveChecker(this.player.get().getWeaponShots(),
+                                enemy.getCoords(), (CircleBoundingBox) enemy.getBox()).handleCollision(this);
                     });
-                            
+ 
             }
             if (this.powerups.isPresent()) {
                 checkEventFactory.getCollisionWithItemChecker(this.player.get(), this.powerups.get())
@@ -223,7 +226,8 @@ public final class RoomImpl extends MapElementImpl implements Room {
                 checkEventFactory.getCollisionWithItemChecker(this.player.get(), this.items.get())
                 .handleCollision(this);
             }
-            //checkEventFactory.getShotsCollisionWithBoundariesChecker(this.player.get().getWeaponShots(), this.player.get()).handleCollision(this);
+            //checkEventFactory.getShotsCollisionWithBoundariesChecker(this.player.get().getWeaponShots(),
+            //  this.player.get()).handleCollision(this);
         }
     }
 }
