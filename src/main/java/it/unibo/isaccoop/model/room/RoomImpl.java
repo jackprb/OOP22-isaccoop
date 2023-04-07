@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.Queue;
 
 import it.unibo.isaccoop.model.ai.AIEnemy;
+import it.unibo.isaccoop.model.boundingbox.CircleBoundingBox;
 import it.unibo.isaccoop.model.collision.CollisionCheckFactoryImpl;
 import it.unibo.isaccoop.model.collision.Event;
 import it.unibo.isaccoop.model.common.MapElement;
@@ -203,8 +204,13 @@ public final class RoomImpl extends MapElementImpl implements Room {
                 checkEventFactory.getCollisionWithEnemyShotChecker(this.player.get(), this.getEnemies().get()).handleCollision(this);
 
                 this.getEnemies().get().stream()
-                    .filter(enemy -> enemy.getWeaponShots().isPresent())
-                    .forEach(enemy -> checkEventFactory.getShotsCollisionWithBoundariesChecker(enemy.getWeaponShots().get()).handleCollision(this));
+                    .forEach(enemy -> {
+                        if(enemy.getWeaponShots().isPresent()) {
+                            checkEventFactory.getShotsCollisionToRemoveChecker(enemy.getWeaponShots().get(), this.player.get().getCoords(), (CircleBoundingBox) this.player.get().getBox()).handleCollision(this);
+                        }
+                        checkEventFactory.getShotsCollisionToRemoveChecker(this.player.get().getWeaponShots(), enemy.getCoords(),(CircleBoundingBox) enemy.getBox()).handleCollision(this);
+                    });
+                            
             }
             if(this.powerups.isPresent()) {
                 checkEventFactory.getCollisionWithItemChecker(this.player.get(), this.powerups.get()).handleCollision(this);
@@ -212,7 +218,7 @@ public final class RoomImpl extends MapElementImpl implements Room {
             if(this.items.isPresent()) {
                 checkEventFactory.getCollisionWithItemChecker(this.player.get(), this.items.get()).handleCollision(this);
             }
-            checkEventFactory.getShotsCollisionWithBoundariesChecker(this.player.get().getWeaponShots()).handleCollision(this);
+            //checkEventFactory.getShotsCollisionWithBoundariesChecker(this.player.get().getWeaponShots(), this.player.get()).handleCollision(this);
         }
     }
 }
