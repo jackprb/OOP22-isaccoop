@@ -3,6 +3,7 @@ package it.unibo.isaccoop.model.spawn;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+import it.unibo.isaccoop.model.boundingbox.CircleBoundingBox;
 import it.unibo.isaccoop.model.common.MapElement;
 import it.unibo.isaccoop.model.common.Point2D;
 
@@ -21,8 +22,11 @@ public class SpawnRandom implements Spawn {
     @Override
     public void setPosition(final List<MapElement> elementsToSpawn, final int width, final int height) {
         elementsToSpawn.forEach(e -> {
-            e.setCoords(new Point2D(ThreadLocalRandom.current().nextDouble(Double.valueOf(width)),
-                    ThreadLocalRandom.current().nextDouble(Double.valueOf(height))));
+            double radius = ((CircleBoundingBox) e.getBox()).getRadius();
+            e.setCoords(new Point2D(ThreadLocalRandom.current()
+                    .nextDouble(radius + radius / 2 , width - (radius + radius / 2)),
+                    ThreadLocalRandom.current()
+                    .nextDouble(radius + radius / 2 , height - (radius + radius / 2))));
         });
 
     }
