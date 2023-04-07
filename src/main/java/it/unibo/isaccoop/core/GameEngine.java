@@ -19,6 +19,11 @@ public interface GameEngine {
     void run();
 
     /**
+     * Method that stop the game engine.
+     */
+    void stop();
+
+    /**
      * Method that returns the controllers present in the game engine.
      * @param name reference to specific controller.
      * @return controller indicated.
