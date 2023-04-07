@@ -4,9 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -33,13 +34,12 @@ public class SwingScene implements Scene {
     private final JFrame frame;
     private final GameEngine engine;
     private final Level gameState;
-    private static final int SCORE_FONT = 36;
-    private static final int GAME_OVER_FONT = 88;
+    private static final int GAME_OVER_FONT = 30;
 
-    private static final int MINIMAP_HEIGHT = 100;
+    private static final int MINIMAP_HEIGHT = 150;
     private static final int ROOM_WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
     private static final int ROOM_HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight()
-            - MINIMAP_HEIGHT * 2;
+            - MINIMAP_HEIGHT;
 
     /**
      * Constructor.
@@ -51,12 +51,13 @@ public class SwingScene implements Scene {
         final JPanel containerPanel = new JPanel(new BorderLayout());
         frame = new JFrame("Isaccoop");
         frame.setSize(ROOM_WIDTH, ROOM_HEIGHT + MINIMAP_HEIGHT);
+        frame.setPreferredSize(new Dimension(ROOM_WIDTH, ROOM_HEIGHT + MINIMAP_HEIGHT));
         frame.setMinimumSize(new Dimension(ROOM_WIDTH, ROOM_HEIGHT + MINIMAP_HEIGHT));
         frame.setResizable(false);
         this.gameState = gameState;
         this.engine = engine;
         containerPanel.add(new ScenePanel(ROOM_WIDTH, ROOM_HEIGHT, gameState.getCurrentRoom().getWidth(),
-                gameState.getCurrentRoom().getHeight()), BorderLayout.CENTER);
+                gameState.getCurrentRoom().getHeight()));
         containerPanel.add(new OverlayGUI(gameState, ROOM_WIDTH, MINIMAP_HEIGHT), BorderLayout.PAGE_END);
         frame.getContentPane().add(containerPanel);
         frame.addWindowListener(new WindowAdapter() {
@@ -105,8 +106,8 @@ public class SwingScene implements Scene {
         private final int centerY;
         private final double ratioX;
         private final double ratioY;
-        private final Font scoreFont;
         private final Font gameOverFont;
+        private final Color backgroundColor = new Color(150, 75, 50);
 
         /**
          *
@@ -117,14 +118,16 @@ public class SwingScene implements Scene {
          */
         public ScenePanel(final int w, final int h, final double width, final double height) {
             setSize(w, h);
+            setPreferredSize(new Dimension(w, h));
+            setMinimumSize(new Dimension(w, h));
             centerX = w / 2;
             centerY = h / 2;
-            ratioX = w / width;
-            ratioY = h / height;
+            ratioX = this.getWidth() / width;
+            ratioY = this.getHeight() / height;
 
-            scoreFont = new Font("Verdana", Font.PLAIN, SCORE_FONT);
-            gameOverFont = new Font("Verdana", Font.PLAIN, GAME_OVER_FONT);
+            gameOverFont = new Font("Verdana", Font.PLAIN, w / GAME_OVER_FONT);
 
+            this.setLayout(new BorderLayout());
             this.addKeyListener(this);
             setFocusable(true);
             setFocusTraversalKeysEnabled(false);
@@ -138,20 +141,30 @@ public class SwingScene implements Scene {
         public void paint(final Graphics g) {
             final Graphics2D g2 = (Graphics2D) g;
 
+            /*
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                     RenderingHints.VALUE_ANTIALIAS_ON);
             g2.setRenderingHint(RenderingHints.KEY_RENDERING,
                     RenderingHints.VALUE_RENDER_QUALITY);
             g2.clearRect(0, 0, this.getWidth(), this.getHeight());
+            */
 
             if (gameState.isLevelComplete()) {
 
                 /* drawing the score */
                 g2.setFont(gameOverFont);
+                g2.setColor(this.backgroundColor);
+                g2.fillRect(0, 0, this.getWidth(), this.getHeight());
                 g2.setColor(Color.BLACK);
-                //g2.drawString("GAME COMPLETED ", 30, centerY - 50);
-                g2.setFont(scoreFont);
-                g2.setColor(Color.GREEN);
+                this.drawCenteredString(g2, "GAME COMPLETED", getVisibleRect(), gameOverFont);
+
+            } else if(gameState.getPlayer().isDead()) {
+                /* drawing the score */
+                g2.setFont(gameOverFont);
+                g2.setColor(this.backgroundColor);
+                g2.fillRect(0, 0, this.getWidth(), this.getHeight());
+                g2.setColor(Color.BLACK);
+                this.drawCenteredString(g2, "GAME OVER", getVisibleRect(), gameOverFont);
 
             } else {
                 /* drawing the borders */
@@ -200,6 +213,26 @@ public class SwingScene implements Scene {
 
         @Override
         public void keyTyped(final KeyEvent e) { }
+
+        /**
+         * Draw a String centered in the middle of a Rectangle.
+         *
+         * @param g The Graphics instance.
+         * @param text The String to draw.
+         * @param rect The Rectangle to center the text in.
+         */
+        private void drawCenteredString(Graphics g, String text, Rectangle rect, Font font) {
+            // Get the FontMetrics
+            FontMetrics metrics = g.getFontMetrics(font);
+            // Determine the X coordinate for the text
+            int x = rect.x + (rect.width - metrics.stringWidth(text)) / 2;
+            // Determine the Y coordinate for the text (note we add the ascent, as in java 2d 0 is top of the screen)
+            int y = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
+            // Set the font
+            g.setFont(font);
+            // Draw the String
+            g.drawString(text, x, y);
+        }
 
     }
 }

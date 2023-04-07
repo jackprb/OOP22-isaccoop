@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import it.unibo.isaccoop.model.player.Player;
 import it.unibo.isaccoop.model.player.PlayerStat;
 import it.unibo.isaccoop.model.player.PlayerStatImpl;
 import it.unibo.isaccoop.model.powerup.CoinUp;

@@ -9,8 +9,8 @@ import it.unibo.isaccoop.model.player.PlayerStat;
  * */
 public class SpeedUp extends PowerUp {
 
-    private static final Double SPEED_SUPER_UP = 0.5;
-    private static final Double SPEED_UP = 1.0;
+    private static final Double SPEED_SUPER_UP = 1.0;
+    private static final Double SPEED_UP = 0.5;
 
     /***/
     public SpeedUp() {

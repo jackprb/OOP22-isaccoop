@@ -29,7 +29,6 @@ public class OverlayGUI extends JPanel {
     private static final Font FONT = new Font("Verdana", Font.PLAIN, 12);
     private static final Map<CellStatus, Color> COLOR_MAP = Map.of(
             CellStatus.PLAYER, new Color(255, 0, 0), //red
-            CellStatus.NO_ROOM_HERE, new Color(120, 120, 120), //grey
             CellStatus.UNCOMPLETED_ROOM, new Color(243, 225, 75), //yellow
             CellStatus.COMPLETED_ROOM, new Color(139, 218, 83)); //green
 
@@ -46,10 +45,6 @@ public class OverlayGUI extends JPanel {
          * Where the player is.
          */
         PLAYER("You are here"),
-        /**
-         * Where there is not a playable room.
-         */
-        NO_ROOM_HERE("Inaccessible room"),
         /**
          * Uncompleted room (there are still enemies to defeat).
          */
@@ -151,8 +146,6 @@ public class OverlayGUI extends JPanel {
                 btn.setBackground(COLOR_MAP.get(CellStatus.COMPLETED_ROOM));
             } else if (uncompleteRooms.contains(r)) {
                 btn.setBackground(COLOR_MAP.get(CellStatus.UNCOMPLETED_ROOM));
-            } else {
-                btn.setBackground(COLOR_MAP.get(CellStatus.NO_ROOM_HERE));
             }
         });
         updatePlayerStats();

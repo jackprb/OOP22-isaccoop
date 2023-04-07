@@ -58,7 +58,7 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
     public void move(final Point2D playerPosition, final BoundingBox containerBox) {
         final Point2D newPos = this.getMovementStrategy().move(this.getCoords(), playerPosition);
 
-        if(!this.getBox().isCollidingWithRecPerimeter(newPos, (RectBoundingBox) containerBox)) {
+        if (!this.getBox().isCollidingWithRecPerimeter(newPos, (RectBoundingBox) containerBox)) {
             super.setCoords(newPos);
         }
     }
@@ -81,7 +81,9 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
      * */
     @Override
     public void onHit(final PlayerStat player) {
-        player.setHeart(player.getHeart() - 1);
+        if(!player.isDead()) {
+            player.setHeart(player.getHeart() - 1);
+        }
     }
 
     /***/
