@@ -15,7 +15,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Logger;
-
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -24,9 +24,9 @@ import it.unibo.isaccoop.controller.input.KeyboardInputController;
 import it.unibo.isaccoop.core.GameEngine;
 import it.unibo.isaccoop.model.room.Level;
 import it.unibo.isaccoop.model.room.Room;
+
 /**
- * Represent the scene with Swing.
- *
+ * Represents the game scene, implemented with Swing.
  */
 public class SwingScene implements Scene {
 
@@ -72,8 +72,8 @@ public class SwingScene implements Scene {
         });
         frame.pack();
         frame.setVisible(true);
-        //
     }
+
     /***/
     @Override
     public void render() {
@@ -85,6 +85,7 @@ public class SwingScene implements Scene {
             LOGGER.severe(ex.getMessage());
         }
     }
+
     /***/
     @Override
     public void renderGameOver() {
@@ -98,6 +99,7 @@ public class SwingScene implements Scene {
         }
          */
     }
+
     /***/
     public class ScenePanel extends JPanel implements KeyListener {
 
@@ -132,8 +134,8 @@ public class SwingScene implements Scene {
             setFocusable(true);
             setFocusTraversalKeysEnabled(false);
             requestFocusInWindow();
-
         }
+
         /**
          * @param g reference to Graphics.
          */
@@ -149,6 +151,13 @@ public class SwingScene implements Scene {
             g2.clearRect(0, 0, this.getWidth(), this.getHeight());
             */
 
+            // hidden button to go back to main menu
+            final JButton btnGoToMenu = new JButton(" ");
+            btnGoToMenu.addActionListener(l -> {
+                new GameMenu().display();
+                frame.setVisible(false);
+            });
+            
             if (gameState.isLevelComplete()) {
 
                 /* drawing the score */
@@ -157,6 +166,7 @@ public class SwingScene implements Scene {
                 g2.fillRect(0, 0, this.getWidth(), this.getHeight());
                 g2.setColor(Color.BLACK);
                 this.drawCenteredString(g2, "GAME COMPLETED", getVisibleRect(), gameOverFont);
+                this.add(btnGoToMenu);
 
             } else if(gameState.getPlayer().isDead()) {
                 /* drawing the score */
@@ -165,6 +175,7 @@ public class SwingScene implements Scene {
                 g2.fillRect(0, 0, this.getWidth(), this.getHeight());
                 g2.setColor(Color.BLACK);
                 this.drawCenteredString(g2, "GAME OVER", getVisibleRect(), gameOverFont);
+                this.add(btnGoToMenu);
 
             } else {
                 /* drawing the borders */
@@ -201,6 +212,7 @@ public class SwingScene implements Scene {
             }
             engine.getActionController().notifyKeyPressed(e.getKeyCode());
         }
+
         /**
          * @param e reference to KeyEvent.
          */
@@ -233,6 +245,5 @@ public class SwingScene implements Scene {
             // Draw the String
             g.drawString(text, x, y);
         }
-
     }
 }
