@@ -157,6 +157,9 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
     /***/
     @Override
     public void setTears(final Double tears) {
+        if (tears < 100.0) {
+            this.tears = 100.0;
+        }
         this.tears = tears;
     }
 
@@ -171,7 +174,7 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
      * */
     @Override
     public boolean isDead() {
-        return this.heart == 0;
+        return this.heart <= 0;
     }
 
     /**

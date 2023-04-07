@@ -4,6 +4,7 @@ import java.util.List;
 
 import it.unibo.isaccoop.model.boundingbox.CircleBoundingBox;
 import it.unibo.isaccoop.model.boundingbox.RectBoundingBox;
+import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.enemy.Enemy;
 import it.unibo.isaccoop.model.item.Item;
 import it.unibo.isaccoop.model.player.Player;
@@ -50,10 +51,11 @@ public final class CollisionCheckFactoryImpl implements CollisionCheckFactory {
                         .forEach(shot -> room.notifyEvent(new ConcreteEventFactory().getEnemyHitEvent(enemy))));
     }
 
-    public CollisionCheck getShotsCollisionWithBoundariesChecker(final List<WeaponShot> shots) {
+    public CollisionCheck getShotsCollisionToRemoveChecker(final List<WeaponShot> shots, final Point2D pos, final CircleBoundingBox box) {
         return room -> shots.stream()
-                .filter(shot -> shot.getBox().isCollidingWithRecPerimeter(shot.getCoords(), (RectBoundingBox) room.getBox()))
-                .forEach(shot -> room.notifyEvent(new ConcreteEventFactory().getShotToBoundsEvent(shot)));
+                .filter(shot -> shot.getBox().isCollidingWithRecPerimeter(shot.getCoords(), (RectBoundingBox) room.getBox())  
+                        || shot.getBox().isCollidingWithCricle(shot.getCoords(), pos, box))
+                .forEach(shot -> room.notifyEvent(new ConcreteEventFactory().getShotToRemoveEvent(shot)));
     }
 
 }
