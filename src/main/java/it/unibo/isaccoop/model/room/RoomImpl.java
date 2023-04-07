@@ -223,7 +223,6 @@ public final class RoomImpl extends MapElementImpl implements Room {
                 checkEventFactory.getCollisionWithItemChecker(this.player.get(), this.items.get())
                 .handleCollision(this);
             }
-            //checkEventFactory.getShotsCollisionWithBoundariesChecker(this.player.get().getWeaponShots(), this.player.get()).handleCollision(this);
         }
     }
 }
