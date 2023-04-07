@@ -16,7 +16,7 @@ public abstract class AbstractMapElement implements MapElement {
     private Point2D coords;
     private BoundingBox box;
     private GraphicsComponent graphicComponent;
-    private static final double FIXED_INITIAL_POSITION = 5.0;
+    private static final double FIXED_INITIAL_POSITION = 10.0;
 
     /**
      *
@@ -30,23 +30,23 @@ public abstract class AbstractMapElement implements MapElement {
         /**
          * Standard enemy radius.
          */
-        ENEMY(3.00),
+        ENEMY(8.00),
         /**
          * Item radius.
          */
-        ITEM(1.00),
+        ITEM(5.00),
         /**
          * Player radius.
          */
-        PLAYER(3.00),
+        PLAYER(8.00),
         /**
          * Boss radius.
          */
-        BOSS(5.00),
+        BOSS(12.00),
         /**
          * Bullet radius.
          */
-        BULLET(0.5);
+        BULLET(3.00);
 
         private Double value;
 

@@ -98,4 +98,10 @@ public class Player extends PlayerMovementImpl implements Hitable<Enemy> {
     public HitStrategy getHitStrategy() {
         return hitStrategy;
     }
+
+    @Override
+    public void setTears(Double tears) {
+        super.setTears(tears);
+        ((ShootingHitStrategy) this.getHitStrategy()).updateWeaponInterval(super.getTears());
+    }
 }
