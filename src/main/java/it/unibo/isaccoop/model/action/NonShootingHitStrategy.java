@@ -11,6 +11,7 @@ public final class NonShootingHitStrategy implements HitStrategy {
     private boolean canHit;
     private long lastHitTime;
     private static final int HIT_TIME = 1000;
+    private static final int HIT_DURATION = 5;
 
     /**
      * Constructor.
@@ -23,9 +24,18 @@ public final class NonShootingHitStrategy implements HitStrategy {
     @Override
     public void hit(final Optional<Vector2D> direction, final MapElement caller) {
         if (System.currentTimeMillis() - this.lastHitTime >= NonShootingHitStrategy.HIT_TIME) {
-            this.canHit = !this.canHit;
+            this.canHit = true;
             this.lastHitTime = System.currentTimeMillis();
         }
+        if(this.canHit && System.currentTimeMillis() - this.lastHitTime >= NonShootingHitStrategy.HIT_DURATION) {
+            this.canHit = false;
+            this.lastHitTime = System.currentTimeMillis();
+        }
+    }
+
+    /***/
+    public boolean canHit() {
+        return this.canHit;
     }
 
 }
