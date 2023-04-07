@@ -16,6 +16,7 @@ public abstract class AbstractWeaponShot extends AbstractMapElement implements W
      *
      *  @param startPosition start {@link EnemyWeaponShot} position as a {@link Pair}
      *  @param direction shot vector
+     *  @param gComponent graphic component
      * */
     public AbstractWeaponShot(final Point2D startPosition, final Vector2D direction, final GraphicsComponent gComponent) {
         super(startPosition, ElementsRadius.BULLET, gComponent);
