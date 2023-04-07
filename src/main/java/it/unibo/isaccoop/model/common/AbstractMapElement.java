@@ -34,7 +34,7 @@ public abstract class AbstractMapElement implements MapElement {
         /**
          * Item radius.
          */
-        ITEM(1.00),
+        ITEM(1.50),
         /**
          * Player radius.
          */
@@ -46,7 +46,7 @@ public abstract class AbstractMapElement implements MapElement {
         /**
          * Bullet radius.
          */
-        BULLET(0.5);
+        BULLET(0.8);
 
         private Double value;
 
