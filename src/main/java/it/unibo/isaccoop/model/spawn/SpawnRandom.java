@@ -22,10 +22,11 @@ public class SpawnRandom implements Spawn {
     @Override
     public void setPosition(final List<MapElement> elementsToSpawn, final int width, final int height) {
         elementsToSpawn.forEach(e -> {
+            double radius = ((CircleBoundingBox) e.getBox()).getRadius();
             e.setCoords(new Point2D(ThreadLocalRandom.current()
-                    .nextDouble(((CircleBoundingBox) e.getBox()).getRadius() + 1 , width - ((CircleBoundingBox) e.getBox()).getRadius() - 1),
+                    .nextDouble(radius + radius / 2 , width - (radius + radius / 2)),
                     ThreadLocalRandom.current()
-                    .nextDouble(((CircleBoundingBox) e.getBox()).getRadius() + 1 , height - ((CircleBoundingBox) e.getBox()).getRadius() - 1)));
+                    .nextDouble(radius + radius / 2 , height - (radius + radius / 2))));
         });
 
     }
