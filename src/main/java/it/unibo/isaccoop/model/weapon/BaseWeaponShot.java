@@ -12,6 +12,7 @@ public class BaseWeaponShot extends AbstractWeaponShot {
      *
      * @param startPosition shot start position
      * @param direction shot direction vector
+     * @param component
      * */
     public BaseWeaponShot(final Point2D startPosition, final Vector2D direction, final GraphicsComponent component) {
         super(startPosition, direction, component);
