@@ -42,7 +42,7 @@ public abstract class AbstractMapElement implements MapElement {
         /**
          * Boss radius.
          */
-        BOSS(12.00),
+        BOSS(20.00),
         /**
          * Bullet radius.
          */

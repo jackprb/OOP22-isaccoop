@@ -131,7 +131,7 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
         /**
          * Boss max hearts.
          * */
-        BOSS_HEARTS(8.0);
+        BOSS_HEARTS(10.0);
 
         private final Double maxHearts;
 

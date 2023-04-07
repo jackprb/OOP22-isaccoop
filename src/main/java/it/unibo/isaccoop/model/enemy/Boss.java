@@ -1,8 +1,11 @@
 package it.unibo.isaccoop.model.enemy;
 
+import java.util.Map;
 import java.util.Optional;
 
 import it.unibo.isaccoop.graphics.factory.ConcreteEnemyGraphicsComponentFactory;
+import it.unibo.isaccoop.model.action.HitStrategy;
+import it.unibo.isaccoop.model.action.MovementStrategy;
 import it.unibo.isaccoop.model.action.NonShootingHitStrategy;
 import it.unibo.isaccoop.model.action.NonShootingMovementStrategy;
 import it.unibo.isaccoop.model.action.ShootingHitStrategy;
@@ -20,7 +23,7 @@ public class Boss extends AbstractEnemy {
     /**
      * The time to wait to change the boss's attack type.
      * */
-    private static final int CHANGE_TIME = 10_000;
+    private static final int CHANGE_TIME = 3_000;
 
     /**
      * Weapon Time interval between shots.
@@ -37,6 +40,9 @@ public class Boss extends AbstractEnemy {
      * */
     private boolean isShotBoss;
 
+    private final Map<String, HitStrategy> hitStrategies;
+    
+    private final Map<String, MovementStrategy> movementStrategies;
     /**
      * Boss constructor.
      * */
@@ -45,6 +51,14 @@ public class Boss extends AbstractEnemy {
                 new ConcreteEnemyGraphicsComponentFactory().getBossGraphicsComponent());
         this.lastChangeTime = System.currentTimeMillis();
         this.isShotBoss = false;
+        this.hitStrategies = Map.of(
+                "shooting", new ShootingHitStrategy(new TimeIntervalWeapon(Boss.WEAPON_INTERVAL,
+                        (start, direction) -> new BaseWeaponShot(start, direction,
+                        new ConcreteEnemyGraphicsComponentFactory().getBossBaseWeaponShotGraphicsComponent()))),
+                "nonShooting", new NonShootingHitStrategy());
+        this.movementStrategies = Map.of(
+                "shooting", new ShootingMovementStrategy(),
+                "nonShooting", new NonShootingMovementStrategy());
     }
 
     /**
@@ -66,11 +80,9 @@ public class Boss extends AbstractEnemy {
     public void hit(final Point2D playerPosition) {
         if (this.changeMode()) {
             if (super.getHitStrategy() instanceof ShootingHitStrategy) {
-                super.setHitStrategy(new NonShootingHitStrategy());
+                super.setHitStrategy(this.hitStrategies.get("nonShooting"));
             } else {
-                super.setHitStrategy(new ShootingHitStrategy(new TimeIntervalWeapon(Boss.WEAPON_INTERVAL,
-                        (start, direction) -> new BaseWeaponShot(start, direction,
-                                new ConcreteEnemyGraphicsComponentFactory().getBossBaseWeaponShotGraphicsComponent()))));
+                super.setHitStrategy(this.hitStrategies.get("shooting"));
             }
         }
         super.getHitStrategy().hit(Optional.of(playerPosition.sub(this.getCoords())), this);
@@ -83,9 +95,9 @@ public class Boss extends AbstractEnemy {
     public void move(final Point2D playerPosition, final BoundingBox containerBox) {
         if (this.changeMode()) {
             if (super.getMovementStrategy() instanceof ShootingMovementStrategy) {
-                super.setMovementStrategy(new NonShootingMovementStrategy());
+                super.setMovementStrategy(this.movementStrategies.get("nonShooting"));
             } else {
-                super.setMovementStrategy(new ShootingMovementStrategy());
+                super.setMovementStrategy(this.movementStrategies.get("shooting"));
             }
         }
         super.move(playerPosition, containerBox);
