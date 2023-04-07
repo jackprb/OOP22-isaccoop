@@ -17,6 +17,7 @@ public interface EnemyActions {
      * Perform move action of a certain {@link AbstractEnemy}.
      *
      * @param playerPosition current player position
+     * @param containerBox containerBox of the element
      * */
     void move(Point2D playerPosition, BoundingBox containerBox);
 

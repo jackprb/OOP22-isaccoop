@@ -23,7 +23,7 @@ public class Boss extends AbstractEnemy {
     private static final int CHANGE_TIME = 10_000;
 
     /**
-     * Weapon Time interval between shots
+     * Weapon Time interval between shots.
      * */
     private static final double WEAPON_INTERVAL = 1_000;
 
@@ -69,7 +69,8 @@ public class Boss extends AbstractEnemy {
                 super.setHitStrategy(new NonShootingHitStrategy());
             } else {
                 super.setHitStrategy(new ShootingHitStrategy(new TimeIntervalWeapon(Boss.WEAPON_INTERVAL,
-                        (start, direction) -> new BaseWeaponShot(start, direction, new ConcreteEnemyGraphicsComponentFactory().getBossBaseWeaponShotGraphicsComponent()))));
+                        (start, direction) -> new BaseWeaponShot(start, direction,
+                                new ConcreteEnemyGraphicsComponentFactory().getBossBaseWeaponShotGraphicsComponent()))));
             }
         }
         super.getHitStrategy().hit(Optional.of(playerPosition.sub(this.getCoords())), this);

@@ -37,6 +37,6 @@ public interface EventFactory {
      *  @param shot shot colliding
      *  @return event created
      * */
-    Event getShotToBoundsEvent(WeaponShot shot);
+    Event getShotToRemoveEvent(WeaponShot shot);
 
 }

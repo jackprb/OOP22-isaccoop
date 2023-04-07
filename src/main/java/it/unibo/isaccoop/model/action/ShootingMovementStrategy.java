@@ -9,10 +9,11 @@ import it.unibo.isaccoop.model.enemy.AbstractEnemy;
 /***/
 public class ShootingMovementStrategy implements MovementStrategy {
 
-    private final static long TIME_INTERVAL = 500;
+    private static final long TIME_INTERVAL = 500;
     private long elapsedNewVector;
     private Vector2D movementVector;
 
+    /***/
     public ShootingMovementStrategy() {
         this.elapsedNewVector = System.currentTimeMillis();
         this.movementVector = this.getRandomVector();
@@ -21,7 +22,7 @@ public class ShootingMovementStrategy implements MovementStrategy {
     /***/
     @Override
     public Point2D move(final Point2D enemyPosition, final Point2D playerPosition) {
-        if(System.currentTimeMillis() - this.elapsedNewVector > TIME_INTERVAL) {
+        if (System.currentTimeMillis() - this.elapsedNewVector > TIME_INTERVAL) {
             this.elapsedNewVector = System.currentTimeMillis();
             this.movementVector = this.getRandomVector();
         }

@@ -43,4 +43,11 @@ public final class ShootingHitStrategy implements HitStrategy {
         this.weapon.remove(shot);
     }
 
+    /**
+     * Update weapon interval
+     * */
+    public void updateWeaponInterval(final double interval) {
+        this.weapon.setWeaponInterval(interval);
+    }
+
 }
