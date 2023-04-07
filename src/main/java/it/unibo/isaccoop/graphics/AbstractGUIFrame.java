@@ -73,14 +73,6 @@ public abstract class AbstractGUIFrame implements GUIFrame {
      * {@inheritDoc}
      */
     @Override
-    public void setResizeProportion(final int proportion) {
-        this.frameResizeProportion = proportion;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public JFrame getJFrame() {
         return this.frame;
     }
