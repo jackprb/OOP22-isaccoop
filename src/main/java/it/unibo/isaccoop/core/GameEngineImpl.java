@@ -90,4 +90,11 @@ public final class GameEngineImpl implements GameEngine {
         return contr;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public void stop() {
+        Thread.currentThread().interrupt();
+    }
+
 }
