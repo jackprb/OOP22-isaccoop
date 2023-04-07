@@ -12,6 +12,15 @@ ARROW_DOWN: shoot down
 ARROW_LEFT: shoot left
 ARROW_RIGHT: shoot right
 
+Other keys:
+ESC: pause the game
+P: move to previous room (if possible)
+N: move to next room (if possible)
+
+IMPORTANT NOTICE! When you enter a STANDARD room, you cannot leave it until you defeat all
+enemies.
+When you enter the BOSS room, you will have to defeat the BOSS. If you defeat it, the game ends.
+
 General gameplay information
 
 In the game there are 5 types of rooms:
@@ -36,9 +45,6 @@ in there.
 To defeat an enemy, shoot towards it until it disappears.
 Different enemies require a different number of shoots to be defeated.
 
-IMPORTANT NOTICE! When you enter a STANDARD room, you cannot leave it until you defeat all
-enemies.
-When you enter the BOSS room, you will have to defeat the BOSS. If you defeat it, the game ends.
 
 ITEMS:
 	- coin: a simple coin. Collect them to buy powerups in the shop.
