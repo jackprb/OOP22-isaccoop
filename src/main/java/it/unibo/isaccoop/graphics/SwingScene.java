@@ -53,7 +53,7 @@ public class SwingScene implements Scene {
         frame.setSize(ROOM_WIDTH, ROOM_HEIGHT + MINIMAP_HEIGHT);
         frame.setPreferredSize(new Dimension(ROOM_WIDTH, ROOM_HEIGHT + MINIMAP_HEIGHT));
         frame.setMinimumSize(new Dimension(ROOM_WIDTH, ROOM_HEIGHT + MINIMAP_HEIGHT));
-        frame.setResizable(false);
+        frame.setResizable(true);
         this.gameState = gameState;
         this.engine = engine;
         containerPanel.add(new ScenePanel(ROOM_WIDTH, ROOM_HEIGHT, gameState.getCurrentRoom().getWidth(),
