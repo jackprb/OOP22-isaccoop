@@ -50,7 +50,13 @@ public abstract class AbstractGUIFrame implements GUIFrame {
         final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         final int sw = (int) screen.getWidth();
         final int sh = (int) screen.getHeight();
-        this.frame.setSize(sw / frameResizeProportion, sh / frameResizeProportion);
+        final int frameW = sw / frameResizeProportion;
+        final int frameH = sh / frameResizeProportion;
+        this.frame.setSize(frameW, frameH);
+        this.frame.setPreferredSize(new Dimension(frameW, frameH));
+        this.frame.setMinimumSize(new Dimension(frameW, frameH));
+        frame.setResizable(true);
+
         /*
          * Instead of appearing at (0,0), upper left corner of the screen, this
          * flag makes the OS window manager take care of the default positioning
