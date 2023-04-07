@@ -157,9 +157,8 @@ public class SwingScene implements Scene {
                 new GameMenu().display();
                 frame.setVisible(false);
             });
-            
-            if (gameState.isLevelComplete()) {
 
+            if (gameState.isLevelComplete()) {
                 /* drawing the score */
                 g2.setFont(gameOverFont);
                 g2.setColor(this.backgroundColor);
@@ -168,7 +167,7 @@ public class SwingScene implements Scene {
                 this.drawCenteredString(g2, "GAME COMPLETED", getVisibleRect(), gameOverFont);
                 this.add(btnGoToMenu);
 
-            } else if(gameState.getPlayer().isDead()) {
+            } else if (gameState.getPlayer().isDead()) {
                 /* drawing the score */
                 g2.setFont(gameOverFont);
                 g2.setColor(this.backgroundColor);
@@ -232,14 +231,15 @@ public class SwingScene implements Scene {
          * @param g The Graphics instance.
          * @param text The String to draw.
          * @param rect The Rectangle to center the text in.
+         * @param font the Font of the text
          */
-        private void drawCenteredString(Graphics g, String text, Rectangle rect, Font font) {
+        private void drawCenteredString(final Graphics g, final String text, final Rectangle rect, final Font font) {
             // Get the FontMetrics
-            FontMetrics metrics = g.getFontMetrics(font);
+            final FontMetrics metrics = g.getFontMetrics(font);
             // Determine the X coordinate for the text
-            int x = rect.x + (rect.width - metrics.stringWidth(text)) / 2;
+            final int x = rect.x + (rect.width - metrics.stringWidth(text)) / 2;
             // Determine the Y coordinate for the text (note we add the ascent, as in java 2d 0 is top of the screen)
-            int y = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
+            final int y = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
             // Set the font
             g.setFont(font);
             // Draw the String
