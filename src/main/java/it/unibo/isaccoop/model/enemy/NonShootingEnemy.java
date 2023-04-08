@@ -18,7 +18,7 @@ public final class NonShootingEnemy  extends AbstractEnemy {
 
     @Override
     public void onHit(final PlayerStat player) {
-        if(((NonShootingHitStrategy) super.getHitStrategy()).canHit()) {
+        if (((NonShootingHitStrategy) super.getHitStrategy()).canHit()) {
             super.onHit(player);
         }
     }

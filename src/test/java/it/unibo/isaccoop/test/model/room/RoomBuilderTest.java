@@ -15,17 +15,18 @@ import it.unibo.isaccoop.model.room.RoomBuilderUtils;
  */
 class RoomBuilderTest {
 
-    private static final int MAX_ROOM_SIZE = 500;
+    private static final int ROOM_WIDTH = 300;
+    private static final int ROOM_HEIGHT = 200;
     private static final int MAX_COORD_NUMBER = 20;
 
-    @Test 
+    @Test
     void testPutCoord() {
         final Builder emptyBuilder = createBuilder();
         final Builder ris = emptyBuilder.putCoord(generateCoord());
         assertEquals(ris, emptyBuilder);
     }
 
-    @Test 
+    @Test
     void testRoomType() {
         for (final var rType: RoomType.values()) {
             final Builder emptyBuilder = createBuilder();
@@ -34,11 +35,11 @@ class RoomBuilderTest {
         }
     }
 
-    @Test 
+    @Test
     void testPutItems() {
         for (final var rType: RoomType.values()) {
             final RoomBuilderUtils utils = new RoomBuilderUtils(rType);
-            final Builder localBuilder = new Builder(MAX_ROOM_SIZE, MAX_COORD_NUMBER)
+            final Builder localBuilder = new Builder(ROOM_WIDTH, ROOM_HEIGHT)
                     .putCoord(generateCoord())
                     .roomType(rType);
             if (utils.canRoomHaveItems()) {
@@ -49,11 +50,11 @@ class RoomBuilderTest {
         }
     }
 
-    @Test 
+    @Test
     void testPutEnemies() {
         for (final var rType: RoomType.values()) {
             final RoomBuilderUtils utils = new RoomBuilderUtils(rType);
-            final Builder localBuilder = new Builder(MAX_ROOM_SIZE, MAX_COORD_NUMBER)
+            final Builder localBuilder = new Builder(ROOM_WIDTH, ROOM_HEIGHT)
                     .putCoord(generateCoord())
                     .roomType(rType);
             if (utils.canRoomHaveEnemies()) {
@@ -64,11 +65,11 @@ class RoomBuilderTest {
         }
     }
 
-    @Test 
+    @Test
     void testPutPowerUps() {
         for (final var rType: RoomType.values()) {
             final RoomBuilderUtils utils = new RoomBuilderUtils(rType);
-            final Builder localBuilder = new Builder(MAX_ROOM_SIZE, MAX_COORD_NUMBER)
+            final Builder localBuilder = new Builder(ROOM_WIDTH, ROOM_HEIGHT)
                     .putCoord(generateCoord())
                     .roomType(rType);
             if (utils.canRoomHavePowerUps()) {
@@ -79,9 +80,9 @@ class RoomBuilderTest {
         }
     }
 
-    @Test 
+    @Test
     void testBuild() {
-        final Builder localBuilder = new Builder(MAX_ROOM_SIZE, MAX_COORD_NUMBER)
+        final Builder localBuilder = new Builder(ROOM_WIDTH, ROOM_HEIGHT)
                 .putCoord(generateCoord());
 
         // build() at this point will throw an exception because each room
@@ -89,7 +90,7 @@ class RoomBuilderTest {
         assertThrows(IllegalStateException.class, () -> localBuilder.build());
 
         for (final var rType: RoomType.values()) {
-            final Builder otherBuilder = new Builder(MAX_ROOM_SIZE, MAX_COORD_NUMBER)
+            final Builder otherBuilder = new Builder(ROOM_WIDTH, ROOM_HEIGHT)
                     .roomType(rType);
 
             // build() at this point will throw an exception because each room
@@ -106,8 +107,8 @@ class RoomBuilderTest {
      * @return a new builder
      */
     private Builder createBuilder() {
-        return new Builder(ThreadLocalRandom.current().nextInt(MAX_ROOM_SIZE), 
-                ThreadLocalRandom.current().nextInt(MAX_ROOM_SIZE));
+        return new Builder(ThreadLocalRandom.current().nextInt(ROOM_WIDTH),
+                ThreadLocalRandom.current().nextInt(ROOM_HEIGHT));
     }
 
     /**
@@ -115,7 +116,7 @@ class RoomBuilderTest {
      * @return a new Point2D
      */
     private Point2D generateCoord() {
-        return new Point2D(ThreadLocalRandom.current().nextInt(MAX_COORD_NUMBER), 
+        return new Point2D(ThreadLocalRandom.current().nextInt(MAX_COORD_NUMBER),
                 ThreadLocalRandom.current().nextInt(MAX_COORD_NUMBER));
     }
 }

@@ -2,9 +2,12 @@ package it.unibo.isaccoop.model.collision;
 
 import java.util.List;
 
+import it.unibo.isaccoop.model.boundingbox.CircleBoundingBox;
+import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.enemy.Enemy;
 import it.unibo.isaccoop.model.item.Item;
 import it.unibo.isaccoop.model.player.Player;
+import it.unibo.isaccoop.model.weapon.WeaponShot;
 
 /**
  *
@@ -45,4 +48,14 @@ public interface CollisionCheckFactory {
      * @return CollisionCheck refer to enemy shot.
      */
     CollisionCheck getCollisionWithEnemyShotChecker(Player p, List<Enemy> i);
+
+    /**
+     *  Get collision between shots and player or enemies, in order to remove the target shot.
+     *
+     *  @param shots weapon shots
+     *  @param pos enemy position or player position
+     *  @param box player or enemy bounding box
+     *  @return CollisionCheck refer to target shot
+     * */
+    CollisionCheck getShotsCollisionToRemoveChecker(List<WeaponShot> shots, Point2D pos, CircleBoundingBox box);
 }

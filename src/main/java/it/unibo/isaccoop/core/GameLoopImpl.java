@@ -44,7 +44,7 @@ public class GameLoopImpl implements GameLoop {
                 new ShotInputComponent());
         this.actionComponent = new ActionComponentImpl();
         this.actionController = actionController;
-        this.setPause(false);
+        this.isPause = false;
     }
 
     /**

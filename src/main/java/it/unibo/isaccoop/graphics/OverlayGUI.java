@@ -16,9 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import it.unibo.isaccoop.model.player.PlayerStat;
 import it.unibo.isaccoop.model.room.Level;
-import it.unibo.isaccoop.model.room.Minimap;
 
 /**
  * Creates a GUI to display the {@link Minimap}, the {@link PlayerStat}s and a legend explaining
@@ -40,7 +38,7 @@ public class OverlayGUI extends JPanel {
     private final JPanel statsPanel2 = new JPanel();
     private final List<JLabel> stats1 = new LinkedList<>();
     private final List<JLabel> stats2 = new LinkedList<>();
-    private transient final Level lvl;
+    private final transient Level lvl;
     private final List<JButton> roomBtns = new ArrayList<>();
 
     private enum CellStatus {

@@ -20,38 +20,47 @@ class TestShop {
     private final PowerUp healthUp = new HealthUp();
     private final PowerUp coinUp = new CoinUp();
 
+    private static final int START_COIN = 10;
+    private static final int COINUP_SUPER = 8;
+    private static final int COINUP_NORMAL = 4;
+    private static final int NORMAL_PRICE = 2;
+    private static final int SUPER_PRICE = 4;
+
     /***/
     @Test
     void testPowerUp() {
+
         //Test shop damage-up
-        player.setCoin(10);
-        assertEquals(10, player.getCoin());
+        player.setCoin(START_COIN);
+        assertEquals(START_COIN, player.getCoin());
         damageUp.setSuperItem(true);
         shop.buyItem(player, damageUp);
-        assertEquals(6, player.getCoin());
+        assertEquals(START_COIN - SUPER_PRICE, player.getCoin());
         damageUp.setSuperItem(false);
         shop.buyItem(player, damageUp);
-        assertEquals(4, player.getCoin());
+        assertEquals(START_COIN - SUPER_PRICE - NORMAL_PRICE, player.getCoin());
 
         //Test shop coin-up
         coinUp.setSuperItem(true);
         shop.buyItem(player, coinUp);
-        assertEquals(8, player.getCoin());
+        assertEquals(START_COIN - SUPER_PRICE * 2 - NORMAL_PRICE
+                + COINUP_SUPER, player.getCoin());
         coinUp.setSuperItem(false);
         shop.buyItem(player, coinUp);
-        assertEquals(10, player.getCoin());
-        
-        player.setCoin(10);
+        assertEquals(START_COIN - SUPER_PRICE * 2 - NORMAL_PRICE * 2
+                + COINUP_SUPER + COINUP_NORMAL, player.getCoin());
+
+        player.setCoin(START_COIN);
         //Test shop health-up
         healthUp.setSuperItem(true);
         shop.buyItem(player, healthUp);
-        assertEquals(6, player.getCoin());
+        assertEquals(START_COIN - SUPER_PRICE, player.getCoin());
         healthUp.setSuperItem(false);
         shop.buyItem(player, healthUp);
-        assertEquals(4, player.getCoin());
+        assertEquals(START_COIN - SUPER_PRICE - NORMAL_PRICE, player.getCoin());
         healthUp.setSuperItem(true);
         shop.buyItem(player, healthUp);
-        assertEquals(0, player.getCoin());
+        assertEquals(START_COIN - SUPER_PRICE * 2 - NORMAL_PRICE, player.getCoin());
 
     }
 

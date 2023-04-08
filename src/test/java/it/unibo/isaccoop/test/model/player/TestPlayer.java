@@ -13,7 +13,7 @@ import it.unibo.isaccoop.model.common.Direction;
  * */
 class TestPlayer {
     private final Player player = new Player(null, null, null);
-    private static final double START_POSITION = 5.0;
+    private static final double START_POSITION = 10.0;
 
     /**
      * Testing the player movement in 4 direction.
