@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -22,6 +24,7 @@ import it.unibo.isaccoop.core.GameEngineImpl;
  * */
 public class GameMenu {
 
+    private static final Logger LOGGER = Logger.getLogger(SwingScene.class.getName());
     private final JFrame frame = new JFrame("Game menu - Isaccoop");
     private final JButton play = new JButton("Play");
     private final JButton help = new JButton("Help");
@@ -126,7 +129,7 @@ public class GameMenu {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 try {
-                    System.exit(0);
+                    Runtime.getRuntime().exit(0);
                 } catch (Exception e1) {
                     JOptionPane.showMessageDialog(frame, e1, "Error", JOptionPane.ERROR_MESSAGE);
                     e1.printStackTrace();
@@ -141,7 +144,11 @@ public class GameMenu {
                     final Thread thread = new Thread() {
                         @Override
                         public void run() {
-                            new HelpGUI().display();
+                            try {
+                                new HelpGUI().display();
+                            } catch (IOException ex) {
+                                LOGGER.severe(ex.getMessage());
+                            }
                         }
                      };
                     thread.start();
