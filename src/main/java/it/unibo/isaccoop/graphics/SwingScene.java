@@ -164,8 +164,9 @@ public class SwingScene implements Scene {
                 g2.setColor(this.backgroundColor);
                 g2.fillRect(0, 0, this.getWidth(), this.getHeight());
                 g2.setColor(Color.BLACK);
-                this.drawCenteredString(g2, "GAME COMPLETED", getVisibleRect(), gameOverFont);
                 this.add(btnGoToMenu);
+                btnGoToMenu.setOpaque(false);
+                this.drawCenteredString(g2, "GAME COMPLETED", getVisibleRect(), gameOverFont);
 
             } else if (gameState.getPlayer().isDead()) {
                 /* drawing the score */
@@ -173,8 +174,9 @@ public class SwingScene implements Scene {
                 g2.setColor(this.backgroundColor);
                 g2.fillRect(0, 0, this.getWidth(), this.getHeight());
                 g2.setColor(Color.BLACK);
-                this.drawCenteredString(g2, "GAME OVER", getVisibleRect(), gameOverFont);
                 this.add(btnGoToMenu);
+                btnGoToMenu.setOpaque(false);
+                this.drawCenteredString(g2, "GAME OVER", getVisibleRect(), gameOverFont);
 
             } else {
                 /* drawing the borders */
