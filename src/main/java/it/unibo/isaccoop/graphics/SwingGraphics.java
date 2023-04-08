@@ -20,7 +20,7 @@ public final class SwingGraphics implements Graphics {
 
     /**
      *
-     * @param g2
+     * @param g
      * @param ratioX
      * @param ratioY
      */

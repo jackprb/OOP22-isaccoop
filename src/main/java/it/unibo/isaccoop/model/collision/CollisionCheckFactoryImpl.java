@@ -51,6 +51,7 @@ public final class CollisionCheckFactoryImpl implements CollisionCheckFactory {
                         .forEach(shot -> room.notifyEvent(new ConcreteEventFactory().getEnemyHitEvent(enemy))));
     }
 
+    @Override
     public CollisionCheck getShotsCollisionToRemoveChecker(final List<WeaponShot> shots, final Point2D pos,
             final CircleBoundingBox box) {
         return room -> shots.stream()
