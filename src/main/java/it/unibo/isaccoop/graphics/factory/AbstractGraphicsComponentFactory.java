@@ -8,7 +8,7 @@ public abstract class AbstractGraphicsComponentFactory {
     /**
      * 
      * @param imageName
-     * @return
+     * @return a MapElement as image 
      */
     protected GraphicsComponent getElementAsImageGraphicsComponent(final String imageName) {
         return (obj, w) -> w.drawElementAsImage(obj, imageName);
