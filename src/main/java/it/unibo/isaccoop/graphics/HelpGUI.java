@@ -2,8 +2,10 @@ package it.unibo.isaccoop.graphics;
 
 import java.awt.BorderLayout;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,6 +17,7 @@ import javax.swing.JTextArea;
  */
 public class HelpGUI extends AbstractGUIFrame {
 
+    private static final Logger LOGGER = Logger.getLogger(SwingScene.class.getName());
     private static final String TITLE = "Isaccoop User Guide";
     private static final String RES_PATH = "it/unibo/isaccoop/help/";
     private static final String CANNOT_FIND_HELPFILE = "Cannot find the help file \"help.txt\"";
@@ -37,12 +40,17 @@ public class HelpGUI extends AbstractGUIFrame {
         // and put it in a textarea
         final InputStream in = ClassLoader.getSystemResourceAsStream(RES_PATH + "help.txt");
         if (in != null) {
-            final BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            final Stream<String> linesStream = br.lines();
+            try {
+                final BufferedReader br = new BufferedReader(new InputStreamReader(in));
+                final Stream<String> linesStream = br.lines();
 
-            final StringBuilder strBuilder = new StringBuilder();
-            linesStream.forEach(s -> strBuilder.append(s + NEWLINE));
-            textArea.setText(strBuilder.toString());
+                final StringBuilder strBuilder = new StringBuilder();
+                linesStream.forEach(s -> strBuilder.append(s + NEWLINE));
+                textArea.setText(strBuilder.toString());
+                br.close();
+            } catch (IOException ex) {
+                LOGGER.severe(ex.getMessage());
+            }
         } else {
             // if the file does not exist, put an alternate message in textarea
             textArea.setText(CANNOT_FIND_HELPFILE);
