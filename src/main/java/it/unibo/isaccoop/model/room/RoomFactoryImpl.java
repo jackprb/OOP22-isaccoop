@@ -106,24 +106,6 @@ public final class RoomFactoryImpl implements RoomFactory {
     }
 
     @Override
-    public Room buildRoomOfType(final RoomType roomType, final Point2D coordInsideLevel) {
-        switch (roomType) {
-        case START:
-            return buildStartRoom(coordInsideLevel);
-        case STANDARD:
-            return buildStandardRoom(coordInsideLevel);
-        case SHOP:
-            return buildShopRoom(coordInsideLevel);
-        case BOSS:
-            return buildBossRoom(coordInsideLevel);
-        case TREASURE:
-            return buildTreasureRoom(coordInsideLevel);
-        default:
-            throw new IllegalArgumentException("Incorrect roomType value: " + roomType);
-        }
-    }
-
-    @Override
     public Room buildRoomInProperOrder(final Point2D coordInsideLevel) {
         if (this.rFactoryLogics.canBuildStartRoom(roomCount)
                 && !this.rFactoryLogics.hasAlreadyBuiltStartRoom()) {

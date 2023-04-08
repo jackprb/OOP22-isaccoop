@@ -3,6 +3,7 @@ package it.unibo.isaccoop.core;
 import java.util.List;
 import java.util.logging.Logger;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.isaccoop.controller.input.ActionComponent;
 import it.unibo.isaccoop.controller.input.ActionComponentImpl;
 import it.unibo.isaccoop.controller.input.ActionController;
@@ -32,7 +33,10 @@ public class GameLoopImpl implements GameLoop {
      * @param view to be handled into game loop
      * @param level to be handled into game loop
      * @param actionController the actionController to manage keys pressed
+
+     * The warning is suppressed because we need level reference in this class, the level is immutable.
      */
+    @SuppressFBWarnings("EI_EXPOSE_REP")
     public GameLoopImpl(final Scene view, final Level level, final ActionController actionController) {
         this.view = view;
         this.level = level;
@@ -127,6 +131,8 @@ public class GameLoopImpl implements GameLoop {
      * {@inheritDoc}
      */
     @Override
+    //Warning suppressed because we need to expose level state to the ActionComponent (level is immutable)
+    @SuppressFBWarnings("EI_EXPOSE_REP")
     public Level getLevel() {
         return this.level;
     }

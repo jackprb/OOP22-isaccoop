@@ -48,7 +48,9 @@ public final class ShootingHitStrategy implements HitStrategy {
     }
 
     /**
-     * Update weapon interval
+     * Update weapon interval.
+     * 
+     * @param interval the interval between two shots
      * */
     public void updateWeaponInterval(final double interval) {
         this.weapon.setWeaponInterval(interval);
