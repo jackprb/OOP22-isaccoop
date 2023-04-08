@@ -15,6 +15,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Logger;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -144,7 +145,7 @@ public class SwingScene implements Scene {
             final Graphics2D g2 = (Graphics2D) g;
 
             // hidden button to go back to main menu
-            final JButton btnGoToMenu = new JButton(" ");
+            final JButton btnGoToMenu = new JButton();
             btnGoToMenu.addActionListener(l -> {
                 new GameMenu().display();
                 frame.setVisible(false);
@@ -152,7 +153,6 @@ public class SwingScene implements Scene {
 
             if(SwingScene.this.engine.getGameLoop().isPause()) {
 
-                /* drawing the score */
                 g2.setFont(gameOverFont);
                 g2.setColor(this.backgroundColor);
                 g2.fillRect(0, 0, this.getWidth(), this.getHeight());
@@ -160,16 +160,15 @@ public class SwingScene implements Scene {
                 this.drawCenteredString(g2, "PAUSE", getVisibleRect(), gameOverFont);
 
             } else if (gameState.isLevelComplete()) {
-                /* drawing the score */
+
                 g2.setFont(gameOverFont);
                 g2.setColor(this.backgroundColor);
                 g2.fillRect(0, 0, this.getWidth(), this.getHeight());
                 g2.setColor(Color.BLACK);
-                this.drawCenteredString(g2, "GAME COMPLETED", getVisibleRect(), gameOverFont);
+                this.drawCenteredString(g2, "GAME OVER", getVisibleRect(), gameOverFont);
                 this.add(btnGoToMenu);
 
             } else if (gameState.getPlayer().isDead()) {
-                /* drawing the score */
                 g2.setFont(gameOverFont);
                 g2.setColor(this.backgroundColor);
                 g2.fillRect(0, 0, this.getWidth(), this.getHeight());
