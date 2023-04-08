@@ -24,9 +24,9 @@ public class SpawnRandom implements Spawn {
         elementsToSpawn.forEach(e -> {
             final double radius = ((CircleBoundingBox) e.getBox()).getRadius();
             e.setCoords(new Point2D(ThreadLocalRandom.current()
-                    .nextDouble(radius + radius / 2 , width - (radius + radius / 2)),
+                    .nextDouble(radius + radius / 2, width - (radius + radius / 2)),
                     ThreadLocalRandom.current()
-                    .nextDouble(radius + radius / 2 , height - (radius + radius / 2))));
+                    .nextDouble(radius + radius / 2, height - (radius + radius / 2))));
         });
 
     }

@@ -3,7 +3,8 @@ package it.unibo.isaccoop.graphics.factory;
 import it.unibo.isaccoop.graphics.GraphicsComponent;
 
 /***/
-public final class ConcretePlayerGraphicsComponentFactory extends AbstractGraphicsComponentFactory implements PlayerGraphicsComponentFactory {
+public final class ConcretePlayerGraphicsComponentFactory extends AbstractGraphicsComponentFactory
+        implements PlayerGraphicsComponentFactory {
 
     @Override
     public GraphicsComponent getPlayerGraphicsComponent() {
@@ -14,5 +15,4 @@ public final class ConcretePlayerGraphicsComponentFactory extends AbstractGraphi
     public GraphicsComponent getPlayerBaseWeaponShotGraphicsComponent() {
         return super.getElementAsImageGraphicsComponent("playerShot.png");
     }
-
 }

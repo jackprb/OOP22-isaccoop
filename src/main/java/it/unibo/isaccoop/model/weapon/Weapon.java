@@ -26,7 +26,7 @@ public interface Weapon extends Removable {
     List<WeaponShot> getWeaponShots();
 
     /**
-     * Update weapon interval, used to all time interval weapons
+     * Update weapon interval, used to all time interval weapons.
      *
      * @param interval new time interval between two shots
      * */

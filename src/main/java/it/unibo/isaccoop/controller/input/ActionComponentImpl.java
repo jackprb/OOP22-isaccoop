@@ -11,9 +11,10 @@ import it.unibo.isaccoop.core.GameLoop;
 public class ActionComponentImpl implements ActionComponent {
 
     private final GameLoop loop;
+
     /**
-     * Contructor of the ActionComponent
-     * @param level
+     * Contructor of the ActionComponent.
+     * @param loop the {@link GameLoop}
      */
     public ActionComponentImpl(final GameLoop loop) {
         this.loop = loop;

@@ -11,8 +11,9 @@ public abstract class AbstractItem extends AbstractMapElement implements Item {
 
     /**
      * Constructor.
+     * @param gr the {@link GraphicsComponent} for this {@link AbstractItem}
      */
-    public AbstractItem(GraphicsComponent gr) {
+    public AbstractItem(final GraphicsComponent gr) {
         super(ElementsRadius.ITEM, gr);
     }
 
