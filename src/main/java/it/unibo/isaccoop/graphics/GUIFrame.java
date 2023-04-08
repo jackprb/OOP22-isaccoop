@@ -14,12 +14,6 @@ public interface GUIFrame {
     void display();
 
     /**
-     * Method to update the GUI, to be called when a repaint of the frame is needed to show changes.
-     * To be implemented in subclasses.
-     */
-    void updateView();
-
-    /**
      * Add the specified component to the main {@link BorderLayout} panel.
      * @param comp the component to add to the main panel
      * @param position the position where to put the component
