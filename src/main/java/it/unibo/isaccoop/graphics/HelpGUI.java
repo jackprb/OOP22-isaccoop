@@ -8,7 +8,6 @@ import java.io.InputStreamReader;
 import java.util.Objects;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
-import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
@@ -34,7 +33,6 @@ public class HelpGUI extends AbstractGUIFrame {
     protected HelpGUI() throws IOException {
         super(TITLE);
 
-        final JButton btnClose = new JButton("Close");
         final JTextArea textArea = new JTextArea(TEXTAREA_ROWS, TEXTAREA_COLS);
 
         // if exists, load the file "help.txt" from the resources folder as a stream<String> 
@@ -56,10 +54,5 @@ public class HelpGUI extends AbstractGUIFrame {
 
         // add the textArea to the main BorderLayout, where to display the help
         super.addElementToMainPanel(new JScrollPane(textArea), BorderLayout.CENTER);
-        // add the button to close the window to the main BorderLayout
-        super.addElementToMainPanel(btnClose, BorderLayout.SOUTH);
-        btnClose.addActionListener(l -> {
-            this.dispose();
-        });
     }
 }
