@@ -5,18 +5,20 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import it.unibo.isaccoop.model.player.PlayerStat;
 import it.unibo.isaccoop.model.room.Level;
-import it.unibo.isaccoop.model.room.Room;
+import it.unibo.isaccoop.model.room.Minimap;
 
 /**
  * Creates a GUI to display the {@link Minimap}, the {@link PlayerStat}s and a legend explaining
@@ -38,8 +40,8 @@ public class OverlayGUI extends JPanel {
     private final JPanel statsPanel2 = new JPanel();
     private final List<JLabel> stats1 = new LinkedList<>();
     private final List<JLabel> stats2 = new LinkedList<>();
-    private final Level lvl;
-    private final Map<JButton, Room> btns = new HashMap<>();
+    private transient final Level lvl;
+    private final List<JButton> roomBtns = new ArrayList<>();
 
     private enum CellStatus {
         /**
@@ -130,7 +132,7 @@ public class OverlayGUI extends JPanel {
             jb.setFont(FONT);
             centerPanel.add(jb);
             jb.setEnabled(false);
-            this.btns.put(jb, lvl.getRooms().get(i));
+            this.roomBtns.add(jb);
         }
     }
 
@@ -141,15 +143,15 @@ public class OverlayGUI extends JPanel {
     public void paint(final Graphics g) {
         super.paint(g);
         lblInfoRoom.setText(getRoomStatusString());
-        this.btns.forEach((btn, r) -> {
+        this.roomBtns.forEach(btn -> {
             final var currRoom = this.lvl.getCurrentRoom();
             final var completeRooms = this.lvl.getMinimap().getCompletedRooms();
             final var uncompleteRooms = this.lvl.getMinimap().getUncompletedRooms();
-            if (currRoom.equals(r)) {
+            if (currRoom.equals(this.lvl.getRooms().get(this.roomBtns.indexOf(btn)))) {
                 btn.setBackground(COLOR_MAP.get(CellStatus.PLAYER));
-            } else if (completeRooms.contains(r)) {
+            } else if (completeRooms.contains(this.lvl.getRooms().get(this.roomBtns.indexOf(btn)))) {
                 btn.setBackground(COLOR_MAP.get(CellStatus.COMPLETED_ROOM));
-            } else if (uncompleteRooms.contains(r)) {
+            } else if (uncompleteRooms.contains(this.lvl.getRooms().get(this.roomBtns.indexOf(btn)))) {
                 btn.setBackground(COLOR_MAP.get(CellStatus.UNCOMPLETED_ROOM));
             }
         });
