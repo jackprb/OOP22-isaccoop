@@ -18,7 +18,7 @@ public class ConcreteAIEnemy implements AIEnemy {
      * @param enemies enemies to attach to {@link ConcreteAIEnemy} as a {@link List}
      * */
     public ConcreteAIEnemy(final List<Enemy> enemies) {
-        this.controlledEnemies = new ArrayList<Enemy>(enemies);
+        this.controlledEnemies = new ArrayList<>(enemies);
     }
 
     /***/

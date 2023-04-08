@@ -11,12 +11,13 @@ import it.unibo.isaccoop.model.weapon.WeaponShot;
 
 /***/
 public final class ConcreteEventFactory implements EventFactory {
-    private final static Shop shop = new ShopImpl();
+    private static final Shop SHOP = new ShopImpl();
+
     @Override
     public Event getItemPickUpEvent(final Item target) {
         return room -> room.getPlayer().ifPresent(player -> {
             if (room.getRoomType() == RoomType.SHOP) {
-                if (shop.buyItem(player, (PowerUp) target)) {
+                if (SHOP.buyItem(player, (PowerUp) target)) {
                     room.remove(target);
                 }
             } else {
@@ -30,7 +31,7 @@ public final class ConcreteEventFactory implements EventFactory {
     public Event getEnemyShotEvent(final Enemy enemy) {
         return room -> room.getPlayer().ifPresent(player -> {
             player.onHit(enemy);
-            if(enemy.isDead()) {
+            if (enemy.isDead()) {
                 room.remove(enemy);
             }
         });
@@ -44,7 +45,7 @@ public final class ConcreteEventFactory implements EventFactory {
     @Override
     public Event getShotToRemoveEvent(final WeaponShot shot) {
         return room -> {
-            room.getPlayer().ifPresent(p -> ((ShootingHitStrategy)p.getHitStrategy()).removeShot(shot));
+            room.getPlayer().ifPresent(p -> ((ShootingHitStrategy) p.getHitStrategy()).removeShot(shot));
             room.getEnemies()
             .ifPresent(enemies ->
                 enemies.forEach(enemy ->
