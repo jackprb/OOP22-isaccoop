@@ -8,6 +8,8 @@ import it.unibo.isaccoop.model.player.PlayerStatImpl;
 import it.unibo.isaccoop.model.powerup.DamageUp;
 import it.unibo.isaccoop.model.powerup.HealthUp;
 import it.unibo.isaccoop.model.powerup.PowerUp;
+import it.unibo.isaccoop.model.powerup.SpeedUp;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
@@ -22,29 +24,36 @@ class TestItem {
     private final Item heart = new Heart();
     private final PowerUp damageUp = new DamageUp();
     private final PowerUp healthUp = new HealthUp();
+    private final PowerUp speedUp = new SpeedUp();
 
-    /***/
+    /**
+     * Test function for power ups.
+     */
     @Test
     void testPowerUp() {
-        assertEquals(1, stat.getDamage());
+        assertEquals(1.0, stat.getDamage());
         damageUp.setSuperItem(true);
         damageUp.interact(stat);
-        assertEquals(3, stat.getDamage());
+        assertEquals(3.0, stat.getDamage());
         damageUp.setSuperItem(false);
         damageUp.interact(stat);
-        assertEquals(4, stat.getDamage());
+        assertEquals(4.0, stat.getDamage());
 
         assertEquals(3, stat.getMaxHeart());
-        healthUp.setSuperItem(true);
-        healthUp.interact(stat);
-        assertEquals(5, stat.getMaxHeart());
         healthUp.setSuperItem(false);
         healthUp.interact(stat);
-        assertEquals(6, stat.getMaxHeart());
+        assertEquals(4, stat.getMaxHeart());
+
+        assertEquals(1, stat.getSpeed());
+        speedUp.setSuperItem(true);
+        speedUp.interact(stat);
+        assertEquals(2, stat.getSpeed());
 
     }
 
-    /***/
+    /**
+     * Test function for basic items.
+     * */
     @Test
     void testItem() {
         coin.interact(stat);

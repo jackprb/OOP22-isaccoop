@@ -1,6 +1,5 @@
 package it.unibo.isaccoop.model.room;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +11,7 @@ import it.unibo.isaccoop.model.player.Player;
  * A level can be figured as a 2D grid; each room has its coordinate (i, j), that is, the indices of the
  * {@link Room} itself as an element of the grid.
  */
-public interface Level extends Serializable {
+public interface Level {
 
     /**
      * Inserts the specified rooms in this level.
