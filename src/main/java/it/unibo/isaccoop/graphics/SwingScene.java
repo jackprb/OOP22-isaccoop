@@ -105,8 +105,6 @@ public class SwingScene implements Scene {
     public class ScenePanel extends JPanel implements KeyListener {
 
         private static final long serialVersionUID = 1L;
-        private final int centerX;
-        private final int centerY;
         private final double ratioX;
         private final double ratioY;
         private final Font gameOverFont;
@@ -123,8 +121,6 @@ public class SwingScene implements Scene {
             setSize(w, h);
             setPreferredSize(new Dimension(w, h));
             setMinimumSize(new Dimension(w, h));
-            centerX = w / 2;
-            centerY = h / 2;
             ratioX = this.getWidth() / width;
             ratioY = this.getHeight() / height;
 
@@ -151,7 +147,7 @@ public class SwingScene implements Scene {
                 frame.setVisible(false);
             });
 
-            if(SwingScene.this.engine.getGameLoop().isPause()) {
+            if (SwingScene.this.engine.getGameLoop().isPause()) {
 
                 g2.setFont(gameOverFont);
                 g2.setColor(this.backgroundColor);

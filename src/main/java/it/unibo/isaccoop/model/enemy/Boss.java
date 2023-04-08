@@ -50,8 +50,7 @@ public class Boss extends AbstractEnemy {
 
     /**
      * Change the type of attack of the boss based on time, with shooting or not.
-     * @return if the Boss have to change the type of attack
-     * */
+     */
     public void changeMode() {
         if (System.currentTimeMillis() - this.lastChangeTime >= Boss.CHANGE_TIME) {
             this.lastChangeTime = System.currentTimeMillis();

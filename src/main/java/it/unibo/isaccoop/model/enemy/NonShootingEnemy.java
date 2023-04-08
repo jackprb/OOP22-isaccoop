@@ -10,17 +10,16 @@ public final class NonShootingEnemy  extends AbstractEnemy {
 
     /**
      * Constructor for {@link NonShootingEnemy}.
-     * */
+     */
     public NonShootingEnemy() {
         super(EnemyHearts.ENEMY_HEARTS, new NonShootingHitStrategy(), new NonShootingMovementStrategy(),
                 new ConcreteEnemyGraphicsComponentFactory().getNonShootingGraphicsComponent());
     }
 
     @Override
-    public void onHit(PlayerStat player) {
+    public void onHit(final PlayerStat player) {
         if(((NonShootingHitStrategy) super.getHitStrategy()).canHit()) {
             super.onHit(player);
         }
     }
-
 }

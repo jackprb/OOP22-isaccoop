@@ -97,8 +97,11 @@ public class Player extends PlayerMovementImpl implements Hitable<Enemy> {
         ((ShootingHitStrategy) this.hitStrategy).removeShot(element);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setTears(Double tears) {
+    public void setTears(final Double tears) {
         super.setTears(tears);
         ((ShootingHitStrategy) this.hitStrategy).updateWeaponInterval(super.getTears());
     }
