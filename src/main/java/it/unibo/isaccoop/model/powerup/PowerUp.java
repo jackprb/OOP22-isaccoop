@@ -28,19 +28,22 @@ public abstract class PowerUp extends AbstractItem {
      * */
     @Override
     public abstract void interact(PlayerStat p);
+
     /**
      * @return true if is a super item
      * */
     public Boolean isSuperItem() {
         return superItem;
     }
+
     /**
      * @param superItem true for change boolean variable
-     * */
+     */
     public void setSuperItem(final Boolean superItem) {
         super.setGraphicsComponents(updateSuperGraphics(superItem));
         this.superItem = superItem;
     }
+
     /**
      *
      * @return price of the powerUp.
@@ -55,6 +58,5 @@ public abstract class PowerUp extends AbstractItem {
      * @param isSuper
      * @return GraphicsComponent refer to PowerUp
      */
-    protected abstract GraphicsComponent updateSuperGraphics(final Boolean isSuper);
-
+    protected abstract GraphicsComponent updateSuperGraphics(Boolean isSuper);
 }

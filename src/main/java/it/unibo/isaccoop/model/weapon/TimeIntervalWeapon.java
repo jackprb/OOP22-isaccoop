@@ -38,9 +38,11 @@ public class TimeIntervalWeapon extends AbstractWeapon {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setWeaponInterval(double interval) {
+    public void setWeaponInterval(final double interval) {
         this.shotTimeInterval = interval;
     }
-
 }

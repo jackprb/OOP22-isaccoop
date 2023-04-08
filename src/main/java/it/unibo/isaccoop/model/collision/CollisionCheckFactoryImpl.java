@@ -20,7 +20,7 @@ public final class CollisionCheckFactoryImpl implements CollisionCheckFactory {
     public CollisionCheck getCollisionWithItemChecker(final Player p, final List<? extends Item> i) {
         return room -> i.stream()
                 .filter(elem -> p.getBox().isCollidingWithCricle(p.getCoords(), elem.getCoords(),
-                        ((CircleBoundingBox) elem.getBox())))
+                        (CircleBoundingBox) elem.getBox()))
                 .forEach(e -> room.notifyEvent(new ConcreteEventFactory().getItemPickUpEvent(e)));
     }
 
@@ -51,11 +51,11 @@ public final class CollisionCheckFactoryImpl implements CollisionCheckFactory {
                         .forEach(shot -> room.notifyEvent(new ConcreteEventFactory().getEnemyHitEvent(enemy))));
     }
 
-    public CollisionCheck getShotsCollisionToRemoveChecker(final List<WeaponShot> shots, final Point2D pos, final CircleBoundingBox box) {
+    public CollisionCheck getShotsCollisionToRemoveChecker(final List<WeaponShot> shots, final Point2D pos,
+            final CircleBoundingBox box) {
         return room -> shots.stream()
-                .filter(shot -> shot.getBox().isCollidingWithRecPerimeter(shot.getCoords(), (RectBoundingBox) room.getBox())  
+                .filter(shot -> shot.getBox().isCollidingWithRecPerimeter(shot.getCoords(), (RectBoundingBox) room.getBox())
                         || shot.getBox().isCollidingWithCricle(shot.getCoords(), pos, box))
                 .forEach(shot -> room.notifyEvent(new ConcreteEventFactory().getShotToRemoveEvent(shot)));
     }
-
 }

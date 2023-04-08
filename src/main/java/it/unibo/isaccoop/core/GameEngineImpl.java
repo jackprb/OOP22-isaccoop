@@ -57,7 +57,7 @@ public final class GameEngineImpl implements GameEngine {
         this.controllers.put("keyMove", new KeyboardInputController(VK_W, VK_S, VK_A, VK_D));
         this.controllers.put("keyShot", new KeyboardInputController(VK_UP, VK_DOWN, VK_LEFT, VK_RIGHT));
         this.actionController = new ActionControllerImpl(VK_ESCAPE, VK_N, VK_P);
-        var gameState = new LevelControllerImpl(GameEngineImpl.MAX_ROOMS, this).getCurrentLevel();
+        final var gameState = new LevelControllerImpl(GameEngineImpl.MAX_ROOMS, this).getCurrentLevel();
         this.gameLoop = new GameLoopImpl(new SwingScene(gameState, this),
                 gameState, this.actionController);
 
@@ -74,7 +74,7 @@ public final class GameEngineImpl implements GameEngine {
      */
     @Override
     public ActionControllerImpl getActionController() {
-        return ((ActionControllerImpl) this.actionController);
+        return (ActionControllerImpl) this.actionController;
     }
     /**
      * {@inheritDoc}
@@ -90,11 +90,8 @@ public final class GameEngineImpl implements GameEngine {
         return contr;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public void stop() {
-        Thread.currentThread().interrupt();
+    @Override
+    public GameLoop getGameLoop() {
+        return this.gameLoop;
     }
-
 }

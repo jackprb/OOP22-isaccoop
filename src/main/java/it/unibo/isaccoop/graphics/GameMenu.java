@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -22,6 +24,7 @@ import it.unibo.isaccoop.core.GameEngineImpl;
  * */
 public class GameMenu {
 
+    private static final Logger LOGGER = Logger.getLogger(SwingScene.class.getName());
     private final JFrame frame = new JFrame("Game menu - Isaccoop");
     private final JButton play = new JButton("Play");
     private final JButton help = new JButton("Help");
@@ -106,19 +109,14 @@ public class GameMenu {
         play.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                try {
-                    Thread thread = new Thread() {
-                        @Override
-                        public void run() {
-                            new GameEngineImpl().run();
-                        }
-                     };
-                    thread.start();
-                    hide();
-                } catch (Exception e1) {
-                    JOptionPane.showMessageDialog(frame, e1, "Error", JOptionPane.ERROR_MESSAGE);
-                    e1.printStackTrace();
-                }
+                final Thread thread = new Thread() {
+                    @Override
+                    public void run() {
+                        new GameEngineImpl().run();
+                    }
+                };
+                thread.start();
+                hide();
             }
         });
 
@@ -126,10 +124,9 @@ public class GameMenu {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 try {
-                    System.exit(0);
-                } catch (Exception e1) {
+                    Runtime.getRuntime().exit(0);
+                } catch (SecurityException e1) {
                     JOptionPane.showMessageDialog(frame, e1, "Error", JOptionPane.ERROR_MESSAGE);
-                    e1.printStackTrace();
                 }
             }
         });
@@ -137,21 +134,19 @@ public class GameMenu {
         help.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                try {
-                    final Thread thread = new Thread() {
-                        @Override
-                        public void run() {
+                final Thread thread = new Thread() {
+                    @Override
+                    public void run() {
+                        try {
                             new HelpGUI().display();
+                        } catch (IOException ex) {
+                            LOGGER.severe(ex.getMessage());
                         }
-                     };
-                    thread.start();
-                } catch (Exception e1) {
-                    JOptionPane.showMessageDialog(frame, e1, "Error", JOptionPane.ERROR_MESSAGE);
-                    e1.printStackTrace();
-                }
+                    }
+                };
+                thread.start();
             }
         });
-
     }
 
     /***/
@@ -163,6 +158,6 @@ public class GameMenu {
 
     /***/
     public void hide() {
-        this.frame.setVisible(false);
+        this.frame.dispose();
     }
 }

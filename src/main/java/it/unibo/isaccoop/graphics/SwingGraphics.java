@@ -1,7 +1,6 @@
 package it.unibo.isaccoop.graphics;
 
 import java.awt.Graphics2D;
-
 import javax.swing.ImageIcon;
 
 import it.unibo.isaccoop.model.boundingbox.CircleBoundingBox;
@@ -15,7 +14,6 @@ import it.unibo.isaccoop.model.room.Room;
 public final class SwingGraphics implements Graphics {
 
     private static final String RES_PATH = "it/unibo/isaccoop/images/";
-
     private final java.awt.Graphics g2;
 
     private final double ratioX;
@@ -44,9 +42,6 @@ public final class SwingGraphics implements Graphics {
        } else {
            final var sy2 = imageIcon.getImage().getHeight(null);
            final var sx2 = imageIcon.getImage().getWidth(null);
-           //var h = this.getYinPixel(element.getCoords()) - centerY;
-           //var w = this.getXinPixel(element.getCoords()) - centerX;
-           //this.g2.drawImage(imageIcon.getImage(), w, h, null);
            final var delta = this.getDeltaXinPixel(((CircleBoundingBox) element.getBox()).getRadius());
 
            final var dx1 = this.getXinPixel(element.getCoords()) - delta;
@@ -54,18 +49,8 @@ public final class SwingGraphics implements Graphics {
            final var dx2 = this.getXinPixel(element.getCoords()) + delta;
            final var dy2 = this.getYinPixel(element.getCoords()) + delta;
 
-           this.g2.drawImage(imageIcon.getImage(),
-                   dx1,
-                   dy1,
-                   dx2,
-                   dy2,
-                   0,
-                   0,
-                   sx2,
-                   sy2,
-                   null);
+           this.g2.drawImage(imageIcon.getImage(), dx1, dy1, dx2, dy2, 0, 0, sx2, sy2, null);
        }
-
     }
 
     private int getXinPixel(final Point2D p) {

@@ -1,6 +1,7 @@
 package it.unibo.isaccoop.graphics;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
@@ -9,27 +10,20 @@ import javax.swing.JPanel;
 /**
  * Abstract class that implements common methods of {@link GUIFrame}.
  */
-public abstract class AbstractGUIFrame implements GUIFrame {
+public abstract class AbstractGUIFrame extends JFrame implements GUIFrame {
 
-    private final JFrame frame = new JFrame("");
-    private int frameResizeProportion = 2;
+    private static final long serialVersionUID = -8514863486959474914L;
+    private static final int FRAME_RESIZE_PROPORTION = 2;
 
     /**
      * Constructor.
      * Creates a default main panel (that uses a {@link BorderLayout} for this {@link JFrame}.
+     * @param title the title of this {@link JFrame}
      */
-    protected AbstractGUIFrame() {
-        // the main panel
-        final JPanel mainPanel = new JPanel(new BorderLayout());
-        this.frame.getContentPane().add(mainPanel);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setTitle(final String title) {
-        this.frame.setTitle(title);
+    protected AbstractGUIFrame(final String title) {
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setTitle(title);
+        addMainPanel();
     }
 
     /**
@@ -50,38 +44,37 @@ public abstract class AbstractGUIFrame implements GUIFrame {
         final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         final int sw = (int) screen.getWidth();
         final int sh = (int) screen.getHeight();
-        this.frame.setSize(sw / frameResizeProportion, sh / frameResizeProportion);
+        final int frameW = sw / FRAME_RESIZE_PROPORTION;
+        final int frameH = sh / FRAME_RESIZE_PROPORTION;
+        this.setSize(frameW, frameH);
+        this.setPreferredSize(new Dimension(frameW, frameH));
+        this.setMinimumSize(new Dimension(frameW, frameH));
+        this.setResizable(true);
+
         /*
          * Instead of appearing at (0,0), upper left corner of the screen, this
          * flag makes the OS window manager take care of the default positioning
          * on screen. Results may vary, but it is generally the best choice.
          */
-        this.frame.setLocationByPlatform(true);
-        this.frame.pack();
-        this.frame.setVisible(true);
+        this.setLocationByPlatform(true);
+        this.pack();
+        this.setVisible(true);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void hide() {
-        this.frame.setVisible(false);
+    public void addElementToMainPanel(final Component comp, final Object position) {
+        this.add(comp, position);
     }
 
     /**
-     * {@inheritDoc}
+     * Add the main panel to the {@link JFrame}.
      */
-    @Override
-    public void setResizeProportion(final int proportion) {
-        this.frameResizeProportion = proportion;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public JFrame getJFrame() {
-        return this.frame;
+    private void addMainPanel() {
+        // the main panel
+        final JPanel mainPanel = new JPanel(new BorderLayout());
+        this.add(mainPanel);
     }
 }

@@ -15,6 +15,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Logger;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -53,7 +54,7 @@ public class SwingScene implements Scene {
         frame.setSize(ROOM_WIDTH, ROOM_HEIGHT + MINIMAP_HEIGHT);
         frame.setPreferredSize(new Dimension(ROOM_WIDTH, ROOM_HEIGHT + MINIMAP_HEIGHT));
         frame.setMinimumSize(new Dimension(ROOM_WIDTH, ROOM_HEIGHT + MINIMAP_HEIGHT));
-        frame.setResizable(false);
+        frame.setResizable(true);
         this.gameState = gameState;
         this.engine = engine;
         containerPanel.add(new ScenePanel(ROOM_WIDTH, ROOM_HEIGHT, gameState.getCurrentRoom().getWidth(),
@@ -104,8 +105,6 @@ public class SwingScene implements Scene {
     public class ScenePanel extends JPanel implements KeyListener {
 
         private static final long serialVersionUID = 1L;
-        private final int centerX;
-        private final int centerY;
         private final double ratioX;
         private final double ratioY;
         private final Font gameOverFont;
@@ -122,8 +121,6 @@ public class SwingScene implements Scene {
             setSize(w, h);
             setPreferredSize(new Dimension(w, h));
             setMinimumSize(new Dimension(w, h));
-            centerX = w / 2;
-            centerY = h / 2;
             ratioX = this.getWidth() / width;
             ratioY = this.getHeight() / height;
 
@@ -143,38 +140,39 @@ public class SwingScene implements Scene {
         public void paint(final Graphics g) {
             final Graphics2D g2 = (Graphics2D) g;
 
-            /*
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                    RenderingHints.VALUE_ANTIALIAS_ON);
-            g2.setRenderingHint(RenderingHints.KEY_RENDERING,
-                    RenderingHints.VALUE_RENDER_QUALITY);
-            g2.clearRect(0, 0, this.getWidth(), this.getHeight());
-            */
-
             // hidden button to go back to main menu
-            final JButton btnGoToMenu = new JButton(" ");
+            final JButton btnGoToMenu = new JButton();
             btnGoToMenu.addActionListener(l -> {
                 new GameMenu().display();
                 frame.setVisible(false);
             });
 
-            if (gameState.isLevelComplete()) {
-                /* drawing the score */
+            if (SwingScene.this.engine.getGameLoop().isPause()) {
+
                 g2.setFont(gameOverFont);
                 g2.setColor(this.backgroundColor);
                 g2.fillRect(0, 0, this.getWidth(), this.getHeight());
                 g2.setColor(Color.BLACK);
-                this.drawCenteredString(g2, "GAME COMPLETED", getVisibleRect(), gameOverFont);
+                this.drawCenteredString(g2, "PAUSE", getVisibleRect(), gameOverFont);
+
+            } else if (gameState.isLevelComplete()) {
+
+                g2.setFont(gameOverFont);
+                g2.setColor(this.backgroundColor);
+                g2.fillRect(0, 0, this.getWidth(), this.getHeight());
+                g2.setColor(Color.BLACK);
                 this.add(btnGoToMenu);
+                btnGoToMenu.setOpaque(false);
+                this.drawCenteredString(g2, "GAME COMPLETED", getVisibleRect(), gameOverFont);
 
             } else if (gameState.getPlayer().isDead()) {
-                /* drawing the score */
                 g2.setFont(gameOverFont);
                 g2.setColor(this.backgroundColor);
                 g2.fillRect(0, 0, this.getWidth(), this.getHeight());
                 g2.setColor(Color.BLACK);
-                this.drawCenteredString(g2, "GAME OVER", getVisibleRect(), gameOverFont);
                 this.add(btnGoToMenu);
+                btnGoToMenu.setOpaque(false);
+                this.drawCenteredString(g2, "GAME OVER", getVisibleRect(), gameOverFont);
 
             } else {
                 /* drawing the borders */
