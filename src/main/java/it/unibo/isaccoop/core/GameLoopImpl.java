@@ -24,6 +24,7 @@ public class GameLoopImpl implements GameLoop {
     private final ActionController actionController;
     private static final long DEFAULT_PERIOD = 20;
     private static final Logger LOGGER = Logger.getLogger(GameLoopImpl.class.getName());
+    private boolean isPause;
 
     /**
      * GameLoopImpl constructor.
@@ -37,8 +38,9 @@ public class GameLoopImpl implements GameLoop {
         this.level = level;
         this.inputComponents = List.of(new PlayerInputComponent(this.level.getCurrentRoom()),
                 new ShotInputComponent());
-        this.actionComponent = new ActionComponentImpl(this.level);
+        this.actionComponent = new ActionComponentImpl(this);
         this.actionController = actionController;
+        this.setPause(false);
     }
 
     /**
@@ -48,8 +50,11 @@ public class GameLoopImpl implements GameLoop {
     public void gameLoop() {
         while (!level.isLevelComplete()) {
             final long current = System.currentTimeMillis();
-            this.processInput();
-            this.updateGame();
+            this.processActionsInput();
+            if(!this.isPause()) {
+                this.processPlayerInput();
+                this.updateGame();
+            }
             this.render();
             this.waitForNextFrame(current);
         }
@@ -57,12 +62,18 @@ public class GameLoopImpl implements GameLoop {
     }
 
     /**
+     * Method to update actions input.
+     * */
+    private void processActionsInput() {
+        this.actionComponent.update(this.actionController);
+    }
+
+    /**
      * Private method that updates the input.
      */
-    private void processInput() {
+    private void processPlayerInput() {
         level.getRooms().stream().filter(r -> r.getPlayer().isPresent())
             .forEach(x -> this.inputComponents.forEach(c -> c.update(x.getPlayer().get())));
-        this.actionComponent.update(this.actionController);
     }
     /**
      * For each room present, update the room and check the events.
@@ -73,7 +84,6 @@ public class GameLoopImpl implements GameLoop {
                 x.updateRoom();
                 x.executeEvents();
             });
-
     }
     /***/
     private void render() {
@@ -95,6 +105,21 @@ public class GameLoopImpl implements GameLoop {
                 LOGGER.severe(e.getMessage());
             }
         }
+    }
+
+    @Override
+    public boolean isPause() {
+        return isPause;
+    }
+
+    @Override
+    public void setPause(boolean isPause) {
+        this.isPause = isPause;
+    }
+
+    @Override
+    public Level getLevel() {
+        return this.level;
     }
 
 
