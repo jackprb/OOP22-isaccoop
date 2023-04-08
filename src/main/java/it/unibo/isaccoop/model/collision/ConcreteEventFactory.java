@@ -45,7 +45,7 @@ public final class ConcreteEventFactory implements EventFactory {
     @Override
     public Event getShotToRemoveEvent(final WeaponShot shot) {
         return room -> {
-            room.getPlayer().ifPresent(p -> ((ShootingHitStrategy) p.getHitStrategy()).removeShot(shot));
+            room.getPlayer().ifPresent(p -> p.removePlayerShot(shot));
             room.getEnemies()
             .ifPresent(enemies ->
                 enemies.forEach(enemy ->

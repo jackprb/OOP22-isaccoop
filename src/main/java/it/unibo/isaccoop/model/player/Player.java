@@ -37,7 +37,7 @@ public class Player extends PlayerMovementImpl implements Hitable<Enemy> {
         super(gr);
         this.hitStrategy = new ShootingHitStrategy(new TimeIntervalWeapon(super.getTears(),
                 (start, direction) -> new BaseWeaponShot(start, direction,
-                                new ConcretePlayerGraphicsComponentFactory().getPlayerBaseWeaponShotGraphicsComponent())));
+                        new ConcretePlayerGraphicsComponentFactory().getPlayerBaseWeaponShotGraphicsComponent())));
         this.movementController = moveController;
         this.shootingController = shotController;
     }
@@ -91,12 +91,10 @@ public class Player extends PlayerMovementImpl implements Hitable<Enemy> {
     }
 
     /**
-     * Get player hit strategy.
-     * 
-     * @return the hit strategy
+     * Method
      * */
-    public HitStrategy getHitStrategy() {
-        return hitStrategy;
+    public void removePlayerShot(WeaponShot element) {
+        ((ShootingHitStrategy) this.hitStrategy).removeShot(element);
     }
 
     /**
@@ -105,6 +103,6 @@ public class Player extends PlayerMovementImpl implements Hitable<Enemy> {
     @Override
     public void setTears(final Double tears) {
         super.setTears(tears);
-        ((ShootingHitStrategy) this.getHitStrategy()).updateWeaponInterval(super.getTears());
+        ((ShootingHitStrategy) this.hitStrategy).updateWeaponInterval(super.getTears());
     }
 }

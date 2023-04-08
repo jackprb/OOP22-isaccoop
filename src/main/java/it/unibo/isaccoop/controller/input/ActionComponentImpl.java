@@ -10,27 +10,17 @@ import it.unibo.isaccoop.core.GameLoop;
  */
 public class ActionComponentImpl implements ActionComponent {
 
-    private final GameLoop loop;
-
-    /**
-     * Contructor of the ActionComponent.
-     * @param loop the {@link GameLoop}
-     */
-    public ActionComponentImpl(final GameLoop loop) {
-        this.loop = loop;
-    }
-
     /**
      * {@inheritDoc}
      */
     @Override
-    public void update(final ActionController ctrl) {
+    public void update(final ActionController ctrl, GameLoop loop) {
         if (ctrl.isEsc()) {
-            this.loop.setPause(!this.loop.isPause());
-        } else if (!this.loop.isPause() && ctrl.isNextRoom()) {
-            this.loop.getLevel().moveToNextRoom();
-        } else if (!this.loop.isPause() && ctrl.isPrevRoom()) {
-            this.loop.getLevel().moveToPreviousRoom();
+            loop.setPause(!loop.isPause());
+        } else if (!loop.isPause() && ctrl.isNextRoom()) {
+            loop.getLevel().moveToNextRoom();
+        } else if (!loop.isPause() && ctrl.isPrevRoom()) {
+            loop.getLevel().moveToPreviousRoom();
         }
     }
 

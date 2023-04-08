@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.isaccoop.model.room.Level;
 import it.unibo.isaccoop.model.room.Room;
 
@@ -69,7 +70,11 @@ public class OverlayGUI extends JPanel {
      * @param level the level of which to show the layout
      * @param roomWidth the width of the minimap
      * @param minimapHeight the height of the minimap
+     *
+     * The warning is suppressed because we need level reference in this Class.
+     *
      */
+    @SuppressFBWarnings("EI_EXPOSE_REP")
     public OverlayGUI(final Level level, final int roomWidth, final int minimapHeight) {
         this.lvl = level;
         final int proportion = 21;

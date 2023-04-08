@@ -3,6 +3,7 @@ package it.unibo.isaccoop.model.action;
 import java.util.List;
 import java.util.Optional;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.isaccoop.model.common.MapElement;
 import it.unibo.isaccoop.model.common.Vector2D;
 import it.unibo.isaccoop.model.weapon.Weapon;
@@ -17,7 +18,10 @@ public final class ShootingHitStrategy implements HitStrategy {
      * ShootingHitStrategy constructor.
      *
      * @param weapon weapon implementation to handle the shooting strategy
+     *
+     * The warning is suppressed because it is the client that defines the shooting strategy.
      * */
+    @SuppressFBWarnings("EI_EXPOSE_REP")
     public ShootingHitStrategy(final Weapon weapon) {
         this.weapon = weapon;
     }

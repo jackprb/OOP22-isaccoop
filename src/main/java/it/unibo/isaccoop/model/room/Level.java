@@ -1,5 +1,6 @@
 package it.unibo.isaccoop.model.room;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +12,7 @@ import it.unibo.isaccoop.model.player.Player;
  * A level can be figured as a 2D grid; each room has its coordinate (i, j), that is, the indices of the
  * {@link Room} itself as an element of the grid.
  */
-public interface Level {
+public interface Level extends Serializable {
 
     /**
      * Inserts the specified rooms in this level.
@@ -62,7 +63,7 @@ public interface Level {
     /**
      * Check if the current room is "completed", that is, if there are no more
      * enemies to defeat (STANDARD room), or if the boss has been defeated (BOSS room).
-     * @return always true for NON-STANDARD and NON-BOSS rooms, <br>true if all enemies in STANDARD room 
+     * @return always true for NON-STANDARD and NON-BOSS rooms, <br>true if all enemies in STANDARD room
      * or the final boss in BOSS room have been defeated, <br>false otherwise
      */
     boolean isCurrentRoomComplete();
