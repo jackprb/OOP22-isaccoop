@@ -27,13 +27,16 @@ public final class NonShootingHitStrategy implements HitStrategy {
             this.canHit = true;
             this.lastHitTime = System.currentTimeMillis();
         }
-        if(this.canHit && System.currentTimeMillis() - this.lastHitTime >= NonShootingHitStrategy.HIT_DURATION) {
+        if (this.canHit && System.currentTimeMillis() - this.lastHitTime >= NonShootingHitStrategy.HIT_DURATION) {
             this.canHit = false;
             this.lastHitTime = System.currentTimeMillis();
         }
     }
 
-    /***/
+    /**
+     * 
+     * @return true if i can hit
+     * */
     public boolean canHit() {
         return this.canHit;
     }
