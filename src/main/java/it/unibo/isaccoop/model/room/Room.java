@@ -1,5 +1,6 @@
 package it.unibo.isaccoop.model.room;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +17,7 @@ import it.unibo.isaccoop.model.powerup.PowerUp;
 /**
  * Interface to model the concept of Room inside the game.
  */
-public interface Room extends MapElement, Removable {
+public interface Room extends MapElement, Removable, Serializable {
 
     /**
      * Get the {@link RoomType} of the room, that is, the type of the room itself.

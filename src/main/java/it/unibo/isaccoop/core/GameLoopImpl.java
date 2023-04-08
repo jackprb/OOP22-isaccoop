@@ -38,7 +38,7 @@ public class GameLoopImpl implements GameLoop {
         this.level = level;
         this.inputComponents = List.of(new PlayerInputComponent(this.level.getCurrentRoom()),
                 new ShotInputComponent());
-        this.actionComponent = new ActionComponentImpl(this);
+        this.actionComponent = new ActionComponentImpl();
         this.actionController = actionController;
         this.setPause(false);
     }
@@ -65,7 +65,7 @@ public class GameLoopImpl implements GameLoop {
      * Method to update actions input.
      * */
     private void processActionsInput() {
-        this.actionComponent.update(this.actionController);
+        this.actionComponent.update(this.actionController, this);
     }
 
     /**
