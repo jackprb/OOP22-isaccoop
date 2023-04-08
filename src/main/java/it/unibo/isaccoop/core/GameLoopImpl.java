@@ -51,7 +51,7 @@ public class GameLoopImpl implements GameLoop {
         while (!level.isLevelComplete()) {
             final long current = System.currentTimeMillis();
             this.processActionsInput();
-            if(!this.isPause()) {
+            if (!this.isPause()) {
                 this.processPlayerInput();
                 this.updateGame();
             }
@@ -107,20 +107,27 @@ public class GameLoopImpl implements GameLoop {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isPause() {
         return isPause;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setPause(boolean isPause) {
+    public void setPause(final boolean isPause) {
         this.isPause = isPause;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Level getLevel() {
         return this.level;
     }
-
-
 }
