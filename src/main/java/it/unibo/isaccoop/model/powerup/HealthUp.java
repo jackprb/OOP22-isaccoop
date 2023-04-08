@@ -7,13 +7,15 @@ import it.unibo.isaccoop.model.player.PlayerStat;
 /**
  * Represents the power up health.
  * */
-public class HealthUp extends PowerUp {
+public final class HealthUp extends PowerUp {
 
 
     private static final int HEALTH_SUPER_UP = 2;
     private static final int HEALTH_UP = 1;
 
-    /***/
+    /**
+     * HealthUp Constructor.
+     * */
     public HealthUp() {
         super(new PowerUpGraphicsComponentImpl().getHealthUpGraphicsComponent(false));
     }
@@ -31,7 +33,6 @@ public class HealthUp extends PowerUp {
         }
     }
 
-    /***/
     @Override
     protected GraphicsComponent updateSuperGraphics(final Boolean isSuper) {
         return new PowerUpGraphicsComponentImpl().getHealthUpGraphicsComponent(isSuper);

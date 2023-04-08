@@ -9,7 +9,8 @@ import it.unibo.isaccoop.model.boundingbox.CircleBoundingBox;
 import it.unibo.isaccoop.model.boundingbox.RectBoundingBox;
 
 /**
- *
+ * AbstractMapElement abstract class which implements MapElement interface and it is a container
+ * for common elements state and behavior.
  */
 public abstract class AbstractMapElement implements MapElement {
 
@@ -19,7 +20,7 @@ public abstract class AbstractMapElement implements MapElement {
     private static final double FIXED_INITIAL_POSITION = 10.0;
 
     /**
-     *
+     * ElementRadius enum to describe elements radius.
      */
     public enum ElementsRadius {
 
@@ -51,6 +52,7 @@ public abstract class AbstractMapElement implements MapElement {
         private Double value;
 
         /**
+         * ElementRadius Constructor.
          * @param value
          * set the value.
          * */
@@ -59,6 +61,7 @@ public abstract class AbstractMapElement implements MapElement {
         }
 
         /**
+         * Get radius value.
          * @return the value of enum value.
          * */
         public Double getValue() {
@@ -130,7 +133,7 @@ public abstract class AbstractMapElement implements MapElement {
     }
 
     /**
-     *
+     * Set element graphics component.
      * @param gr
      */
     protected void setGraphicsComponents(final GraphicsComponent gr) {
@@ -147,7 +150,7 @@ public abstract class AbstractMapElement implements MapElement {
     }
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void updateGraphics(final Graphics g) {

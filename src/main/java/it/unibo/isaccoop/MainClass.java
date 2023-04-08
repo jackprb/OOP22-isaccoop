@@ -7,11 +7,12 @@ import it.unibo.isaccoop.graphics.GameMenu;
  */
 public final class MainClass {
 
-    private MainClass() {
-    }
+    private MainClass() { }
 
     /**
-     * @param args ignored
+     * Displays main menu.
+     *
+     * @param args
      */
     public static void main(final String[] args) {
         new GameMenu().display();

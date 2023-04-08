@@ -5,7 +5,9 @@ import java.util.function.BiFunction;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.Vector2D;
 
-/***/
+/**
+ * TimeIntervalWeapon class that models a weapon which shots with time intervals.
+ * */
 public class TimeIntervalWeapon extends AbstractWeapon {
 
     private final BiFunction<Point2D, Vector2D, WeaponShot> weaponShotSupplier;

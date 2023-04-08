@@ -10,8 +10,7 @@ import it.unibo.isaccoop.model.common.MapElement;
 import it.unibo.isaccoop.model.common.Point2D;
 
 /**
- *
- *
+ * SpawnOrdered class that implements Spawn interface, it models an ordered spawn.
  */
 public class SpawnOrdered implements Spawn {
 

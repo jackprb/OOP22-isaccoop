@@ -75,8 +75,9 @@ public class GameMenu {
             return this.z;
         }
     }
+
     /**
-     *
+     * GameMenu constructor.
      */
     public GameMenu() {
         this.frame.getContentPane().setLayout(new BoxLayout(this.frame.getContentPane(), BoxLayout.Y_AXIS));
@@ -149,14 +150,18 @@ public class GameMenu {
         });
     }
 
-    /***/
+    /**
+     * Method to display the game menu.
+     * */
     public void display() {
         this.frame.setSize(sw / 2, sh / 2);
         this.frame.setLocationByPlatform(true);
         this.frame.setVisible(true);
     }
 
-    /***/
+    /**
+     * Method to hide the game menu.
+     * */
     public void hide() {
         this.frame.dispose();
     }

@@ -24,7 +24,6 @@ public class Player extends PlayerMovementImpl implements Hitable<Enemy> {
     private final InputController movementController;
     private final InputController shootingController;
 
-    /***/
     private final HitStrategy hitStrategy;
 
     /**
@@ -43,6 +42,7 @@ public class Player extends PlayerMovementImpl implements Hitable<Enemy> {
     }
 
     /**
+     * Move the player along passed direction.
      * @param direction the direction in which the player moves
      * */
     void move(final Direction direction) {
@@ -50,6 +50,7 @@ public class Player extends PlayerMovementImpl implements Hitable<Enemy> {
     }
 
     /**
+     * Perform hit action delegating to the player hit strategy.
      * @param direction the direction in which the bullet is fired
      * */
     public void hit(final Direction direction) {
@@ -67,7 +68,7 @@ public class Player extends PlayerMovementImpl implements Hitable<Enemy> {
     }
 
     /**
-     * @param enemy
+     * {@inheritDoc}
      * */
     @Override
     public void onHit(final Enemy enemy) {
@@ -75,7 +76,7 @@ public class Player extends PlayerMovementImpl implements Hitable<Enemy> {
     }
 
     /**
-     *
+     * Get movement controller.
      * @return the movement controller
      */
     public InputController getMovementController() {
@@ -83,7 +84,7 @@ public class Player extends PlayerMovementImpl implements Hitable<Enemy> {
     }
 
     /**
-     *
+     * Get shooting controller.
      * @return the shooting controller
      */
     public InputController getShootingController() {
@@ -91,6 +92,7 @@ public class Player extends PlayerMovementImpl implements Hitable<Enemy> {
     }
 
     /**
+     * Remove a player shot, delegating remove to the hit strategy.
      * @param element the shot to remove
      * */
     public void removePlayerShot(final WeaponShot element) {

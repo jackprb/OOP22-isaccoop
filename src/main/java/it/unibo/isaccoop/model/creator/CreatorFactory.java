@@ -4,7 +4,9 @@ import it.unibo.isaccoop.model.enemy.Enemy;
 import it.unibo.isaccoop.model.item.Item;
 import it.unibo.isaccoop.model.powerup.PowerUp;
 
-/***/
+/**
+ * CreatorFactory interface to model a factory of creator concept.
+ * */
 public interface CreatorFactory {
 
     /**

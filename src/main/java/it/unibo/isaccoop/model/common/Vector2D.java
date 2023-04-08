@@ -1,6 +1,8 @@
 package it.unibo.isaccoop.model.common;
 
-/***/
+/**
+ * Vector2D class to model a vector into 2d space.
+ * */
 public class Vector2D {
 
     private final double x;

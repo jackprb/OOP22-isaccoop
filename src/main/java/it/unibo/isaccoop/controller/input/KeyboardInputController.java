@@ -1,10 +1,9 @@
 package it.unibo.isaccoop.controller.input;
 
 /**
- * 
- *
+ * KeyboardInputController class that contains movement/shooting input state.
  */
-public class KeyboardInputController implements InputController {
+public final class KeyboardInputController implements InputController {
 
     private final int keyCodeUp;
     private final int keyCodeDown;
@@ -16,15 +15,15 @@ public class KeyboardInputController implements InputController {
     private boolean isLeft;
     private boolean isRight;
 
-
-
     /**
+     * KeyboardInputController Constructor.
+     *
      * @param keyCodeUp
      * @param keyCodeDown
      * @param keyCodeLeft
      * @param keyCodeRight
      */
-    public KeyboardInputController(final int keyCodeUp, final int keyCodeDown, 
+    public KeyboardInputController(final int keyCodeUp, final int keyCodeDown,
                 final int keyCodeLeft, final int keyCodeRight) {
         super();
         this.keyCodeUp = keyCodeUp;
@@ -34,7 +33,7 @@ public class KeyboardInputController implements InputController {
     }
 
     /**
-     * 
+     * Method to update key state if a certain key has been pressed.
      * @param keyCode
      */
     public void notifyKeyPressed(final int keyCode) {
@@ -50,7 +49,7 @@ public class KeyboardInputController implements InputController {
     }
 
     /**
-     * 
+     * Method to update key state if a certain key has been released.
      * @param keyCode
      */
     public void notifyKeyReleased(final int keyCode) {
@@ -65,33 +64,21 @@ public class KeyboardInputController implements InputController {
         }
     }
 
-    /**
-     * 
-     */
     @Override
     public boolean isUp() {
         return this.isUp;
     }
 
-    /**
-     * 
-     */
     @Override
     public boolean isDown() {
         return this.isDown;
     }
 
-    /**
-     * 
-     */
     @Override
     public boolean isLeft() {
         return this.isLeft;
     }
 
-    /**
-     * 
-     */
     @Override
     public boolean isRight() {
         return this.isRight;

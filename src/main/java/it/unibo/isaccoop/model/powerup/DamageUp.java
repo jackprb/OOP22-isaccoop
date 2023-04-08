@@ -7,12 +7,14 @@ import it.unibo.isaccoop.model.player.PlayerStat;
 /**
  * Represents the power up damage.
  * */
-public class DamageUp extends PowerUp {
+public final class DamageUp extends PowerUp {
 
     private static final Double DAMAGE_SUPER_UP = 2.0;
     private static final Double DAMAGE_UP = 1.0;
 
-    /***/
+    /**
+     * DamageUp Constructor.
+     * */
     public DamageUp() {
         super(new PowerUpGraphicsComponentImpl().getDamageUpGraphicsComponent(false));
     }
@@ -30,7 +32,6 @@ public class DamageUp extends PowerUp {
         }
     }
 
-    /***/
     @Override
     protected GraphicsComponent updateSuperGraphics(final Boolean isSuper) {
         return new PowerUpGraphicsComponentImpl().getDamageUpGraphicsComponent(isSuper);

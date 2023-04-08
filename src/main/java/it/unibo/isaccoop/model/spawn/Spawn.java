@@ -5,7 +5,7 @@ import java.util.List;
 import it.unibo.isaccoop.model.common.MapElement;
 
 /**
- * 
+ * Spawn interface to model entities delegates to spawn other entities.
  */
 public interface Spawn {
 

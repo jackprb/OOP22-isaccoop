@@ -4,13 +4,10 @@ import it.unibo.isaccoop.model.common.Direction;
 import it.unibo.isaccoop.model.player.Player;
 
 /**
- * 
- *
+ * ShotInputComponent class to update player shoot state.
  */
-public class ShotInputComponent implements InputComponent {
-    /**
-     * 
-     */
+public final class ShotInputComponent implements InputComponent {
+
     @Override
     public void update(final Player player) {
         final InputController ctrl = player.getShootingController();

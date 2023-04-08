@@ -1,6 +1,8 @@
 package it.unibo.isaccoop.graphics;
 
-/***/
+/**
+ * Scene interface.
+ * */
 public interface Scene {
     /**
      * Render scene.

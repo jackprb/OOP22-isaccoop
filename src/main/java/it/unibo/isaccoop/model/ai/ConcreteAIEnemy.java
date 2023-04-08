@@ -7,8 +7,10 @@ import it.unibo.isaccoop.model.boundingbox.BoundingBox;
 import it.unibo.isaccoop.model.common.MapElement;
 import it.unibo.isaccoop.model.enemy.Enemy;
 
-/***/
-public class ConcreteAIEnemy implements AIEnemy {
+/**
+ * ConcreteAIEnemy which is a base AIEnemy implementation.
+ * */
+public final class ConcreteAIEnemy implements AIEnemy {
 
     private final List<Enemy> controlledEnemies;
 
@@ -21,7 +23,6 @@ public class ConcreteAIEnemy implements AIEnemy {
         this.controlledEnemies = new ArrayList<>(enemies);
     }
 
-    /***/
     @Override
     public void updateEnemies(final MapElement player, final BoundingBox containerBox) {
         this.controlledEnemies.forEach(enemy -> {
@@ -31,7 +32,6 @@ public class ConcreteAIEnemy implements AIEnemy {
         });
     }
 
-    /***/
     @Override
     public List<Enemy> getControlledEnemies() {
         return List.copyOf(this.controlledEnemies);

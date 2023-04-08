@@ -14,7 +14,10 @@ import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.player.PlayerStat;
 import it.unibo.isaccoop.model.weapon.WeaponShot;
 
-/***/
+/**
+ * AbstractEnemy abstract class that extends AbstractMapElement and implements Enemy,
+ * it is used as a common container for enemies state and behavior.
+ * */
 public abstract class AbstractEnemy extends AbstractMapElement implements Enemy {
 
     /**
@@ -22,10 +25,8 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
      * */
     private static final Double SPEED = 0.5;
 
-    /***/
     private MovementStrategy movementStrategy;
 
-    /***/
     private HitStrategy hitStrategy;
 
     /**
@@ -87,7 +88,9 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
         }
     }
 
-    /***/
+    /**
+     * {@inheritDoc}
+     * */
     @Override
     public Optional<List<WeaponShot>> getWeaponShots() {
         return this.getHitStrategy() instanceof ShootingHitStrategy
@@ -114,11 +117,13 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
         return SPEED;
     }
 
+    /**
+     * {@inheritDoc}
+     * */
     @Override
     public final boolean isDead() {
         return this.getHearts() <= 0;
     }
-
 
     /**
      * Enum containing enemy max hearts configurations.
@@ -151,7 +156,7 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
     }
 
     /**
-     * @return the strategy of the hit
+     * {@inheritDoc}
      * */
     @Override
     public HitStrategy getHitStrategy() {
@@ -159,13 +164,14 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
     }
 
     /**
-     * @return the strategy of the movement
+     * {@inheritDoc}
      * */
     public MovementStrategy getMovementStrategy() {
         return this.movementStrategy;
     }
 
     /**
+     * Set enemy movement strategy.
      * @param movementStrategy
      * */
     public void setMovementStrategy(final MovementStrategy movementStrategy) {
@@ -173,6 +179,7 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
     }
 
     /**
+     * Set enemy hit strategy.
      * @param hitStrategy
      * */
     public void setHitStrategy(final HitStrategy hitStrategy) {
@@ -180,7 +187,7 @@ public abstract class AbstractEnemy extends AbstractMapElement implements Enemy 
     }
 
     /**
-     * @param hearts
+     * {@inheritDoc}
      * */
     @Override
     public void setHearts(final Double hearts) {

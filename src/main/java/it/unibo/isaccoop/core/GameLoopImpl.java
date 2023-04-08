@@ -16,7 +16,7 @@ import it.unibo.isaccoop.model.room.Level;
 /**
  * Implementation of GameLoop.
  */
-public class GameLoopImpl implements GameLoop {
+public final class GameLoopImpl implements GameLoop {
 
     private final Scene view;
     private final Level level;
@@ -89,7 +89,10 @@ public class GameLoopImpl implements GameLoop {
                 x.executeEvents();
             });
     }
-    /***/
+
+    /**
+     * Method that renders the view.
+     * */
     private void render() {
         view.render();
     }
@@ -111,25 +114,16 @@ public class GameLoopImpl implements GameLoop {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean isPause() {
         return isPause;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void setPause(final boolean isPause) {
         this.isPause = isPause;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     //Warning suppressed because we need to expose level state to the ActionComponent (level is immutable)
     @SuppressFBWarnings("EI_EXPOSE_REP")

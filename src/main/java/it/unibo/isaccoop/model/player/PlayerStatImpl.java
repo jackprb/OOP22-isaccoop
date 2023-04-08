@@ -83,7 +83,7 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
     }
 
     /**
-     * @return the number of remaining hearts
+     * {@inheritDoc}
      * */
     @Override
     public int getHeart() {
@@ -91,7 +91,7 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
     }
 
     /**
-     * @return the max number of available hearts
+     * {@inheritDoc}
      * */
     @Override
     public int getMaxHeart() {
@@ -99,7 +99,7 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
     }
 
     /**
-     * @return the number of coins collected during the game
+     * {@inheritDoc}
      * */
     @Override
     public int getCoin() {
@@ -107,7 +107,7 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
     }
 
     /**
-     * @return the speed of the player
+     * {@inheritDoc}
      * */
     @Override
     public Double getSpeed() {
@@ -115,7 +115,7 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
     }
 
     /**
-     * @return the damage that the player can do
+     * {@inheritDoc}
      */
     @Override
     public Double getDamage() {
@@ -123,38 +123,48 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
     }
 
     /**
-     * @return the time between two hit
+     * {@inheritDoc}
      * */
     @Override
     public Double getTears() {
         return this.tears;
     }
 
-    /***/
+    /**
+     * {@inheritDoc}
+     * */
     @Override
     public void setHeart(final int heart) {
         this.heart = heart;
     }
 
-    /***/
+    /**
+     * {@inheritDoc}
+     * */
     @Override
     public void setMaxHeart(final int maxHeart) {
         this.maxHeart = maxHeart;
     }
 
-    /***/
+    /**
+     * {@inheritDoc}
+     * */
     @Override
     public void setCoin(final int coin) {
         this.coin = coin;
     }
 
-    /***/
+    /**
+     * {@inheritDoc}
+     * */
     @Override
     public void setSpeed(final Double speed) {
         this.speed = speed;
     }
 
-    /***/
+    /**
+     * {@inheritDoc}
+     * */
     @Override
     public void setTears(final Double tears) {
         if (tears < 100.0) {
@@ -163,14 +173,16 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
         this.tears = tears;
     }
 
-    /***/
+    /**
+     * {@inheritDoc}
+     * */
     @Override
     public void setDamage(final Double damage) {
         this.damage = damage;
     }
 
     /**
-     * @return if the player is dead.
+     * {@inheritDoc}
      * */
     @Override
     public boolean isDead() {
@@ -178,6 +190,7 @@ public class PlayerStatImpl extends AbstractMapElement implements PlayerStat {
     }
 
     /**
+     * Get if the player is hitted or not.
      * @return if the player has exhausted the hearts.
      * */
     public boolean isHitted() {

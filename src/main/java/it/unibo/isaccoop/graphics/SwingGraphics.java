@@ -19,7 +19,7 @@ public final class SwingGraphics implements Graphics {
     private final double ratioY;
 
     /**
-     *
+     * SwingGraphics Constructor.
      * @param g
      * @param ratioX
      * @param ratioY
@@ -52,14 +52,29 @@ public final class SwingGraphics implements Graphics {
        }
     }
 
+    /**
+     * Method to convert x coord in pixel.
+     * @param p element coords
+     * @return x coord in pixel
+     * */
     private int getXinPixel(final Point2D p) {
         return (int) Math.round(p.getX() * ratioX);
     }
 
+    /**
+     * Method to convert y coord in pixel.
+     * @param p element coords
+     * @return y coord in pixel
+     * */
     private int getYinPixel(final Point2D p) {
         return (int)  Math.round(p.getY() * ratioY);
     }
 
+    /**
+     * Method to convert element radius in pixel.
+     * @param dx element radius
+     * @return element radius in pixel
+     * */
     private int getDeltaXinPixel(final double dx) {
         return (int)  Math.round(dx * ratioX);
     }

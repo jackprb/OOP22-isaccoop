@@ -9,10 +9,9 @@ import it.unibo.isaccoop.model.enemy.Enemy;
 import it.unibo.isaccoop.model.item.Item;
 import it.unibo.isaccoop.model.player.Player;
 import it.unibo.isaccoop.model.weapon.WeaponShot;
+
 /**
- *
  * Factory for check Collision.
- *
  */
 public final class CollisionCheckFactoryImpl implements CollisionCheckFactory {
 

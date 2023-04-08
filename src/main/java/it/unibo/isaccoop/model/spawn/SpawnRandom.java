@@ -8,8 +8,7 @@ import it.unibo.isaccoop.model.common.MapElement;
 import it.unibo.isaccoop.model.common.Point2D;
 
 /**
- *
- *
+ * SpawnRandom class that implements Spawn interface, it models a random spawn.
  */
 public class SpawnRandom implements Spawn {
 

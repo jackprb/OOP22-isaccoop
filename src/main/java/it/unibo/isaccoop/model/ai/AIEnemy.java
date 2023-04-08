@@ -7,7 +7,9 @@ import it.unibo.isaccoop.model.common.MapElement;
 import it.unibo.isaccoop.model.common.Removable;
 import it.unibo.isaccoop.model.enemy.Enemy;
 
-/***/
+/**
+ * AIEnemy interface which represents the AI for enemies.
+ * */
 public interface AIEnemy extends Removable {
 
     /**

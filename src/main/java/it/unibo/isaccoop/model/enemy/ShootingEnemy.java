@@ -9,7 +9,9 @@ import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.weapon.BaseWeaponShot;
 import it.unibo.isaccoop.model.weapon.TimeIntervalWeapon;
 
-/***/
+/**
+ * ShootingEnemy class to model shooting enemies.
+ * */
 public final class ShootingEnemy extends AbstractEnemy {
 
     /**
@@ -17,7 +19,9 @@ public final class ShootingEnemy extends AbstractEnemy {
      * */
     private static final double WEAPON_INTERVAL = 5000;
 
-    /***/
+    /**
+     * ShootingEnemy constructor.
+     * */
     public ShootingEnemy() {
         super(EnemyHearts.ENEMY_HEARTS,
                 new ShootingHitStrategy(new TimeIntervalWeapon(ShootingEnemy.WEAPON_INTERVAL,

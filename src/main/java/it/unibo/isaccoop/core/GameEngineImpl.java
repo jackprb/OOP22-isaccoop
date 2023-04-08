@@ -43,9 +43,6 @@ public final class GameEngineImpl implements GameEngine {
         this.initGame();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void run() {
         this.gameLoop.gameLoop();
@@ -63,25 +60,19 @@ public final class GameEngineImpl implements GameEngine {
                 gameState, this.actionController);
 
     }
-    /**
-     * {@inheritDoc}
-     */
+
     @Override
     public InputController getController(final String name) {
         return this.controllers.get(name);
     }
-    /**
-     * {@inheritDoc}
-     */
+
     @Override
     //Warning suppressed because we need the action controller state into the game loop
     @SuppressFBWarnings("EI_EXPOSE_REP")
     public ActionControllerImpl getActionController() {
         return (ActionControllerImpl) this.actionController;
     }
-    /**
-     * {@inheritDoc}
-     */
+
     @Override
     public Collection<KeyboardInputController> getKeyboardInputControllers() {
         final Collection<KeyboardInputController> contr = new ArrayList<>();

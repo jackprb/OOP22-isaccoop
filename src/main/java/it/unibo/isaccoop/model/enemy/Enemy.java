@@ -8,7 +8,9 @@ import it.unibo.isaccoop.model.common.MapElement;
 import it.unibo.isaccoop.model.player.PlayerStat;
 import it.unibo.isaccoop.model.weapon.WeaponShot;
 
-/***/
+/**
+ * Enemy interface to model enemy concept.
+ * */
 public interface Enemy extends EnemyActions, Hitable<PlayerStat>, MapElement {
 
     /**
@@ -19,11 +21,13 @@ public interface Enemy extends EnemyActions, Hitable<PlayerStat>, MapElement {
     boolean isDead();
 
     /**
+     * Set enemy hearts.
      * @param damage
      * */
     void setHearts(Double damage);
 
     /**
+     * Get enemy hearts.
      * @return the hearts of the enemy
      * */
     Double getHearts();
@@ -36,6 +40,7 @@ public interface Enemy extends EnemyActions, Hitable<PlayerStat>, MapElement {
     Optional<List<WeaponShot>> getWeaponShots();
 
     /**
+     * Get enemy hit strategy.
      * @return the hit strategy
      * */
     HitStrategy getHitStrategy();

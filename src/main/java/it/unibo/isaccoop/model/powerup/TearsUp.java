@@ -7,12 +7,14 @@ import it.unibo.isaccoop.model.player.PlayerStat;
 /**
  * Represents the power up tears.
  * */
-public class TearsUp extends PowerUp {
+public final class TearsUp extends PowerUp {
 
     private static final int TEARS_SUPER_UP = -600;
     private static final int TEARS_UP = -400;
 
-    /***/
+    /**
+     * TearsUp Constructor.
+     * */
     public TearsUp() {
         super(new PowerUpGraphicsComponentImpl().getTearsUpGraphicsComponent(false));
     }
@@ -30,7 +32,6 @@ public class TearsUp extends PowerUp {
         }
     }
 
-    /***/
     @Override
     protected GraphicsComponent updateSuperGraphics(final Boolean isSuper) {
         return new PowerUpGraphicsComponentImpl().getTearsUpGraphicsComponent(isSuper);

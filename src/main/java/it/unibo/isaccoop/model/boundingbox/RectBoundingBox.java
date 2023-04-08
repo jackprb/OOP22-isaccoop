@@ -11,7 +11,7 @@ public class RectBoundingBox implements BoundingBox {
     private final int height;
 
     /**
-     * 
+     * RectBoundingBox Constructor.
      * @param width
      * @param height
      */
@@ -29,7 +29,7 @@ public class RectBoundingBox implements BoundingBox {
      */
     @Override
     public boolean isCollidingWithCricle(final Point2D center, final Point2D center1, final CircleBoundingBox circleBox) {
-        // TODO Auto-generated method stub
+        // nothing to do here
         return false;
     }
 
@@ -42,11 +42,12 @@ public class RectBoundingBox implements BoundingBox {
      */
     @Override
     public boolean isCollidingWithRecPerimeter(final Point2D center, final RectBoundingBox rectangleBox) {
-        // TODO Auto-generated method stub
+        // nothing to do here
         return false;
     }
 
     /**
+     * Get rect bounding box width.
      * @return the rectangle width
      */
     public int getWidth() {
@@ -54,6 +55,7 @@ public class RectBoundingBox implements BoundingBox {
     }
 
     /**
+     * Get rect bounding box height.
      * @return the rectangle height
      */
     public int getHeight() {

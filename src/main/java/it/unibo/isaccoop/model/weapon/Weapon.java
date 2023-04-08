@@ -6,10 +6,13 @@ import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.Removable;
 import it.unibo.isaccoop.model.common.Vector2D;
 
-/***/
+/**
+ * Weapon interface that models the weapons concept.
+ * */
 public interface Weapon extends Removable {
 
     /**
+     * Perform a weapon shoot.
      * @param startPosition the origin position
      * @param direction the direction where fire the shot
      * */
@@ -21,6 +24,7 @@ public interface Weapon extends Removable {
     void tickShots();
 
     /**
+     * Get weapon shots collection.
      * @return weapon shots list
      * */
     List<WeaponShot> getWeaponShots();

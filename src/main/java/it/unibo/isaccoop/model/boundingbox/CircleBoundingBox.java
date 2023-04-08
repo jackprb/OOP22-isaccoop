@@ -11,7 +11,7 @@ public class CircleBoundingBox implements BoundingBox {
     private final double radius;
 
     /**
-     * Constractor of the circle bounding box.
+     * Constructor of the circle bounding box.
      * @param radius
      */
     public CircleBoundingBox(final double radius) {
@@ -19,7 +19,7 @@ public class CircleBoundingBox implements BoundingBox {
     }
 
     /**
-     * 
+     * Get circle bounding box radius.
      * @return radius of the circle bounding box.
      */
     public double getRadius() {
@@ -47,7 +47,7 @@ public class CircleBoundingBox implements BoundingBox {
      */
     @Override
     public boolean isCollidingWithRecPerimeter(final Point2D center, final RectBoundingBox rectangleBox) {
-        return rectangleBox.getHeight() -  center.getY() <= this.radius || center.getY() <= this.radius 
+        return rectangleBox.getHeight() -  center.getY() <= this.radius || center.getY() <= this.radius
                 || rectangleBox.getWidth() - center.getX() <= this.radius || center.getX() <= this.radius;
     }
 }

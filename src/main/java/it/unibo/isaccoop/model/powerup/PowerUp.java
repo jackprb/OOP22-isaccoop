@@ -14,7 +14,7 @@ public abstract class PowerUp extends AbstractItem {
     private Boolean superItem;
 
     /**
-     *
+     * PowerUp Constructor.
      * @param gr reference to GraphicsComponent.
      */
     public PowerUp(final GraphicsComponent gr) {
@@ -22,6 +22,7 @@ public abstract class PowerUp extends AbstractItem {
     }
 
     /**
+     * Get if the powerup is super or not.
      * @return true if is a super item
      * */
     public Boolean isSuperItem() {
@@ -29,6 +30,7 @@ public abstract class PowerUp extends AbstractItem {
     }
 
     /**
+     * Set super power up state.
      * @param superItem true for change boolean variable
      */
     public void setSuperItem(final Boolean superItem) {
@@ -37,7 +39,7 @@ public abstract class PowerUp extends AbstractItem {
     }
 
     /**
-     *
+     * Get power up price.
      * @return price of the powerUp.
      */
     public int getPrice() {

@@ -3,7 +3,9 @@ package it.unibo.isaccoop.model.enemy;
 import it.unibo.isaccoop.model.boundingbox.BoundingBox;
 import it.unibo.isaccoop.model.common.Point2D;
 
-/***/
+/**
+ * EnemyActions interface to model enemy action like hit and move.
+ * */
 public interface EnemyActions {
 
     /**
