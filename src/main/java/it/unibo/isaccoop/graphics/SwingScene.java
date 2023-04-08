@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
@@ -21,6 +20,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.isaccoop.controller.input.KeyboardInputController;
 import it.unibo.isaccoop.core.GameEngine;
 import it.unibo.isaccoop.model.room.Level;
@@ -47,6 +47,8 @@ public class SwingScene implements Scene {
      * @param gameState the level to play
      * @param engine the {@link GameEngine}
      */
+    //Warning suppressed because we need the current level instance state (level is immutable)
+    @SuppressFBWarnings("EI_EXPOSE_REP")
     public SwingScene(final Level gameState, final GameEngine engine) {
 
         final JPanel containerPanel = new JPanel(new BorderLayout());
@@ -88,20 +90,6 @@ public class SwingScene implements Scene {
     }
 
     /***/
-    @Override
-    public void renderGameOver() {
-        /*
-        try {
-            SwingUtilities.invokeAndWait(() -> {
-                frame.repaint();
-            });
-        } catch (Exception ex){
-            ex.printStackTrace();
-        }
-         */
-    }
-
-    /***/
     public class ScenePanel extends JPanel implements KeyListener {
 
         private static final long serialVersionUID = 1L;
@@ -121,16 +109,16 @@ public class SwingScene implements Scene {
             setSize(w, h);
             setPreferredSize(new Dimension(w, h));
             setMinimumSize(new Dimension(w, h));
-            ratioX = this.getWidth() / width;
-            ratioY = this.getHeight() / height;
+            ratioX = super.getWidth() / width;
+            ratioY = super.getHeight() / height;
 
             gameOverFont = new Font("Verdana", Font.PLAIN, w / GAME_OVER_FONT);
 
             this.setLayout(new BorderLayout());
-            this.addKeyListener(this);
-            setFocusable(true);
-            setFocusTraversalKeysEnabled(false);
-            requestFocusInWindow();
+            super.addKeyListener(this);
+            super.setFocusable(true);
+            super.setFocusTraversalKeysEnabled(false);
+            super.requestFocusInWindow();
         }
 
         /**
@@ -138,7 +126,6 @@ public class SwingScene implements Scene {
          */
         @Override
         public void paint(final Graphics g) {
-            final Graphics2D g2 = (Graphics2D) g;
 
             // hidden button to go back to main menu
             final JButton btnGoToMenu = new JButton();
@@ -147,32 +134,32 @@ public class SwingScene implements Scene {
                 frame.setVisible(false);
             });
 
-            if (SwingScene.this.engine.getGameLoop().isPause()) {
+            if (SwingScene.this.engine.isGameLoopInPause()) {
 
-                g2.setFont(gameOverFont);
-                g2.setColor(this.backgroundColor);
-                g2.fillRect(0, 0, this.getWidth(), this.getHeight());
-                g2.setColor(Color.BLACK);
-                this.drawCenteredString(g2, "PAUSE", getVisibleRect(), gameOverFont);
+                g.setFont(gameOverFont);
+                g.setColor(this.backgroundColor);
+                g.fillRect(0, 0, this.getWidth(), this.getHeight());
+                g.setColor(Color.BLACK);
+                this.drawCenteredString(g, "PAUSE", getVisibleRect(), gameOverFont);
 
             } else if (gameState.isLevelComplete()) {
 
-                g2.setFont(gameOverFont);
-                g2.setColor(this.backgroundColor);
-                g2.fillRect(0, 0, this.getWidth(), this.getHeight());
-                g2.setColor(Color.BLACK);
+                g.setFont(gameOverFont);
+                g.setColor(this.backgroundColor);
+                g.fillRect(0, 0, this.getWidth(), this.getHeight());
+                g.setColor(Color.BLACK);
                 this.add(btnGoToMenu);
                 btnGoToMenu.setOpaque(false);
-                this.drawCenteredString(g2, "GAME COMPLETED", getVisibleRect(), gameOverFont);
+                this.drawCenteredString(g, "GAME COMPLETED", getVisibleRect(), gameOverFont);
 
             } else if (gameState.getPlayer().isDead()) {
-                g2.setFont(gameOverFont);
-                g2.setColor(this.backgroundColor);
-                g2.fillRect(0, 0, this.getWidth(), this.getHeight());
-                g2.setColor(Color.BLACK);
+                g.setFont(gameOverFont);
+                g.setColor(this.backgroundColor);
+                g.fillRect(0, 0, this.getWidth(), this.getHeight());
+                g.setColor(Color.BLACK);
                 this.add(btnGoToMenu);
                 btnGoToMenu.setOpaque(false);
-                this.drawCenteredString(g2, "GAME OVER", getVisibleRect(), gameOverFont);
+                this.drawCenteredString(g, "GAME OVER", getVisibleRect(), gameOverFont);
 
             } else {
                 /* drawing the borders */
@@ -182,7 +169,7 @@ public class SwingScene implements Scene {
 
                 /* drawing the game objects */
 
-                final SwingGraphics gr = new SwingGraphics(g2, ratioX, ratioY);
+                final SwingGraphics gr = new SwingGraphics(g, ratioX, ratioY);
 
                 scene.updateGraphics(gr);
                 scene.getItems().ifPresent(l -> l.forEach(i -> i.updateGraphics(gr)));
@@ -243,5 +230,10 @@ public class SwingScene implements Scene {
             // Draw the String
             g.drawString(text, x, y);
         }
+    }
+
+    @Override
+    public void renderGameOver() {
+        //not needed here
     }
 }
