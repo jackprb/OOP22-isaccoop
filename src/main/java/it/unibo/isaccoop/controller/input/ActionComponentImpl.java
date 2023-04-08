@@ -14,7 +14,7 @@ public class ActionComponentImpl implements ActionComponent {
      * {@inheritDoc}
      */
     @Override
-    public void update(final ActionController ctrl, GameLoop loop) {
+    public void update(final ActionController ctrl, final GameLoop loop) {
         if (ctrl.isEsc()) {
             loop.setPause(!loop.isPause());
         } else if (!loop.isPause() && ctrl.isNextRoom()) {

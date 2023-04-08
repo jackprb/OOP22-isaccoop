@@ -1,6 +1,5 @@
 package it.unibo.isaccoop.graphics;
 
-import java.awt.Graphics2D;
 import javax.swing.ImageIcon;
 
 import it.unibo.isaccoop.model.boundingbox.CircleBoundingBox;
@@ -25,8 +24,8 @@ public final class SwingGraphics implements Graphics {
      * @param ratioX
      * @param ratioY
      */
-    public SwingGraphics(final Graphics2D g2, final double ratioX, final double ratioY) {
-        this.g2 = g2.create();
+    public SwingGraphics(final java.awt.Graphics g, final double ratioX, final double ratioY) {
+        this.g2 = g.create();
         this.ratioX = ratioX;
         this.ratioY = ratioY;
     }
@@ -37,7 +36,7 @@ public final class SwingGraphics implements Graphics {
 
        if (element instanceof Room) {
            final var room = (Room) element;
-           this.g2.drawImage(imageIcon.getImage(), 0, 0, (int) Math.round(room.getWidth() * this.ratioX), 
+           this.g2.drawImage(imageIcon.getImage(), 0, 0, (int) Math.round(room.getWidth() * this.ratioX),
                    (int) Math.round(room.getHeight() * this.ratioY), null);
        } else {
            final var sy2 = imageIcon.getImage().getHeight(null);
