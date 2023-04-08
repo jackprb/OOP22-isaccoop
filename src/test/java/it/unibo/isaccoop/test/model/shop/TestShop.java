@@ -1,4 +1,4 @@
-package it.unibo.isaccop.test.model.shop;
+package it.unibo.isaccoop.test.model.shop;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,7 +13,7 @@ import it.unibo.isaccoop.model.powerup.PowerUp;
 import it.unibo.isaccoop.model.room.Shop;
 import it.unibo.isaccoop.model.room.ShopImpl;
 
-public class TestShop {
+class TestShop {
     private final Shop shop = new ShopImpl();
     private final PlayerStat player = new PlayerStatImpl(null);
     private final PowerUp damageUp = new DamageUp();
