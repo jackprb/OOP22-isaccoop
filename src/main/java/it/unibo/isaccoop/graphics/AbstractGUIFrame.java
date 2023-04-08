@@ -21,6 +21,7 @@ public abstract class AbstractGUIFrame extends JFrame implements GUIFrame {
      * @param title the title of this {@link JFrame}
      */
     protected AbstractGUIFrame(final String title) {
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setTitle(title);
         addMainPanel();
     }
@@ -58,14 +59,6 @@ public abstract class AbstractGUIFrame extends JFrame implements GUIFrame {
         this.setLocationByPlatform(true);
         this.pack();
         this.setVisible(true);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void hide() {
-        this.setVisible(false);
     }
 
     /**
