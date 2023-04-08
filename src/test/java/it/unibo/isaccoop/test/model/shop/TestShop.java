@@ -13,6 +13,9 @@ import it.unibo.isaccoop.model.powerup.PowerUp;
 import it.unibo.isaccoop.model.room.Shop;
 import it.unibo.isaccoop.model.room.ShopImpl;
 
+/**
+ * TestShop class to test shop behavior.
+ * */
 class TestShop {
     private final Shop shop = new ShopImpl();
     private final PlayerStat player = new PlayerStatImpl(null);
