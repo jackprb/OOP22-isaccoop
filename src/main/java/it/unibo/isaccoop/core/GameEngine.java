@@ -41,5 +41,5 @@ public interface GameEngine {
      *
      * @return game loop
      * */
-    GameLoop getGameLoop();
+    boolean isGameLoopInPause();
 }

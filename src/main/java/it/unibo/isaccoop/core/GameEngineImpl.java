@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.isaccoop.controller.input.ActionController;
 import it.unibo.isaccoop.controller.input.ActionControllerImpl;
 import it.unibo.isaccoop.controller.input.InputController;
@@ -73,6 +74,8 @@ public final class GameEngineImpl implements GameEngine {
      * {@inheritDoc}
      */
     @Override
+    //Warning suppressed because we need the action controller state into the game loop
+    @SuppressFBWarnings("EI_EXPOSE_REP")
     public ActionControllerImpl getActionController() {
         return (ActionControllerImpl) this.actionController;
     }
@@ -91,7 +94,7 @@ public final class GameEngineImpl implements GameEngine {
     }
 
     @Override
-    public GameLoop getGameLoop() {
-        return this.gameLoop;
+    public boolean isGameLoopInPause() {
+        return this.gameLoop.isPause();
     }
 }
