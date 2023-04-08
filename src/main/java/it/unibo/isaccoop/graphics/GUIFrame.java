@@ -14,12 +14,6 @@ public interface GUIFrame {
     void display();
 
     /**
-     * Hide the frame.
-     * Implemented by default in {@link AbstractGUIFrame}.
-     */
-    void hide();
-
-    /**
      * Method to update the GUI, to be called when a repaint of the frame is needed to show changes.
      * To be implemented in subclasses.
      */
