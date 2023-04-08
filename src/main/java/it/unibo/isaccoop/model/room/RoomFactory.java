@@ -1,7 +1,6 @@
 package it.unibo.isaccoop.model.room;
 
 import it.unibo.isaccoop.model.common.Point2D;
-import it.unibo.isaccoop.model.common.RoomType;
 
 /**
  * A façade interface to simplify the creation of {@link Room}, using {@link RoomBuilder}.
@@ -42,14 +41,6 @@ public interface RoomFactory {
      * @return the room where you can find a free powerup
      */
     Room buildTreasureRoom(Point2D coordInsideLevel);
-
-    /** 
-     * Build a room of the given {@link RoomType}.
-     * @param roomType the type of the room to be created
-     * @param coordInsideLevel the coordinate of this room inside the level
-     * @return a room of the given {@link RoomType}
-     */
-    Room buildRoomOfType(RoomType roomType, Point2D coordInsideLevel);
 
     /**
      * Build a room in the proper order, that is, each time this method is called, will return a room of
