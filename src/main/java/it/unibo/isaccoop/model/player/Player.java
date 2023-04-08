@@ -91,9 +91,9 @@ public class Player extends PlayerMovementImpl implements Hitable<Enemy> {
     }
 
     /**
-     * Method
+     * @param element the shot to remove
      * */
-    public void removePlayerShot(WeaponShot element) {
+    public void removePlayerShot(final WeaponShot element) {
         ((ShootingHitStrategy) this.hitStrategy).removeShot(element);
     }
 
