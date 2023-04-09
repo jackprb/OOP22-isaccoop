@@ -41,7 +41,7 @@ Il software mira a realizzare un gioco roguelike liberamente ispirato a ``The Bi
         \item visualizzare le sue (\textbf{``statistiche/caratteristiche"}), ad esempio: il numero di vite rimaste (indicate dai cuori), di monete raccolte, quanto danno riesce a infliggere ai nemici...
         \item il gioco finisce (game over) se il giocatore perde tutte le sue vite/cuori o quando sconfigge tutti i nemici in tutte le stanze, compreso il boss finale
     \end{itemize}
-    
+
     \item Nel gioco vi sono cinque tipi di stanze:
     \begin{itemize}
         \item \textbf{START}: stanza iniziale vuota in cui il giocatore si trova all'inizio della partita
@@ -77,9 +77,9 @@ Il software mira a realizzare un gioco roguelike liberamente ispirato a ``The Bi
 Il software permetterà al giocatore di avviare una sessione di gioco, che gestirà l'avanzamento del personaggio principale attraverso le varie stanze che formano il mondo di gioco (\textbf{``livello/level''}).
 In un livello sono presenti un numero semicasuale di stanze; in alcune di esse saranno presenti i ``nemici'' da sconfiggere e gli ``item'', mentre in altre si potranno comprare/raccogliere i ``powerup''.
 Una volta entrato in una stanza in cui si trovano i nemici, il giocatore dovrà sconfiggerli tutti per poter passare ad un altra stanza.
-I nemici saranno gestiti da una semplice AI (come descritto precedentemente) i quali cercheranno di attaccare e uccidere il giocatore. 
-Per sconfiggere tali nemici, il giocatore spara le ``sfere di energia''. 
-Utilizzando i powerup raccolti o comprati nello shop, il giocatore può sconfiggere più facilmente i nemici. 
+I nemici saranno gestiti da una semplice AI (come descritto precedentemente) i quali cercheranno di attaccare e uccidere il giocatore.
+Per sconfiggere tali nemici, il giocatore spara le ``sfere di energia''.
+Utilizzando i powerup raccolti o comprati nello shop, il giocatore può sconfiggere più facilmente i nemici.
 Il giocatore perde una vita (indicate con i cuori/``hearts'') ogni volta che viene colpito da un nemico o da un proiettile sparato da esso.
 Il gioco terminerà se il giocatore perde tutte le vite.
 
@@ -103,14 +103,14 @@ Nella progettazione, si è scelto di adottare il pattern architetturale MVC.
 \begin{itemize}
     \item \textbf{Model}: ?
     \item \textbf{Controller}: L'interfaccia GameEngine si occupa di gestire {TODO}
-    \item \textbf{View}: l'interfaccia Scene.java rappresenta {TODO}, 
+    \item \textbf{View}: l'interfaccia Scene.java rappresenta {TODO},
         mentre l'interfaccia Graphics si occupa di renderizzare giocatore, nemici, powerup e item sulla mappa di gioco.
 \end{itemize}
 
-L'utilizzo di MVC consente di cambiare la tecnologia alla base della View senza modificare 
+L'utilizzo di MVC consente di cambiare la tecnologia alla base della View senza modificare
 né Model né Controller del software:
 infatti sarà necessario cambiare l'implementazione dei file SwingScene, SwingGraphics e degli altri file
-che contengono l'implementazione delle altre GUI realizzate, utilizzando la nuova tecnologia, 
+che contengono l'implementazione delle altre GUI realizzate, utilizzando la nuova tecnologia,
 sostituendo così l'implementazione attuale basata sul framework Swing con la nuova tecnologia scelta.
 
 
@@ -140,12 +140,12 @@ In \Cref{img:goodarch} è esemplificato il diagramma UML architetturale.
 \subsubsection{Creazione delle stanze}
 \paragraph{Problema} Le varie stanze hanno bisogno di una coordinata all'interno del livello.
 \paragraph{Soluzione} Poiché tutte le entità del gioco (nemici, powerup, item e giocatore) hanno una coordinata,
-è stata creata l'interfaccia MapElement, che permette di avere un getter e un setter per la coordinata. 
+è stata creata l'interfaccia MapElement, che permette di avere un getter e un setter per la coordinata.
 
 
 \paragraph{Problema} Occorre creare un numero random di stanze, ognuna con caratteristiche ben definite.
 \paragraph{Soluzione} Ho utilizzato il pattern Builder, il quale implementa ``a basso livello'' la costruzione
-di una stanza, nascondendo la logica dietro la creazione della stanza stessa. Questo builder permette di creare 
+di una stanza, nascondendo la logica dietro la creazione della stanza stessa. Questo builder permette di creare
 un stanza usando il cosiddetto ``fluent style'': per costruire una stanza è necessario innanzitutto chiamare i metodi definiti
 obbligatori (necessari per tutti i tipi di stanza); successivamente, a seconda della stanza da creare, si possono chiamare altri metodi
 che ..
@@ -164,12 +164,41 @@ Il concetto di sparo è in comune anche con i nemici e il boss, quindi, non può
 \paragraph{Soluzione}
 Per lo sparo viene utilizzato il pattern “Strategy” dove viene creata un’interfaccia funzionale con il metodo “hit” e due sottoclassi che la implementano, “NonshootingHitStrategy” e “ShootingHitStrategy”, così da poter essere utilizzato sia dal player, il quale userà lo “ShootingHitStrategy”, che dai nemici, che sono di tue tipi, e dal boss, che, come il player, utilizzerà lo “ShootingHitStrategy”.                          Per il movimento invece viene creata un’interfaccia “MapElement”, che viene usata da tutti gli elementi che hanno una posizione nella mappa, per gestire le coordinate, che viene implementata da una classe astratta “AbstractMapElement”, la quale aggiunge il raggio e il boundingBox, estesa dal player.
 
+\newpage
+\begin{figure}
+\centering{}
+\includegraphics[scale=0.5]{diagram/player.png}
+\caption{Creazione del player}
+\label{player}
+\end{figure}
+
+\begin{figure}
+\centering{}
+\includegraphics[scale=0.5]{diagram/hitStrategy.png}
+\caption{Pattern strategy per il colpo}
+\label{player}
+\end{figure}
+
+\newpage
 \subsubsection{Creazione e gestione del Boss}
 \paragraph{Problema}
 Gestire il cambio del tipo di movimento e lo sparo.
 \paragraph{Soluzione}
 Per il movimento dei nemici, quindi anche del Boss, viene utilizzato il pattern “Strategy” creando un’interfaccia funzionale con il metodo “move”, implementata poi dai due tipi di movimento: “NonShootingMovementStrategy” e “ShootingMovementStrategy”, che prende in ingresso la posizione attuale del nemico e la posizione del player, ovvero la posizione verso cui andrà il nemico nella modalità “NonShootingMovementStrategy”. Nel Boss, inoltre, si crea una mappa per gestire i due tipi di movimento e un metodo, “changeMode”, che si appresta al cambio del tipo ogni n secondi. Per lo sparo invece, simile al Player, si crea la strategia di tipo “ShootingHitStrategy”.
 
+\begin{figure}
+\centering{}
+\includegraphics[scale=0.5]{diagram/boss.png}
+\caption{Creazione del boss}
+\label{Boss}
+\end{figure}
+
+\begin{figure}
+\centering{}
+\includegraphics[scale=0.5]{diagram/movementStrategy.png}
+\caption{Pattern strategy per il movimento}
+\label{Boss}
+\end{figure}
 
 \subsection*{Esempio minimale (e quindi parziale) di sezione di progetto con UML ben realizzati}
 
@@ -281,15 +310,15 @@ lavorare indipendentemente dagli altri il più possibile.
 E' stato necessario riunirsi per discutere sull'implementazione e/o sulla dichiarazione di interfacce e
 classi comuni.
 
-Abbiamo utilizzato lo strumento di version control \textbf{Git} per poter sviluppare 
+Abbiamo utilizzato lo strumento di version control \textbf{Git} per poter sviluppare
 il software in modo più agevole.
 \\Il branch principale è stato denominato \textit{master}.
-Dal \textit{master} sono stati creati vari branch, chiamati ``feature-featureName''; 
-ognuno di essi identificava la feature che doveva essere implementata. 
-La divisione delle feature tra i vari componenti del gruppo è stata tale da permettere 
+Dal \textit{master} sono stati creati vari branch, chiamati ``feature-featureName'';
+ognuno di essi identificava la feature che doveva essere implementata.
+La divisione delle feature tra i vari componenti del gruppo è stata tale da permettere
 a ognuno di lavorare nel proprio branch indipendentemente dagli altri.
-\\Abbiamo lavorato in modo tale che tutte le modifiche venissero apportate nei vari branch 
-``feature-featureName''; solo dopo aver testato che tutto funzionasse correttamente, 
+\\Abbiamo lavorato in modo tale che tutte le modifiche venissero apportate nei vari branch
+``feature-featureName''; solo dopo aver testato che tutto funzionasse correttamente,
 tali modifiche sono state unite sul branch \textit{master}.
 \\In questo modo, il software contenuto nel branch \textit{master} funzionava sempre correttamente.
 
@@ -353,7 +382,7 @@ Ho sviluppato:
 
 \subsection*{Giacomo Pierbattista}
 Mi sono concentrato principalmente sulla progettazione del mondo di gioco (Level) e delle stanze (Room).
-In autonomia, nel model, ho sviluppato le classi contenute nel package 
+In autonomia, nel model, ho sviluppato le classi contenute nel package
 \begin{verbatim}it.unibo.isaccoop.model.room.* \end{verbatim} (escludendo Shop.java e ShopImpl.java)
 che implementano quanto segue:
 \begin{itemize}
@@ -363,7 +392,7 @@ che implementano quanto segue:
 \end{itemize}
 e le enum Direction.java e RoomType.java contenute nel package
 \begin{verbatim}it.unibo.isaccoop.model.common \end{verbatim}
-che implementano, rispettivamente, il concetto di direzione, utilizzato per il movimento del giocatore e 
+che implementano, rispettivamente, il concetto di direzione, utilizzato per il movimento del giocatore e
 dei nemici, e i vari tipi di stanza.
 \\Nella view ho sviluppato quanto segue:
 \begin{itemize}
@@ -393,8 +422,8 @@ In collaborazione con Daniele Pancottini ho sviluppato:
 \end{itemize}
 
 \section{Note di sviluppo}
-Abbiamo iniziato lo sviluppo a partire dalla repository 
-\\\url{https://github.com/unibo-oop/sample-gradle-project}, compreso il \textbf{Gradle wrapper} fornito, 
+Abbiamo iniziato lo sviluppo a partire dalla repository
+\\\url{https://github.com/unibo-oop/sample-gradle-project}, compreso il \textbf{Gradle wrapper} fornito,
 per poter eseguire la build del progetto.
 
 \subsection*{Marco Costantini}
@@ -414,16 +443,16 @@ Nello sviluppo ho utilizzato
         \item frequentemente in RoomBuilder.java (da riga 28 in poi) \url{https://github.com/jackprb/OOP22-isaccoop/blob/master/src/main/java/it/unibo/isaccoop/model/room/RoomBuilder.java#L34}
         \item e in RoomImpl.java (da riga 28 in poi) \url{https://github.com/jackprb/OOP22-isaccoop/blob/master/src/main/java/it/unibo/isaccoop/model/room/RoomImpl.java#L28}
     \end{itemize}
-\item \textbf{Stream} ad esempio in: 
+\item \textbf{Stream} ad esempio in:
     \begin{itemize}
         \item in LevelTest.java (in vari punti da riga 75 in poi) \url{https://github.com/jackprb/OOP22-isaccoop/blob/master/src/test/java/it/unibo/isaccoop/test/model/room/LevelTest.java#L75}
         \item in LevelControllerImpl.java (righe 26-28, 58-60) \url{https://github.com/jackprb/OOP22-isaccoop/blob/master/src/main/java/it/unibo/isaccoop/model/room/LevelControllerImpl.java#L26}
     \end{itemize}
-\item \textbf{Lambda}     
+\item \textbf{Lambda}
     \begin{itemize}
         \item in RoomImpl.java (righe 132-133, 151-153) \\\url{https://github.com/jackprb/OOP22-isaccoop/blob/master/src/main/java/it/unibo/isaccoop/model/room/RoomImpl.java#L132}
     \end{itemize}
-\item \textbf{Wildcard} 
+\item \textbf{Wildcard}
     \begin{itemize}
         \item in RoomBuilderUtils.java
     \\\url{https://github.com/jackprb/OOP22-isaccoop/blob/master/src/main/java/it/unibo/isaccoop/model/room/RoomBuilderUtils.java#L107}
@@ -431,10 +460,10 @@ Nello sviluppo ho utilizzato
     \end{itemize}
 \end{itemize}
 
-Per poter caricare il file contenente la guida utente dal filesystem, ho utilizzato \textbf{ClassLoader} in HelpGui.java; ho guardato qui 
+Per poter caricare il file contenente la guida utente dal filesystem, ho utilizzato \textbf{ClassLoader} in HelpGui.java; ho guardato qui
 \\\url{https://github.com/unibo-oop/example-with-get-resources/blob/master/src/main/java/it/unibo/getresource/UseGetResource.java#L35}.
 
-Per ridimensionare un Jframe a seconda della risoluzione dello schermo in AbstractGUIFrame.java ho guardato qui: 
+Per ridimensionare un Jframe a seconda della risoluzione dello schermo in AbstractGUIFrame.java ho guardato qui:
 \\\url{https://github.com/unibo-oop/lab08/blob/solutions/83-mvc-io/src/main/java/it/unibo/mvc/SimpleGUI.java#L83} (linee 83-102).
 
 \subsection*{Dilaver Shtini}
@@ -493,13 +522,13 @@ A mio parere questo corso è uno dei più importanti del corso di laurea, se non
 {TODO}
 
 \subsection*{Giacomo Pierbattista}
-Per me è stato il primo progetto di gruppo di dimensioni consistenti, che ha richiesto un grande impegno. 
+Per me è stato il primo progetto di gruppo di dimensioni consistenti, che ha richiesto un grande impegno.
 \\Parere sul corso: prevedere un esame in laboratorio più un progetto di gruppo lo rende più
-impegnativo di altri corsi da 12 crediti, ma ne ero consapevole. 
+impegnativo di altri corsi da 12 crediti, ma ne ero consapevole.
 \\Tutto sommato, il corso è stato molto interessante, ma forse alcuni argomenti trattati soffrono di "anzianità":
 potrebbe essere più utile sviscerare le nuove librerie di Java oppure soluzioni equivalenti da librerie di terze parti,
 specialmente se possono essere utili nello sviluppo del progetto.
-Non avevo mai programmato in Java, né in altri linguaggi Object Oriented; ho avuto bisogno 
+Non avevo mai programmato in Java, né in altri linguaggi Object Oriented; ho avuto bisogno
 di un po' di tempo per familiarizzare con le novità di Java, che in altri linguaggi non si trovano.
 Un problema che ho riscontrato è stata la teoria riguardante UML e la realizzazione dei diagrammi delle classi.
 
@@ -576,7 +605,7 @@ Dopo aver cliccato il pulsante ``Play'' nel menu principale, l'utente visualizze
 
 
 \newpage
-Segue uno screenshot di una stanza in cui sono presenti nemici 
+Segue uno screenshot di una stanza in cui sono presenti nemici
 (elefante grigio e pianta rossa e bianca) e item (i cuori).
 \begin{figure}[h]
 \centering{}
@@ -596,7 +625,7 @@ Se il giocatore viene colpito dai nemici e perde tutte le vite, la partita termi
 Quando il giocatore completa tutte le stanze, compresa quella del boss finale, comparirà una
 schermata simile alla precedente, con la scritta ``GAME COMPLETED".
 
-Sia nel caso di game over, sia nel caso di vittoria, per tornare al menu principale, è sufficiente cliccare 
+Sia nel caso di game over, sia nel caso di vittoria, per tornare al menu principale, è sufficiente cliccare
 ovunque sopra la mappa di gioco.
 
 
@@ -621,7 +650,7 @@ ovunque sopra la mappa di gioco.
 \bibliographystyle{alpha}
 \bibliography{13-template}
 \begin{itemize}
-    \item Nella fase di analisi abbiamo preso spunto dalla repository del prof. Alessandro Ricci. 
-    \\\url{https://github.com/pslab-unibo/oop-game-prog-patterns-2022} 
+    \item Nella fase di analisi abbiamo preso spunto dalla repository del prof. Alessandro Ricci.
+    \\\url{https://github.com/pslab-unibo/oop-game-prog-patterns-2022}
 \end{itemize}
 \end{document}
