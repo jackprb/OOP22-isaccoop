@@ -10,7 +10,9 @@ public class Heart extends AbstractItem {
 
     private static final int HEART_UP = 1;
 
-    /***/
+    /**
+     * Heart Constructor.
+     * */
     public Heart() {
         super(new ItemGraphicsComponentImpl().getHeartGraphicsComponent());
     }

@@ -26,12 +26,20 @@ public enum Direction {
     private static final Random RND = new Random();
     private final double x;
     private final double y;
+
+    /**
+     * Direction constructor.
+     *
+     * @param x direction vector component
+     * @param y direction vector component
+     * */
     Direction(final double x, final double y) {
         this.x = x;
         this.y = y;
     }
 
     /**
+     * Get x of direction vector.
      * @return the x of this direction
      */
     public double getX() {
@@ -39,6 +47,7 @@ public enum Direction {
     }
 
     /**
+     * Get y of direction vector.
      * @return the y of this direction
      */
     public double getY() {
@@ -46,6 +55,7 @@ public enum Direction {
     }
 
     /**
+     * Get random direction.
      * @return a random direction
      */
     public static Direction getRandomDir() {

@@ -5,8 +5,10 @@ import it.unibo.isaccoop.model.action.NonShootingHitStrategy;
 import it.unibo.isaccoop.model.action.NonShootingMovementStrategy;
 import it.unibo.isaccoop.model.player.PlayerStat;
 
-/***/
-public final class NonShootingEnemy  extends AbstractEnemy {
+/**
+ * NonShootingEnemy class that models non shooting enemy.
+ * */
+public final class NonShootingEnemy extends AbstractEnemy {
 
     /**
      * Constructor for {@link NonShootingEnemy}.

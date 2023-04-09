@@ -4,7 +4,9 @@ import it.unibo.isaccoop.model.enemy.Enemy;
 import it.unibo.isaccoop.model.item.Item;
 import it.unibo.isaccoop.model.weapon.WeaponShot;
 
-/***/
+/**
+ * EventFactory interface which represents the game event factory concept.
+ * */
 public interface EventFactory {
 
     /**

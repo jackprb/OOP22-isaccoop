@@ -29,7 +29,7 @@ import it.unibo.isaccoop.model.room.Room;
 /**
  * Represents the game scene, implemented with Swing.
  */
-public class SwingScene implements Scene {
+public final class SwingScene implements Scene {
 
     private static final Logger LOGGER = Logger.getLogger(SwingScene.class.getName());
     private final JFrame frame;
@@ -77,7 +77,6 @@ public class SwingScene implements Scene {
         frame.setVisible(true);
     }
 
-    /***/
     @Override
     public void render() {
         try {
@@ -89,7 +88,9 @@ public class SwingScene implements Scene {
         }
     }
 
-    /***/
+    /**
+     * ScenePanel class, which contains the room components.
+     * */
     public class ScenePanel extends JPanel implements KeyListener {
 
         private static final long serialVersionUID = 1L;
@@ -99,7 +100,7 @@ public class SwingScene implements Scene {
         private final Color backgroundColor = new Color(150, 75, 50);
 
         /**
-         *
+         * ScenePanel Constructor.
          * @param w
          * @param h
          * @param width
@@ -122,7 +123,8 @@ public class SwingScene implements Scene {
         }
 
         /**
-         * @param g reference to Graphics.
+         * Method to paint room components.
+         * @param g reference to Graphics
          */
         @Override
         public void paint(final Graphics g) {
@@ -187,6 +189,7 @@ public class SwingScene implements Scene {
         }
 
         /**
+         * Method called when a key is pressed.
          * @param e reference to KeyEvent.
          */
         @Override
@@ -198,6 +201,7 @@ public class SwingScene implements Scene {
         }
 
         /**
+         * Method called when a key is released.
          * @param e reference to KeyEvent.
          */
         @Override
@@ -219,15 +223,10 @@ public class SwingScene implements Scene {
          * @param font the Font of the text
          */
         private void drawCenteredString(final Graphics g, final String text, final Rectangle rect, final Font font) {
-            // Get the FontMetrics
             final FontMetrics metrics = g.getFontMetrics(font);
-            // Determine the X coordinate for the text
             final int x = rect.x + (rect.width - metrics.stringWidth(text)) / 2;
-            // Determine the Y coordinate for the text (note we add the ascent, as in java 2d 0 is top of the screen)
             final int y = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
-            // Set the font
             g.setFont(font);
-            // Draw the String
             g.drawString(text, x, y);
         }
     }

@@ -32,6 +32,8 @@ public interface GameEngine {
     ActionControllerImpl getActionController();
 
     /**
+     * Get keyboard input controllers collection handled by game engine.
+     *
      * @return InputController refers to String name
      */
     Collection<KeyboardInputController> getKeyboardInputControllers();

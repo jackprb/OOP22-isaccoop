@@ -10,7 +10,9 @@ public class Coin extends AbstractItem {
 
     private static final int COIN_UP = 1;
 
-    /***/
+    /**
+     * Coin Constructor.
+     * */
     public Coin() {
         super(new ItemGraphicsComponentImpl().getCoinGraphicsComponent());
     }

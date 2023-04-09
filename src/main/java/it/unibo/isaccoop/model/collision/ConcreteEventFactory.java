@@ -9,8 +9,11 @@ import it.unibo.isaccoop.model.room.Shop;
 import it.unibo.isaccoop.model.room.ShopImpl;
 import it.unibo.isaccoop.model.weapon.WeaponShot;
 
-/***/
+/**
+ * ConcreteEventFactory class which is an event factory implementation.
+ * */
 public final class ConcreteEventFactory implements EventFactory {
+
     private static final Shop SHOP = new ShopImpl();
 
     @Override

@@ -5,7 +5,10 @@ import it.unibo.isaccoop.model.common.AbstractMapElement;
 import it.unibo.isaccoop.model.common.Point2D;
 import it.unibo.isaccoop.model.common.Vector2D;
 
-/***/
+/**
+ * AbstractWeaponShot abstract class that implements WeaponShot interface, it models
+ * a common container for weapon shots.
+ * */
 public abstract class AbstractWeaponShot extends AbstractMapElement implements WeaponShot {
 
     private static final Double SPEED = 2.0;

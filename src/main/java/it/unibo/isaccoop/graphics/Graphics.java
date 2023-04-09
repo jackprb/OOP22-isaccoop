@@ -2,7 +2,9 @@ package it.unibo.isaccoop.graphics;
 
 import it.unibo.isaccoop.model.common.MapElement;
 
-/***/
+/**
+ * Graphics interface representing the concept of drawing components.
+ * */
 public interface Graphics {
 
     /**

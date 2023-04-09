@@ -19,14 +19,16 @@ public class PlayerMovementImpl extends PlayerStatImpl implements PlayerMovement
     }
 
     /**
-     * @param direction the direction which the player moves
+     * {@inheritDoc}
      * */
     @Override
     public void update(final Direction direction) {
         super.setCoords(this.getMovePreview(direction));
     }
 
-    /***/
+    /**
+     * {@inheritDoc}
+     * */
     @Override
     public Point2D getMovePreview(final Direction direction) {
         final Double distance = super.getSpeed();

@@ -23,7 +23,9 @@ import it.unibo.isaccoop.model.powerup.PowerUp;
 import it.unibo.isaccoop.model.powerup.SpeedUp;
 import it.unibo.isaccoop.model.powerup.TearsUp;
 
-/***/
+/**
+ * ConcreteCreatorFactory class which is a ConcreteFactory implementation.
+ * */
 public final class ConcreteCreatorFactory implements CreatorFactory {
     private static final Logger LOGGER = Logger.getLogger(ConcreteCreatorFactory.class.getName());
     private static final int ITEMS_IN_ROOM = 3;
@@ -68,6 +70,7 @@ public final class ConcreteCreatorFactory implements CreatorFactory {
     }
 
     /**
+     * Generate random power up among the available.
      * @return a random power up.
      * */
     private Optional<PowerUp> generatePowerUp() {

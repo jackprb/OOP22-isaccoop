@@ -9,7 +9,9 @@ import it.unibo.isaccoop.model.common.Vector2D;
 import it.unibo.isaccoop.model.weapon.Weapon;
 import it.unibo.isaccoop.model.weapon.WeaponShot;
 
-/***/
+/**
+ * ShootingHitStrategy class which is an hit strategy implementation.
+ * */
 public final class ShootingHitStrategy implements HitStrategy {
 
     private final Weapon weapon;
@@ -41,6 +43,7 @@ public final class ShootingHitStrategy implements HitStrategy {
     }
 
     /**
+     * Remove a certain shot from the list of shots.
      * @param shot
      * */
     public void removeShot(final WeaponShot shot) {
@@ -49,7 +52,7 @@ public final class ShootingHitStrategy implements HitStrategy {
 
     /**
      * Update weapon interval.
-     * 
+     *
      * @param interval the interval between two shots
      * */
     public void updateWeaponInterval(final double interval) {

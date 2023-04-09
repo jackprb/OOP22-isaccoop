@@ -2,7 +2,9 @@ package it.unibo.isaccoop.model.action;
 
 import it.unibo.isaccoop.model.common.Point2D;
 
-/***/
+/**
+ * MovementStrategy interface.
+ * */
 public interface MovementStrategy {
 
     /**

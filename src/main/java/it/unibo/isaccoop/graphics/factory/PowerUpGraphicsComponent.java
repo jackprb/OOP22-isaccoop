@@ -2,7 +2,9 @@ package it.unibo.isaccoop.graphics.factory;
 
 import it.unibo.isaccoop.graphics.GraphicsComponent;
 
-/***/
+/**
+ * Graphics component factory interface for power ups.
+ * */
 public interface PowerUpGraphicsComponent {
 
     /**

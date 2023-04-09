@@ -33,6 +33,7 @@ public class Boss extends AbstractEnemy {
     private long lastChangeTime;
 
     private final Map<String, MovementStrategy> movementStrategies;
+
     /**
      * Boss constructor.
      * */
@@ -59,7 +60,7 @@ public class Boss extends AbstractEnemy {
     }
 
     /**
-     * Hit the player.
+     * {@inheritDoc}
      * */
     @Override
     public void hit(final Point2D playerPosition) {

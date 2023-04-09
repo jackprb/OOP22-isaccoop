@@ -12,7 +12,9 @@ public class ActionControllerImpl implements ActionController {
     private boolean isEsc;
     private boolean isNextRoom;
     private boolean isPrevRoom;
+
     /**
+     * ActionControllerImpl Constructor.
      * @param keyEsc
      * @param keyNextRoom
      * @param keyPrevRoom
@@ -25,7 +27,7 @@ public class ActionControllerImpl implements ActionController {
     }
 
     /**
-     * 
+     * Method to update key state if a certain key has been pressed.
      * @param keyCode
      */
     public void notifyKeyPressed(final int keyCode) {

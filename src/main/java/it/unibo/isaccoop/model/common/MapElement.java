@@ -9,6 +9,7 @@ import it.unibo.isaccoop.model.boundingbox.BoundingBox;
 public interface MapElement {
 
     /**
+     * Get element coords.
      * @return the coordinates of a map element
      */
     Point2D getCoords();
@@ -26,6 +27,7 @@ public interface MapElement {
     BoundingBox getBox();
 
     /**
+     * Update element graphics.
      * @param g
      * */
     void updateGraphics(Graphics g);

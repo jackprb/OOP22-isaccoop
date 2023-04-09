@@ -7,12 +7,14 @@ import it.unibo.isaccoop.model.player.PlayerStat;
 /**
  * Represents the power up speed.
  * */
-public class SpeedUp extends PowerUp {
+public final class SpeedUp extends PowerUp {
 
     private static final Double SPEED_SUPER_UP = 1.0;
     private static final Double SPEED_UP = 0.5;
 
-    /***/
+    /**
+     * SpeedUp Constructor.
+     * */
     public SpeedUp() {
         super(new PowerUpGraphicsComponentImpl().getSpeedUpGraphicsComponent(false));
     }
@@ -30,7 +32,6 @@ public class SpeedUp extends PowerUp {
         }
     }
 
-    /***/
     @Override
     protected GraphicsComponent updateSuperGraphics(final Boolean isSuper) {
         return new PowerUpGraphicsComponentImpl().getSpeedUpGraphicsComponent(isSuper);

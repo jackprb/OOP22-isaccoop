@@ -5,7 +5,10 @@ import java.util.List;
 
 import it.unibo.isaccoop.model.common.MapElement;
 
-/***/
+/**
+ * AbstractWeapon abstract class that implements Weapon interface, it models
+ * a common container for weapons.
+ * */
 public abstract class AbstractWeapon implements Weapon {
 
     /**
@@ -29,16 +32,16 @@ public abstract class AbstractWeapon implements Weapon {
         this.weaponShots.add(newShot);
     }
 
-    /***/
+    /**
+     * {@inheritDoc}
+     * */
     @Override
     public void tickShots() {
         this.weaponShots.forEach(shot -> shot.tickShot());
     }
 
     /**
-     * Get the {@link EnemyWeaponShot} list for this {@link EnemyWeapon}.
-     *
-     * @return {@link EnemyWeaponShot} list for this {@link EnemyWeapon} as {@link List}
+     * {@inheritDoc}
      * */
     @Override
     public List<WeaponShot> getWeaponShots() {
@@ -46,8 +49,7 @@ public abstract class AbstractWeapon implements Weapon {
     }
 
     /**
-     * Remove the bullet 'e' from the list.
-     * @param e
+     * {@inheritDoc}
      */
     @Override
     public void remove(final MapElement e) {

@@ -5,7 +5,9 @@ import java.util.Optional;
 import it.unibo.isaccoop.model.common.MapElement;
 import it.unibo.isaccoop.model.common.Vector2D;
 
-/***/
+/**
+ * NonShootingHitStrategy class which is an HitStrategy implementation.
+ * */
 public final class NonShootingHitStrategy implements HitStrategy {
 
     private boolean canHit;
@@ -34,7 +36,7 @@ public final class NonShootingHitStrategy implements HitStrategy {
     }
 
     /**
-     * 
+     * Get if the client can hit.
      * @return true if i can hit
      * */
     public boolean canHit() {

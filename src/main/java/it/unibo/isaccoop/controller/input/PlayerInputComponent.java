@@ -3,24 +3,22 @@ import it.unibo.isaccoop.model.boundingbox.RectBoundingBox;
 import it.unibo.isaccoop.model.common.Direction;
 import it.unibo.isaccoop.model.player.Player;
 import it.unibo.isaccoop.model.room.Room;
+
 /**
- *
- *
+ * PlayerInputComponent class to update player movement state.
  */
-public class PlayerInputComponent implements InputComponent {
+public final class PlayerInputComponent implements InputComponent {
 
     private final RectBoundingBox roomBoundingBox;
+
     /**
-     *
+     * PlayerInputComponent Constructor.
      * @param room reference to Room
      */
     public PlayerInputComponent(final Room room) {
         this.roomBoundingBox = (RectBoundingBox) room.getBox();
     }
 
-    /**
-     *
-     */
     @Override
     public void update(final Player player) {
         final InputController ctrl = player.getMovementController();

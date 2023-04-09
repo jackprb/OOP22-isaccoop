@@ -10,9 +10,7 @@ import it.unibo.isaccoop.model.player.Player;
 import it.unibo.isaccoop.model.weapon.WeaponShot;
 
 /**
- *
  * Factory for collision check.
- *
  */
 public interface CollisionCheckFactory {
     /**

@@ -2,7 +2,9 @@ package it.unibo.isaccoop.model.common;
 
 import java.util.Objects;
 
-/***/
+/**
+ * Point2D class to model a 2d point into the space.
+ * */
 public class Point2D {
 
     private final double x;

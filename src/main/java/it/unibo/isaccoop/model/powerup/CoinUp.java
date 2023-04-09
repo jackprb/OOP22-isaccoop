@@ -7,12 +7,14 @@ import it.unibo.isaccoop.model.player.PlayerStat;
 /**
  * Represents the power up coin.
  * */
-public class CoinUp extends PowerUp {
+public final class CoinUp extends PowerUp {
 
     private static final int COIN_UP = 4;
     private static final int COIN_SUPER_UP = 8;
 
-    /***/
+    /**
+     * CoinUp Constructor.
+     * */
     public CoinUp() {
         super(new PowerUpGraphicsComponentImpl().getCoinUpGraphicsComponent(false));
     }
@@ -30,7 +32,6 @@ public class CoinUp extends PowerUp {
         }
     }
 
-    /***/
     @Override
     protected GraphicsComponent updateSuperGraphics(final Boolean isSuper) {
         return new PowerUpGraphicsComponentImpl().getCoinUpGraphicsComponent(isSuper);

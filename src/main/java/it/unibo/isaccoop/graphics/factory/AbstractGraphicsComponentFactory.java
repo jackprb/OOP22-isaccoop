@@ -12,7 +12,7 @@ import it.unibo.isaccoop.graphics.GraphicsComponent;
 public abstract class AbstractGraphicsComponentFactory {
 
     /**
-     *
+     * Get element graphics component as image to be drawn.
      * @param imageName
      * @return a MapElement as image
      */

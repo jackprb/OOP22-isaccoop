@@ -1,9 +1,9 @@
 package it.unibo.isaccoop.model.boundingbox;
 
 import it.unibo.isaccoop.model.common.Point2D;
+
 /**
- * Iterface that model the bounding box.
- * 
+ * Interface that model the bounding box.
  */
 public interface BoundingBox {
 

@@ -12,6 +12,7 @@ public class MapElementImpl extends AbstractMapElement {
     private final int height;
 
     /**
+     * MapElementImpl constructor.
      * @param width horizontal dimension of this MapElement
      * @param height vertical dimension of this MapElement
      */
@@ -22,7 +23,7 @@ public class MapElementImpl extends AbstractMapElement {
     }
 
     /**
-     * generate hash of this object.
+     * {@inheritDoc}
      */
     @Override
     public int hashCode() {
@@ -30,7 +31,7 @@ public class MapElementImpl extends AbstractMapElement {
     }
 
     /**
-     * check if two objects are the same.
+     * {@inheritDoc}
      */
     @Override
     public boolean equals(final Object obj) {
