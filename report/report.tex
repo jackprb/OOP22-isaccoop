@@ -1,4 +1,4 @@
-\documentclass[a4paper,12pt]{report}
+\textit{\documentclass[a4paper,12pt]{report}
 
 \usepackage{alltt, fancyvrb, url}
 \usepackage{graphicx}
@@ -131,34 +131,196 @@ In \Cref{img:goodarch} è esemplificato il diagramma UML architetturale.
 {TODO}
 
 \subsection*{Andrea Dotti}
-{TODO}
+
+\paragraph{Problema} Occorre un ``controller" per l'utente in modo da interagire con il programma (ad esempio per muovere il player). 
+\paragraph{Soluzione} La linea guida per soluzione che abbiamo deciso di seguire prende spunto dal pattern mostratoci dal professor. Ricci: \url{https://github.com/aricci303/game-as-a-lab/tree/master/Game-As-A-Lab-Step-7-mosquito-AI/src/rollball/input}. Questa parte del progetto era una dei tre fondamenti del pattern MVC, ovvero la logica di aggiornamento dall'esterno (in-put) della parte del model. Ho creato una interfaccia InputController con i metodi per controllare le quattro direzioni. La KeyboardInputController implementa l'interfaccia precedentemente descritta e la estende con due metodi per aggiornare la premuta / il rilascio dei tasti che definiscono le direzioni. Ho deciso di creare questa classe sufficientemente generica in modo che potesse essere usata per l'input da tastiera sia del movimento che per sparare i proiettili. Successivamente ho creato l'interfaccia dell'InputComponent con il metodo update, il quale viene in seguito implementato dalle due sottoclassi PlayerInputComponent e ShotInputComponent. Questo metodo è molto importante perché va effettivamente a legare l'input dall'InputController al model. Infatti le sottoclassi implementano rispettivamente il loro update che effettua azioni differenti in base alle informazioni che arrivano dal controller. Il Player contiene nei sui campi i due controller, per il movimento e per lo sparo.
+\begin{figure}[H]
+    \centering{}
+    \includegraphics[scale=0.4]{diagram/InputComponent.png}
+    \caption{Rappresentazione UML della parte di Controller del pattern MVC}
+    \label{img:InputComponent}
+\end{figure}
+
+\paragraph{Problema} Occorre un altro ``controller" all'utente per cambiare stanza e per mettere in pausa il gioco. 
+\paragraph{Soluzione} Analogamente al pattern seguito in precenza ho creato un nuovo controller, che si differenzia dal precedente per il tipo di notifica di cui deve tenere traccia anche se il principio di design rimane lo stesso. Qui ad esempio le azioni non sono continuative, ma si potrebbero definire atomiche perché avvengono istantaneamente se le condizioni richieste in seguito nella parte che fa da ponte tra controller e model (ActionComponent) sono soddisfatte.
+\begin{figure}[H]
+    \centering{}
+    \includegraphics[scale=0.4]{diagram/ActionComponent.png}
+    \caption{Rappresentazione UML della parte di ActionController}
+    \label{img:ActionComponent}
+\end{figure}
+
+\paragraph{Problema} Occorre schierare diversi tipi di elementi (es. enemy, boss, items ecc.) all'interno di una stanza, in modo casuale o ordinato in base al tipo di stanza.
+\paragraph{Soluzione} Ho sfruttato la generalizzazione di MapElemet che viene esteso da tutti gli elementi del gioco, in modo che a prescindere dal tipo di elemento si possa andare a settare le sue coordinate all'interno di una stanza di cui vengono passate le dimensioni come parametri del metodo ``setPosition". Dall'interfaccia Spawn ne implemento due sottoclassi diverse (specializzazione), una per gli elementi che devono essere schierati in modo ordinato e una per quello casuale. Sarà poi la Room che dopo aver creato gli elementi chiamerà il metodo della sottoclasse che le serve. Per esempio una ShopRoom e una TreasureRoom andranno a chiamare il metodo dalla classe SpawnOrdered, mentre la stanza di nemici normale andrà chiamare il metodo dalla classe SpawnRandom.
+
+\begin{figure}[H]
+    \centering{}
+    \includegraphics[scale=0.4]{diagram/Spawn.png}
+    \caption{Rappresentazione UML per lo schieramento di MapElemnt dentro la stanza}
+    \label{img:Spawn}
+\end{figure}
+
+\paragraph{Problema} Occorre effettuare l'acquisto dei PowerUp da parte del Player, controllando che quest'ultimo abbia abbastanza monete e nel caso affermativo applicare il PowerUp al Player.
+\paragraph{Soluzione} In questo caso ho creato una interfaccia Shop che definisce il metodo ``buyItem", il quale ha come parametri il Player e un PowerUp. La classe ShopImpl implementa questo metodo andando a controllare la quantità delle monete del player con il costo del PowerUp. Nel caso il Player abbia abbastanza monete avviene l'aquisto andando a rimuovere dalle monete del Player il prezzo del PowerUp e in seguito esegue il metodo ``interact" del PowerUp che applica al Player il potenziamento.
+\begin{figure}[H]
+    \centering{}
+    \includegraphics[scale=0.4]{diagram/Shop.png}
+    \caption{Rappresentazione UML per la funzione di acquisto dei PowerUp da parte del Player}
+    \label{img:Shop}
+\end{figure}
+
+\paragraph{Problema} Occorre effettuare un controllo per capire se avviene una collisione tra due oggetti in uno spazio bidimensionale.
+\paragraph{Soluzione} Per risolvere questo problema abbiamo visionato il progetto del professore Ricci: \url{https://github.com/aricci303/game-as-a-lab/blob/master/Game-As-A-Lab-Step-7-mosquito-AI/src/rollball/model/BoundingBox.java}, rifattorizzandolo in modo oppurtuno. Ho implementato l'interfaccia BoundingBox in due sottoclassi (RectBoundingBox e CircleBoundingBox) che si differenziano per la forma del BoundingBox, uno circolare e uni rettangolare. Entrambi ereditano i metodi isCollidingWithCricle e isCollidingWithRecPerimeter che ovviamente vengono implementati in modo diverso a seconda della sottoclasse.
+\begin{figure}[H]
+    \centering{}
+    \includegraphics[scale=0.4]{diagram/BoundingBox.png}
+    \caption{Rappresentazione UML del controllo collisioni tra due BoundingBox}
+    \label{img:BoundingBox}
+\end{figure}
+
 \subsection*{Daniele Pancottini}
 {TODO}
 
 
 \subsection*{Giacomo Pierbattista}
+
+\paragraph{Problema} Occorre creare una stanza rispettando certi requisiti
+\paragraph{Soluzione} Come descritto nella sezione ``requisiti funzionali'', in questo gioco sono previsti 5 tipi
+di stanza, ognuno con le sue caratteristiche. 
+\\Ho utilizzato il pattern Builder per creare le stanze ``a basso livello'', nel senso che la classe RoomBuilder (insieme alla classe di utility RoomBuilderUtils) si è occupata di creare fisicamente la stanza, nascondendo la logica dietro la creazione della stanza stessa. 
+In questo modo, le altre classi non hanno bisogno di sapere come deve essere costruita una stanza. 
+RoomBuilder crea un stanza usando il cosiddetto ``fluent style'' \footnote{\url{https://en.wikipedia.org/wiki/Fluent_interface}}: 
+per costruire una stanza è necessario innanzitutto chiamare i metodi obbligatori (necessari per tutti i tipi di stanza); successivamente, a seconda della stanza da creare, devono essere chiamati gli altri metodi
+che si occuperanno di impostare le caratteristiche rimanenti.
+Chiamando il metodo \texttt{build()} la stanza verrà effettivamente
+creata solo se la configurazione è corretta.
+\\Il pattern Builder, quindi, porta alcuni vantaggi:
+\begin{itemize}
+    \item non vengono mai create stanze mal configurate 
+    \item nasconde la logica dietro la creazione della stanza stessa
+    \item è possibile cambiare la configurazione della stanza (e i relativi controlli).
+\end{itemize}
+\begin{figure}[H]
+    \centering{}
+    \includegraphics[scale=0.5]{diagram/roombuilder.png}
+    \caption{Rappresentazione UML del pattern Builder per la creazione delle stanze a ``basso livello''}
+    \label{img:roomBuilder}
+\end{figure}
+
+\paragraph{Problema} Occorre creare un numero random di stanze, ognuna con le sue caratteristiche, nascondendone la logica.
+\paragraph{Soluzione} Nel punto precedente, RoomBuilder crea le stanze a ``basso livello''; occorre qualcosa che permetta di istanziarle ad ``alto livello'', incapsulando la procedura di creazione delle stesse. 
+\\Ho utilizzato il pattern Factory Method: l'interfaccia RoomFactory offre un metodo
+per creare ogni tipo di stanza (\texttt{buildStartRoom(), buildStandardRoom()...}),
+più un metodo ``intelligente'' \texttt{buildRoomInProperOrder()}, che crea una stanza del tipo appropriato ogni volta che viene chiamato.
+\\RoomFactory, per creare le stanze, si appoggia a RoomBuilder precedentemente descritto: in RoomFactory è incapsulata la procedura per la creazione delle stanze, 
+mentre RoomBuilder si limita a creare le stanze, seguendo le indicazioni contenute in RoomFactory.
+
+\begin{figure}[H]
+    \centering{}
+    \includegraphics[scale=0.5]{diagram/roomFactory.png}
+    \caption{Rappresentazione UML del pattern Factory Method per la creazione delle stanze ad ``alto livello''}
+    \label{img:roomFactory}
+\end{figure}
+
+
 \subsubsection{Creazione delle stanze}
-\paragraph{Problema} Le varie stanze hanno bisogno di una coordinata all'interno del livello.
-\paragraph{Soluzione} Poiché tutte le entità del gioco (nemici, powerup, item e giocatore) hanno una coordinata,
+\paragraph{Problema} Le stanze hanno bisogno di una coordinata all'interno del livello.
+\paragraph{Soluzione} Poiché tutte le entità del gioco (nemici, powerup e item) hanno una coordinata,
 è stata creata l'interfaccia MapElement, che permette di avere un getter e un setter per la coordinata. 
+L'interfaccia Room estende MapElement, in modo tale che le entità di cui sopra e 
+le stanze abbiano lo stesso metodo per accedere e settare la coordinata, evitando
+così inutili ripetizioni codice e rispettando il principio DRY - Don't Repeat Yourself.
+\begin{figure}[H]
+    \centering{}
+    \includegraphics[scale=0.5]{diagram/mapelement.png}
+    \caption{Rappresentazione UML dell'interfaccia Room che estende l'interfaccia MapElement, per ereditarne i metodi evitando ripetizioni}
+    \label{img:mapelement}
+\end{figure}
 
-
-\paragraph{Problema} Occorre creare un numero random di stanze, ognuna con caratteristiche ben definite.
-\paragraph{Soluzione} Ho utilizzato il pattern Builder, il quale implementa ``a basso livello'' la costruzione
-di una stanza, nascondendo la logica dietro la creazione della stanza stessa. Questo builder permette di creare 
-un stanza usando il cosiddetto ``fluent style'': per costruire una stanza è necessario innanzitutto chiamare i metodi definiti
-obbligatori (necessari per tutti i tipi di stanza); successivamente, a seconda della stanza da creare, si possono chiamare altri metodi
-che ..
 
 \subsubsection{Creazione del mondo di gioco (livello/level)}
-\paragraph{Problema} E' necessario creare il livello in modo dinamico.
+\paragraph{Problema} E' necessario creare il livello in modo dinamico, nascondendone
+la logica.
+\paragraph{Soluzione} Anche in questo caso ho utilizzato il pattern Factory Method.
+Infatti, LevelFactory si occupa di creare un livello attraverso il 
+metodo \texttt{createLevel()}, ma internamente usa il metodo \texttt{buildRoomInProperOrder()} di RoomFactory per creare le stanze richieste, il quale, a sua volta, si occuperà di costruire e restituire la stanza appropriata.
+In questo modo, anche il livello viene creato senza che le altri classi si preoccupino di come farlo effetivamente.
 
-\paragraph{Soluzione}
+\begin{figure}[H]
+    \centering{}
+    \includegraphics[scale=0.5]{diagram/levelFactory.png}
+    \caption{Rappresentazione UML del pattern Factory Method per la creazione dei livelli}
+    \label{img:levelFactory}
+\end{figure}
 
+\subsubsection{Gestione di un livello}
+\paragraph{Problema} Gestire lo stato di un livello
+\paragraph{Soluzione} La stanza è l'unità fondamentale di gioco: tutto si svolge al suo interno. Nel mondo di gioco esistono più stanze: le stanze nel loro insieme costituiscono il ``livello''. 
+\\Il livello gestisce il suo stato interno (cioè riesce a determinare in quale stanza si trova il giocatore, se una certa stanza è completa, se tutto il livello è completo).
+\footnote{Una stanza è completa se non sono rimasti nemici da sconfiggere; \\un livello è completo se tutte le stanze che lo compongono sono complete.}
 
+\begin{figure}[H]
+    \centering{}
+    \includegraphics[scale=0.5]{diagram/minimapLevel.png}
+    \caption{Rappresentazione UML del }
+    \label{img:minimapLevel}
+\end{figure}
+
+\subsubsection{Gestione di più livelli}
+\paragraph{Problema} Gestire più livelli dinamicamente
+\paragraph{Soluzione} Come descritto precedentemente, un singolo livello riesce a 
+gestire il suo stato. 
+Ho progettato l'interfaccia LevelController pensando di generalizzare il più possibile: un LevelController, infatti, può gestire più livelli, che idealmente vengono giocati uno dopo l'altro.
+Questa funzionalità, però, non è stata implementata completamente in quanto era
+prevista come requisito opzionale, e per mancanza di tempo non è stata inserita
+effettivamente nel gioco.
+Un LevelController si occupa di creare uno o più livelli, a seconda della configurazione interna, utilizzando la LevelFactory: anche in questo caso ho
+delegato la creazione di un oggetto a una classe/interfaccia apposita.
+
+\begin{figure}[H]
+    \centering{}
+    \includegraphics[scale=0.5]{diagram/levelController.png}
+    \caption{Rappresentazione UML del }
+    \label{img:levelController}
+\end{figure}
 
 \subsection*{Dilaver Shtini}
-{TODO}
+\subsubsection{Creazione e gestione del Player}
+\paragraph{Problema}
+Il concetto di sparo è in comune anche con i nemici e il boss, quindi, non può essere specifico solo per il player, deve essere generico, inoltre il movimento deve essere gestito diversamente da quello dei nemici.
+\paragraph{Soluzione}
+Per lo sparo viene utilizzato il pattern “Strategy” dove viene creata un’interfaccia funzionale con il metodo “hit” e due sottoclassi che la implementano, “NonshootingHitStrategy” e “ShootingHitStrategy”, così da poter essere utilizzato sia dal player, il quale userà lo “ShootingHitStrategy”, che dai nemici, che sono di tue tipi, e dal boss, che, come il player, utilizzerà lo “ShootingHitStrategy”.                          Per il movimento invece viene creata un’interfaccia “MapElement”, che viene usata da tutti gli elementi che hanno una posizione nella mappa, per gestire le coordinate, che viene implementata da una classe astratta “AbstractMapElement”, la quale aggiunge il raggio e il boundingBox, estesa dal player.
+\newpage
+\begin{figure}
+    \centering{}
+    \includegraphics[scale=0.5]{diagram/player.png}
+    \caption{Creazione del player}
+    \label{player}
+\end{figure}
+\begin{figure}
+    \centering{}
+    \includegraphics[scale=0.5]{diagram/hitStrategy.png}
+    \caption{Pattern strategy per il colpo}
+    \label{player}
+\end{figure}
+\newpage
+\subsubsection{Creazione e gestione del Boss}
+\paragraph{Problema}
+Gestire il cambio del tipo di movimento e lo sparo.
+\paragraph{Soluzione}
+Per il movimento dei nemici, quindi anche del Boss, viene utilizzato il pattern “Strategy” creando un’interfaccia funzionale con il metodo “move”, implementata poi dai due tipi di movimento: “NonShootingMovementStrategy” e “ShootingMovementStrategy”, che prende in ingresso la posizione attuale del nemico e la posizione del player, ovvero la posizione verso cui andrà il nemico nella modalità “NonShootingMovementStrategy”. Nel Boss, inoltre, si crea una mappa per gestire i due tipi di movimento e un metodo, “changeMode”, che si appresta al cambio del tipo ogni n secondi. Per lo sparo invece, simile al Player, si crea la strategia di tipo “ShootingHitStrategy”.
+\begin{figure}
+    \centering{}
+    \includegraphics[scale=0.5]{diagram/boss.png}
+    \caption{Creazione del boss}
+    \label{Boss}
+\end{figure}
+\begin{figure}
+    \centering{}
+    \includegraphics[scale=0.5]{diagram/movementStrategy.png}
+    \caption{Pattern strategy per il movimento}
+    \label{Boss}
+\end{figure}
 
 \subsection*{Esempio minimale (e quindi parziale) di sezione di progetto con UML ben realizzati}
 
@@ -292,13 +454,12 @@ In autonomia, ho sviluppato
 \end{itemize}
 Ho sviluppato: 
 \begin{itemize}
-    \item in collaborazione con Daniele Pancottini: \begin{verbatim}it.unibo.isaccoop.graphics.factory.* \end{verbatim}
-    \item in collaborazione con Andrea Dotti \begin{verbatim}it.unibo.isaccoop.model.boundingBox.* \end{verbatim}
-    \item in collaborazione con Daniele Pancottini e Andrea Dotti:  
-    \begin{itemize}
+    \item in collaborazione con Daniele Pancottini: 
+        \begin{itemize}
         \item \begin{verbatim}it.unibo.isaccoop.model.creator.* \end{verbatim} 
-        \item \begin{verbatim}it.unibo.isaccoop.model.collision.* \end{verbatim}
+        \item \begin{verbatim}it.unibo.isaccoop.graphics.factory.* \end{verbatim}
     \end{itemize}
+    \item in collaborazione con Daniele Pancottini e Andrea Dotti \item \begin{verbatim}it.unibo.isaccoop.model.collision.* \end{verbatim}
 \end{itemize} 
 
 \subsection*{Andrea Dotti}
@@ -310,21 +471,21 @@ In autonomia ho sviluppato:
     \item \begin{verbatim}Shop.java e ShopImpl.java \end{verbatim}
     \item \begin{verbatim}it.unibo.isaccoop.input.* \end{verbatim}
     \item \begin{verbatim}it.unibo.isaccoop.model.spawn.* \end{verbatim}
+    \item \begin{verbatim}it.unibo.isaccoop.model.boundingBox.* \end{verbatim}
 \end{itemize}
 Ho sviluppato: 
 \begin{itemize}
-    \item in collaborazione con Marco Costantini \begin{verbatim}it.unibo.isaccoop.model.boundingBox.* \end{verbatim}
-    \item in collaborazione con Marco Costantini e Daniele Pancottini:
-    \begin{itemize}
-        \item \begin{verbatim}it.unibo.isaccoop.model.collision.* \end{verbatim}
-        \item \begin{verbatim}it.unibo.isaccoop.model.creator.* \end{verbatim}
-    \end{itemize}
+    \item in collaborazione con Marco Costantini e Daniele Pancottini \item \begin{verbatim}it.unibo.isaccoop.model.collision.* \end{verbatim}
 \end{itemize}
 
 \subsection*{Daniele Pancottini}
 Ho sviluppato:
 \begin{itemize}
-    \item in collaborazione con Marco Costantini \begin{verbatim}it.unibo.isaccoop.graphics.factory.* \end{verbatim}
+    \item in collaborazione con Marco Costantini 
+    \begin{itemize}
+        \item \begin{verbatim}it.unibo.isaccoop.graphics.factory.* \end{verbatim}
+        \item \begin{verbatim}it.unibo.isaccoop.model.creator.* \end{verbatim}
+    \end{itemize}
     \item in collaborazione con Dilaver Shtini 
     \begin{itemize}
         \item \begin{verbatim}it.unibo.isaccoop.model.action.* \end{verbatim}
@@ -332,11 +493,7 @@ Ho sviluppato:
         \item \begin{verbatim}it.unibo.isaccoop.model.enemy.* \end{verbatim}
         \item \begin{verbatim}it.unibo.isaccoop.model.weapon.* \end{verbatim}
     \end{itemize}
-    \item in collaborazione con Marco Costantini e Andrea Dotti
-    \begin{itemize}
-        \item \begin{verbatim}it.unibo.isaccoop.model.collision.* \end{verbatim}
-        \item \begin{verbatim}it.unibo.isaccoop.model.creator.* \end{verbatim}
-    \end{itemize}
+    \item in collaborazione con Marco Costantini e Andrea Dotti \begin{verbatim}it.unibo.isaccoop.model.collision.* \end{verbatim}
     \item la funzione di pausa in GameLoopImpl.java
 \end{itemize}
 
@@ -390,8 +547,18 @@ per poter eseguire la build del progetto.
 {TODO}
 
 \subsection*{Andrea Dotti}
-{TODO}
-
+Nello sviluppo ho utilizzato
+\begin{itemize}
+\item \textbf{Stream} ad esempio in: 
+    \begin{itemize}
+        \item in SpawnOrdered.java \url{https://github.com/jackprb/OOP22-isaccoop/blob/master/src/main/java/it/unibo/isaccoop/model/spawn/SpawnOrdered.java#L28}
+        \item in CollisionCheckFactoryImpl.java \url{https://github.com/jackprb/OOP22-isaccoop/blob/master/src/main/java/it/unibo/isaccoop/model/collision/CollisionCheckFactoryImpl.java#L56}
+    \end{itemize}
+\item \textbf{Lambda}     
+    \begin{itemize}
+        \item in RoomImpl.java \url{https://github.com/jackprb/OOP22-isaccoop/blob/master/src/main/java/it/unibo/isaccoop/model/room/RoomImpl.java#L210}
+    \end{itemize}
+\end{itemize}
 \subsection*{Daniele Pancottini}
 {TODO}
 
@@ -427,8 +594,14 @@ Per ridimensionare un Jframe a seconda della risoluzione dello schermo in Abstra
 \\\url{https://github.com/unibo-oop/lab08/blob/solutions/83-mvc-io/src/main/java/it/unibo/mvc/SimpleGUI.java#L83} (linee 83-102).
 
 \subsection*{Dilaver Shtini}
+Nello sviluppo ho utilizzato
 {TODO}
-
+\begin{itemize}
+\item \textbf{Lambda} ad esempio in:
+    \begin{itemize}
+        \item \url{https://github.com/jackprb/OOP22-isaccoop/blob/master/src/main/java/it/unibo/isaccoop/model/player/Player.java#L38}
+    \end{itemize}
+\end{itemize}
 
 
 \chapter{Commenti finali}
@@ -451,7 +624,19 @@ Questo progetto mi ha permesso di imparare sul campo l'uso di un DVCS (Git), che
 in altri corsi in modo più semplice.
 
 \subsection*{Dilaver Shtini}
-{TODO}
+Questa è stata la mia prima esperienza per quanto riguarda la realizzazione di un software,
+ho capito subito le mie limitazioni, dettate anche dalla poca esperienza, ma lavorare in gruppo
+mi ha aiutato molto a comprendere nuovi modi di riflettere e affrontare problemi. Lavorare in gruppo
+mi ha permesso di approfondire un tool comodo per gruppi di lavoro come git, che permettere di lavorare
+in sincrono con gli altri membri del gruppo ed evitare di lavorare in maniera indipendente.
+In questo progetto ho appreso l’importanza di una buona progettazione iniziale per la buona riuscita
+del software, infatti, ho dovuto rivedere e correggere la progettazione degli aspetti da me implementati
+sia per motivi semantici che per esigenze riscontrate durante la realizzazione del software.
+In conclusione, penso di aver aiutato il gruppo per il completamento dell’applicazione,
+in quanto ho partecipato alla progettazione inziale e alla maggior parte dei problemi che
+sono stati rinvenuti durante l’implementazione con discussioni e scambio di opinioni.
+Per quanto riguarda la mia parte non sono pienamente soddisfatto perché non ho potuto sfruttare appieno
+le potenzialità offerte da java optando avvolte per la soluzione più semplice rispetto alla più corretta e pulita.
 
 
 \section{Difficoltà incontrate e commenti per i docenti}
@@ -477,7 +662,11 @@ Un problema che ho riscontrato è stata la teoria riguardante UML e la realizzaz
 
 
 \subsection*{Dilaver Shtini}
-{TODO}
+Sicuramente è stato il progetto più impegnativo fin'ora affrontato, farlo in gruppo è di certo un grande aiuto,
+non solo per la realizzazione dell'applicazione in sè ma anche per crescere e aumentare/migliorare le proprie conoscenze.
+Ho avuto difficoltà nell'avvio del progetto, ho dovuto riguardare vari concetti della programmazione ad oggetti,
+come  ad esempio l'uso dei generici. Sono soddisfatto di questo corso perchè, almeno personalmente, ha aiutato a capire,
+specialmente con il progetto, dinamiche che prima non consideravo.
 
 
 \appendix
@@ -592,4 +781,4 @@ ovunque sopra la mappa di gioco.
     \item Nella fase di analisi abbiamo preso spunto dalla repository del prof. Alessandro Ricci. 
     \\\url{https://github.com/pslab-unibo/oop-game-prog-patterns-2022} 
 \end{itemize}
-\end{document}
+\end{document}}
