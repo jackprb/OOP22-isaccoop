@@ -29,27 +29,27 @@ Il software mira a realizzare un gioco roguelike liberamente ispirato a ``The Bi
 \begin{itemize}
     \item Il protagonista inizierà la partita in una stanza iniziale vuota.
     \\Il giocatore può:
-        \begin{itemize}
-            \item muoversi liberamente all'interno di ogni stanza e sparare ``sfere di energia''
-            \item passare da una stanza all'altra, solo dopo aver sconfitto tutti i \textbf{nemici} che si trovano al suo interno, se presenti
-            \item raccogliere monete e cuori (``\textbf{item}'') sparsi nelle varie stanze, se presenti
-            \item acquisire una vita raccogliendo i cuori sparsi nelle stanze
-            \item comprare potenziamenti (\textbf{powerup}) nell'apposito negozio (\textbf{shop room}), usando le monete raccolte precedentemente
-            \item raccogliere un powerup gratis nella stanza \textbf{treasure room}
-            \item perdere una vita ogni volta che viene colpito da un nemico o da un proiettile lanciato da esso
-            \item visualizzare la struttura del livello giocato nella \textbf{minimappa} per sapere in quale stanza si trova e vedere quali sono state completate
-            \item visualizzare le sue (\textbf{``statistiche/caratteristiche"}), ad esempio: il numero di vite rimaste (indicate dai cuori), di monete raccolte, quanto danno riesce a infliggere ai nemici...
-            \item il gioco finisce (game over) se il giocatore perde tutte le sue vite/cuori o quando sconfigge tutti i nemici in tutte le stanze, compreso il boss finale
-        \end{itemize}
+    \begin{itemize}
+        \item muoversi liberamente all'interno di ogni stanza e sparare ``sfere di energia''
+        \item passare da una stanza all'altra, solo dopo aver sconfitto tutti i \textbf{nemici} che si trovano al suo interno, se presenti
+        \item raccogliere monete e cuori (``\textbf{item}'') sparsi nelle varie stanze, se presenti
+        \item acquisire una vita raccogliendo i cuori sparsi nelle stanze
+        \item comprare potenziamenti (\textbf{powerup}) nell'apposito negozio (\textbf{shop room}), usando le monete raccolte precedentemente
+        \item raccogliere un powerup gratis nella stanza \textbf{treasure room}
+        \item perdere una vita ogni volta che viene colpito da un nemico o da un proiettile lanciato da esso
+        \item visualizzare la struttura del livello giocato nella \textbf{minimappa} per sapere in quale stanza si trova e vedere quali sono state completate
+        \item visualizzare le sue (\textbf{``statistiche/caratteristiche"}), ad esempio: il numero di vite rimaste (indicate dai cuori), di monete raccolte, quanto danno riesce a infliggere ai nemici...
+        \item il gioco finisce (game over) se il giocatore perde tutte le sue vite/cuori o quando sconfigge tutti i nemici in tutte le stanze, compreso il boss finale
+    \end{itemize}
 
     \item Nel gioco vi sono cinque tipi di stanze:
-        \begin{itemize}
-            \item \textbf{START}: stanza iniziale vuota in cui il giocatore si trova all'inizio della partita
-            \item \textbf{TREASURE}: stanza in cui si trova un powerup gratuito, che il giocatore può raccogliere per sconfiggere più facilmente i nemici
-            \item \textbf{SHOP}: stanza in cui il giocatore può spendere le monete raccolte precedentemente per comprare altri powerup
-            \item \textbf{STANDARD}: stanza in cui si trovano dei nemici e da cui il giocatore può uscire solo dopo averli sconfitti tutti
-            \item \textbf{BOSS}: stanza in cui si trova il boss finale; una volta sconfitto, la partita termina.
-        \end{itemize}
+    \begin{itemize}
+        \item \textbf{START}: stanza iniziale vuota in cui il giocatore si trova all'inizio della partita
+        \item \textbf{TREASURE}: stanza in cui si trova un powerup gratuito, che il giocatore può raccogliere per sconfiggere più facilmente i nemici
+        \item \textbf{SHOP}: stanza in cui il giocatore può spendere le monete raccolte precedentemente per comprare altri powerup
+        \item \textbf{STANDARD}: stanza in cui si trovano dei nemici e da cui il giocatore può uscire solo dopo averli sconfitti tutti
+        \item \textbf{BOSS}: stanza in cui si trova il boss finale; una volta sconfitto, la partita termina.
+    \end{itemize}
     \item Una semplice AI (Artificial Intelligence) gestirà i movimenti e gli attacchi dei nemici e del boss finale, i quali cercheranno di colpire il giocatore. Per AI si intende un semplice software che gestisce il movimento e il comportamento dei nemici.
     \item Implementazione della guida/tutorial al gioco, visualizzabile nel menu di gioco prima di iniziare una partita
     \item Gestione della pausa durante il gioco
@@ -63,7 +63,7 @@ Il software mira a realizzare un gioco roguelike liberamente ispirato a ``The Bi
     \item impostazioni di gioco (esempi a titolo indicativo e non esaustivo): \begin{itemize}
         \item scelta del numero minimo e massimo delle stanze che possono formare un livello
         \item numero di livelli da giocare in una partita
-    \end{itemize} 
+    \end{itemize}
 \end{itemize}
 
 \subsection*{Requisiti non funzionali}
@@ -76,23 +76,24 @@ Il software mira a realizzare un gioco roguelike liberamente ispirato a ``The Bi
 \section{Analisi e modello del dominio}
 Il software permetterà al giocatore di avviare una sessione di gioco, che gestirà l'avanzamento del personaggio principale attraverso le varie stanze che formano il mondo di gioco (\textbf{``livello/level''}).
 In un livello sono presenti un numero semicasuale di stanze; in alcune di esse saranno presenti i ``nemici'' da sconfiggere e gli ``item'', mentre in altre si potranno comprare/raccogliere i ``powerup''.
-Una volta entrato in una stanza in cui si trovano i nemici, il giocatore dovrà sconfiggerli tutti per poter passare ad un altra.
-I nemici saranno gestiti da una semplice AI (come descritto precedentemente) e cercheranno di attaccare e uccidere il giocatore. 
-Per sconfiggere tali nemici, il giocatore spara le ``sfere di energia''. Utilizzando i powerup raccolti o comprati nello shop, il giocatore può sconfiggere più facilmente i nemici. 
+Una volta entrato in una stanza in cui si trovano i nemici, il giocatore dovrà sconfiggerli tutti per poter passare ad un altra stanza.
+I nemici saranno gestiti da una semplice AI (come descritto precedentemente) i quali cercheranno di attaccare e uccidere il giocatore.
+Per sconfiggere tali nemici, il giocatore spara le ``sfere di energia''.
+Utilizzando i powerup raccolti o comprati nello shop, il giocatore può sconfiggere più facilmente i nemici.
 Il giocatore perde una vita (indicate con i cuori/``hearts'') ogni volta che viene colpito da un nemico o da un proiettile sparato da esso.
 Il gioco terminerà se il giocatore perde tutte le vite.
 
-Le challenge principali di questo progetto sono:
+Le challenge principali di questo progetto sono state:
 \begin{itemize}
     \item gestione delle collisioni tra protagonista, item, powerup, nemici e muri delle stanze
-    \item creazione dinamica delle stanze e con dei nemici al loro interno
+    \item creazione dinamica delle stanze con nemici al loro interno
 \end{itemize}
 
 \begin{figure}[H]
-\centering{}
-\includegraphics{img/analysis.pdf}
-\caption{Schema UML dell'analisi del problema, con rappresentate le entità principali ed i rapporti fra loro}
-\label{img:analysis}
+    \centering{}
+    \includegraphics{img/analysis.pdf}
+    \caption{Schema UML dell'analisi del problema, con rappresentate le entità principali ed i rapporti fra loro}
+    \label{img:analysis}
 \end{figure}
 
 
@@ -100,21 +101,24 @@ Le challenge principali di questo progetto sono:
 \section{Architettura}
 Nella progettazione, si è scelto di adottare il pattern architetturale MVC.
 \begin{itemize}
-	\item \textbf{Model}: ?
-	\item \textbf{Controller}:
-	 GameEngine?
-	\item \textbf{View}:
-	GameScene e Graphics.?
+    \item \textbf{Model}: ?
+    \item \textbf{Controller}: L'interfaccia GameEngine si occupa di gestire {TODO}
+    \item \textbf{View}: l'interfaccia Scene.java rappresenta {TODO},
+        mentre l'interfaccia Graphics si occupa di renderizzare giocatore, nemici, powerup e item sulla mappa di gioco.
 \end{itemize}
 
-L'utilizzo di MVC consente di cambiare la tecnologia alla base della View senza modificare né Model né Controller del software: infatti sarà necessario cambiare l'implementazione dei file {TODO quali?} utilizzando la nuova tecnologia, sostituendo così l'implementazione attuale basata sul framework Swing con la nuova tecnologia scelta.
+L'utilizzo di MVC consente di cambiare la tecnologia alla base della View senza modificare
+né Model né Controller del software:
+infatti sarà necessario cambiare l'implementazione dei file SwingScene, SwingGraphics e degli altri file
+che contengono l'implementazione delle altre GUI realizzate, utilizzando la nuova tecnologia,
+sostituendo così l'implementazione attuale basata sul framework Swing con la nuova tecnologia scelta.
 
 
 \begin{figure}[h]
-\centering{}
-\includegraphics[width=\textwidth]{img/arch}
-\caption{Schema UML architetturale di GLaDOS. L'interfaccia \texttt{GLaDOS} è il controller del sistema, mentre \texttt{Input} ed \texttt{Output} sono le interfacce che mappano la view (o, più correttamente in questo specifico esempio, il boundary). Un'eventuale interfaccia grafica interattiva dovrà implementarle entrambe.}
-\label{img:goodarch}
+    \centering{}
+    \includegraphics[width=\textwidth]{img/arch}
+    \caption{Schema UML architetturale di GLaDOS. L'interfaccia \texttt{GLaDOS} è il controller del sistema, mentre \texttt{Input} ed \texttt{Output} sono le interfacce che mappano la view (o, più correttamente in questo specifico esempio, il boundary). Un'eventuale interfaccia grafica interattiva dovrà implementarle entrambe.}
+    \label{img:goodarch}
 \end{figure}
 
 
@@ -130,22 +134,52 @@ In \Cref{img:goodarch} è esemplificato il diagramma UML architetturale.
 {TODO}
 \subsection*{Daniele Pancottini}
 {TODO}
+
+
 \subsection*{Giacomo Pierbattista}
-{TODO}
-Nello sviluppo di Isaccoop mi sono occupato della creazione della mappa di gioco, costituita da un numero random di stanze,
+\subsubsection{Creazione delle stanze}
+\paragraph{Problema} Le varie stanze hanno bisogno di una coordinata all'interno del livello.
+\paragraph{Soluzione} Poiché tutte le entità del gioco (nemici, powerup, item e giocatore) hanno una coordinata,
+è stata creata l'interfaccia MapElement, che permette di avere un getter e un setter per la coordinata.
+
+
+\paragraph{Problema} Occorre creare un numero random di stanze, ognuna con caratteristiche ben definite.
+\paragraph{Soluzione} Ho utilizzato il pattern Builder, il quale implementa ``a basso livello'' la costruzione
+di una stanza, nascondendo la logica dietro la creazione della stanza stessa. Questo builder permette di creare
+un stanza usando il cosiddetto ``fluent style'': per costruire una stanza è necessario innanzitutto chiamare i metodi definiti
+obbligatori (necessari per tutti i tipi di stanza); successivamente, a seconda della stanza da creare, si possono chiamare altri metodi
+che ..
+
+\subsubsection{Creazione del mondo di gioco (livello/level)}
+\paragraph{Problema} E' necessario creare il livello in modo dinamico.
+
+\paragraph{Soluzione}
+
+
 
 \subsection*{Dilaver Shtini}
-{TODO}
+\subsubsection{Creazione e gestione del Player}
+\paragraph{Problema}
+Il concetto di sparo è in comune anche con i nemici e il boss, quindi, non può essere specifico solo per il player, deve essere generico, inoltre il movimento deve essere gestito diversamente da quello dei nemici.
+\paragraph{Soluzione}
+Per lo sparo viene utilizzato il pattern “Strategy” dove viene creata un’interfaccia funzionale con il metodo “hit” e due sottoclassi che la implementano, “NonshootingHitStrategy” e “ShootingHitStrategy”, così da poter essere utilizzato sia dal player, il quale userà lo “ShootingHitStrategy”, che dai nemici, che sono di tue tipi, e dal boss, che, come il player, utilizzerà lo “ShootingHitStrategy”.                          Per il movimento invece viene creata un’interfaccia “MapElement”, che viene usata da tutti gli elementi che hanno una posizione nella mappa, per gestire le coordinate, che viene implementata da una classe astratta “AbstractMapElement”, la quale aggiunge il raggio e il boundingBox, estesa dal player.
+
+\subsubsection{Creazione e gestione del Boss}
+\paragraph{Problema}
+Gestire il cambio del tipo di movimento e lo sparo.
+\paragraph{Soluzione}
+Per il movimento dei nemici, quindi anche del Boss, viene utilizzato il pattern “Strategy” creando un’interfaccia funzionale con il metodo “move”, implementata poi dai due tipi di movimento: “NonShootingMovementStrategy” e “ShootingMovementStrategy”, che prende in ingresso la posizione attuale del nemico e la posizione del player, ovvero la posizione verso cui andrà il nemico nella modalità “NonShootingMovementStrategy”. Nel Boss, inoltre, si crea una mappa per gestire i due tipi di movimento e un metodo, “changeMode”, che si appresta al cambio del tipo ogni n secondi. Per lo sparo invece, simile al Player, si crea la strategia di tipo “ShootingHitStrategy”.
+
 
 \subsection*{Esempio minimale (e quindi parziale) di sezione di progetto con UML ben realizzati}
 
 \subsubsection{Personalità intercambiabili}
 
 \begin{figure}[H]
-\centering{}
-\includegraphics[width=\textwidth]{img/strategy}
-\caption{Rappresentazione UML del pattern Strategy per la personalità di GLaDOS}
-\label{img:strategy}
+    \centering{}
+    \includegraphics[width=\textwidth]{img/strategy}
+    \caption{Rappresentazione UML del pattern Strategy per la personalità di GLaDOS}
+    \label{img:strategy}
 \end{figure}
 
 \paragraph{Problema} GLaDOS ha più personalità intercambiabili, la cui presenza deve essere trasparente al client.
@@ -157,10 +191,10 @@ modifica impatta direttamente sul comportamento di GLaDOS.
 \subsubsection{Riuso del codice delle personalità}
 
 \begin{figure}[H]
-\centering{}
-\includegraphics[width=\textwidth]{img/template}
-\caption{Rappresentazione UML dell'applicazione del pattern Template Method alla gerarchia delle Personalità}
-\label{img:template}
+    \centering{}
+    \includegraphics[width=\textwidth]{img/template}
+    \caption{Rappresentazione UML dell'applicazione del pattern Template Method alla gerarchia delle Personalità}
+    \label{img:template}
 \end{figure}
 
 \paragraph{Problema} In fase di sviluppo, sono state sviluppate due personalità, una buona ed una cattiva.
@@ -177,10 +211,10 @@ Il metodo template è \texttt{onSuccess()}, che chiama un metodo astratto e prot
 \subsubsection{Gestione di output multipli}
 
 \begin{figure}[H]
-\centering{}
-\includegraphics[width=.7\textwidth]{img/observer}
-\caption{Il pattern Observer è usato per consentire a GLaDOS di informare tutti i sistemi di output in ascolto}
-\label{img:observer}
+    \centering{}
+    \includegraphics[width=.7\textwidth]{img/observer}
+    \caption{Il pattern Observer è usato per consentire a GLaDOS di informare tutti i sistemi di output in ascolto}
+    \label{img:observer}
 \end{figure}
 
 \paragraph{Problema} Il sistema deve supportare output multipli. In particolare, si richiede che vi sia un logger che stampa a terminale o su file,
@@ -198,10 +232,10 @@ Il suo utilizzo è esemplificato in \Cref{img:observer}
 
 
 \begin{figure}[h]
-\centering{}
-\includegraphics[width=\textwidth]{img/badarch}
-\caption{Schema UML mal fatto e con una pessima descrizione, che non aiuta a capire. Don't try this at home.}
-\label{img:badarch}
+    \centering{}
+    \includegraphics[width=\textwidth]{img/badarch}
+    \caption{Schema UML mal fatto e con una pessima descrizione, che non aiuta a capire. Don't try this at home.}
+    \label{img:badarch}
 \end{figure}
 
 
@@ -242,35 +276,41 @@ il corretto funzionamento di ogni singolo metodo.
 
 
 \section{Metodologia di lavoro}
-Il lavoro è stato diviso tra i componenti del gruppo all'inizio, in modo da permettere a tutti di 
+Il lavoro è stato diviso tra i componenti del gruppo all'inizio, in modo da permettere a tutti di
 lavorare indipendentemente dagli altri il più possibile.
-E' stato necessario riunirsi per discutere sull'implementazione e/o sulla dichiarazione di interfacce e 
+E' stato necessario riunirsi per discutere sull'implementazione e/o sulla dichiarazione di interfacce e
 classi comuni.
 
-Abbiamo utilizzato lo strumento di version control \textbf{Git} per poter sviluppare il software in modo più agevole.
+Abbiamo utilizzato lo strumento di version control \textbf{Git} per poter sviluppare
+il software in modo più agevole.
 \\Il branch principale è stato denominato \textit{master}.
-Dal \textit{master}, sono stati creati vari branch, chiamati ``feature-featureName''; ognuno di essi identificava la feature che doveva essere implementata. 
-La divisione delle feature tra i vari componenti del gruppo è stata tale da permettere a ognuno di lavorare nel proprio branch indipendentemente dagli altri.
-\\Abbiamo lavorato in modo tale che tutte le modifiche venissero apportate nei vari branch ``feature-featureName''; solo dopo aver testato che tutto funzionasse correttamente, tali modifiche sono state unite sul branch \textit{master}.
+Dal \textit{master} sono stati creati vari branch, chiamati ``feature-featureName'';
+ognuno di essi identificava la feature che doveva essere implementata.
+La divisione delle feature tra i vari componenti del gruppo è stata tale da permettere
+a ognuno di lavorare nel proprio branch indipendentemente dagli altri.
+\\Abbiamo lavorato in modo tale che tutte le modifiche venissero apportate nei vari branch
+``feature-featureName''; solo dopo aver testato che tutto funzionasse correttamente,
+tali modifiche sono state unite sul branch \textit{master}.
 \\In questo modo, il software contenuto nel branch \textit{master} funzionava sempre correttamente.
 
+
 \subsection*{Marco Costantini}
-\\In autonomia, ho sviluppato
+In autonomia, ho sviluppato
 \begin{itemize}
     \item \begin{verbatim}it.unibo.isaccoop.core.* \end{verbatim} esclusa la funzione di pausa in GameLoopImpl.java
     \item \begin{verbatim}it.unibo.isaccoop.model.item.* \end{verbatim}
     \item \begin{verbatim}it.unibo.isaccoop.model.powerup.* \end{verbatim}
 \end{itemize}
-Ho sviluppato: 
+Ho sviluppato:
 \begin{itemize}
     \item in collaborazione con Daniele Pancottini: \begin{verbatim}it.unibo.isaccoop.graphics.factory.* \end{verbatim}
     \item in collaborazione con Andrea Dotti \begin{verbatim}it.unibo.isaccoop.model.boundingBox.* \end{verbatim}
-    \item in collaborazione con Daniele Pancottini e Andrea Dotti:  
+    \item in collaborazione con Daniele Pancottini e Andrea Dotti:
     \begin{itemize}
-        \item \begin{verbatim}it.unibo.isaccoop.model.creator.* \end{verbatim} 
+        \item \begin{verbatim}it.unibo.isaccoop.model.creator.* \end{verbatim}
         \item \begin{verbatim}it.unibo.isaccoop.model.collision.* \end{verbatim}
     \end{itemize}
-\end{itemize} 
+\end{itemize}
 
 \subsection*{Andrea Dotti}
 Mi sono concentrato principalmente dello spawn di nemici, powerup e item nelle varie stanze, ho gestito gli input
@@ -282,10 +322,10 @@ In autonomia ho sviluppato:
     \item \begin{verbatim}it.unibo.isaccoop.input.* \end{verbatim}
     \item \begin{verbatim}it.unibo.isaccoop.model.spawn.* \end{verbatim}
 \end{itemize}
-Ho sviluppato: 
+Ho sviluppato:
 \begin{itemize}
-\item in collaborazione con Marco Costantini \begin{verbatim}it.unibo.isaccoop.model.boundingBox.* \end{verbatim}
-\item in collaborazione con Marco Costantini e Daniele Pancottini:
+    \item in collaborazione con Marco Costantini \begin{verbatim}it.unibo.isaccoop.model.boundingBox.* \end{verbatim}
+    \item in collaborazione con Marco Costantini e Daniele Pancottini:
     \begin{itemize}
         \item \begin{verbatim}it.unibo.isaccoop.model.collision.* \end{verbatim}
         \item \begin{verbatim}it.unibo.isaccoop.model.creator.* \end{verbatim}
@@ -296,7 +336,7 @@ Ho sviluppato:
 Ho sviluppato:
 \begin{itemize}
     \item in collaborazione con Marco Costantini \begin{verbatim}it.unibo.isaccoop.graphics.factory.* \end{verbatim}
-    \item in collaborazione con Dilaver Shtini 
+    \item in collaborazione con Dilaver Shtini
     \begin{itemize}
         \item \begin{verbatim}it.unibo.isaccoop.model.action.* \end{verbatim}
         \item \begin{verbatim}it.unibo.isaccoop.model.ai.* \end{verbatim}
@@ -304,25 +344,27 @@ Ho sviluppato:
         \item \begin{verbatim}it.unibo.isaccoop.model.weapon.* \end{verbatim}
     \end{itemize}
     \item in collaborazione con Marco Costantini e Andrea Dotti
-        \begin{itemize}
-            \item \begin{verbatim}it.unibo.isaccoop.model.collision.* \end{verbatim}
-            \item \begin{verbatim}it.unibo.isaccoop.model.creator.* \end{verbatim}
-        \end{itemize}
+    \begin{itemize}
+        \item \begin{verbatim}it.unibo.isaccoop.model.collision.* \end{verbatim}
+        \item \begin{verbatim}it.unibo.isaccoop.model.creator.* \end{verbatim}
+    \end{itemize}
     \item la funzione di pausa in GameLoopImpl.java
 \end{itemize}
 
 \subsection*{Giacomo Pierbattista}
 Mi sono concentrato principalmente sulla progettazione del mondo di gioco (Level) e delle stanze (Room).
-In autonomia, nel model, ho sviluppato le classi contenute nel package 
-\begin{verbatim}it.unibo.isaccoop.model.room.* \end{verbatim} escludendo
-\begin{verbatim}Shop.java e ShopImpl.java, \end{verbatim}
+In autonomia, nel model, ho sviluppato le classi contenute nel package
+\begin{verbatim}it.unibo.isaccoop.model.room.* \end{verbatim} (escludendo Shop.java e ShopImpl.java)
 che implementano quanto segue:
 \begin{itemize}
     \item creazione dinamica della mappa di gioco/livello, costituita da stanze
     \item passaggio del giocatore da una stanza all'altra
     \item minimappa.
 \end{itemize}
-e le enum Direction.java e RoomType.java.
+e le enum Direction.java e RoomType.java contenute nel package
+\begin{verbatim}it.unibo.isaccoop.model.common \end{verbatim}
+che implementano, rispettivamente, il concetto di direzione, utilizzato per il movimento del giocatore e
+dei nemici, e i vari tipi di stanza.
 \\Nella view ho sviluppato quanto segue:
 \begin{itemize}
     \item guida utente (HelpGUI.java)
@@ -337,21 +379,24 @@ In autonomia ho sviluppato:
     \item \begin{verbatim}it.unibo.isaccoop.model.player.* \end{verbatim}
 \end{itemize}
 In collaborazione con Daniele Pancottini ho sviluppato:
-    \begin{itemize}
-        \item \begin{verbatim}it.unibo.isaccoop.model.action.* \end{verbatim}
-        \item \begin{verbatim}it.unibo.isaccoop.model.ai.* \end{verbatim}
-        \item \begin{verbatim}it.unibo.isaccoop.model.enemy.* \end{verbatim}
-        \item \begin{verbatim}it.unibo.isaccoop.model.weapon.* \end{verbatim}
-    \end{itemize}
+\begin{itemize}
+    \item \begin{verbatim}it.unibo.isaccoop.model.action.* \end{verbatim}
+    \item \begin{verbatim}it.unibo.isaccoop.model.ai.* \end{verbatim}
+    \item \begin{verbatim}it.unibo.isaccoop.model.enemy.* \end{verbatim}
+    \item \begin{verbatim}it.unibo.isaccoop.model.weapon.* \end{verbatim}
+\end{itemize}
 
-\subsection*{In collaborazione}
+\subsection*{Parti sviluppate in collaborazione}
 \begin{itemize}
     \item \begin{verbatim}SwingGraphics.java\end{verbatim} e i file rimanenti riguardanti la view
     \item \begin{verbatim}it.unibo.isaccoop.model.common \end{verbatim}
 \end{itemize}
 
 \section{Note di sviluppo}
-Abbiamo iniziato lo sviluppo a partire dalla repository \url{https://github.com/unibo-oop/sample-gradle-project}, compreso il \textbf{Gradle wrapper} fornito, per poter eseguire la build del progetto.
+Abbiamo iniziato lo sviluppo a partire dalla repository
+\\\url{https://github.com/unibo-oop/sample-gradle-project}, compreso il \textbf{Gradle wrapper} fornito,
+per poter eseguire la build del progetto.
+
 \subsection*{Marco Costantini}
 {TODO}
 
@@ -364,23 +409,42 @@ Abbiamo iniziato lo sviluppo a partire dalla repository \url{https://github.com/
 \subsection*{Giacomo Pierbattista}
 Nello sviluppo ho utilizzato
 \begin{itemize}
-    \item \textbf{Optional} in molti file; alcuni esempi
+\item \textbf{Optional} ad esempio in:
     \begin{itemize}
-        \item in RoomBuilder: \url{https://github.com/jackprb/OOP22-isaccoop/blob/master/src/main/java/it/unibo/isaccoop/model/room/RoomBuilder.java#L34}
-        \item in RoomImpl: \url{https://github.com/jackprb/OOP22-isaccoop/blob/master/src/main/java/it/unibo/isaccoop/model/room/RoomImpl.java#L28}
+        \item frequentemente in RoomBuilder.java (da riga 28 in poi) \url{https://github.com/jackprb/OOP22-isaccoop/blob/master/src/main/java/it/unibo/isaccoop/model/room/RoomBuilder.java#L34}
+        \item e in RoomImpl.java (da riga 28 in poi) \url{https://github.com/jackprb/OOP22-isaccoop/blob/master/src/main/java/it/unibo/isaccoop/model/room/RoomImpl.java#L28}
     \end{itemize}
-    \item \textbf{Stream} in molti file, ad esempio in LevelControllerImpl e nei file in cui sono state utilizzate liste e mappe
-    \item \textbf{Lambda} insieme agli stream, in vari file, ad esempio in RoomImpl
-    \item \textbf{Wildcard} in Roombuilder Utils ({TODO} spiega brevemente perché)
+\item \textbf{Stream} ad esempio in:
+    \begin{itemize}
+        \item in LevelTest.java (in vari punti da riga 75 in poi) \url{https://github.com/jackprb/OOP22-isaccoop/blob/master/src/test/java/it/unibo/isaccoop/test/model/room/LevelTest.java#L75}
+        \item in LevelControllerImpl.java (righe 26-28, 58-60) \url{https://github.com/jackprb/OOP22-isaccoop/blob/master/src/main/java/it/unibo/isaccoop/model/room/LevelControllerImpl.java#L26}
+    \end{itemize}
+\item \textbf{Lambda}
+    \begin{itemize}
+        \item in RoomImpl.java (righe 132-133, 151-153) \\\url{https://github.com/jackprb/OOP22-isaccoop/blob/master/src/main/java/it/unibo/isaccoop/model/room/RoomImpl.java#L132}
+    \end{itemize}
+\item \textbf{Wildcard}
+    \begin{itemize}
+        \item in RoomBuilderUtils.java
+    \\\url{https://github.com/jackprb/OOP22-isaccoop/blob/master/src/main/java/it/unibo/isaccoop/model/room/RoomBuilderUtils.java#L107}
+    (linee 107 e 117). \\Nelle signature dei metodi ho utilizzato le wildcard per poter gestire una lista di MapElement e relative sottoclassi.
+    \end{itemize}
 \end{itemize}
-Per poter caricare il file contenente la guida utente dal filesystem, ho utilizzato \textbf{ClassLoader} in HelpGui.java; ho guardato qui 
+
+Per poter caricare il file contenente la guida utente dal filesystem, ho utilizzato \textbf{ClassLoader} in HelpGui.java; ho guardato qui
 \\\url{https://github.com/unibo-oop/example-with-get-resources/blob/master/src/main/java/it/unibo/getresource/UseGetResource.java#L35}.
-\\Per ridimensionare un Jframe a seconda della risoluzione dello schermo in AbstractGUIFrame.java ho guardato qui: 
+
+Per ridimensionare un Jframe a seconda della risoluzione dello schermo in AbstractGUIFrame.java ho guardato qui:
 \\\url{https://github.com/unibo-oop/lab08/blob/solutions/83-mvc-io/src/main/java/it/unibo/mvc/SimpleGUI.java#L83} (linee 83-102).
 
 \subsection*{Dilaver Shtini}
-{TODO}
-
+Nello sviluppo ho utilizzato
+\begin{itemize}
+\item \textbf{Lambda} ad esempio in:
+    \begin{itemize}
+        \item \url{https://github.com/jackprb/OOP22-isaccoop/blob/master/src/main/java/it/unibo/isaccoop/model/player/Player.java#L38}
+    \end{itemize}
+\end{itemize}
 
 
 \chapter{Commenti finali}
@@ -390,16 +454,20 @@ Per poter caricare il file contenente la guida utente dal filesystem, ho utilizz
 {TODO}
 
 \subsection*{Andrea Dotti}
-{TODO}
+Questo progetto è stato sicuramente il più importante tra quelli a cui io ho preso parte, sia dal punto di vista delle dimensioni che della difficoltà. Credo di essere riuscito ad apportare il mio contributo al team. Uno degli aspetti che penso mi sia sarà utile in futuro è l’aver imparato ad utilizzare il DVCS (Git), che mi ha dato la possibilità di apprezzare la grande facilità che offre per lo sviluppo in parallelo del codice, senza che nel mentre avvengano dei conflitti. Ritengo inoltre di poter migliorare ulteriormente e arrivare ad essere un buon progettista/programmatore a oggetti. Durante il progetto ho cercato il pi`u possibile di seguire i fondamenti della programmazione/modellazione a oggetti, come ad esempio la ricerca della massima riusabilità, l’utilizzo di specializzazioni e il principio di design: ”keep it simple”.
 
 \subsection*{Daniele Pancottini}
 {TODO}
 
 \subsection*{Giacomo Pierbattista}
-{TODO}
+Sono nel complesso soddisfatto di come ho realizzato la mia parte di model. Ho cercato di
+progettarla già dall'inizio nel modo più generale possibile, basandomi sui requisiti del dominio.
+Nonostante l'inesperienza, ritengo di aver realizzato codice non perfetto ma migliorabile.
+Questo progetto mi ha permesso di imparare sul campo l'uso di un DVCS (Git), che finora ho usato
+in altri corsi in modo più semplice.
 
 \subsection*{Dilaver Shtini}
-{TODO}
+Questa è stata la mia prima esperienza per quanto riguarda la realizzazione di un software, ho capito subito le mie limitazioni, dettate anche dalla poca esperienza, ma lavorare in gruppo mi ha aiutato molto a comprendere nuovi modi di riflettere e affrontare problemi. Lavorare in gruppo mi ha permesso di approfondire un tool comodo per gruppi di lavoro come git, che permettere di lavorare in sincrono con gli altri membri del gruppo ed evitare di lavorare in maniera indipendente. In questo progetto ho appreso l’importanza di una buona progettazione iniziale per la buona riuscita del software, infatti, ho dovuto rivedere e correggere la progettazione degli aspetti da me implementati sia per motivi semantici che per esigenze riscontrate durante la realizzazione del software. In conclusione, penso di aver aiutato il gruppo per il completamento dell’applicazione, in quanto ho partecipato alla progettazione inziale e alla maggior parte dei problemi che sono stati rinvenuti durante l’implementazione con discussioni e scambio di opinioni. Per quanto riguarda la mia parte non sono pienamente soddisfatto perché non ho potuto sfruttare appieno le potenzialità offerte da java optando avvolte per la soluzione più semplice rispetto alla più corretta e pulita.
 
 
 \section{Difficoltà incontrate e commenti per i docenti}
@@ -407,16 +475,25 @@ Per poter caricare il file contenente la guida utente dal filesystem, ho utilizz
 {TODO}
 
 \subsection*{Andrea Dotti}
-{TODO}
+A mio parere questo corso è uno dei più importanti del corso di laurea, se non il più importante, perché credo che sia quello che richiede dallo studente un maggior carico di lavoro sia durante le lezioni (dove ci si approccia ad un nuovo modo di modellare e pensare che è l'OOP), che individualmente a casa (lo sviluppo di un progetto richiede una conoscenza significativa della modellazione a oggetti oltre all'abilità di riuscire a tradurre in seguito il modello in linguaggio Java).
 
 \subsection*{Daniele Pancottini}
 {TODO}
 
 \subsection*{Giacomo Pierbattista}
-{TODO}
+Per me è stato il primo progetto di gruppo di dimensioni consistenti, che ha richiesto un grande impegno.
+\\Parere sul corso: prevedere un esame in laboratorio più un progetto di gruppo lo rende più
+impegnativo di altri corsi da 12 crediti, ma ne ero consapevole.
+\\Tutto sommato, il corso è stato molto interessante, ma forse alcuni argomenti trattati soffrono di "anzianità":
+potrebbe essere più utile sviscerare le nuove librerie di Java oppure soluzioni equivalenti da librerie di terze parti,
+specialmente se possono essere utili nello sviluppo del progetto.
+Non avevo mai programmato in Java, né in altri linguaggi Object Oriented; ho avuto bisogno
+di un po' di tempo per familiarizzare con le novità di Java, che in altri linguaggi non si trovano.
+Un problema che ho riscontrato è stata la teoria riguardante UML e la realizzazione dei diagrammi delle classi.
+
 
 \subsection*{Dilaver Shtini}
-{TODO}
+Sicuramente è stato il progetto più impegnativo fin'ora affrontato, farlo in gruppo è di certo un grande aiuto, non solo per la realizzazione dell'applicazione in sè ma anche per crescere e aumentare/migliorare le proprie conoscenze. Ho avuto difficoltà nell'avvio del progetto, ho dovuto riguardare vari concetti della programmazione ad oggetti, come  ad esempio l'uso dei generici. Sono soddisfatto di questo corso perchè, almeno personalmente, ha aiutato a capire, specialmente con il progetto, dinamiche che prima non consideravo.
 
 
 \appendix
@@ -426,10 +503,15 @@ Per poter caricare il file contenente la guida utente dal filesystem, ho utilizz
 All'avvio dell'applicativo, l'utente si ritroverà nel menu di gioco, in cui troverà tre pulsanti:
 \begin{itemize}
     \item \textbf{Play} per avviare la partita
-    \item \textbf{Help} per visualizzare la guida utente 
+    \item \textbf{Help} per visualizzare la guida utente
     \item \textbf{Quit} per chiudere il gioco.
 \end{itemize}
-\\{FOTO MENU GIOCO}
+\begin{figure}[h]
+\centering{}
+\includegraphics[width=\textwidth]{img/mainMenu.png}
+\caption{Menu principale}
+\label{img/standardRoom.png}
+\end{figure}
 
 \section*{Modalità di gioco}
 \subsection*{Comandi del giocatore}
@@ -450,15 +532,14 @@ Il giocatore, per sconfiggere nemici, spara le ``onde di energia''
 
 \subsection*{Altri comandi}
 \begin{itemize}
-    \item \textbf{Esc}: mette il gioco in pausa
+    \item \textbf{ESC}: pausa/riprende il gioco
     \item \textbf{P}: il giocatore si sposta nella stanza successiva
     \item \textbf{N}: il giocatore si sposta nella stanza precedente
 \end{itemize}
 
+\newpage
 \subsection*{Schermata di gioco}
 Dopo aver cliccato il pulsante ``Play'' nel menu principale, l'utente visualizzerà la seguente schermata, caratterizzata da due sezioni principali:
-\\{FOTO SCHERMATA DI GIOCO 1 STANZA}
-
 \begin{itemize}
     \item \textbf{la stanza di gioco}, in alto, dove si muovono il giocatore e i nemici
     \item \textbf{la barra di stato}, in basso, dove vengono mostrate, da sinistra verso destra:
@@ -470,13 +551,37 @@ Dopo aver cliccato il pulsante ``Play'' nel menu principale, l'utente visualizze
     \end{itemize}
 \end{itemize}
 
+\begin{figure}[h]
+\centering{}
+\includegraphics[width=\textwidth]{img/emptyRoom.png}
+\caption{La stanza iniziale}
+\label{img/emptyRoom}
+\end{figure}
+
+
+\newpage
+Segue uno screenshot di una stanza in cui sono presenti nemici
+(elefante grigio e pianta rossa e bianca) e item (i cuori).
+\begin{figure}[h]
+\centering{}
+\includegraphics[width=\textwidth]{img/standardRoom.png}
+\caption{Standard room con nemici e item}
+\label{img/standardRoom}
+\end{figure}
+
 Se il giocatore viene colpito dai nemici e perde tutte le vite, la partita terminerà, mostrando la seguente schermata di game over.
-{FOTO SCHERMATA DI GIOCO GAME OVER}
+\begin{figure}[H]
+\centering{}
+\includegraphics[width=\textwidth]{img/gameOver.png}
+\caption{Schermata di game over}
+\label{img/gameover}
+\end{figure}
 
-Quando il giocatore completa tutte le stanze, compresa quella del boss finale, comparirà la seguente schermata
-{FOTO SCHERMATA DI GIOCO GAME COMPLETED}
+Quando il giocatore completa tutte le stanze, compresa quella del boss finale, comparirà una
+schermata simile alla precedente, con la scritta ``GAME COMPLETED".
 
-Sia nel caso di game over, sia nel caso di vittoria, per tornare al menu principale, è sufficiente cliccare ovunque sopra la mappa di gioco.
+Sia nel caso di game over, sia nel caso di vittoria, per tornare al menu principale, è sufficiente cliccare
+ovunque sopra la mappa di gioco.
 
 
 \chapter{Esercitazioni di laboratorio}
@@ -486,21 +591,21 @@ Sia nel caso di game over, sia nel caso di vittoria, per tornare al menu princip
 \subsection{paperon.depaperoni@studio.unibo.it}
 
 \begin{itemize}
- \item Laboratorio 04: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=12345#p123456}
- \item Laboratorio 05: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=22222#p222222}
- \item Laboratorio 06: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=99999#p999999}
- \item Laboratorio 07: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=22222#p222222}
- \item Laboratorio 08: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=99999#p999999}
- \item Laboratorio 09: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=22222#p222222}
- \item Laboratorio 10: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=99999#p999999}
- \item Laboratorio 11: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=22222#p222222}
+    \item Laboratorio 04: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=12345#p123456}
+    \item Laboratorio 05: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=22222#p222222}
+    \item Laboratorio 06: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=99999#p999999}
+    \item Laboratorio 07: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=22222#p222222}
+    \item Laboratorio 08: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=99999#p999999}
+    \item Laboratorio 09: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=22222#p222222}
+    \item Laboratorio 10: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=99999#p999999}
+    \item Laboratorio 11: \url{https://virtuale.unibo.it/mod/forum/discuss.php?d=22222#p222222}
 \end{itemize}
 
 
 \bibliographystyle{alpha}
 \bibliography{13-template}
 \begin{itemize}
-    \item Nella fase di analisi abbiamo preso spunto dalla repository del prof. Alessandro Ricci. 
-    \url{https://github.com/pslab-unibo/oop-game-prog-patterns-2022} 
+    \item Nella fase di analisi abbiamo preso spunto dalla repository del prof. Alessandro Ricci.
+    \\\url{https://github.com/pslab-unibo/oop-game-prog-patterns-2022}
 \end{itemize}
-\end{document}}
+\end{document}
