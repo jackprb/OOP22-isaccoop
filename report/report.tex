@@ -1,4 +1,4 @@
-\textit{\documentclass[a4paper,12pt]{report}
+\documentclass[a4paper,12pt]{report}
 
 \usepackage{alltt, fancyvrb, url}
 \usepackage{graphicx}
@@ -27,7 +27,7 @@ Il software mira a realizzare un gioco roguelike liberamente ispirato a ``The Bi
 
 \subsection*{Requisiti funzionali obbligatori}
 \begin{itemize}
-    \item Il protagonista inizierà la partita in una stanza iniziale vuota.
+    \item Il protagonista comincerà la partita in una stanza iniziale vuota.
     \\Il giocatore può:
     \begin{itemize}
         \item muoversi liberamente all'interno di ogni stanza e sparare ``sfere di energia''
@@ -38,7 +38,7 @@ Il software mira a realizzare un gioco roguelike liberamente ispirato a ``The Bi
         \item raccogliere un powerup gratis nella stanza \textbf{treasure room}
         \item perdere una vita ogni volta che viene colpito da un nemico o da un proiettile lanciato da esso
         \item visualizzare la struttura del livello giocato nella \textbf{minimappa} per sapere in quale stanza si trova e vedere quali sono state completate
-        \item visualizzare le sue (\textbf{``statistiche/caratteristiche"}), ad esempio: il numero di vite rimaste (indicate dai cuori), di monete raccolte, quanto danno riesce a infliggere ai nemici...
+        \item visualizzare le sue \textbf{``statistiche/caratteristiche"}, ad esempio: il numero di vite rimaste (indicate dai cuori), di monete raccolte, quanto danno riesce a infliggere ai nemici...
         \item il gioco finisce (game over) se il giocatore perde tutte le sue vite/cuori o quando sconfigge tutti i nemici in tutte le stanze, compreso il boss finale
     \end{itemize}
     
@@ -86,9 +86,10 @@ Il gioco terminerà se il giocatore perde tutte le vite.
 Le challenge principali di questo progetto sono state:
 \begin{itemize}
     \item gestione delle collisioni tra protagonista, item, powerup, nemici e muri delle stanze
-    \item creazione dinamica delle stanze con nemici al loro interno
+    \item creazione dinamica delle stanze con nemici, powerup e item al loro interno
 \end{itemize}
 
+{TODO}
 \begin{figure}[H]
     \centering{}
     \includegraphics{img/analysis.pdf}
@@ -101,7 +102,7 @@ Le challenge principali di questo progetto sono state:
 \section{Architettura}
 Nella progettazione, si è scelto di adottare il pattern architetturale MVC.
 \begin{itemize}
-    \item \textbf{Model}: ?
+    \item \textbf{Model}: ? TODO
     \item \textbf{Controller}: L'interfaccia GameEngine si occupa di gestire {TODO}
     \item \textbf{View}: l'interfaccia Scene.java rappresenta {TODO}, 
         mentre l'interfaccia Graphics si occupa di renderizzare giocatore, nemici, powerup e item sulla mappa di gioco.
@@ -113,16 +114,13 @@ infatti sarà necessario cambiare l'implementazione dei file SwingScene, SwingGr
 che contengono l'implementazione delle altre GUI realizzate, utilizzando la nuova tecnologia, 
 sostituendo così l'implementazione attuale basata sul framework Swing con la nuova tecnologia scelta.
 
-
+{TODO - UML di MVC}
 \begin{figure}[h]
     \centering{}
     \includegraphics[width=\textwidth]{img/arch}
-    \caption{Schema UML architetturale di GLaDOS. L'interfaccia \texttt{GLaDOS} è il controller del sistema, mentre \texttt{Input} ed \texttt{Output} sono le interfacce che mappano la view (o, più correttamente in questo specifico esempio, il boundary). Un'eventuale interfaccia grafica interattiva dovrà implementarle entrambe.}
-    \label{img:goodarch}
+    \caption{}
+    \label{img:mvc}
 \end{figure}
-
-
-In \Cref{img:goodarch} è esemplificato il diagramma UML architetturale.
 
 
 \section{Design dettagliato}
@@ -170,7 +168,7 @@ In \Cref{img:goodarch} è esemplificato il diagramma UML architetturale.
 \end{figure}
 
 \paragraph{Problema} Occorre effettuare un controllo per capire se avviene una collisione tra due oggetti in uno spazio bidimensionale.
-\paragraph{Soluzione} Per risolvere questo problema abbiamo visionato il progetto del professore Ricci: \url{https://github.com/aricci303/game-as-a-lab/blob/master/Game-As-A-Lab-Step-7-mosquito-AI/src/rollball/model/BoundingBox.java}, rifattorizzandolo in modo oppurtuno. Ho implementato l'interfaccia BoundingBox in due sottoclassi (RectBoundingBox e CircleBoundingBox) che si differenziano per la forma del BoundingBox, uno circolare e uni rettangolare. Entrambi ereditano i metodi isCollidingWithCricle e isCollidingWithRecPerimeter che ovviamente vengono implementati in modo diverso a seconda della sottoclasse.
+\paragraph{Soluzione} Per risolvere questo problema abbiamo visionato il progetto del professor Ricci: \url{https://github.com/aricci303/game-as-a-lab/blob/master/Game-As-A-Lab-Step-7-mosquito-AI/src/rollball/model/BoundingBox.java}, rifattorizzandolo in modo oppurtuno. Ho implementato l'interfaccia BoundingBox in due sottoclassi (RectBoundingBox e CircleBoundingBox) che si differenziano per la forma del BoundingBox, uno circolare e uni rettangolare. Entrambi ereditano i metodi isCollidingWithCricle e isCollidingWithRecPerimeter che ovviamente vengono implementati in modo diverso a seconda della sottoclasse.
 \begin{figure}[H]
     \centering{}
     \includegraphics[scale=0.4]{diagram/BoundingBox.png}
@@ -178,19 +176,22 @@ In \Cref{img:goodarch} è esemplificato il diagramma UML architetturale.
     \label{img:BoundingBox}
 \end{figure}
 
+
 \subsection*{Daniele Pancottini}
 {TODO}
 
 
 \subsection*{Giacomo Pierbattista}
 
+\subsubsection{Creazione delle stanze}
 \paragraph{Problema} Occorre creare una stanza rispettando certi requisiti
 \paragraph{Soluzione} Come descritto nella sezione ``requisiti funzionali'', in questo gioco sono previsti 5 tipi
 di stanza, ognuno con le sue caratteristiche. 
 \\Ho utilizzato il pattern Builder per creare le stanze ``a basso livello'', nel senso che la classe RoomBuilder (insieme alla classe di utility RoomBuilderUtils) si è occupata di creare fisicamente la stanza, nascondendo la logica dietro la creazione della stanza stessa. 
 In questo modo, le altre classi non hanno bisogno di sapere come deve essere costruita una stanza. 
 RoomBuilder crea un stanza usando il cosiddetto ``fluent style'' \footnote{\url{https://en.wikipedia.org/wiki/Fluent_interface}}: 
-per costruire una stanza è necessario innanzitutto chiamare i metodi obbligatori (necessari per tutti i tipi di stanza); successivamente, a seconda della stanza da creare, devono essere chiamati gli altri metodi
+per costruire una stanza è necessario innanzitutto chiamare i metodi obbligatori (necessari per tutti i tipi di stanza); successivamente, 
+a seconda della stanza da creare, devono essere chiamati gli altri metodi
 che si occuperanno di impostare le caratteristiche rimanenti.
 Chiamando il metodo \texttt{build()} la stanza verrà effettivamente
 creata solo se la configurazione è corretta.
@@ -207,14 +208,14 @@ creata solo se la configurazione è corretta.
     \label{img:roomBuilder}
 \end{figure}
 
+
 \paragraph{Problema} Occorre creare un numero random di stanze, ognuna con le sue caratteristiche, nascondendone la logica.
-\paragraph{Soluzione} Nel punto precedente, RoomBuilder crea le stanze a ``basso livello''; occorre qualcosa che permetta di istanziarle ad ``alto livello'', incapsulando la procedura di creazione delle stesse. 
+\paragraph{Soluzione} Nel punto precedente, RoomBuilder crea le stanze a ``basso livello''; occorre qualcosa che permetta
+di istanziarle ad ``alto livello'', incapsulando la procedura di creazione delle stesse. 
 \\Ho utilizzato il pattern Factory Method: l'interfaccia RoomFactory offre un metodo
 per creare ogni tipo di stanza (\texttt{buildStartRoom(), buildStandardRoom()...}),
 più un metodo ``intelligente'' \texttt{buildRoomInProperOrder()}, che crea una stanza del tipo appropriato ogni volta che viene chiamato.
-\\RoomFactory, per creare le stanze, si appoggia a RoomBuilder precedentemente descritto: in RoomFactory è incapsulata la procedura per la creazione delle stanze, 
-mentre RoomBuilder si limita a creare le stanze, seguendo le indicazioni contenute in RoomFactory.
-
+\\RoomFactory, per creare le stanze, si appoggia a RoomBuilder precedentemente descritto: in RoomFactory è incapsulata la procedura per la creazione delle stanze, mentre RoomBuilder si limita a creare le stanze, seguendo le indicazioni contenute in RoomFactory.
 \begin{figure}[H]
     \centering{}
     \includegraphics[scale=0.5]{diagram/roomFactory.png}
@@ -223,13 +224,20 @@ mentre RoomBuilder si limita a creare le stanze, seguendo le indicazioni contenu
 \end{figure}
 
 
-\subsubsection{Creazione delle stanze}
 \paragraph{Problema} Le stanze hanno bisogno di una coordinata all'interno del livello.
 \paragraph{Soluzione} Poiché tutte le entità del gioco (nemici, powerup e item) hanno una coordinata,
 è stata creata l'interfaccia MapElement, che permette di avere un getter e un setter per la coordinata. 
 L'interfaccia Room estende MapElement, in modo tale che le entità di cui sopra e 
 le stanze abbiano lo stesso metodo per accedere e settare la coordinata, evitando
 così inutili ripetizioni codice e rispettando il principio DRY - Don't Repeat Yourself.
+La coordinata è necessaria in quanto indica la posizione della stanza stessa all'interno del Livello.
+Questa scelta è dovuta al fatto che, per trovare una soluzione valida per il contesto, ho immaginato 
+il livello come una griglia 2D, in cui ogni casella ha una coordinata (x, y).
+Per effetto dello sviluppo incrementale, prima abbiamo realizzato un gioco funzionante posizionando 
+in orizzontale le stanze una dietro l'altra (quindi tutte le stanze hanno una coordinata (x, 0), con x $\geq$ 0).
+Per mancanza di tempo, non abbiamo implementato la possibilità di avere un livello con le stanze disposte in una
+griglia 2D, ma le coordinate utili per tale scopo sono rimaste. Tutta la parte di model riguardante le stanze 
+e il livello è stata pensata per poter funzionare anche per livelli con stanze disposte non necessariamente in linea.
 \begin{figure}[H]
     \centering{}
     \includegraphics[scale=0.5]{diagram/mapelement.png}
@@ -239,8 +247,7 @@ così inutili ripetizioni codice e rispettando il principio DRY - Don't Repeat Y
 
 
 \subsubsection{Creazione del mondo di gioco (livello/level)}
-\paragraph{Problema} E' necessario creare il livello in modo dinamico, nascondendone
-la logica.
+\paragraph{Problema} E' necessario creare il livello in modo dinamico, nascondendone la logica.
 \paragraph{Soluzione} Anche in questo caso ho utilizzato il pattern Factory Method.
 Infatti, LevelFactory si occupa di creare un livello attraverso il 
 metodo \texttt{createLevel()}, ma internamente usa il metodo \texttt{buildRoomInProperOrder()} di RoomFactory per creare le stanze richieste, il quale, a sua volta, si occuperà di costruire e restituire la stanza appropriata.
@@ -253,36 +260,42 @@ In questo modo, anche il livello viene creato senza che le altri classi si preoc
     \label{img:levelFactory}
 \end{figure}
 
-\subsubsection{Gestione di un livello}
-\paragraph{Problema} Gestire lo stato di un livello
-\paragraph{Soluzione} La stanza è l'unità fondamentale di gioco: tutto si svolge al suo interno. Nel mondo di gioco esistono più stanze: le stanze nel loro insieme costituiscono il ``livello''. 
-\\Il livello gestisce il suo stato interno (cioè riesce a determinare in quale stanza si trova il giocatore, se una certa stanza è completa, se tutto il livello è completo).
-\footnote{Una stanza è completa se non sono rimasti nemici da sconfiggere; \\un livello è completo se tutte le stanze che lo compongono sono complete.}
 
+\subsubsection{Gestione di un livello}
+\paragraph{Problema} Occorre gestire lo stato di un livello
+\paragraph{Soluzione} La stanza è l'unità fondamentale di gioco: tutto si svolge al suo interno. Nel mondo di gioco esistono più stanze: le stanze nel loro insieme costituiscono il ``livello''. 
+\\Il livello gestisce il suo stato interno (cioè riesce a determinare in quale stanza si trova il giocatore, se una certa stanza è completa, se tutto il livello è completo..).
+\footnote{Una stanza è completa se non sono rimasti nemici da sconfiggere; \\un livello è completo se tutte le stanze che lo compongono sono complete.}
+Ho realizzato anche l'interfaccia Minimap, la quale semplifica l'ottenimento di informazioni riguardanti lo stato del livello stesso,
+che saranno poi mostrate nella GUI (le stanze completate, non completate e quella in cui si trova il giocatore). 
 \begin{figure}[H]
     \centering{}
     \includegraphics[scale=0.5]{diagram/minimapLevel.png}
-    \caption{Rappresentazione UML del }
+    \caption{Rappresentazione UML del Livello che incapsula una Minimap per poter ottenere più facilmente le informazioni riguardanti lo
+    stato del livello}
     \label{img:minimapLevel}
 \end{figure}
 
-\subsubsection{Gestione di più livelli}
-\paragraph{Problema} Gestire più livelli dinamicamente
-\paragraph{Soluzione} Come descritto precedentemente, un singolo livello riesce a 
-gestire il suo stato. 
-Ho progettato l'interfaccia LevelController pensando di generalizzare il più possibile: un LevelController, infatti, può gestire più livelli, che idealmente vengono giocati uno dopo l'altro.
-Questa funzionalità, però, non è stata implementata completamente in quanto era
-prevista come requisito opzionale, e per mancanza di tempo non è stata inserita
-effettivamente nel gioco.
-Un LevelController si occupa di creare uno o più livelli, a seconda della configurazione interna, utilizzando la LevelFactory: anche in questo caso ho
-delegato la creazione di un oggetto a una classe/interfaccia apposita.
 
+\subsubsection{Gestione di più livelli}
+\paragraph{Problema} Occorre gestire più livelli dinamicamente
+\paragraph{Soluzione} Come descritto precedentemente, un singolo livello riesce a gestire il suo stato. 
+Ho progettato l'interfaccia LevelController pensando di generalizzare il più possibile: un LevelController, 
+infatti, può gestire più livelli, che idealmente vengono giocati uno dopo l'altro.
+Quest'ultima funzionalità, però, non è stata implementata completamente in quanto era
+prevista come requisito opzionale, e per mancanza di tempo non è stata inserita effettivamente nel gioco.
+LevelController si occupa di creare uno o più livelli, a seconda della configurazione interna, utilizzando LevelFactory: 
+anche in questo caso ho delegato la creazione di un oggetto a una classe/interfaccia apposita.
+Poiché il LevelController incapsula i vari livelli generati, offre metodi che richiamano direttamente i metodi corrispondenti
+del Level attualmente giocato, mentre altri sono metodi utili nel caso in cui si implementi la gestione effettiva di livelli
+multipli (ad esempio: \texttt{areAllLevelsComplete()}).
 \begin{figure}[H]
     \centering{}
     \includegraphics[scale=0.5]{diagram/levelController.png}
     \caption{Rappresentazione UML del }
     \label{img:levelController}
 \end{figure}
+
 
 \subsection*{Dilaver Shtini}
 \subsubsection{Creazione e gestione del Player}
@@ -295,13 +308,13 @@ Per lo sparo viene utilizzato il pattern “Strategy” dove viene creata un’i
     \centering{}
     \includegraphics[scale=0.5]{diagram/player.png}
     \caption{Creazione del player}
-    \label{player}
+    \label{img:player}
 \end{figure}
 \begin{figure}
     \centering{}
     \includegraphics[scale=0.5]{diagram/hitStrategy.png}
     \caption{Pattern strategy per il colpo}
-    \label{player}
+    \label{img:hitStrategy}
 \end{figure}
 \newpage
 \subsubsection{Creazione e gestione del Boss}
@@ -313,80 +326,13 @@ Per il movimento dei nemici, quindi anche del Boss, viene utilizzato il pattern 
     \centering{}
     \includegraphics[scale=0.5]{diagram/boss.png}
     \caption{Creazione del boss}
-    \label{Boss}
+    \label{img:Boss}
 \end{figure}
 \begin{figure}
     \centering{}
     \includegraphics[scale=0.5]{diagram/movementStrategy.png}
     \caption{Pattern strategy per il movimento}
-    \label{Boss}
-\end{figure}
-
-\subsection*{Esempio minimale (e quindi parziale) di sezione di progetto con UML ben realizzati}
-
-\subsubsection{Personalità intercambiabili}
-
-\begin{figure}[H]
-    \centering{}
-    \includegraphics[width=\textwidth]{img/strategy}
-    \caption{Rappresentazione UML del pattern Strategy per la personalità di GLaDOS}
-    \label{img:strategy}
-\end{figure}
-
-\paragraph{Problema} GLaDOS ha più personalità intercambiabili, la cui presenza deve essere trasparente al client.
-
-\paragraph{Soluzione} Il sistema per la gestione della personalità utilizza il \textit{pattern Strategy}, come da
-\Cref{img:strategy}: le implementazioni di \texttt{Personality} possono essere modificate, e la
-modifica impatta direttamente sul comportamento di GLaDOS.
-
-\subsubsection{Riuso del codice delle personalità}
-
-\begin{figure}[H]
-    \centering{}
-    \includegraphics[width=\textwidth]{img/template}
-    \caption{Rappresentazione UML dell'applicazione del pattern Template Method alla gerarchia delle Personalità}
-    \label{img:template}
-\end{figure}
-
-\paragraph{Problema} In fase di sviluppo, sono state sviluppate due personalità, una buona ed una cattiva.
-Quella buona restituisce sempre una torta vera, mentre quella cattiva restituisce sempre la
-promessa di una torta che verrà in realtà disattesa.
-Ci si è accorti che diverse personalità condividevano molto del comportamento,
-portando a classi molto simili e a duplicazione.
-
-\paragraph{Soluzione} Dato che le due personalità differiscono solo per il comportamento da effettuarsi in caso di percorso completato con successo,
-è stato utilizzato il \textit{pattern template method} per massimizzare il riuso, come da \Cref{img:template}.
-Il metodo template è \texttt{onSuccess()}, che chiama un metodo astratto e protetto
-\texttt{makeCake()}.
-
-\subsubsection{Gestione di output multipli}
-
-\begin{figure}[H]
-    \centering{}
-    \includegraphics[width=.7\textwidth]{img/observer}
-    \caption{Il pattern Observer è usato per consentire a GLaDOS di informare tutti i sistemi di output in ascolto}
-    \label{img:observer}
-\end{figure}
-
-\paragraph{Problema} Il sistema deve supportare output multipli. In particolare, si richiede che vi sia un logger che stampa a terminale o su file,
-e un'interfaccia grafica che mostri una rappresentazione grafica del sistema.
-
-\paragraph{Soluzione} Dato che i due sistemi di reporting utilizzano le medesime informazioni, si è deciso di raggrupparli dietro l'interfaccia \texttt{Output}.
-A questo punto, le due possibilità erano quelle di far sì che \texttt{GLaDOS} potesse pilotarle entrambe.
-Invece di fare un sistema in cui questi output sono obbligatori e connessi, si è deciso di usare maggior flessibilità (anche in vista di future estensioni)
-e di adottare una comunicazione uno-a-molti fra \texttt{GLaDOS} ed i sistemi di output.
-La scelta è quindi ricaduta sul \textit{pattern Observer}: \texttt{GLaDOS} è observable, e le istanze di \texttt{Output} sono observer.
-%
-Il suo utilizzo è esemplificato in \Cref{img:observer}
-
-
-
-
-\begin{figure}[h]
-    \centering{}
-    \includegraphics[width=\textwidth]{img/badarch}
-    \caption{Schema UML mal fatto e con una pessima descrizione, che non aiuta a capire. Don't try this at home.}
-    \label{img:badarch}
+    \label{img:movementStrategy}
 \end{figure}
 
 
@@ -454,8 +400,8 @@ In autonomia, ho sviluppato
 \end{itemize}
 Ho sviluppato: 
 \begin{itemize}
-    \item in collaborazione con Daniele Pancottini: 
-        \begin{itemize}
+\item in collaborazione con Daniele Pancottini: 
+    \begin{itemize}
         \item \begin{verbatim}it.unibo.isaccoop.model.creator.* \end{verbatim} 
         \item \begin{verbatim}it.unibo.isaccoop.graphics.factory.* \end{verbatim}
     \end{itemize}
@@ -538,6 +484,9 @@ In collaborazione con Daniele Pancottini ho sviluppato:
     \item \begin{verbatim}it.unibo.isaccoop.model.common \end{verbatim}
 \end{itemize}
 
+
+
+
 \section{Note di sviluppo}
 Abbiamo iniziato lo sviluppo a partire dalla repository 
 \\\url{https://github.com/unibo-oop/sample-gradle-project}, compreso il \textbf{Gradle wrapper} fornito, 
@@ -565,12 +514,12 @@ Nello sviluppo ho utilizzato
 \subsection*{Giacomo Pierbattista}
 Nello sviluppo ho utilizzato
 \begin{itemize}
-\item \textbf{Optional} ad esempio in:
+\item \textbf{Optional} ad esempio:
     \begin{itemize}
         \item frequentemente in RoomBuilder.java (da riga 28 in poi) \url{https://github.com/jackprb/OOP22-isaccoop/blob/master/src/main/java/it/unibo/isaccoop/model/room/RoomBuilder.java#L34}
         \item e in RoomImpl.java (da riga 28 in poi) \url{https://github.com/jackprb/OOP22-isaccoop/blob/master/src/main/java/it/unibo/isaccoop/model/room/RoomImpl.java#L28}
     \end{itemize}
-\item \textbf{Stream} ad esempio in: 
+\item \textbf{Stream} ad esempio: 
     \begin{itemize}
         \item in LevelTest.java (in vari punti da riga 75 in poi) \url{https://github.com/jackprb/OOP22-isaccoop/blob/master/src/test/java/it/unibo/isaccoop/test/model/room/LevelTest.java#L75}
         \item in LevelControllerImpl.java (righe 26-28, 58-60) \url{https://github.com/jackprb/OOP22-isaccoop/blob/master/src/main/java/it/unibo/isaccoop/model/room/LevelControllerImpl.java#L26}
@@ -578,6 +527,7 @@ Nello sviluppo ho utilizzato
 \item \textbf{Lambda}     
     \begin{itemize}
         \item in RoomImpl.java (righe 132-133, 151-153) \\\url{https://github.com/jackprb/OOP22-isaccoop/blob/master/src/main/java/it/unibo/isaccoop/model/room/RoomImpl.java#L132}
+        \item in OverlayGUI.java (righe 103-107, 111-122) \\\url{https://github.com/jackprb/OOP22-isaccoop/blob/master/src/main/java/it/unibo/isaccoop/graphics/OverlayGUI.java#L103}
     \end{itemize}
 \item \textbf{Wildcard} 
     \begin{itemize}
@@ -592,6 +542,7 @@ Per poter caricare il file contenente la guida utente dal filesystem, ho utilizz
 
 Per ridimensionare un Jframe a seconda della risoluzione dello schermo in AbstractGUIFrame.java ho guardato qui: 
 \\\url{https://github.com/unibo-oop/lab08/blob/solutions/83-mvc-io/src/main/java/it/unibo/mvc/SimpleGUI.java#L83} (linee 83-102).
+
 
 \subsection*{Dilaver Shtini}
 Nello sviluppo ho utilizzato
@@ -619,7 +570,9 @@ Questo progetto è stato sicuramente il più importante tra quelli a cui io ho p
 \subsection*{Giacomo Pierbattista}
 Sono nel complesso soddisfatto di come ho realizzato la mia parte di model. Ho cercato di
 progettarla già dall'inizio nel modo più generale possibile, basandomi sui requisiti del dominio.
-Nonostante l'inesperienza, ritengo di aver realizzato codice non perfetto ma migliorabile.
+Nonostante l'inesperienza, ritengo di aver realizzato codice non perfetto ma migliorabile:
+ho cercato il più possibile di seguire i principi della programmazione a oggetti, soprattutto la riusabilità
+per evitare ripetizioni.
 Questo progetto mi ha permesso di imparare sul campo l'uso di un DVCS (Git), che finora ho usato
 in altri corsi in modo più semplice.
 
@@ -651,14 +604,13 @@ A mio parere questo corso è uno dei più importanti del corso di laurea, se non
 
 \subsection*{Giacomo Pierbattista}
 Per me è stato il primo progetto di gruppo di dimensioni consistenti, che ha richiesto un grande impegno. 
-\\Parere sul corso: prevedere un esame in laboratorio più un progetto di gruppo lo rende più
+\\Parere sul corso: prevedere un esame in laboratorio più un progetto di gruppo di queste dimensioni lo rende più
 impegnativo di altri corsi da 12 crediti, ma ne ero consapevole. 
-\\Tutto sommato, il corso è stato molto interessante, ma forse alcuni argomenti trattati soffrono di "anzianità":
-potrebbe essere più utile sviscerare le nuove librerie di Java oppure soluzioni equivalenti da librerie di terze parti,
+\\Tutto sommato, il corso è stato molto interessante, ma forse alcuni argomenti trattati soffrono di ``anzianità'':
+potrebbe essere più utile sviscerare le nuove librerie di Java oppure soluzioni equivalenti di terze parti,
 specialmente se possono essere utili nello sviluppo del progetto.
 Non avevo mai programmato in Java, né in altri linguaggi Object Oriented; ho avuto bisogno 
 di un po' di tempo per familiarizzare con le novità di Java, che in altri linguaggi non si trovano.
-Un problema che ho riscontrato è stata la teoria riguardante UML e la realizzazione dei diagrammi delle classi.
 
 
 \subsection*{Dilaver Shtini}
@@ -679,7 +631,7 @@ All'avvio dell'applicativo, l'utente si ritroverà nel menu di gioco, in cui tro
     \item \textbf{Help} per visualizzare la guida utente 
     \item \textbf{Quit} per chiudere il gioco.
 \end{itemize}
-\begin{figure}[h]
+\begin{figure}[H]
 \centering{}
 \includegraphics[width=\textwidth]{img/mainMenu.png}
 \caption{Menu principale}
@@ -706,9 +658,19 @@ Il giocatore, per sconfiggere nemici, spara le ``onde di energia''
 \subsection*{Altri comandi}
 \begin{itemize}
     \item \textbf{ESC}: pausa/riprende il gioco
-    \item \textbf{P}: il giocatore si sposta nella stanza successiva
-    \item \textbf{N}: il giocatore si sposta nella stanza precedente
+    \item \textbf{N}: il giocatore si sposta nella stanza successiva
+    \item \textbf{P}: il giocatore si sposta nella stanza precedente
 \end{itemize}
+
+
+\subsection*{Guida utente}
+Dopo aver cliccato il pulsante ``Help'' nel menu principale, l'utente visualizzerà la seguente schermata:
+\begin{figure}[H]
+\centering{}
+\includegraphics[width=\textwidth]{img/help.png}
+\caption{Guida utente}
+\label{img/help}
+\end{figure}
 
 \newpage
 \subsection*{Schermata di gioco}
@@ -724,7 +686,7 @@ Dopo aver cliccato il pulsante ``Play'' nel menu principale, l'utente visualizze
     \end{itemize}
 \end{itemize}
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering{}
 \includegraphics[width=\textwidth]{img/emptyRoom.png}
 \caption{La stanza iniziale}
@@ -733,7 +695,7 @@ Dopo aver cliccato il pulsante ``Play'' nel menu principale, l'utente visualizze
 
 
 \newpage
-Segue uno screenshot di una stanza in cui sono presenti nemici 
+Segue screenshot di una stanza standard in cui sono presenti nemici 
 (elefante grigio e pianta rossa e bianca) e item (i cuori).
 \begin{figure}[h]
 \centering{}
@@ -742,7 +704,17 @@ Segue uno screenshot di una stanza in cui sono presenti nemici
 \label{img/standardRoom}
 \end{figure}
 
-Se il giocatore viene colpito dai nemici e perde tutte le vite, la partita terminerà, mostrando la seguente schermata di game over.
+Segue screenshot dello shop, in cui il giocatore può comprare i powerup con
+le monete precedentemente raccolte.
+\begin{figure}[H]
+\centering{}
+\includegraphics[width=\textwidth]{img/shop.png}
+\caption{Shop room con i powerup acquistabili}
+\label{img/shopRoom}
+\end{figure}
+
+
+\\Se il giocatore viene colpito dai nemici e perde tutte le vite, la partita terminerà, mostrando la seguente schermata di game over.
 \begin{figure}[H]
 \centering{}
 \includegraphics[width=\textwidth]{img/gameOver.png}
@@ -781,4 +753,4 @@ ovunque sopra la mappa di gioco.
     \item Nella fase di analisi abbiamo preso spunto dalla repository del prof. Alessandro Ricci. 
     \\\url{https://github.com/pslab-unibo/oop-game-prog-patterns-2022} 
 \end{itemize}
-\end{document}}
+\end{document}
